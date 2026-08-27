@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMAU — Syllabus: Principles of Economics (International Business)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 shadow-xl sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-4">
+                <!-- AlmaU Logo -->
+                <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-12 w-auto object-contain rounded-xl border border-slate-700 p-1 bg-white">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase">SEI2116 • 5 ECTS</span>
+                        <span class="text-[10px] bg-indigo-950 text-indigo-300 font-extrabold px-2 py-0.5 rounded border border-indigo-800/40 uppercase">Program: International Business</span>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">
+                        Syllabus: Principles of Economics
+                    </h1>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-700 hover:border-slate-600 flex items-center space-x-2">
+                    <i class="fa-solid fa-arrow-left text-indigo-400"></i>
+                    <span>Back to Dashboard</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs (8 Tabs) -->
+    <div class="bg-slate-900/60 border-b border-slate-800 sticky top-[73px] z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-2 overflow-x-auto py-3 custom-scrollbar text-xs font-bold">
+                <button onclick="switchTab(event, 'tab-overview')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap bg-indigo-600 text-white shadow-md">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>1. Overview</span>
+                </button>
+                <button onclick="switchTab(event, 'tab-philosophy')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>2. Philosophy & LO</span>
+                </button>
+                <button onclick="switchTab(event, 'tab-schedule')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>3. 15-Week Schedule</span>
+                </button>
+                <button onclick="switchTab(event, 'tab-policy')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>4. Course Policy</span>
+                </button>
+                <button onclick="switchTab(event, 'tab-integrity')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>5. Academic Integrity</span>
+                </button>
+                <button onclick="switchTab(event, 'tab-ai')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>6. AI Policy</span>
+                </button>
+                <button onclick="switchTab(event, 'tab-grading')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>7. Grading System</span>
+                </button>
+                <button onclick="switchTab(event, 'tab-rubrics')" class="tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>8. Literature & Rubrics</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- ================= TAB 1: OVERVIEW ================= -->
+        <div id="tab-overview" class="tab-content active space-y-6">
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-5 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest">General Information</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">Principles of Economics (SEI2116)</h2>
+                        <p class="text-xs text-slate-400 mt-1">School of Economics and Digital Technologies • AlmaU 2026</p>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <i class="fa-solid fa-qrcode text-3xl text-indigo-400"></i>
+                        <div class="text-[11px]">
+                            <p class="font-bold text-slate-200">Digital Syllabus & Materials</p>
+                            <a href="https://disk.yandex.kz/d/33KuqoL4oTgelg" target="_blank" class="text-indigo-400 hover:underline">Download Drive Folder</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specs Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-6">
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase">Credits & Load</span>
+                        <p class="text-lg font-extrabold text-indigo-400 mt-1">5 ECTS (150 Hours)</p>
+                        <p class="text-[11px] text-slate-400">45 Classroom / 105 IWST & IWS</p>
+                    </div>
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase">Format & Level</span>
+                        <p class="text-lg font-extrabold text-emerald-400 mt-1">Offline / Bachelor</p>
+                        <p class="text-[11px] text-slate-400">Prerequisites: None • Semester 1</p>
+                    </div>
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase">Instructor</span>
+                        <p class="text-sm font-extrabold text-slate-200 mt-1">Dmitriy Ogay, MBA</p>
+                        <p class="text-[11px] text-slate-400">Professor of the Practice</p>
+                    </div>
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase">Contacts & Program</span>
+                        <p class="text-xs font-bold text-indigo-300 mt-1">d.ogay@almau.edu.kz</p>
+                        <p class="text-[11px] text-slate-400">International Business</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                        <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-align-left text-indigo-400"></i>
+                            Course Description
+                        </h3>
+                        <p>
+                            The course introduces students to key concepts of micro- and macroeconomics necessary for understanding the global business environment. It covers principles of supply and demand, market structures, macroeconomic indicators, economic policy, and international trade. Special attention is given to analyzing real-world economic cases in a business context.
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                        <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-indigo-400"></i>
+                            Course Objectives
+                        </h3>
+                        <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-300">
+                            <li><strong>Understand Fundamental Economic Principles:</strong> Develop knowledge of key concepts in microeconomics (scarcity, supply and demand, consumer choice, production costs) and macroeconomics (GDP, inflation, unemployment, fiscal and monetary policy).</li>
+                            <li><strong>Analyze Individual and Aggregate Economic Behavior:</strong> Study how households and firms make decisions, and how these decisions interact to form markets on national and global levels.</li>
+                            <li><strong>Evaluate the Role of Government and Institutions:</strong> Understand how government policies (taxation, spending, regulation, monetary policy) influence efficiency, equity, and growth.</li>
+                            <li><strong>Apply Economic Models to Real-World Issues:</strong> Use theoretical models and empirical data to analyze real economic problems, such as inflation, recessions, international trade, and globalization.</li>
+                            <li><strong>Develop Critical Thinking and Policy Assessment Skills:</strong> Build the ability to critically assess economic policies, interpret indicators, and propose informed solutions for business decision-making.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 2: PHILOSOPHY & OUTCOMES ================= -->
+        <div id="tab-philosophy" class="tab-content space-y-6">
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-heart-pulse text-indigo-400"></i>
+                    Teaching Philosophy & Learning Outcomes
+                </h2>
+
+                <div class="p-4 bg-indigo-950/30 rounded-xl border border-indigo-900/40 mb-6 text-xs text-indigo-200 leading-relaxed">
+                    <p class="font-bold mb-1">Teaching Philosophy:</p>
+                    Represents the core principles, values, and beliefs that underlie a teacher's approach to the educational process. Education is built on open dialogue, critical analysis of graphical models, and practical applicability to modern international business.
+                </div>
+
+                <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3">Expected Learning Outcomes (LO)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex items-start space-x-3">
+                        <span class="px-2.5 py-1 bg-indigo-600 text-white font-black text-xs rounded-lg">LO 1</span>
+                        <div class="text-xs">
+                            <h4 class="font-bold text-white">Macroeconomic Measurement</h4>
+                            <p class="text-slate-400 mt-1">Understanding the methodology for measuring production activity of the national economy and interpreting economic performance ratings.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex items-start space-x-3">
+                        <span class="px-2.5 py-1 bg-indigo-600 text-white font-black text-xs rounded-lg">LO 2</span>
+                        <div class="text-xs">
+                            <h4 class="font-bold text-white">Consumer & Firm Behavior</h4>
+                            <p class="text-slate-400 mt-1">Explaining trends in consumer and firm behavior across various market structures, and analyzing factors affecting supply and demand.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex items-start space-x-3">
+                        <span class="px-2.5 py-1 bg-indigo-600 text-white font-black text-xs rounded-lg">LO 3</span>
+                        <div class="text-xs">
+                            <h4 class="font-bold text-white">Global Market Assessment</h4>
+                            <p class="text-slate-400 mt-1">Providing qualified economic assessment of current events in international and digital markets at a global level.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex items-start space-x-3">
+                        <span class="px-2.5 py-1 bg-indigo-600 text-white font-black text-xs rounded-lg">LO 4</span>
+                        <div class="text-xs">
+                            <h4 class="font-bold text-white">Unemployment & Inflation Analysis</h4>
+                            <p class="text-slate-400 mt-1">Understanding key causes of unemployment and inflation, and evaluating government policy responses influencing their dynamics.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex items-start space-x-3">
+                        <span class="px-2.5 py-1 bg-indigo-600 text-white font-black text-xs rounded-lg">LO 5</span>
+                        <div class="text-xs">
+                            <h4 class="font-bold text-white">Market Failures & Government Role</h4>
+                            <p class="text-slate-400 mt-1">Explaining market imperfections in specific scenarios and evaluating incentives for government policy intervention.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex items-start space-x-3">
+                        <span class="px-2.5 py-1 bg-indigo-600 text-white font-black text-xs rounded-lg">LO 6</span>
+                        <div class="text-xs">
+                            <h4 class="font-bold text-white">Financial Markets & Interconnections</h4>
+                            <p class="text-slate-400 mt-1">Deep understanding of how the macroeconomy and financial markets operate, tracing key causal linkages between them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: SCHEDULE ================= -->
+        <div id="tab-schedule" class="tab-content space-y-6">
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-extrabold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol text-indigo-400"></i>
+                        Thematic Plan (15 Weeks)
+                    </h2>
+                    <span class="text-xs font-bold text-slate-400">45 Classroom Hours (Lectures / Seminars)</span>
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="border-b border-slate-800 bg-slate-950/60 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                                <th class="py-3 px-3 w-12 text-center">Wk.</th>
+                                <th class="py-3 px-4">Topic / Module</th>
+                                <th class="py-3 px-3 text-center">Assessment Format</th>
+                                <th class="py-3 px-3 text-center">LO</th>
+                                <th class="py-3 px-3 text-right">Rating Weight</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-xs">
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">1</td>
+                                <td class="py-3 px-4">Introduction to Economics. Microeconomics and Macroeconomics. PPF Model.</td>
+                                <td class="py-3 px-3 text-center">Analysis of PPF model</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO1</td>
+                                <td class="py-3 px-3 text-right font-medium text-slate-400">—</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">2</td>
+                                <td class="py-3 px-4">Demand and Supply. Market Equilibrium.</td>
+                                <td class="py-3 px-3 text-center">Task, Model's Analysis</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO1, LO2</td>
+                                <td class="py-3 px-3 text-right font-bold text-emerald-400">5%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">3</td>
+                                <td class="py-3 px-4">Microeconomics of Product Markets. Elasticity.</td>
+                                <td class="py-3 px-3 text-center">Calculation Task</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO2, LO3</td>
+                                <td class="py-3 px-3 text-right font-bold text-emerald-400">5%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">4</td>
+                                <td class="py-3 px-4">Consumer Behavior. Theory of Consumer Choice.</td>
+                                <td class="py-3 px-3 text-center">Case Study</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO2, LO5</td>
+                                <td class="py-3 px-3 text-right font-medium text-slate-400">—</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">5</td>
+                                <td class="py-3 px-4">Firm Behavior. Organizing Production. Perfect Competition & Monopoly.</td>
+                                <td class="py-3 px-3 text-center">Case Study</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO2, LO5</td>
+                                <td class="py-3 px-3 text-right font-bold text-emerald-400">10%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">6</td>
+                                <td class="py-3 px-4">Oligopoly & Monopolistic Competition.</td>
+                                <td class="py-3 px-3 text-center">Practical Task</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO2, LO3</td>
+                                <td class="py-3 px-3 text-right font-medium text-slate-400">—</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">7</td>
+                                <td class="py-3 px-4">Public Goods & Externalities.</td>
+                                <td class="py-3 px-3 text-center">Case Study Analysis</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO3, LO5</td>
+                                <td class="py-3 px-3 text-right font-bold text-emerald-400">10%</td>
+                            </tr>
+                            <tr class="bg-indigo-950/40 hover:bg-indigo-950/60 font-bold">
+                                <td class="py-3 px-3 text-center text-amber-400">8</td>
+                                <td class="py-3 px-4 text-white">Midterm Control 1</td>
+                                <td class="py-3 px-3 text-center">Multiple Choice Test</td>
+                                <td class="py-3 px-3 text-center text-slate-300">LO1-LO3</td>
+                                <td class="py-3 px-3 text-right text-amber-400">RK1</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">9</td>
+                                <td class="py-3 px-4">Key Concepts of Macroeconomics. SNA & Macroeconomic Data.</td>
+                                <td class="py-3 px-3 text-center">Practical Task</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO1, LO3, LO4</td>
+                                <td class="py-3 px-3 text-right font-medium text-slate-400">—</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">10</td>
+                                <td class="py-3 px-4">Measuring the Cost of Living & Inflation.</td>
+                                <td class="py-3 px-3 text-center">Case Study / Task</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO2, LO4</td>
+                                <td class="py-3 px-3 text-right font-bold text-emerald-400">10%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">11</td>
+                                <td class="py-3 px-4">Consumption and Saving. Consumption Function (MPC & MPS).</td>
+                                <td class="py-3 px-3 text-center">Model Analysis</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO2, LO4</td>
+                                <td class="py-3 px-3 text-right font-medium text-slate-400">—</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">12</td>
+                                <td class="py-3 px-4">Inflation: Types, Causes, Economic Impact & Unemployment.</td>
+                                <td class="py-3 px-3 text-center">Case Study & Task</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO2, LO3, LO5</td>
+                                <td class="py-3 px-3 text-right font-medium text-slate-400">—</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">13</td>
+                                <td class="py-3 px-4">Money Market. Functions of Money. Monetary Aggregates.</td>
+                                <td class="py-3 px-3 text-center">Case Study</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO3, LO5</td>
+                                <td class="py-3 px-3 text-right font-bold text-emerald-400">10%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">14</td>
+                                <td class="py-3 px-4">Fiscal Policy and Monetary Policy.</td>
+                                <td class="py-3 px-3 text-center">Policy Analysis</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO3, LO6</td>
+                                <td class="py-3 px-3 text-right font-medium text-slate-400">—</td>
+                            </tr>
+                            <tr class="hover:bg-slate-950/30">
+                                <td class="py-3 px-3 text-center font-bold text-indigo-400">15</td>
+                                <td class="py-3 px-4">International Economics. Exchange Rates / Midterm Control 2.</td>
+                                <td class="py-3 px-3 text-center">Multiple Choice Test</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-300">LO3, LO6</td>
+                                <td class="py-3 px-3 text-right font-bold text-emerald-400">10% (RK2)</td>
+                            </tr>
+                            <tr class="bg-rose-950/40 hover:bg-rose-950/60 font-bold">
+                                <td class="py-3 px-3 text-center text-rose-400">16</td>
+                                <td class="py-3 px-4 text-white">Final Examination</td>
+                                <td class="py-3 px-3 text-center">Paper Exam</td>
+                                <td class="py-3 px-3 text-center text-slate-300">All LOs</td>
+                                <td class="py-3 px-3 text-right text-rose-400">40% Final</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 4: POLICY ================= -->
+        <div id="tab-policy" class="tab-content space-y-6">
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-gavel text-indigo-400"></i>
+                    Course Politics & Conduct Rules
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-emerald-400"></i>
+                            Class Ethics & Attendance
+                        </h3>
+                        <ul class="list-disc pl-4 space-y-1.5">
+                            <li>To complete the course, you must attend <strong>at least 70%</strong> of classroom sessions.</li>
+                            <li>Punctuality is mandatory. Tardiness disrupts the class and late students will not be admitted.</li>
+                            <li>Tasks missed due to valid reasons can be retaken during IWST by prior arrangement with the instructor.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-comments text-blue-400"></i>
+                            Communication & Platonus
+                        </h3>
+                        <ul class="list-disc pl-4 space-y-1.5">
+                            <li>Students must <strong>check daily</strong> their Personal Page in Platonus AIS and corporate email (@almau.edu.kz).</li>
+                            <li>All assignments must be submitted strictly on time via approved university platforms.</li>
+                            <li>A respectful, collaborative, and friendly academic atmosphere is expected at all times.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-ban text-rose-400"></i>
+                            Academic Withdrawal (AW)
+                        </h3>
+                        <ul class="list-disc pl-4 space-y-1.5">
+                            <li>Systematic violations of classroom conduct or academic honesty lead to an <strong>AW grade</strong> (Administrative Withdrawal), equivalent to F (GPA 0).</li>
+                            <li>Cheating or unauthorized electronic devices during exams result in immediate work cancellation.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+                        <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-hand-holding-hand text-violet-400"></i>
+                            Inclusive Community & Support
+                        </h3>
+                        <ul class="list-disc pl-4 space-y-1.5">
+                            <li>AlmaU classrooms are safe spaces free from discrimination based on gender, race, or status. Bullying is zero-tolerated.</li>
+                            <li>Student Support Center (SSC) and Advising Center provide guidance on educational plans and certificates.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 5: INTEGRITY ================= -->
+        <div id="tab-integrity" class="tab-content space-y-6">
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-scale-balanced text-indigo-400"></i>
+                    Academic Integrity Standards (AlmaU)
+                </h2>
+
+                <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                        <h3 class="font-bold text-white text-sm mb-2">Core Student Principles:</h3>
+                        <ol class="list-decimal pl-5 space-y-2">
+                            <li><strong>Independent Work:</strong> All tasks, tests, and projects must be completed individually. Obvious signs of copying or shared solutions will result in "0" points for both students.</li>
+                            <li><strong>Source Citation:</strong> Using external ideas, texts, or data requires explicit reference and citation acknowledging original contributors.</li>
+                            <li><strong>Data Authenticity:</strong> Falsification or distortion of research indicators and empirical market data is strictly prohibited.</li>
+                        </ol>
+                    </div>
+
+                    <div class="p-4 bg-rose-950/20 border border-rose-900/40 rounded-xl space-y-2">
+                        <h3 class="font-bold text-rose-400 text-sm">Disciplinary Sanctions for Violations:</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-[11px] mt-2">
+                            <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="font-bold text-white block">1. Warning</span>
+                                First minor offense (e.g., unintentional citation error).
+                            </div>
+                            <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="font-bold text-white block">2. Resubmission</span>
+                                Correcting assignment considering academic standards.
+                            </div>
+                            <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="font-bold text-white block">3. Grade Reduction</span>
+                                Cancellation or zeroing of points for current project/module.
+                            </div>
+                            <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800">
+                                <span class="font-bold text-rose-400 block">4. Investigation</span>
+                                Disciplinary committee, course suspension, or "F" grade.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 6: AI POLICY ================= -->
+        <div id="tab-ai" class="tab-content space-y-6">
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h2 class="text-xl font-extrabold text-white mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-brain text-indigo-400"></i>
+                    Artificial Intelligence (AI) Policy
+                </h2>
+                <p class="text-xs text-slate-400 mb-6">Guidelines for using Large Language Models (ChatGPT, Claude, Gemini) in Principles of Economics.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Allowed -->
+                    <div class="p-5 bg-emerald-950/20 border border-emerald-900/40 rounded-xl space-y-3">
+                        <h3 class="font-bold text-emerald-400 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i>
+                            PERMITTED AI Uses
+                        </h3>
+                        <ul class="list-disc pl-4 space-y-2 text-xs text-slate-300">
+                            <li>Automating mathematical calculations or modeling economic data.</li>
+                            <li>Assisting comprehension of complex microeconomic theories and graphs.</li>
+                            <li>Source discovery, research assistance, and grammar proofreading.</li>
+                            <li>Practicing sample test questions with interactive AI feedback.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Prohibited -->
+                    <div class="p-5 bg-rose-950/20 border border-rose-900/40 rounded-xl space-y-3">
+                        <h3 class="font-bold text-rose-400 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            PROHIBITED AI Uses
+                        </h3>
+                        <ul class="list-disc pl-4 space-y-2 text-xs text-slate-300">
+                            <li>Replacing personal critical thinking, analysis, and economic reasoning with AI text.</li>
+                            <li>Fully generating essay submissions, case analyses, or report texts without student input.</li>
+                            <li>Automated submission of AI-generated content, which is classified as **academic misconduct**.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 7: GRADING ================= -->
+        <div id="tab-grading" class="tab-content space-y-6">
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-indigo-400"></i>
+                    Evaluation Policy & Final Grade Formula
+                </h2>
+
+                <!-- Formula Card -->
+                <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 text-center mb-6">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Final Course Grade Formula</span>
+                    <div class="text-xl sm:text-2xl font-black text-indigo-400 my-2">
+                        Final Grade = <span class="text-white">Rating × 0.6</span> + <span class="text-rose-400">Exam × 0.4</span>
+                    </div>
+                    <p class="text-xs text-slate-400">
+                        Where <strong class="text-slate-200">Rating = (RK1 + RK2) / 2</strong>. RK1 and RK2 are automatically calculated in Platonus as arithmetic means of continuous performance.
+                    </p>
+                </div>
+
+                <!-- Grading Table -->
+                <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3">AlmaU Letter Grading System</h3>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="border-b border-slate-800 bg-slate-950 text-slate-400 font-bold uppercase">
+                                <th class="py-2.5 px-3">Grade</th>
+                                <th class="py-2.5 px-3">GPA Equivalent</th>
+                                <th class="py-2.5 px-3">% Range</th>
+                                <th class="py-2.5 px-3">Traditional Scale</th>
+                                <th class="py-2.5 px-4">Evaluation Criteria Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60">
+                            <tr><td class="py-2 px-3 font-bold text-emerald-400">A</td><td class="py-2 px-3">4.0</td><td class="py-2 px-3">95–100%</td><td class="py-2 px-3">Excellent</td><td class="py-2 px-4 text-slate-400">Exceptional mastery of subject matter, deep understanding exceeding syllabus.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-emerald-300">A-</td><td class="py-2 px-3">3.67</td><td class="py-2 px-3">90–94%</td><td class="py-2 px-3">Excellent</td><td class="py-2 px-4 text-slate-400">Complete knowledge of curriculum, comprehensive and logical answers.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-blue-400">B+</td><td class="py-2 px-3">3.33</td><td class="py-2 px-3">85–89%</td><td class="py-2 px-3">Good</td><td class="py-2 px-4 text-slate-400">Complete, well-substantiated knowledge with minor analytical omissions.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-blue-300">B</td><td class="py-2 px-3">3.0</td><td class="py-2 px-3">80–84%</td><td class="py-2 px-3">Good</td><td class="py-2 px-4 text-slate-400">Good grasp of economic concepts and practical problem-solving.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-indigo-400">B-</td><td class="py-2 px-3">2.67</td><td class="py-2 px-3">75–79%</td><td class="py-2 px-3">Good</td><td class="py-2 px-4 text-slate-400">Solid understanding of core micro and macroeconomic models.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-indigo-300">C+</td><td class="py-2 px-3">2.33</td><td class="py-2 px-3">70–74%</td><td class="py-2 px-3">Satisfactory</td><td class="py-2 px-4 text-slate-400">Sufficient knowledge without deeper theoretical justification.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-amber-400">C</td><td class="py-2 px-3">2.0</td><td class="py-2 px-3">65–69%</td><td class="py-2 px-3">Satisfactory</td><td class="py-2 px-4 text-slate-400">Satisfactory understanding of basic theories with minor errors.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-amber-300">C-</td><td class="py-2 px-3">1.67</td><td class="py-2 px-3">60–64%</td><td class="py-2 px-3">Satisfactory</td><td class="py-2 px-4 text-slate-400">Gaps in knowledge and superficial economic model analysis.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-orange-400">D+</td><td class="py-2 px-3">1.33</td><td class="py-2 px-3">55–59%</td><td class="py-2 px-3">Satisfactory</td><td class="py-2 px-4 text-slate-400">Minimal passing threshold performance.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-orange-300">D</td><td class="py-2 px-3">1.0</td><td class="py-2 px-3">50–54%</td><td class="py-2 px-3">Satisfactory</td><td class="py-2 px-4 text-slate-400">Basic concepts demonstrated with notable inaccuracies.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-rose-400">FX</td><td class="py-2 px-3">0</td><td class="py-2 px-3">25–49%</td><td class="py-2 px-3">Unsatisfactory</td><td class="py-2 px-4 text-slate-400">Opportunity granted for one final exam retake.</td></tr>
+                            <tr><td class="py-2 px-3 font-bold text-rose-600">F</td><td class="py-2 px-3">0</td><td class="py-2 px-3">0–24%</td><td class="py-2 px-3">Unsatisfactory</td><td class="py-2 px-4 text-slate-400">Course retake mandatory (Retake fee applies).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 8: RUBRICS & LITERATURE ================= -->
+        <div id="tab-rubrics" class="tab-content space-y-6">
+            
+            <!-- Literature -->
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h2 class="text-xl font-extrabold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-book text-indigo-400"></i>
+                    Literature & Learning Resources
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                        <h3 class="font-bold text-indigo-400 mb-2 uppercase">Required Literature:</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            <li>• N. Gregory Mankiw, <em>Principles of Microeconomics</em>, 7th Edition, Cengage Learning, 2015.</li>
+                            <li>• N. Gregory Mankiw, <em>Principles of Economics</em>, 6th Edition, South-Western Cengage Learning, 2012.</li>
+                            <li>• Mishkin, Frederic S., <em>The Economics of Money, Banking, and Financial Markets</em>, 7th Edition, 2004.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                        <h3 class="font-bold text-emerald-400 mb-2 uppercase">Additional Literature:</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            <li>• McConnell C., Brue S., Flynn S., <em>Economics: Principles, Problems, and Policies</em>, 20th Edition, McGraw-Hill, 2015.</li>
+                            <li>• Official analytical reports from the National Bank of Kazakhstan and World Bank (2025–2026).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appendix 1 -->
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h3 class="text-base font-bold text-white mb-3">Appendix 1: Marking Rubric for Analysis of Economic Models & Graphing</h3>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse text-xs min-w-[650px]">
+                        <thead>
+                            <tr class="border-b border-slate-800 bg-slate-950 text-slate-400 font-bold uppercase">
+                                <th class="py-2.5 px-3">Criteria</th>
+                                <th class="py-2.5 px-3 text-emerald-400">90-100 (A)</th>
+                                <th class="py-2.5 px-3 text-blue-400">75-89 (B)</th>
+                                <th class="py-2.5 px-3 text-amber-400">60-74 (C)</th>
+                                <th class="py-2.5 px-3 text-rose-400">0-59 (D/F)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                            <tr>
+                                <td class="py-3 px-3 font-bold text-white">Model Analysis</td>
+                                <td class="py-3 px-3">Exceptional understanding of models; deep, error-free critical analysis linking theory to practice.</td>
+                                <td class="py-3 px-3">Strong understanding of models; accurate application to real-world business scenarios.</td>
+                                <td class="py-3 px-3">Reasonable understanding; minor errors or somewhat superficial application.</td>
+                                <td class="py-3 px-3 text-slate-400">Lack of understanding of core micro/macro models and market mechanics.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3 font-bold text-white">Constructing Graphs</td>
+                                <td class="py-3 px-3">Flawlessly constructed graphs; perfectly aligned axes, labels, and equilibrium shifts.</td>
+                                <td class="py-3 px-3">Clear and accurate graphs; correctly labeled elements supporting the argument.</td>
+                                <td class="py-3 px-3">Generally accurate graphs; minor label or alignment inaccuracies.</td>
+                                <td class="py-3 px-3 text-slate-400">Graphs missing or containing major structural errors.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Appendix 2 -->
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h3 class="text-base font-bold text-white mb-3">Appendix 2: Rubric for Task Solution & Group Projects</h3>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse text-xs min-w-[650px]">
+                        <thead>
+                            <tr class="border-b border-slate-800 bg-slate-950 text-slate-400 font-bold uppercase">
+                                <th class="py-2.5 px-3">Criteria</th>
+                                <th class="py-2.5 px-3 text-emerald-400">90-100 (A)</th>
+                                <th class="py-2.5 px-3 text-blue-400">75-89 (B)</th>
+                                <th class="py-2.5 px-3 text-amber-400">60-74 (C)</th>
+                                <th class="py-2.5 px-3 text-rose-400">0-59 (D/F)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                            <tr>
+                                <td class="py-3 px-3 font-bold text-white">Understanding Concepts</td>
+                                <td class="py-3 px-3">Mastery of complex economic theories; critical evaluation in varied contexts.</td>
+                                <td class="py-3 px-3">Clear understanding of key concepts and their application to problem solving.</td>
+                                <td class="py-3 px-3">Fair understanding of theories with minor gaps in market structures.</td>
+                                <td class="py-3 px-3 text-slate-400">Little to no understanding of fundamental economic principles.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3 font-bold text-white">Problem Solving</td>
+                                <td class="py-3 px-3">Solved with depth and precision; sophisticated multi-dimensional reasoning.</td>
+                                <td class="py-3 px-3">Thorough calculations; logical and well-supported methodology.</td>
+                                <td class="py-3 px-3">Appropriate methods used; main issues addressed but lacks depth.</td>
+                                <td class="py-3 px-3 text-slate-400">Inability to use mathematical or economic problem-solving tools.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3 font-bold text-white">Group Dynamics</td>
+                                <td class="py-3 px-3">Exemplary teamwork, clear roles, active collaboration, and high unit synergy.</td>
+                                <td class="py-3 px-3">Efficient group coordination; valuable individual contributions.</td>
+                                <td class="py-3 px-3">Sufficient coordination; uneven task distribution or involvement.</td>
+                                <td class="py-3 px-3 text-slate-400">Lack of collaboration, unclear roles, and group dysfunction.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Appendix 3 -->
+            <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <h3 class="text-base font-bold text-white mb-3">Appendix 3: Rubric for Case Studies</h3>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse text-xs min-w-[650px]">
+                        <thead>
+                            <tr class="border-b border-slate-800 bg-slate-950 text-slate-400 font-bold uppercase">
+                                <th class="py-2.5 px-3">Criteria</th>
+                                <th class="py-2.5 px-3 text-emerald-400">90-100 (A)</th>
+                                <th class="py-2.5 px-3 text-blue-400">75-89 (B)</th>
+                                <th class="py-2.5 px-3 text-amber-400">60-74 (C)</th>
+                                <th class="py-2.5 px-3 text-rose-400">0-59 (D/F)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                            <tr>
+                                <td class="py-3 px-3 font-bold text-white">Application to Case</td>
+                                <td class="py-3 px-3">Creative and insightful application of theories to real-world case scenarios.</td>
+                                <td class="py-3 px-3">Correct and insightful theoretical links to the case context.</td>
+                                <td class="py-3 px-3">Appropriate theory application; minor logical gaps in connections.</td>
+                                <td class="py-3 px-3 text-slate-400">Failure to relate economic theory to practical case context.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3 font-bold text-white">Data & Evidence</td>
+                                <td class="py-3 px-3">Flawless use and interpretation of market statistics and empirical evidence.</td>
+                                <td class="py-3 px-3">Strong integration of data supporting analytical conclusions.</td>
+                                <td class="py-3 px-3">Data used effectively, though room remains for deeper interpretation.</td>
+                                <td class="py-3 px-3 text-slate-400">Absence of data or complete misinterpretation of provided evidence.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p>© Almaty Management University | School of Economics and Digital Technologies 2026</p>
+            <p class="text-slate-600">SEI2116 • Principles of Economics (International Business)</p>
+        </div>
+    </footer>
+
+    <!-- Script for Navigation Tabs -->
+    <script>
+        function switchTab(event, tabId) {
+            // Hide all tabs
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Deactivate all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/60";
+            });
+
+            // Activate chosen tab
+            document.getElementById(tabId).classList.add('active');
+
+            // Activate button style
+            event.currentTarget.className = "tab-btn px-4 py-2.5 rounded-xl transition-all flex items-center space-x-2 whitespace-nowrap bg-indigo-600 text-white shadow-md";
+        }
+    </script>
+</body>
+</html>
