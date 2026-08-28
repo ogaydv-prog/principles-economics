@@ -85,31 +85,34 @@
             padding-bottom: 40px;
         }
 
-        /* ЕДИНАЯ РАМКА ДЛЯ КАРТОЧЕК (Слегка расширены по ширине) */
+        /* ЕДИНАЯ РАМКА ДЛЯ КАРТОЧЕК (Точное соответствие пропорциям плашек) */
         .card {
             display: inline-block;
             text-decoration: none;
-            background: #ffffff;
+            background: #f8fafc;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            /* Оптимизированные пропорции для избежания сжатия */
-            width: 205px; 
-            height: 290px; 
+            /* Пропорциональные размеры под полный кадр карточки */
+            width: 195px; 
+            height: 320px; 
+            padding: 4px;
             position: relative;
         }
 
         .card img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Равномерно заполняет карточку без искажений */
+            /* contain гарантирует 100% отображения всего изображения БЕЗ обрезки */
+            object-fit: contain; 
             display: block;
+            border-radius: 8px;
             transition: transform 0.3s ease;
         }
 
-        /* Эффект при наведении (синяя фирменная рамка, подъём и красивое свечение) */
+        /* Эффект при наведении */
         .card:hover {
             transform: translateY(-8px) scale(1.03);
             border-color: #001e50;
