@@ -36,10 +36,13 @@
                     <i class="fa-solid fa-arrow-left text-brand-red"></i>
                     <span>Main Hub</span>
                 </a>
-                <a href="syllabus.html" class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
-                    <i class="fa-solid fa-book text-stone-600"></i>
-                    <span>Syllabus</span>
-                </a>
+                
+                <!-- ЗАМЕНА: ВМЕСТО SYLLABUS ВСТАВЛЕНА КНОПКА ОТКРЫТИЯ КАЗАХСТАНСКИХ ЭКОНОМИЧЕСКИХ ЧАСОВ -->
+                <button onclick="openClockModal()" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs transition-all border border-amber-600 flex items-center space-x-1.5 rounded-sm shadow-sm">
+                    <i class="fa-solid fa-clock text-black"></i>
+                    <span>KZ Economic Clock</span>
+                </button>
+
                 <div class="border-l border-stone-300 pl-3 ml-1">
                     <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-stone-200 rounded-sm">
                 </div>
@@ -171,6 +174,60 @@
 
         </div>
     </main>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЭКОНОМИЧЕСКИХ ЧАСОВ KAZAKHSTAN ECONOMIC CLOCK -->
+    <div id="clockModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6">
+        <div class="bg-[#090d16] w-full max-w-7xl h-[92vh] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden relative">
+            
+            <!-- Шапка модального окна -->
+            <div class="bg-[#0d1117] px-6 py-3 border-b border-gray-800 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="inline-block w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Live Analytics Hub</span>
+                </div>
+                <button onclick="closeClockModal()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-red-600 px-3 py-1 rounded-md text-xs font-bold transition-all flex items-center space-x-1">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>Close Hub</span>
+                </button>
+            </div>
+
+            <!-- Контейнер Iframe с подгрузкой ваших часов -->
+            <div class="flex-grow w-full h-full bg-[#090d16]">
+                <iframe id="clockIframe" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипт управления модальным окном -->
+    <script>
+        const clockUrl = "https://ogaydv-prog.github.io/KZ-economic-clock/index-en.html";
+
+        function openClockModal() {
+            const modal = document.getElementById('clockModal');
+            const iframe = document.getElementById('clockIframe');
+            
+            // Ленивая загрузка: подгружаем iframe только в момент клика для экономии ресурсов
+            if (!iframe.src || iframe.src !== clockUrl) {
+                iframe.src = clockUrl;
+            }
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Блокируем прокрутку основной страницы
+        }
+
+        function closeClockModal() {
+            const modal = document.getElementById('clockModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Возвращаем прокрутку
+        }
+
+        // Закрытие модального окна по клавише Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeClockModal();
+            }
+        });
+    </script>
 
     <footer class="bg-stone-900 text-stone-400 py-8 border-t-4 border-brand-red mt-12 text-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
