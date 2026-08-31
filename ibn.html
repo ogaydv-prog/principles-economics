@@ -16,10 +16,12 @@
         .text-brand-red { color: #e5001c; }
         .border-brand-red { border-color: #e5001c; }
         .tab-btn.active { border-bottom: 3px solid #e5001c; color: #e5001c; font-weight: 700; }
+        .scale-btn.active { background-color: #e5001c; color: #ffffff; border-color: #e5001c; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
 
+    <!-- HEADER WITH TWO HUB BUTTONS -->
     <header class="bg-white border-b border-stone-300 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
@@ -31,16 +33,22 @@
                     <span class="text-xs text-stone-700">AlmaU • School of Economics and Digital Technologies</span>
                 </div>
             </div>
-            <div class="flex items-center space-x-3">
-                <a href="index.html" class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <a href="index.html" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
                     <i class="fa-solid fa-arrow-left text-brand-red"></i>
                     <span>Main Hub</span>
                 </a>
                 
-                <!-- ЗАМЕНА: ВМЕСТО SYLLABUS ВСТАВЛЕНА КНОПКА ОТКРЫТИЯ КАЗАХСТАНСКИХ ЭКОНОМИЧЕСКИХ ЧАСОВ -->
-                <button onclick="openClockModal()" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs transition-all border border-amber-600 flex items-center space-x-1.5 rounded-sm shadow-sm">
+                <!-- КНОПКА 1: KZ Economic Clock -->
+                <button onclick="openClockModal()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs transition-all border border-amber-600 flex items-center space-x-1.5 rounded-sm shadow-sm">
                     <i class="fa-solid fa-clock text-black"></i>
                     <span>KZ Economic Clock</span>
+                </button>
+
+                <!-- КНОПКА 2: Scale Case -->
+                <button onclick="openCaseModal()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-900 text-white font-bold text-xs transition-all border border-stone-900 flex items-center space-x-1.5 rounded-sm shadow-sm">
+                    <i class="fa-solid fa-calculator text-amber-400"></i>
+                    <span>Scale Case</span>
                 </button>
 
                 <div class="border-l border-stone-300 pl-3 ml-1">
@@ -175,11 +183,9 @@
         </div>
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЭКОНОМИЧЕСКИХ ЧАСОВ KAZAKHSTAN ECONOMIC CLOCK -->
+    <!-- МОДАЛЬНОЕ ОКНО 1: KAZAKHSTAN ECONOMIC CLOCK -->
     <div id="clockModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6">
         <div class="bg-[#090d16] w-full max-w-7xl h-[92vh] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden relative">
-            
-            <!-- Шапка модального окна -->
             <div class="bg-[#0d1117] px-6 py-3 border-b border-gray-800 flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <span class="inline-block w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -187,44 +193,142 @@
                 </div>
                 <button onclick="closeClockModal()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-red-600 px-3 py-1 rounded-md text-xs font-bold transition-all flex items-center space-x-1">
                     <i class="fa-solid fa-xmark"></i>
-                    <span>Close Hub</span>
+                    <span>Close</span>
                 </button>
             </div>
-
-            <!-- Контейнер Iframe с подгрузкой ваших часов -->
             <div class="flex-grow w-full h-full bg-[#090d16]">
                 <iframe id="clockIframe" src="" class="w-full h-full border-0"></iframe>
             </div>
         </div>
     </div>
 
-    <!-- Скрипт управления модальным окном -->
+    <!-- МОДАЛЬНОЕ ОКНО 2: SCALE CASE (MILLION vs BILLION vs TRILLION) -->
+    <div id="caseModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-3xl rounded-xl border border-stone-300 shadow-2xl flex flex-col overflow-hidden relative max-h-[90vh]">
+            <div class="bg-stone-900 text-white px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-lightbulb text-amber-400 text-lg"></i>
+                    <h3 class="font-extrabold text-sm sm:text-base tracking-wide uppercase">Macro Case Study: The Scale of Money</h3>
+                </div>
+                <button onclick="closeCaseModal()" class="text-stone-400 hover:text-white bg-stone-800 hover:bg-red-600 px-3 py-1 rounded text-xs font-bold transition-all">
+                    <i class="fa-solid fa-xmark mr-1"></i> Close Case
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-6">
+                <div class="border-b border-stone-200 pb-4">
+                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Interactive Mental Model</span>
+                    <h2 class="text-2xl font-black text-stone-900 serif mt-1">Understanding Money Scale Through Time</h2>
+                    <p class="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+                        Human brains struggle to intuitively grasp the enormous difference between millions, billions, and trillions. If $1 equals 1 second, how long would it take to count your wealth?
+                    </p>
+                </div>
+
+                <!-- Кнопки выбора масштаба -->
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button id="btn-1m" onclick="updateScale('1m')" class="scale-btn active px-5 py-2.5 rounded border border-stone-300 font-bold text-xs sm:text-sm transition-all shadow-sm">
+                        $1 Million (1,000,000)
+                    </button>
+                    <button id="btn-1b" onclick="updateScale('1b')" class="scale-btn bg-stone-100 hover:bg-stone-200 text-stone-800 px-5 py-2.5 rounded border border-stone-300 font-bold text-xs sm:text-sm transition-all shadow-sm">
+                        $1 Billion (1,000,000,000)
+                    </button>
+                    <button id="btn-1t" onclick="updateScale('1t')" class="scale-btn bg-stone-100 hover:bg-stone-200 text-stone-800 px-5 py-2.5 rounded border border-stone-300 font-bold text-xs sm:text-sm transition-all shadow-sm">
+                        $1 Trillion (1,000,000,000,000)
+                    </button>
+                </div>
+
+                <!-- Карточка результатов -->
+                <div class="bg-stone-50 p-6 rounded-lg border border-stone-200 text-center space-y-3">
+                    <div class="text-xs font-bold text-stone-500 uppercase tracking-widest">Time Required at 1 Second per Dollar</div>
+                    <div id="scale-time-result" class="text-3xl sm:text-4xl font-black text-brand-red serif">
+                        11.5 Days
+                    </div>
+                    <div id="scale-exact-text" class="text-xs text-stone-500 font-mono">
+                        (Exact: 1,000,000 seconds)
+                    </div>
+                </div>
+
+                <!-- Исторический контекст -->
+                <div class="bg-amber-50 p-4 rounded border-l-4 border-amber-500 text-xs text-amber-900 space-y-1">
+                    <span class="font-bold uppercase tracking-wider block text-[11px] text-amber-800">Intuitive Comparison:</span>
+                    <p id="scale-analogy-text" class="leading-relaxed">
+                        A million seconds ago was less than two weeks ago (around 11.5 days). You likely remember what you ate for lunch back then!
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-stone-100 px-6 py-3 border-t border-stone-200 text-stone-500 text-[11px] flex justify-between items-center">
+                <span>Principles of Economics Case Module</span>
+                <span class="serif italic">AlmaU Economics Department</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- СКРИПТЫ УПРАВЛЕНИЯ МОДАЛЬНЫМИ ОКНАМИ И КЕЙСОМ -->
     <script>
         const clockUrl = "https://ogaydv-prog.github.io/KZ-economic-clock/index-en.html";
 
+        // 1. Управление окном часов
         function openClockModal() {
             const modal = document.getElementById('clockModal');
             const iframe = document.getElementById('clockIframe');
-            
-            // Ленивая загрузка: подгружаем iframe только в момент клика для экономии ресурсов
             if (!iframe.src || iframe.src !== clockUrl) {
                 iframe.src = clockUrl;
             }
-            
             modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Блокируем прокрутку основной страницы
+            document.body.style.overflow = 'hidden';
         }
 
         function closeClockModal() {
-            const modal = document.getElementById('clockModal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // Возвращаем прокрутку
+            document.getElementById('clockModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
-        // Закрытие модального окна по клавише Escape
+        // 2. Управление окном кейса
+        function openCaseModal() {
+            document.getElementById('caseModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCaseModal() {
+            document.getElementById('caseModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Логика кейса миллион / миллиард / триллион
+        function updateScale(type) {
+            document.querySelectorAll('.scale-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-stone-800', 'text-white');
+                btn.classList.add('bg-stone-100', 'text-stone-800');
+            });
+
+            const activeBtn = document.getElementById(`btn-${type}`);
+            activeBtn.classList.add('active');
+
+            const resultTime = document.getElementById('scale-time-result');
+            const exactText = document.getElementById('scale-exact-text');
+            const analogyText = document.getElementById('scale-analogy-text');
+
+            if (type === '1m') {
+                resultTime.innerText = "11.5 Days";
+                exactText.innerText = "(Exact: 1,000,000 seconds = 11 days, 13 hours)";
+                analogyText.innerText = "A million seconds ago was less than two weeks ago. You probably still remember what you were doing back then!";
+            } else if (type === '1b') {
+                resultTime.innerText = "31.7 Years";
+                exactText.innerText = "(Exact: 1,000,000,000 seconds = 31.69 years)";
+                analogyText.innerText = "A billion seconds ago takes us back to the early 1990s! Most university students were not even born yet.";
+            } else if (type === '1t') {
+                resultTime.innerText = "31,709 Years";
+                exactText.innerText = "(Exact: 1,000,000,000,000 seconds = 31,709.8 years)";
+                analogyText.innerText = "A trillion seconds ago, Neanderthals were still walking the Earth and early humans were making cave paintings in Europe!";
+            }
+        }
+
+        // Закрытие любого окна по клавише Escape
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
                 closeClockModal();
+                closeCaseModal();
             }
         });
     </script>
