@@ -98,7 +98,7 @@
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Student Full Name</label>
                         <div class="relative">
                             <i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-500"></i>
-                            <input type="text" id="student-search-input" onkeydown="handleSearchKeyDown(event)" placeholder="e.g. Student XXX 01" 
+                            <input type="text" id="student-search-input" onkeydown="handleSearchKeyDown(event)" placeholder="e.g. Кожахметова Малика" 
                                 class="w-full pl-11 pr-24 py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
                             <button onclick="searchStudentGrade()" class="absolute right-2 top-2 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm">
                                 Search
@@ -229,12 +229,12 @@
                     <button onclick="toggleStudentAttDetails()" class="w-full flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider hover:text-slate-200 transition-colors">
                         <span class="flex items-center gap-2">
                             <i class="fa-solid fa-list-check text-emerald-400"></i>
-                            Attendance Session Details (10 Days x 2 Hours)
+                            Attendance Session Details (15 Weeks x 3 Hours = 45 Hours)
                         </span>
                         <span id="student-att-toggle-icon" class="text-[10px] bg-slate-800 px-2.5 py-1 rounded border border-slate-700 transition-all">Expand ▾</span>
                     </button>
                     <div id="student-att-details" class="hidden mt-4 pt-4 border-t border-slate-800/60">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="student-att-list-grid">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="student-att-list-grid">
                             <!-- Dynamic checklist status -->
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                 <i class="fa-solid fa-user-slash text-rose-500 text-2xl mb-2.5"></i>
                 <h4 class="text-sm font-bold text-rose-400">Student Not Found</h4>
                 <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Please check spelling (e.g. search for <strong class="text-slate-300">Student XXX 01</strong>).
+                    Please check spelling (e.g. search for <strong class="text-slate-300">Кожахметова Малика</strong>).
                 </p>
             </div>
         </div>
@@ -367,7 +367,7 @@
                                 <thead>
                                     <tr class="border-b border-slate-800 bg-slate-900/40 text-slate-400 text-[9px] font-bold uppercase tracking-wider">
                                         <th class="py-3.5 px-3">Student (International Business Team)</th>
-                                        <th class="py-3.5 px-1.5 text-center w-14">Att (10%)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-16">Att (10%)</th>
                                         <th class="py-3.5 px-1.5 text-center w-14">Act (10%)</th>
                                         <th class="py-3.5 px-1.5 text-center w-14">CA1 (10%)</th>
                                         <th class="py-3.5 px-1.5 text-center w-14">MC1 (10%)</th>
@@ -397,7 +397,7 @@
                         <!-- Real-time editing tips -->
                         <div class="bg-indigo-950/10 p-4 border-t border-slate-800/80 text-xs text-indigo-300 flex items-center space-x-3.5">
                             <i class="fa-solid fa-circle-info text-indigo-400 text-lg"></i>
-                            <p><strong>Attendance tracking:</strong> Click percentage in the "Att" column to open the 20-hour session checklist!</p>
+                            <p><strong>Attendance tracking:</strong> Click percentage in the "Att" column to open the 15-week (45-hour) attendance checklist!</p>
                         </div>
                     </div>
                 </div>
@@ -414,7 +414,7 @@
                         <p class="text-[11px] text-slate-400 mb-3 leading-relaxed">
                             Each line will be imported as a student name. Initial grades default to 0.
                         </p>
-                        <textarea id="bulk-import-area" rows="4" placeholder="Student XXX 21&#10;Student XXX 22" 
+                        <textarea id="bulk-import-area" rows="4" placeholder="Иванов Иван&#10;Петров Пётр" 
                             class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-700 font-mono"></textarea>
                         
                         <button onclick="runBulkImport()" class="w-full mt-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition-colors flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/15">
@@ -523,9 +523,9 @@
         </div>
     </div>
 
-    <!-- Detailed Attendance Checklist Modal -->
+    <!-- Detailed Attendance Checklist Modal (15 Weeks x 3 Hours) -->
     <div id="attendance-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
-        <div class="bg-slate-900 p-6 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-800 transform scale-95 transition-transform duration-200 flex flex-col max-h-[85vh]">
+        <div class="bg-slate-900 p-6 rounded-2xl max-w-2xl w-full mx-4 shadow-2xl border border-slate-800 transform scale-95 transition-transform duration-200 flex flex-col max-h-[85vh]">
             <div class="flex justify-between items-center pb-3.5 border-b border-slate-800">
                 <div class="flex items-center space-x-3">
                     <div class="h-10 w-10 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-lg border border-emerald-500/20">
@@ -533,7 +533,7 @@
                     </div>
                     <div>
                         <h3 class="text-sm font-extrabold text-white" id="att-modal-student-name">Attendance Details</h3>
-                        <p class="text-[10px] text-slate-400">Mark hourly attendance (20 hours total)</p>
+                        <p class="text-[10px] text-slate-400">15 Weeks × 3 Hours/Week (45 Total Academic Hours)</p>
                     </div>
                 </div>
                 <button onclick="closeAttendanceModal()" class="text-slate-400 hover:text-white transition-colors">
@@ -544,15 +544,15 @@
             <!-- List content -->
             <div class="flex-grow overflow-y-auto custom-scrollbar my-4 pr-1">
                 <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 mb-4 flex justify-between items-center">
-                    <span class="text-xs text-slate-400 font-semibold">Total Attendance:</span>
+                    <span class="text-xs text-slate-400 font-semibold">Total Attendance Rate:</span>
                     <div class="flex items-center space-x-2">
                         <span id="att-modal-percent" class="text-emerald-400 font-extrabold text-sm">0%</span>
-                        <span id="att-modal-hours" class="text-slate-500 text-xs font-medium">(0 of 20 hrs)</span>
+                        <span id="att-modal-hours" class="text-slate-500 text-xs font-medium">(0 of 45 hrs)</span>
                     </div>
                 </div>
                 
-                <div class="space-y-2" id="attendance-dates-grid">
-                    <!-- Dynamic hour checklist -->
+                <div class="space-y-2.5" id="attendance-dates-grid">
+                    <!-- Dynamic 15-week checklist -->
                 </div>
             </div>
 
@@ -568,7 +568,7 @@
                 </div>
                 <button onclick="saveAttendanceDetails()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs transition-colors shadow-lg shadow-emerald-600/30 flex items-center space-x-1.5">
                     <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Save</span>
+                    <span>Save Attendance</span>
                 </button>
             </div>
         </div>
@@ -586,12 +586,38 @@
     </footer>
 
     <script>
-        // Initial list of 20 students with all grades reset to ZERO
-        const initialGroupStudents = Array.from({ length: 20 }, (_, i) => {
-            const num = String(i + 1).padStart(2, '0');
+        // Integrated Group List from image (20 students, Sofia Nukhmanova last as listener, Esfir Kim corrected)
+        const rawStudentList = [
+            "Адильхан Надия Берікқызы",
+            "Кожахметова Малика Азаматовна",
+            "Бахытов Алимжан Бахыткалиулы",
+            "Берикбаланова Адина Сериковна",
+            "Сулейменова Айдана Нурлановна",
+            "Югай Ксения Альбертовна",
+            "Шабанов Анварбек",
+            "Сериккалиева Еңлік Думанқызы",
+            "Джумағұл Әмірлан Мағауияұлы",
+            "Кабдрахманова Ажар Ниязовна",
+            "Абдихай Салтанат Жалғасқызы",
+            "Толстова Эвелина Евгеньевна",
+            "Оспан Жанеля",
+            "Жұмажан Осман Дарменұлы",
+            "Көшкінбай Айару Арманқызы",
+            "Степанченко Савелий Дмитриевич",
+            "Замотина Дарья Астемировна",
+            "Хусаинова Адия Галимовна",
+            "Ким Есфирь Севастьяновна (F)",
+            "Нугыманова София Руслановна (слушатель)"
+        ];
+
+        // Total hours for attendance: 15 weeks * 3 hours = 45 hours
+        const TOTAL_ATTENDANCE_HOURS = 45;
+
+        // Create initial student records with 45 hours of attendance initialized to false
+        const initialGroupStudents = rawStudentList.map((stName, idx) => {
             return {
-                id: `st-${i + 1}`,
-                name: `Student XXX ${num}`,
+                id: `st-ib2026-${idx + 1}`,
+                name: stName,
                 attendance: 0,
                 activities: 0,
                 ca1: 0,
@@ -599,15 +625,9 @@
                 ca2: 0,
                 mc2: 0,
                 exam: 0,
-                attendanceHours: Array(20).fill(false)
+                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
             };
         });
-
-        // Attendance Dates Configuration (10 sessions, 2 hours each)
-        const ATTENDANCE_DATES = [
-            'June 10', 'June 12', 'June 15', 'June 17', 'June 19', 
-            'June 22', 'June 24', 'June 26', 'June 29', 'July 01'
-        ];
 
         let students = [];
         let personalAttChart = null;
@@ -616,6 +636,7 @@
         let groupChart = null;
         let isTeacherMode = false;
         
+        // Instructor Portal Password
         const correctPassword = 'PE-12092026';
 
         let activeEditingStudentId = null;
@@ -632,19 +653,28 @@
         };
 
         function ensureAttendanceHours(student) {
-            if (!student.hasOwnProperty('attendanceHours') || !Array.isArray(student.attendanceHours)) {
-                student.attendanceHours = Array(20).fill(false);
+            if (!student.hasOwnProperty('attendanceHours') || !Array.isArray(student.attendanceHours) || student.attendanceHours.length !== TOTAL_ATTENDANCE_HOURS) {
+                student.attendanceHours = Array(TOTAL_ATTENDANCE_HOURS).fill(false);
             }
         }
 
         function loadDatabase() {
-            students = initialGroupStudents;
+            const savedData = localStorage.getItem('almau_pe_ib_students_2026_v3');
+            if (savedData) {
+                try {
+                    students = JSON.parse(savedData);
+                } catch(e) {
+                    students = initialGroupStudents;
+                }
+            } else {
+                students = initialGroupStudents;
+            }
             students.forEach(student => ensureAttendanceHours(student));
             updateDashboardData();
         }
 
         function saveDatabase() {
-            localStorage.setItem('almau_pe_ib_students_v2', JSON.stringify(students));
+            localStorage.setItem('almau_pe_ib_students_2026_v3', JSON.stringify(students));
         }
 
         // Weighted grade calculation formula: 10% Att, 10% Act, 10% CA1, 10% MC1, 10% CA2, 10% MC2, 40% Exam
@@ -928,11 +958,11 @@
                 row.className = "hover:bg-slate-900/60 transition-colors border-b border-slate-800/40";
                 row.innerHTML = `
                     <td class="py-2.5 px-3 font-medium text-slate-100">
-                        <span class="block font-bold text-slate-200 truncate max-w-[190px]" title="${student.name}">${student.name}</span>
+                        <span class="block font-bold text-slate-200 truncate max-w-[240px]" title="${student.name}">${student.name}</span>
                     </td>
                     <td class="py-2.5 px-1">
                         <button onclick="openAttendanceModal('${student.id}')" id="att-trigger-${student.id}"
-                            class="px-1 py-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 focus:ring-1 focus:ring-indigo-500 rounded-lg text-emerald-400 text-xs font-bold w-full transition-all flex items-center justify-center gap-1" title="Hourly Attendance Checklist">
+                            class="px-1 py-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 focus:ring-1 focus:ring-indigo-500 rounded-lg text-emerald-400 text-xs font-bold w-full transition-all flex items-center justify-center gap-1" title="Hourly Attendance Checklist (45 hrs)">
                             <span>${student.attendance}%</span>
                             <i class="fa-solid fa-pencil text-[8px] text-slate-500"></i>
                         </button>
@@ -1090,7 +1120,10 @@
             if (!groupChart) return;
 
             const sorted = [...students].sort((a, b) => a.name.localeCompare(b.name));
-            const names = sorted.map(s => s.name.replace('Student XXX ', '#'));
+            const names = sorted.map(s => {
+                const parts = s.name.split(' ');
+                return parts[0] || s.name;
+            });
 
             groupChart.data.labels = names;
             groupChart.data.datasets[0].data = sorted.map(s => s.attendance);
@@ -1128,29 +1161,33 @@
             const grid = document.getElementById('student-att-list-grid');
             grid.innerHTML = '';
 
-            ATTENDANCE_DATES.forEach((date, dateIdx) => {
-                const h1 = student.attendanceHours[dateIdx * 2];
-                const h2 = student.attendanceHours[dateIdx * 2 + 1];
+            for (let week = 1; week <= 15; week++) {
+                const h1 = student.attendanceHours[(week - 1) * 3];
+                const h2 = student.attendanceHours[(week - 1) * 3 + 1];
+                const h3 = student.attendanceHours[(week - 1) * 3 + 2];
 
                 const dateRow = document.createElement('div');
-                dateRow.className = "bg-slate-900/60 border border-slate-800/80 rounded-xl p-3 flex items-center justify-between text-xs";
+                dateRow.className = "bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 flex flex-col space-y-1.5 text-xs";
                 
                 dateRow.innerHTML = `
                     <span class="font-bold text-slate-300 flex items-center gap-1.5">
-                        <i class="fa-solid fa-calendar-day text-slate-500 text-[11px]"></i>
-                        ${date}
+                        <i class="fa-solid fa-calendar-week text-indigo-400 text-[11px]"></i>
+                        Week ${week}
                     </span>
-                    <div class="flex items-center space-x-2">
-                        <span class="px-2 py-1 rounded font-semibold text-[10px] flex items-center gap-1 ${h1 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
-                            Hour 1: ${h1 ? '<i class="fa-solid fa-check text-[9px]"></i>' : '<i class="fa-solid fa-xmark text-[9px]"></i>'}
+                    <div class="flex items-center justify-between space-x-1">
+                        <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h1 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
+                            L1: ${h1 ? '<i class="fa-solid fa-check text-[8px]"></i>' : '<i class="fa-solid fa-xmark text-[8px]"></i>'}
                         </span>
-                        <span class="px-2 py-1 rounded font-semibold text-[10px] flex items-center gap-1 ${h2 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
-                            Hour 2: ${h2 ? '<i class="fa-solid fa-check text-[9px]"></i>' : '<i class="fa-solid fa-xmark text-[9px]"></i>'}
+                        <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h2 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
+                            L2: ${h2 ? '<i class="fa-solid fa-check text-[8px]"></i>' : '<i class="fa-solid fa-xmark text-[8px]"></i>'}
+                        </span>
+                        <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h3 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
+                            L3: ${h3 ? '<i class="fa-solid fa-check text-[8px]"></i>' : '<i class="fa-solid fa-xmark text-[8px]"></i>'}
                         </span>
                     </div>
                 `;
                 grid.appendChild(dateRow);
-            });
+            }
         }
 
         function openAttendanceModal(studentId) {
@@ -1167,31 +1204,36 @@
             const grid = document.getElementById('attendance-dates-grid');
             grid.innerHTML = '';
 
-            ATTENDANCE_DATES.forEach((date, dateIdx) => {
-                const h1Idx = dateIdx * 2;
-                const h2Idx = dateIdx * 2 + 1;
+            for (let week = 1; week <= 15; week++) {
+                const h1Idx = (week - 1) * 3;
+                const h2Idx = (week - 1) * 3 + 1;
+                const h3Idx = (week - 1) * 3 + 2;
 
                 const row = document.createElement('div');
-                row.className = "bg-slate-900 border border-slate-800/80 p-3 rounded-xl flex items-center justify-between";
+                row.className = "bg-slate-900 border border-slate-800/80 p-2.5 rounded-xl flex items-center justify-between";
                 
                 row.innerHTML = `
                     <span class="text-xs font-bold text-slate-300 flex items-center gap-2">
-                        <span class="h-5 w-5 rounded bg-slate-950 flex items-center justify-center text-[10px] text-slate-500">${dateIdx + 1}</span>
-                        ${date}
+                        <span class="h-5 w-5 rounded bg-slate-950 flex items-center justify-center text-[10px] text-indigo-400 border border-indigo-900/30">W${week}</span>
+                        Week ${week}
                     </span>
-                    <div class="flex items-center space-x-3">
-                        <button onclick="toggleTempHour(${h1Idx})" id="temp-chk-${h1Idx}" class="px-3 py-1.5 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1.5">
-                            Hour 1
+                    <div class="flex items-center space-x-1.5">
+                        <button onclick="toggleTempHour(${h1Idx})" id="temp-chk-${h1Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
+                            Lesson 1
                         </button>
-                        <button onclick="toggleTempHour(${h2Idx})" id="temp-chk-${h2Idx}" class="px-3 py-1.5 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1.5">
-                            Hour 2
+                        <button onclick="toggleTempHour(${h2Idx})" id="temp-chk-${h2Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
+                            Lesson 2
+                        </button>
+                        <button onclick="toggleTempHour(${h3Idx})" id="temp-chk-${h3Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
+                            Lesson 3
                         </button>
                     </div>
                 `;
                 grid.appendChild(row);
                 updateTempHourButtonUI(h1Idx);
                 updateTempHourButtonUI(h2Idx);
-            });
+                updateTempHourButtonUI(h3Idx);
+            }
 
             const modal = document.getElementById('attendance-modal');
             modal.classList.remove('hidden');
@@ -1221,17 +1263,18 @@
             const btn = document.getElementById(`temp-chk-${idx}`);
             if (!btn) return;
             const isChecked = tempAttendanceHours[idx];
+            const lessonNum = (idx % 3) + 1;
             if (isChecked) {
-                btn.className = "px-3 py-1.5 rounded-lg text-[10px] font-bold bg-emerald-500/10 border-emerald-500/30 text-emerald-400 border transition-all flex items-center gap-1";
-                btn.innerHTML = `<i class="fa-solid fa-check"></i> Present`;
+                btn.className = "px-2.5 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/10 border-emerald-500/30 text-emerald-400 border transition-all flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> L${lessonNum}`;
             } else {
-                btn.className = "px-3 py-1.5 rounded-lg text-[10px] font-bold bg-slate-950 border-slate-800 text-slate-500 border transition-all flex items-center gap-1";
-                btn.innerHTML = `<i class="fa-solid fa-xmark"></i> Absent`;
+                btn.className = "px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-950 border-slate-800 text-slate-500 border transition-all flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-xmark"></i> L${lessonNum}`;
             }
         }
 
         function toggleAllAttendance(status) {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < TOTAL_ATTENDANCE_HOURS; i++) {
                 tempAttendanceHours[i] = status;
                 updateTempHourButtonUI(i);
             }
@@ -1240,9 +1283,9 @@
 
         function updateAttendanceModalStats() {
             const checkedCount = tempAttendanceHours.filter(Boolean).length;
-            const percent = checkedCount * 5;
+            const percent = Math.round((checkedCount / TOTAL_ATTENDANCE_HOURS) * 100);
             document.getElementById('att-modal-percent').textContent = `${percent}%`;
-            document.getElementById('att-modal-hours').textContent = `(${checkedCount} of 20 hrs)`;
+            document.getElementById('att-modal-hours').textContent = `(${checkedCount} of ${TOTAL_ATTENDANCE_HOURS} hrs)`;
         }
 
         function saveAttendanceDetails() {
@@ -1252,7 +1295,7 @@
             if (student) {
                 student.attendanceHours = [...tempAttendanceHours];
                 const checkedCount = student.attendanceHours.filter(Boolean).length;
-                student.attendance = checkedCount * 5;
+                student.attendance = Math.round((checkedCount / TOTAL_ATTENDANCE_HOURS) * 100);
 
                 saveDatabase();
                 
@@ -1401,11 +1444,12 @@
         }
 
         function resetAllData() {
-            students = [];
+            students = initialGroupStudents;
+            students.forEach(student => ensureAttendanceHours(student));
             saveDatabase();
             updateDashboardData();
             closeConfirmModal();
-            showToast('Gradebook reset completed.', 'info');
+            showToast('Gradebook reset to initial student list.', 'info');
         }
 
         function exportToCSV() {
