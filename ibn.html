@@ -16,12 +16,10 @@
         .text-brand-red { color: #e5001c; }
         .border-brand-red { border-color: #e5001c; }
         .tab-btn.active { border-bottom: 3px solid #e5001c; color: #e5001c; font-weight: 700; }
-        .scale-btn.active { background-color: #e5001c; color: #ffffff; border-color: #e5001c; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
 
-    <!-- HEADER WITH TWO HUB BUTTONS -->
     <header class="bg-white border-b border-stone-300 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
@@ -33,24 +31,15 @@
                     <span class="text-xs text-stone-700">AlmaU • School of Economics and Digital Technologies</span>
                 </div>
             </div>
-            <div class="flex items-center space-x-2 sm:space-x-3">
-                <a href="index.html" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
                     <i class="fa-solid fa-arrow-left text-brand-red"></i>
                     <span>Main Hub</span>
                 </a>
-                
-                <!-- КНОПКА 1: KZ Economic Clock -->
-                <button onclick="openClockModal()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs transition-all border border-amber-600 flex items-center space-x-1.5 rounded-sm shadow-sm">
-                    <i class="fa-solid fa-clock text-black"></i>
-                    <span>KZ Economic Clock</span>
-                </button>
-
-                <!-- КНОПКА 2: Scale Case -->
-                <button onclick="openCaseModal()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-900 text-white font-bold text-xs transition-all border border-stone-900 flex items-center space-x-1.5 rounded-sm shadow-sm">
-                    <i class="fa-solid fa-calculator text-amber-400"></i>
-                    <span>Scale Case</span>
-                </button>
-
+                <a href="syllabus.html" class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
+                    <i class="fa-solid fa-book text-stone-600"></i>
+                    <span>Syllabus</span>
+                </a>
                 <div class="border-l border-stone-300 pl-3 ml-1">
                     <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-stone-200 rounded-sm">
                 </div>
@@ -61,7 +50,7 @@
     <div class="bg-stone-100 border-b border-stone-200 py-2">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs text-stone-600">
             <span class="font-semibold uppercase tracking-wider"><i class="fa-solid fa-rotate text-brand-red mr-1"></i> Automated Weekly Briefing</span>
-            <span class="serif italic">August 27, 2026 Edition</span>
+            <span class="serif italic">August 31, 2026 Edition</span>
         </div>
     </div>
 
@@ -82,14 +71,14 @@
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Global Market News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Andy Burnham’s autumn of pain– podcast
+                        AI could cause global economic downturn, Bank of England governor tells G20
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        It’s been a month since Andy Burnham became prime minister. And while polls have shown a ‘Burnham bounce’, the coming months will force the new PM into making some tough – and potentially unpopular – ...
+                        Andrew Bailey warns group about risk of advanced ‘frontier models’ destabilising the ‘highly interconnected’ financial systemThe Bank of England’s governor, Andrew Bailey, has joined the throng of fig...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/politics/audio/2026/aug/27/andy-burnhams-autumn-of-pain-podcast" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/business/2026/aug/31/advanced-frontier-ai-financial-stability-andrew-bailey-g20" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
@@ -99,14 +88,14 @@
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Global Market News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Fears grow for fourth rate hike after Australia sees higher-than-expected July inflation
+                        OnlyFans and AI training: why gen Z doesn’t care where our money comes from | Alice Lassman
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Bureau of Statistics says CPI was 3.5% in July, casting doubt on Reserve Bank meeting its 2.5% inflation target without further hikeFollow our Australia news live blog for latest updatesGet our breaki...
+                        With traditional goals such as stability and homeownership feeling out of reach, young people are focused on the presentBy now, we all know the shape of financial nihilism: the throw-your-money-at-any...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/australia-news/2026/aug/26/fears-grow-for-fourth-rate-hike-after-higher-than-expected-july-inflation-rate" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/commentisfree/2026/aug/31/gen-z-stability-homeownership-onlyfans-ai" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
@@ -116,14 +105,14 @@
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Global Market News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Is the Trump Treasury panicking over the level of US debt?
+                        Trump’s trade war with Canada gets nasty – podcast
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        With the federal deficit near 6% of GDP and the national debt over $40tn, America’s fiscal position looks increasingly precariousBessent ‘will lose’ battle with bond markets, ex-mentor warnsAre we see...
+                        In the past couple of weeks, the Trump administration has reignited its trade war with Canada, threatened an ‘economic D-day’ against Iran and watched the US national debt surpass $40tn. Meanwhile, Do...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/business/2026/aug/26/is-the-trump-treasury-panicking-over-the-level-of-us-debt" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/politics/audio/2026/aug/28/how-did-donald-trump-get-so-rich-podcast" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
@@ -133,14 +122,14 @@
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Global Market News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Canada announces 50% retaliatory tariffs on hundreds of US imports as trade war escalates – video
+                        UK households will take £2,400 financial hit from Iran war, analysis shows
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Announcement of tariffs on $20bn worth of US goods follows through on Mark Carney's vow to match US tariffs 'dollar for dollar' Continue reading......
+                        Centre for Economics and Business Research calculates effect of inflation and wage stagnation to end of 2027UK households will have suffered a £2,400 financial hit, on average, from the Iran war by th...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/world/video/2026/aug/25/canada-tariffs-us-goods-mark-carney" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/business/2026/aug/31/uk-households-financial-hit-iran-war-inflation-wage-stagnation" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
@@ -150,14 +139,14 @@
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Global Market News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        US consumer confidence falls in August as gas prices remain above $4 per gallon
+                        Nurture not nature? How young women can learn to better wield economic power | Heather Stewart
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Confidence index drops to 89.4 in August from 90.2 in July amid frustration after five years of elevated inflationAmericans’ confidence in the economy declined again this month as the ongoing conflict...
+                        Project in Zambia shows how teaching young women to negotiate better can have a long-term impact on their prospectsWomen making their way in patriarchal societies down the ages have always had to wiel...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/business/2026/aug/25/us-consumer-confidence-falls" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/business/2026/aug/30/nurture-not-nature-how-young-women-can-learn-to-better-wield-economic-power" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
@@ -167,14 +156,14 @@
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Global Market News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        US Treasury’s Scott Bessent ‘will lose’ battle with bond markets, former mentor warns
+                        ‘If it’s made in the US, I don’t buy it’: Canadians on boycotting Trump’s America
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Trump ally should cut budget deficit rather than try to suppress bond yields, says billionaire Stanley DruckenmillerScott Bessent’s attempt to calm the bond markets and push down America’s cost of bor...
+                        Avoiding US goods and services – from tech to whisky to air travel – has forced many to find a new way of livingFor William McDonald, 38, a diesel mechanic from Thunder Bay, Ontario, “Canadian is alwa...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/business/2026/aug/25/us-treasury-scott-bessent-bond-buying-donald-trump-stanley-druckenmiller" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/business/2026/aug/29/if-its-made-in-the-us-i-dont-buy-it-canadians-on-boycotting-trumps-america" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
@@ -183,328 +172,16 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-stone-200 bg-stone-900 text-stone-400 py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs space-y-2">
-            <p class="font-semibold text-stone-300">The Economics • Academic Intelligence Hub</p>
-            <p>© 2026 Dmitriy Ogay • AlmaU Course Hub • Interactive Learning Architecture</p>
+    <footer class="bg-stone-900 text-stone-400 py-8 border-t-4 border-brand-red mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="brand-red text-white font-black px-2 py-1 text-sm serif">The Economics</span>
+                <span>International Business News Hub • Almaty Management University</span>
+            </div>
+            <p class="text-stone-500 text-center md:text-right">
+                Automatically updated via GitHub Actions. All source rights reserved to respective publishers.
+            </p>
         </div>
     </footer>
-
-    <!-- МОДАЛЬНОЕ ОКНО 1: KAZAKHSTAN ECONOMIC CLOCK -->
-    <div id="clockModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6">
-        <div class="bg-[#090d16] w-full max-w-7xl h-[92vh] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden relative">
-            <div class="bg-[#0d1117] px-6 py-3 border-b border-gray-800 flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <span class="inline-block w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Live Analytics Hub</span>
-                </div>
-                <button onclick="closeClockModal()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-red-600 px-3 py-1 rounded-md text-xs font-bold transition-all flex items-center space-x-1">
-                    <i class="fa-solid fa-xmark"></i>
-                    <span>Close</span>
-                </button>
-            </div>
-            <div class="flex-grow w-full h-full bg-[#090d16]">
-                <iframe id="clockIframe" src="" class="w-full h-full border-0"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- МОДАЛЬНОЕ ОКНО 2: SCALE CASE (ВШИТ КЕЙС 1 В 1 ИЗ MONETARY ECONOMICS LECTURE 1) -->
-    <div id="caseModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-3xl rounded-xl border border-stone-300 shadow-2xl flex flex-col overflow-hidden relative max-h-[90vh]">
-            <div class="bg-stone-900 text-white px-6 py-4 flex justify-between items-center shrink-0">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-lightbulb text-amber-400 text-lg"></i>
-                    <h3 class="font-extrabold text-sm sm:text-base tracking-wide uppercase">Macro Case Study: The Scale of Money</h3>
-                </div>
-                <button onclick="closeCaseModal()" class="text-stone-400 hover:text-white bg-stone-800 hover:bg-red-600 px-3 py-1 rounded text-xs font-bold transition-all">
-                    <i class="fa-solid fa-xmark mr-1"></i> Close Case
-                </button>
-            </div>
-
-            <div class="p-6 overflow-y-auto space-y-6">
-                <!-- ВШИТЫЙ КЕЙС ИЗ МОДУЛЯ LECTURE 1 MONETARY ECONOMICS -->
-                <div class="scale-riddle-wrapper" style="font-family: system-ui, -apple-system, sans-serif;">
-                    
-                    <!-- Main Toggle Button (Spoiler) -->
-                    <button onclick="toggleScaleRiddle()" style="width: 100%; padding: 14px 20px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #38bdf8; border: 1px dashed #0284c7; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease;">
-                        <span id="riddle-toggle-icon">👁️‍🗨️</span> <span id="riddle-toggle-text">Click to Unlock: The Large Numbers Riddle</span>
-                    </button>
-
-                    <!-- Hidden Dark Content Panel -->
-                    <div id="scale-riddle-panel" style="display: none; margin-top: 15px; padding: 25px; background-color: #0b1329; border: 1px solid #1e293b; border-radius: 12px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);">
-                        
-                        <!-- 3D Round Buttons Grid -->
-                        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 25px;">
-                            <button id="btn-million" onclick="runScaleStep('million', this)" style="width: 75px; height: 75px; border-radius: 50%; border: none; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 0 #1e40af, 0 8px 15px rgba(59,130,246,0.4); transition: all 0.1s ease; transform: translateY(0);">1M</button>
-                            <button id="btn-billion" onclick="runScaleStep('billion', this)" style="width: 75px; height: 75px; border-radius: 50%; border: none; background: linear-gradient(135deg, #eab308 0%, #a16207 100%); color: #0f172a; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 0 #854d0e, 0 8px 15px rgba(234,179,8,0.3); transition: all 0.1s ease; transform: translateY(0);">1B</button>
-                            <button id="btn-trillion" onclick="runScaleStep('trillion', this)" style="width: 75px; height: 75px; border-radius: 50%; border: none; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: white; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 0 #991b1b, 0 8px 15px rgba(239,68,68,0.4); transition: all 0.1s ease; transform: translateY(0);">1T</button>
-                        </div>
-
-                        <!-- Dynamic Output Display Box -->
-                        <div id="riddle-output-zone" style="visibility: hidden; opacity: 0; transition: opacity 0.4s ease; text-align: center; padding: 20px; background: rgba(30, 41, 59, 0.5); border-radius: 8px; border: 1px solid #1e293b;">
-                            <div id="riddle-badge" style="display: inline-block; padding: 4px 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 20px; margin-bottom: 10px;">
-                                System Initialized
-                            </div>
-                            
-                            <!-- UPPER COUNTING CONTAINER -->
-                            <div id="riddle-time-value" style="font-size: 2.5rem; font-weight: 800; color: #ffffff; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); font-family: monospace;">
-                                0.0
-                            </div>
-                            
-                            <p id="riddle-context-text" style="font-size: 0.95rem; color: #cbd5e1; max-width: 600px; margin: 0 auto 20px auto; line-height: 1.5; min-height: 45px;">
-                                Select a scale button to begin decoding vector coordinates.
-                            </p>
-
-                            <!-- Dynamic Timeline Component -->
-                            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px dashed #334155;">
-                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-bottom: 8px;">
-                                    <span id="timeline-left-label" style="transition: all 0.3s;">Deep Past</span>
-                                    <span style="color: #38bdf8; font-weight: 600;">Today (0s)</span>
-                                </div>
-                                
-                                <!-- The Horizontal Line Axis -->
-                                <div style="position: relative; width: 100%; height: 6px; background-color: #1e293b; border-radius: 3px;">
-                                    <div id="timeline-progress-bar" style="position: absolute; right: 0; top: 0; height: 100%; width: 0%; border-radius: 3px; background-color: #3b82f6;"></div>
-                                    <div id="timeline-node-pin" style="position: absolute; top: -5px; right: 0%; transform: translateX(50%); width: 16px; height: 16px; border-radius: 50%; background-color: #ffffff; border: 3px solid #0f172a; box-shadow: 0 0 10px #fff; display: block;"></div>
-                                </div>
-                                
-                                <!-- Under-axis moving labels -->
-                                <div style="position: relative; width: 100%; height: 25px; margin-top: 8px;">
-                                    <span id="timeline-dynamic-marker" style="position: absolute; right: 0%; transform: translateX(50%); font-size: 0.85rem; font-weight: bold; color: #60a5fa; white-space: nowrap; font-family: monospace;"></span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-stone-100 px-6 py-3 border-t border-stone-200 text-stone-500 text-[11px] flex justify-between items-center shrink-0">
-                <span>Principles of Economics Case Module</span>
-                <span class="serif italic">AlmaU Economics Department</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- СКРИПТЫ УПРАВЛЕНИЯ МОДАЛЬНЫМИ ОКНАМИ И ИНТЕРАКТИВНОЙ ЛОГИКОЙ КЕЙСА -->
-    <script>
-        const clockUrl = "https://ogaydv-prog.github.io/KZ-economic-clock/index-en.html";
-
-        // 1. Управление окном часов
-        function openClockModal() {
-            const modal = document.getElementById('clockModal');
-            const iframe = document.getElementById('clockIframe');
-            if (!iframe.src || iframe.src !== clockUrl) {
-                iframe.src = clockUrl;
-            }
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeClockModal() {
-            document.getElementById('clockModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // 2. Управление окном кейса
-        function openCaseModal() {
-            document.getElementById('caseModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeCaseModal() {
-            document.getElementById('caseModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Закрытие любого окна по клавише Escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                closeClockModal();
-                closeCaseModal();
-            }
-        });
-
-        // --- ТОЧНАЯ ЛОГИКА ИНТЕРАКТИВНОГО КЕЙСА ИЗ LECTURE 1 (MONETARY ECONOMICS) ---
-        let countInterval = null;
-
-        function toggleScaleRiddle() {
-            const panel = document.getElementById('scale-riddle-panel');
-            const text = document.getElementById('riddle-toggle-text');
-            const icon = document.getElementById('riddle-toggle-icon');
-            
-            if (panel.style.display === 'none') {
-                panel.style.display = 'block';
-                text.innerText = 'Hide Scale Riddle Panel';
-                icon.innerText = '✨';
-                resetRiddleState(); 
-            } else {
-                panel.style.display = 'none';
-                text.innerText = 'Click to Unlock: The Large Numbers Riddle';
-                icon.innerText = '👁️‍🗨️';
-                resetRiddleState(); 
-            }
-        }
-
-        function resetRiddleState() {
-            if (countInterval) clearInterval(countInterval);
-
-            const outputZone = document.getElementById('riddle-output-zone');
-            const progressBar = document.getElementById('timeline-progress-bar');
-            const nodePin = document.getElementById('timeline-node-pin');
-            const dynamicMarker = document.getElementById('timeline-dynamic-marker');
-            const leftLabel = document.getElementById('timeline-left-label');
-            const timeValue = document.getElementById('riddle-time-value');
-            const contextText = document.getElementById('riddle-context-text');
-
-            outputZone.style.opacity = '0';
-            outputZone.style.visibility = 'hidden';
-
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '0%';
-            
-            nodePin.style.transition = 'none';
-            nodePin.style.right = '0%';
-            nodePin.style.backgroundColor = '#ffffff';
-            nodePin.style.boxShadow = '0 0 10px #fff';
-
-            dynamicMarker.style.transition = 'none';
-            dynamicMarker.style.right = '0%';
-            dynamicMarker.innerText = '';
-            
-            leftLabel.innerText = 'Deep Past';
-            timeValue.innerText = '0.0';
-            contextText.innerText = 'Select a scale button to begin decoding vector coordinates.';
-        }
-
-        function runScaleStep(type, btnElement) {
-            btnElement.style.transform = 'translateY(4px)';
-            setTimeout(() => { btnElement.style.transform = 'translateY(0)'; }, 100);
-
-            if (countInterval) clearInterval(countInterval);
-
-            const outputZone = document.getElementById('riddle-output-zone');
-            const progressBar = document.getElementById('timeline-progress-bar');
-            const nodePin = document.getElementById('timeline-node-pin');
-            const dynamicMarker = document.getElementById('timeline-dynamic-marker');
-            const leftLabel = document.getElementById('timeline-left-label');
-            const timeValue = document.getElementById('riddle-time-value');
-            const contextText = document.getElementById('riddle-context-text');
-            const badge = document.getElementById('riddle-badge');
-
-            outputZone.style.visibility = 'visible';
-            outputZone.style.opacity = '1';
-
-            let startTime = performance.now();
-
-            if (type === 'million') {
-                badge.innerText = "Scale Vector: 1 Million ($1,000,000)";
-                badge.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
-                badge.style.color = '#60a5fa';
-                contextText.innerHTML = "A brief transaction interval. If a central bank updates its reserves by a million, it's a minor liquidity ripple.";
-                leftLabel.innerText = "Next Few Weeks";
-                
-                progressBar.style.backgroundColor = '#3b82f6';
-                let duration = 1200; 
-                
-                countInterval = setInterval(() => {
-                    let elapsed = performance.now() - startTime;
-                    let progress = Math.min(elapsed / duration, 1);
-                    let current = progress * 11.6;
-                    let currentPercentage = progress * 8; // Max 8% width on full axis
-                    
-                    // Sync dot positions and widths
-                    progressBar.style.width = currentPercentage + '%';
-                    nodePin.style.right = currentPercentage + '%';
-                    dynamicMarker.style.right = currentPercentage + '%';
-                    
-                    // Sync ticking text on both counters
-                    let outputText = `⏱️ ${current.toFixed(1)} Days`;
-                    timeValue.style.color = '#60a5fa';
-                    timeValue.innerText = outputText;
-                    dynamicMarker.style.color = '#60a5fa';
-                    dynamicMarker.innerText = `-${current.toFixed(1)} Days`;
-
-                    if (progress === 1) {
-                        clearInterval(countInterval);
-                        nodePin.style.backgroundColor = '#3b82f6';
-                        nodePin.style.boxShadow = '0 0 15px #3b82f6';
-                    }
-                }, 16);
-
-            } else if (type === 'billion') {
-                badge.innerText = "Scale Vector: 1 Billion ($1,000,000,000)";
-                badge.style.backgroundColor = 'rgba(234, 179, 8, 0.2)';
-                badge.style.color = '#fde047';
-                contextText.innerHTML = "<strong>Systemic Expansion:</strong> Going back 1 billion seconds takes us to 1994. Dial-up internet, pager networks, no smartphones. This is the volume of standard corporate market intervention.";
-                leftLabel.innerText = "Past Decades (1980s)";
-                
-                progressBar.style.backgroundColor = '#eab308';
-                let duration = 2000; 
-
-                countInterval = setInterval(() => {
-                    let elapsed = performance.now() - startTime;
-                    let progress = Math.min(elapsed / duration, 1);
-                    let current = progress * 31.7;
-                    let currentPercentage = progress * 45; // Max 45% width on axis
-                    
-                    progressBar.style.width = currentPercentage + '%';
-                    nodePin.style.right = currentPercentage + '%';
-                    dynamicMarker.style.right = currentPercentage + '%';
-                    
-                    let outputText = `⏳ ${current.toFixed(1)} Years`;
-                    timeValue.style.color = '#fde047';
-                    timeValue.innerText = outputText;
-                    dynamicMarker.style.color = '#fde047';
-                    dynamicMarker.innerText = `-${current.toFixed(1)} Yrs (1994)`;
-
-                    if (progress === 1) {
-                        clearInterval(countInterval);
-                        nodePin.style.backgroundColor = '#eab308';
-                        nodePin.style.boxShadow = '0 0 15px #eab308';
-                    }
-                }, 16);
-
-            } else if (type === 'trillion') {
-                badge.innerText = "Scale Vector: 1 Trillion ($1,000,000,000,000)";
-                badge.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                badge.style.color = '#fca5a5';
-                contextText.innerHTML = "<strong>Systemic Explosion:</strong> 31.7 thousand years ago, <strong>Mammoths and Neanderthals</strong> ruled the plains. When global liquidity shifts by trillions, this is the architectural magnitude of the assets.";
-                leftLabel.innerText = "Stone Age (32k Years Ago)";
-                
-                progressBar.style.backgroundColor = '#ef4444';
-                let duration = 4000; 
-
-                countInterval = setInterval(() => {
-                    let elapsed = performance.now() - startTime;
-                    let progress = Math.min(elapsed / duration, 1);
-                    
-                    let easeProgress = Math.pow(progress, 3);
-                    let current = Math.floor(easeProgress * 31689);
-                    let currentPercentage = easeProgress * 98; 
-                    
-                    progressBar.style.width = currentPercentage + '%';
-                    nodePin.style.right = currentPercentage + '%';
-                    dynamicMarker.style.right = currentPercentage + '%';
-                    
-                    let outputText = `🌋 ${current.toLocaleString()} Years`;
-                    timeValue.style.color = '#ef4444';
-                    timeValue.innerText = outputText;
-                    dynamicMarker.style.color = '#fca5a5';
-                    dynamicMarker.innerText = `-${current.toLocaleString()} Years`;
-
-                    if (progress === 1) {
-                        clearInterval(countInterval);
-                        nodePin.style.backgroundColor = '#ef4444';
-                        nodePin.style.boxShadow = '0 0 25px #ef4444';
-                        dynamicMarker.innerText = `-31,689 Years (Mammoths)`;
-                    }
-                }, 16);
-            }
-        }
-    </script>
 </body>
 </html>
