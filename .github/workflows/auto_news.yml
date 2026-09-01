@@ -2,9 +2,9 @@ name: Weekly News Updater
 
 on:
   schedule:
-    # Запуск каждый понедельник в 05:00 UTC (10:00 утра по времени Алматы)
-    - cron: '0 3 * * 1'
-  workflow_dispatch: # Позволяет при желании запустить обновление вручную кнопкой в GitHub
+    # Запуск только по понедельникам в 04:00 UTC (ровно 09:00 утра по времени Астаны)
+    - cron: '0 4 * * 1'
+  workflow_dispatch: # Возможность запустить вручную кнопкой в GitHub в любой момент
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-python-version: '3.x'
+          python-version: '3.x'
 
       - name: Fetch news and update ibn.html
         run: python update_news.py
