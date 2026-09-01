@@ -4,17 +4,20 @@ import xml.etree.ElementTree as ET
 import urllib.request
 import re
 
-# Список надежных бесплатных RSS-каналов новостей экономики и бизнеса
+# Список RSS-каналов: Guardian, BBC, Euronews
 RSS_FEEDS = [
-    "https://www.theguardian.com/business/economics/rss",
-    "https://feeds.bbci.co.uk/news/business/rss.xml",
-    "https://rss.dw.com/xml/rss-en-bus"
+    {"source": "The Guardian", "url": "https://www.theguardian.com/business/economics/rss"},
+    {"source": "BBC News", "url": "https://feeds.bbci.co.uk/news/business/rss.xml"},
+    {"source": "Euronews", "url": "https://www.euronews.com/rss?format=xml&level=theme&name=business"}
 ]
 
 def fetch_rss_items():
     items = []
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    for feed_url in RSS_FEEDS:
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    
+    for feed in RSS_FEEDS:
+        feed_url = feed["url"]
+        source_name = feed["source"]
         try:
             req = urllib.request.Request(feed_url, headers=headers)
             with urllib.request.urlopen(req, timeout=10) as response:
@@ -22,27 +25,29 @@ def fetch_rss_items():
                 root = ET.fromstring(xml_data)
                 channel = root.find('channel')
                 if channel is not None:
+                    count = 0
                     for item in channel.findall('item'):
+                        if count >= 2:  # Берём по 2 самые свежие новости с каждого источника (всего 6)
+                            break
                         title = item.findtext('title')
                         link = item.findtext('link')
                         desc = item.findtext('description')
                         if title and link:
-                            # Очистка описания от HTML-тегов
                             clean_desc = re.sub('<[^<]+?>', '', desc) if desc else ""
                             items.append({
+                                'source': source_name,
                                 'title': title.strip(),
                                 'link': link.strip(),
-                                'description': clean_desc.strip()[:200] + '...'
+                                'description': clean_desc.strip()[:180] + '...'
                             })
+                            count += 1
         except Exception as e:
-            print(f"Error fetching {feed_url}: {e}")
+            print(f"Error fetching {source_name} ({feed_url}): {e}")
     return items
 
 def generate_html(news_items):
-    # Дата выпуска
     today_str = datetime.datetime.now().strftime("%B %d, %Y Edition")
     
-    # Шаблон нашего сайта The Economics
     html_template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,11 +65,11 @@ def generate_html(news_items):
         .brand-red {{ background-color: #e5001c; }}
         .text-brand-red {{ color: #e5001c; }}
         .border-brand-red {{ border-color: #e5001c; }}
-        .tab-btn.active {{ border-bottom: 3px solid #e5001c; color: #e5001c; font-weight: 700; }}
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
 
+    <!-- HEADER WITH HUB BUTTONS -->
     <header class="bg-white border-b border-stone-300 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
@@ -76,15 +81,24 @@ def generate_html(news_items):
                     <span class="text-xs text-stone-700">AlmaU • School of Economics and Digital Technologies</span>
                 </div>
             </div>
-            <div class="flex items-center space-x-3">
-                <a href="index.html" class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <a href="index.html" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
                     <i class="fa-solid fa-arrow-left text-brand-red"></i>
                     <span>Main Hub</span>
                 </a>
-                <a href="syllabus.html" class="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
-                    <i class="fa-solid fa-book text-stone-600"></i>
-                    <span>Syllabus</span>
-                </a>
+                
+                <!-- КНОПКА 1: KZ Economic Clock -->
+                <button onclick="openClockModal()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs transition-all border border-amber-600 flex items-center space-x-1.5 rounded-sm shadow-sm">
+                    <i class="fa-solid fa-clock text-black"></i>
+                    <span>KZ Economic Clock</span>
+                </button>
+
+                <!-- КНОПКА 2: Scale Case -->
+                <button onclick="openCaseModal()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-900 text-white font-bold text-xs transition-all border border-stone-900 flex items-center space-x-1.5 rounded-sm shadow-sm">
+                    <i class="fa-solid fa-calculator text-amber-400"></i>
+                    <span>Scale Case</span>
+                </button>
+
                 <div class="border-l border-stone-300 pl-3 ml-1">
                     <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-stone-200 rounded-sm">
                 </div>
@@ -94,7 +108,7 @@ def generate_html(news_items):
 
     <div class="bg-stone-100 border-b border-stone-200 py-2">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs text-stone-600">
-            <span class="font-semibold uppercase tracking-wider"><i class="fa-solid fa-rotate text-brand-red mr-1"></i> Automated Weekly Briefing</span>
+            <span class="font-semibold uppercase tracking-wider"><i class="fa-solid fa-rotate text-brand-red mr-1"></i> Automated Multi-Source Briefing</span>
             <span class="serif italic">{today_str}</span>
         </div>
     </div>
@@ -103,22 +117,21 @@ def generate_html(news_items):
         <div class="border-b-2 border-stone-900 pb-6 mb-8">
             <span class="text-xs font-extrabold text-brand-red uppercase tracking-widest block mb-1">Global Economic Analysis</span>
             <h1 class="text-3xl sm:text-4xl font-black text-stone-900 serif leading-tight">
-                The World This Week: Trade, Policy & Macro Economic Trends
+                The World Today: Multi-Source Trade, Policy & Macro Trends
             </h1>
             <p class="text-sm sm:text-base text-stone-600 mt-2 max-w-4xl leading-relaxed serif">
-                Automatically curated economic headlines and international business updates for academic discussion at Almaty Management University.
+                Automatically curated economic headlines from The Guardian, BBC News, and Euronews for academic discussion at Almaty Management University.
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 """
 
-    # Добавляем 6 актуальных новостей из RSS
-    for item in news_items[:6]:
+    for item in news_items:
         html_template += f"""
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
-                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Global Market News</span>
+                    <span class="text-xs font-bold text-brand-red uppercase tracking-widest">{item['source']}</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
                         {item['title']}
                     </h3>
@@ -149,6 +162,262 @@ def generate_html(news_items):
             </p>
         </div>
     </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО 1: KAZAKHSTAN ECONOMIC CLOCK -->
+    <div id="clockModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6">
+        <div class="bg-[#090d16] w-full max-w-7xl h-[92vh] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden relative">
+            <div class="bg-[#0d1117] px-6 py-3 border-b border-gray-800 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="inline-block w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Live Analytics Hub</span>
+                </div>
+                <button onclick="closeClockModal()" class="text-gray-400 hover:text-white bg-gray-800 hover:bg-red-600 px-3 py-1 rounded-md text-xs font-bold transition-all flex items-center space-x-1">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>Close</span>
+                </button>
+            </div>
+            <div class="flex-grow w-full h-full bg-[#090d16]">
+                <iframe id="clockIframe" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО 2: SCALE CASE -->
+    <div id="caseModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-3xl rounded-xl border border-stone-300 shadow-2xl flex flex-col overflow-hidden relative max-h-[90vh]">
+            <div class="bg-stone-900 text-white px-6 py-4 flex justify-between items-center shrink-0">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-lightbulb text-amber-400 text-lg"></i>
+                    <h3 class="font-extrabold text-sm sm:text-base tracking-wide uppercase">Macro Case Study: The Scale of Money</h3>
+                </div>
+                <button onclick="closeCaseModal()" class="text-stone-400 hover:text-white bg-stone-800 hover:bg-red-600 px-3 py-1 rounded text-xs font-bold transition-all">
+                    <i class="fa-solid fa-xmark mr-1"></i> Close Case
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-6">
+                <div class="scale-riddle-wrapper" style="font-family: system-ui, -apple-system, sans-serif;">
+                    <button onclick="toggleScaleRiddle()" style="width: 100%; padding: 14px 20px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #38bdf8; border: 1px dashed #0284c7; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                        <span id="riddle-toggle-icon">👁️‍🗨️</span> <span id="riddle-toggle-text">Click to Unlock: The Large Numbers Riddle</span>
+                    </button>
+
+                    <div id="scale-riddle-panel" style="display: none; margin-top: 15px; padding: 25px; background-color: #0b1329; border: 1px solid #1e293b; border-radius: 12px;">
+                        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 25px;">
+                            <button id="btn-million" onclick="runScaleStep('million', this)" style="width: 75px; height: 75px; border-radius: 50%; border: none; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 0 #1e40af;">1M</button>
+                            <button id="btn-billion" onclick="runScaleStep('billion', this)" style="width: 75px; height: 75px; border-radius: 50%; border: none; background: linear-gradient(135deg, #eab308 0%, #a16207 100%); color: #0f172a; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 0 #854d0e;">1B</button>
+                            <button id="btn-trillion" onclick="runScaleStep('trillion', this)" style="width: 75px; height: 75px; border-radius: 50%; border: none; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: white; font-weight: bold; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 0 #991b1b;">1T</button>
+                        </div>
+
+                        <div id="riddle-output-zone" style="visibility: hidden; opacity: 0; transition: opacity 0.4s ease; text-align: center; padding: 20px; background: rgba(30, 41, 59, 0.5); border-radius: 8px;">
+                            <div id="riddle-badge" style="display: inline-block; padding: 4px 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-radius: 20px; margin-bottom: 10px;">
+                                System Initialized
+                            </div>
+                            
+                            <div id="riddle-time-value" style="font-size: 2.5rem; font-weight: 800; color: #ffffff; margin-bottom: 8px; font-family: monospace;">
+                                0.0
+                            </div>
+                            
+                            <p id="riddle-context-text" style="font-size: 0.95rem; color: #cbd5e1; max-width: 600px; margin: 0 auto 20px auto;">
+                                Select a scale button to begin decoding vector coordinates.
+                            </p>
+
+                            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px dashed #334155;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-bottom: 8px;">
+                                    <span id="timeline-left-label">Deep Past</span>
+                                    <span style="color: #38bdf8; font-weight: 600;">Today (0s)</span>
+                                </div>
+                                
+                                <div style="position: relative; width: 100%; height: 6px; background-color: #1e293b; border-radius: 3px;">
+                                    <div id="timeline-progress-bar" style="position: absolute; right: 0; top: 0; height: 100%; width: 0%; border-radius: 3px; background-color: #3b82f6;"></div>
+                                    <div id="timeline-node-pin" style="position: absolute; top: -5px; right: 0%; transform: translateX(50%); width: 16px; height: 16px; border-radius: 50%; background-color: #ffffff; border: 3px solid #0f172a;"></div>
+                                </div>
+                                
+                                <div style="position: relative; width: 100%; height: 25px; margin-top: 8px;">
+                                    <span id="timeline-dynamic-marker" style="position: absolute; right: 0%; transform: translateX(50%); font-size: 0.85rem; font-weight: bold; color: #60a5fa; font-family: monospace;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-stone-100 px-6 py-3 border-t border-stone-200 text-stone-500 text-[11px] flex justify-between items-center shrink-0">
+                <span>Principles of Economics Case Module</span>
+                <span class="serif italic">AlmaU Economics Department</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- СКРИПТЫ УПРАВЛЕНИЯ ЧАСАМИ И КЕЙСОМ -->
+    <script>
+        const clockUrl = "https://ogaydv-prog.github.io/KZ-economic-clock/index-en.html";
+
+        function openClockModal() {{
+            const modal = document.getElementById('clockModal');
+            const iframe = document.getElementById('clockIframe');
+            if (!iframe.src || iframe.src !== clockUrl) {{
+                iframe.src = clockUrl;
+            }}
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }}
+
+        function closeClockModal() {{
+            document.getElementById('clockModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }}
+
+        function openCaseModal() {{
+            document.getElementById('caseModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }}
+
+        function closeCaseModal() {{
+            document.getElementById('caseModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }}
+
+        document.addEventListener('keydown', function(event) {{
+            if (event.key === "Escape") {{
+                closeClockModal();
+                closeCaseModal();
+            }}
+        }});
+
+        let countInterval = null;
+
+        function toggleScaleRiddle() {{
+            const panel = document.getElementById('scale-riddle-panel');
+            const text = document.getElementById('riddle-toggle-text');
+            const icon = document.getElementById('riddle-toggle-icon');
+            
+            if (panel.style.display === 'none') {{
+                panel.style.display = 'block';
+                text.innerText = 'Hide Scale Riddle Panel';
+                icon.innerText = '✨';
+                resetRiddleState(); 
+            }} else {{
+                panel.style.display = 'none';
+                text.innerText = 'Click to Unlock: The Large Numbers Riddle';
+                icon.innerText = '👁️‍🗨️';
+                resetRiddleState(); 
+            }}
+        }}
+
+        function resetRiddleState() {{
+            if (countInterval) clearInterval(countInterval);
+            const outputZone = document.getElementById('riddle-output-zone');
+            outputZone.style.opacity = '0';
+            outputZone.style.visibility = 'hidden';
+        }}
+
+        function runScaleStep(type, btnElement) {{
+            btnElement.style.transform = 'translateY(4px)';
+            setTimeout(() => {{ btnElement.style.transform = 'translateY(0)'; }}, 100);
+
+            if (countInterval) clearInterval(countInterval);
+
+            const outputZone = document.getElementById('riddle-output-zone');
+            const progressBar = document.getElementById('timeline-progress-bar');
+            const nodePin = document.getElementById('timeline-node-pin');
+            const dynamicMarker = document.getElementById('timeline-dynamic-marker');
+            const leftLabel = document.getElementById('timeline-left-label');
+            const timeValue = document.getElementById('riddle-time-value');
+            const contextText = document.getElementById('riddle-context-text');
+            const badge = document.getElementById('riddle-badge');
+
+            outputZone.style.visibility = 'visible';
+            outputZone.style.opacity = '1';
+
+            let startTime = performance.now();
+
+            if (type === 'million') {{
+                badge.innerText = "Scale Vector: 1 Million ($1,000,000)";
+                badge.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
+                badge.style.color = '#60a5fa';
+                contextText.innerHTML = "A brief transaction interval. If a central bank updates its reserves by a million, it's a minor liquidity ripple.";
+                leftLabel.innerText = "Next Few Weeks";
+                
+                progressBar.style.backgroundColor = '#3b82f6';
+                let duration = 1200; 
+                
+                countInterval = setInterval(() => {{
+                    let elapsed = performance.now() - startTime;
+                    let progress = Math.min(elapsed / duration, 1);
+                    let current = progress * 11.6;
+                    let currentPercentage = progress * 8;
+                    
+                    progressBar.style.width = currentPercentage + '%';
+                    nodePin.style.right = currentPercentage + '%';
+                    dynamicMarker.style.right = currentPercentage + '%';
+                    
+                    timeValue.style.color = '#60a5fa';
+                    timeValue.innerText = `⏱️ ${current.toFixed(1)} Days`;
+                    dynamicMarker.style.color = '#60a5fa';
+                    dynamicMarker.innerText = `-${current.toFixed(1)} Days`;
+
+                    if (progress === 1) clearInterval(countInterval);
+                }}, 16);
+
+            }} else if (type === 'billion') {{
+                badge.innerText = "Scale Vector: 1 Billion ($1,000,000,000)";
+                badge.style.backgroundColor = 'rgba(234, 179, 8, 0.2)';
+                badge.style.color = '#fde047';
+                contextText.innerHTML = "<strong>Systemic Expansion:</strong> Going back 1 billion seconds takes us to 1994. Dial-up internet, pager networks, no smartphones.";
+                leftLabel.innerText = "Past Decades (1980s)";
+                
+                progressBar.style.backgroundColor = '#eab308';
+                let duration = 2000; 
+
+                countInterval = setInterval(() => {{
+                    let elapsed = performance.now() - startTime;
+                    let progress = Math.min(elapsed / duration, 1);
+                    let current = progress * 31.7;
+                    let currentPercentage = progress * 45;
+                    
+                    progressBar.style.width = currentPercentage + '%';
+                    nodePin.style.right = currentPercentage + '%';
+                    dynamicMarker.style.right = currentPercentage + '%';
+                    
+                    timeValue.style.color = '#fde047';
+                    timeValue.innerText = `⏳ ${current.toFixed(1)} Years`;
+                    dynamicMarker.style.color = '#fde047';
+                    dynamicMarker.innerText = `-${current.toFixed(1)} Yrs (1994)`;
+
+                    if (progress === 1) clearInterval(countInterval);
+                }}, 16);
+
+            }} else if (type === 'trillion') {{
+                badge.innerText = "Scale Vector: 1 Trillion ($1,000,000,000,000)";
+                badge.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                badge.style.color = '#fca5a5';
+                contextText.innerHTML = "<strong>Systemic Explosion:</strong> 31.7 thousand years ago, Mammoths and Neanderthals ruled the plains.";
+                leftLabel.innerText = "Stone Age (32k Years Ago)";
+                
+                progressBar.style.backgroundColor = '#ef4444';
+                let duration = 4000; 
+
+                countInterval = setInterval(() => {{
+                    let elapsed = performance.now() - startTime;
+                    let progress = Math.min(elapsed / duration, 1);
+                    let easeProgress = Math.pow(progress, 3);
+                    let current = Math.floor(easeProgress * 31689);
+                    let currentPercentage = easeProgress * 98; 
+                    
+                    progressBar.style.width = currentPercentage + '%';
+                    nodePin.style.right = currentPercentage + '%';
+                    dynamicMarker.style.right = currentPercentage + '%';
+                    
+                    timeValue.style.color = '#ef4444';
+                    timeValue.innerText = `🌋 ${current.toLocaleString()} Years`;
+                    dynamicMarker.style.color = '#fca5a5';
+                    dynamicMarker.innerText = `-${current.toLocaleString()} Years`;
+
+                    if (progress === 1) clearInterval(countInterval);
+                }}, 16);
+            }}
+        }}
+    </script>
 </body>
 </html>
 """
@@ -160,6 +429,6 @@ if __name__ == "__main__":
         html_content = generate_html(items)
         with open("ibn.html", "w", encoding="utf-8") as f:
             f.write(html_content)
-        print("Successfully updated ibn.html with fresh news!")
+        print("Successfully updated ibn.html with Guardian, BBC, Euronews, clock & case!")
     else:
         print("No news fetched. Keeping existing file.")
