@@ -56,6 +56,7 @@
             font-weight: 700;
             color: #001e50;
             margin-bottom: 12px;
+            margin-top: 20px;
         }
 
         .subtitle {
@@ -63,7 +64,7 @@
             color: #555555;
             max-width: 650px;
             line-height: 1.5;
-            margin: 0 auto;
+            margin: 0 auto 10px auto;
         }
 
         .grid-container {
@@ -114,8 +115,58 @@
             font-size: 14px;
             color: #718096;
             padding-top: 50px;
+            padding-bottom: 20px;
             text-align: center;
             line-height: 1.6;
+        }
+
+        /* ==========================================
+           АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (Смартфоны)
+           ========================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            /* Возвращаем логотип AlmaU в общий поток и центрируем */
+            .top-left-logo {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 50px;
+                height: 50px;
+                margin: 0 auto 12px auto;
+                display: block;
+            }
+
+            header {
+                margin-top: 0;
+                margin-bottom: 25px;
+                padding: 0 10px;
+            }
+
+            h1 {
+                font-size: 24px !important;
+                margin-top: 5px !important;
+                word-wrap: break-word;
+            }
+
+            .subtitle {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            /* Адаптивная сетка карточек для смартфонов */
+            .grid-container {
+                gap: 12px;
+                padding-bottom: 20px;
+            }
+
+            .card {
+                width: 155px;
+                height: 195px;
+                border-radius: 16px;
+            }
         }
     </style>
 </head>
@@ -124,8 +175,8 @@
     <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
 
     <header>
-        <h1 style="margin-top: 20px;">Principles of Economics</h1>
-        <p class="subtitle" style="margin-bottom: 10px;">
+        <h1>Principles of Economics</h1>
+        <p class="subtitle">
             Interactive Learning Hub | International Business Team 2026 <br>
             Almaty Management University 
         </p>
@@ -135,7 +186,7 @@
         <a href="topics.html" class="card" title="Course Topics">
             <img src="https://ogaydv-prog.github.io/principles-economics/pic-topics.png" alt="Course Topics">
         </a>
-        <!-- Интегрированная ссылка на ваш новый файл syllabus.html -->
+        <!-- Интегрированная ссылка на новый файл syllabus.html -->
         <a href="syllabus.html" class="card" title="Syllabus">
             <img src="https://ogaydv-prog.github.io/principles-economics/pic-sill.png" alt="Syllabus">
         </a>
@@ -167,7 +218,7 @@
 
     <footer>
         <p>Developed for International Business Team AlmaU 2026 | Course: Principles of Economics</p>
-        <p>© Almaty Management University | School of Economics & Digital Technologies</p>
+        <p>© Almaty Management University | School of Digital Technologies & Economics  </p>
     </footer>
 
 </body>
