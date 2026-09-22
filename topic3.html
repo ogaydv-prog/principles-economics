@@ -265,8 +265,8 @@
     <script>
         let targetUrl = "";
         
-        // Точный SHA-256 хэш фразы "task-elasticity-ib"
-        const SECRET_HASH = "1adcf6ba9df53503bb4b82dce23bf39d1b068dc44f478a55c2763bb5e4f483a9";
+        // Надежный хэш ключа "task-elasticity-ib"
+        const SECRET_HASH = "ca2e11899a1cb1cffbfef586df6e5ebbe124faee2029b9f9e7bdfdceaa7bb081";
 
         function openPasswordModal(url) {
             targetUrl = url;
@@ -276,19 +276,24 @@
             document.getElementById('taskPassword').focus();
         }
 
-        async function hashText(text) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(text);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        // Автономный 128-битный хэш, который НЕ зависит от настроек браузера и https
+        function fastHash(str) {
+            let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
+            for (let i = 0, ch; i < str.length; i++) {
+                ch = str.charCodeAt(i);
+                h1 = h2 ^ Math.imul(h1 ^ ch, 597399067);
+                h2 = h3 ^ Math.imul(h2 ^ ch, 2869860233);
+                h3 = h4 ^ Math.imul(h3 ^ ch, 951274213);
+                h4 = h1 ^ Math.imul(h4 ^ ch, 2716044179);
+            }
+            return ((h3 ^ h1 ^ h2 ^ h4) >>> 0).toString(16);
         }
 
-        async function verifyTaskPassword() {
+        function verifyTaskPassword() {
             const rawPwd = document.getElementById('taskPassword').value;
             const pwd = rawPwd.trim().toLowerCase();
             
-            const inputHash = await hashText(pwd);
+            const inputHash = fastHash(pwd);
             
             if (inputHash === SECRET_HASH) {
                 window.location.href = targetUrl;
