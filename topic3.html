@@ -73,7 +73,7 @@
             margin: 0 auto;
         }
 
-        /* Сетка для 5 карточек материалов */
+        /* Сетка для 6 карточек материалов */
         .grid-container {
             display: flex;
             flex-wrap: wrap;
@@ -85,7 +85,7 @@
             padding-bottom: 40px;
         }
 
-        /* ЕДИНАЯ РАМКА ДЛЯ КАРТОЧЕК (Строго размеры из Topic 2) */
+        /* ЕДИНАЯ РАМКА ДЛЯ КАРТОЧЕК */
         .card {
             display: inline-block;
             text-decoration: none;
@@ -95,7 +95,6 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            /* Одинаковые жесткие пропорции */
             width: 180px; 
             height: 270px; 
             position: relative;
@@ -104,13 +103,11 @@
         .card img {
             width: 100%;
             height: 100%;
-            /* fill гарантирует растягивание ровно по всей рамке карточки */
             object-fit: fill; 
             display: block;
             transition: transform 0.3s ease;
         }
 
-        /* Эффект при наведении (как в Topic 1 и 2) */
         .card:hover {
             transform: translateY(-8px) scale(1.03);
             border-color: #001e50;
@@ -160,12 +157,17 @@
             <img src="pic-sim-elastisity-bananas-pe.png" alt="Banana Elasticity Simulator">
         </a>
 
-        <!-- 4. Практический кейс / Задача -->
+        <!-- 4. Практический кейс / Задача (Кофе) -->
         <a href="task-elastisity-pe-ib.html" class="card" title="Elasticity Case Study Task">
             <img src="pic-task-coffee-pe.png" alt="Elasticity Case Task">
         </a>
 
-        <!-- 5. Видеолекция на YouTube -->
+        <!-- 5. Практический кейс 3 / Индивидуальный симулятор (С ПАРОЛЕМ) -->
+        <a href="sim-stud-food-pe-auto.html" class="card" title="Personalized Food Elasticity Simulator">
+            <img src="pic-task-3.png" alt="Personalized Elasticity Simulator">
+        </a>
+
+        <!-- 6. Видеолекция на YouTube -->
         <a href="https://www.youtube.com/watch?v=4Zn-ktxeiKk" target="_blank" class="card" title="Video Lecture: Elasticity">
             <img src="pic-video3-pe.png" alt="Video Lecture on Elasticity">
         </a>
