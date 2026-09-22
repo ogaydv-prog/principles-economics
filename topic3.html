@@ -264,9 +264,6 @@
 
     <script>
         let targetUrl = "";
-        
-        // Точный хэш пароля "task-elasticity-ib"
-        const SECRET_HASH = "d16ffae4";
 
         function openPasswordModal(url) {
             targetUrl = url;
@@ -276,25 +273,12 @@
             document.getElementById('taskPassword').focus();
         }
 
-        function fastHash(str) {
-            let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
-            for (let i = 0, ch; i < str.length; i++) {
-                ch = str.charCodeAt(i);
-                h1 = h2 ^ Math.imul(h1 ^ ch, 597399067);
-                h2 = h3 ^ Math.imul(h2 ^ ch, 2869860233);
-                h3 = h4 ^ Math.imul(h3 ^ ch, 951274213);
-                h4 = h1 ^ Math.imul(h4 ^ ch, 2716044179);
-            }
-            return ((h3 ^ h1 ^ h2 ^ h4) >>> 0).toString(16);
-        }
-
         function verifyTaskPassword() {
             const rawPwd = document.getElementById('taskPassword').value;
             const pwd = rawPwd.trim().toLowerCase();
             
-            const inputHash = fastHash(pwd);
-            
-            if (inputHash === SECRET_HASH) {
+            // Прямая проверка без промежуточных функций хэширования
+            if (pwd === "task-elasticity-ib") {
                 window.location.href = targetUrl;
             } else {
                 document.getElementById('pwdError').style.display = 'block';
