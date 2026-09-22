@@ -72,12 +72,12 @@
             margin: 0 auto;
         }
 
-        /* Расширенный контейнер для размещения всех 6 карточек в 1 ряд */
+        /* Все 6 карточек строго в один ряд */
         .grid-container {
             display: flex;
             flex-wrap: nowrap;
-            gap: 18px;
-            max-width: 1300px;
+            gap: 16px;
+            max-width: 1320px;
             width: 100%;
             justify-content: center;
             align-items: center;
@@ -114,7 +114,7 @@
             box-shadow: 0 16px 30px rgba(0, 30, 80, 0.18);
         }
 
-        /* Всплывающее окно запроса пароля */
+        /* Всплывающее окно пароля */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -122,7 +122,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 30, 80, 0.7);
+            background: rgba(0, 30, 80, 0.75);
             backdrop-filter: blur(5px);
             z-index: 1000;
             justify-content: center;
@@ -135,7 +135,7 @@
             padding: 30px;
             width: 360px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
             border: 2px solid #001e50;
         }
 
@@ -234,14 +234,14 @@
             <img src="pic-sim-elastisity-bananas-pe.png" alt="Banana Elasticity Simulator">
         </a>
 
-        <!-- 4. Практический кейс (Кофе) -->
-        <a href="task-elastisity-pe-ib.html" class="card" title="Elasticity Case Study Task">
-            <img src="pic-task-coffee-pe.png" alt="Elasticity Case Task">
+        <!-- 4. КАРТОЧКА КОФЕ -->
+        <a href="task-elastisity-pe-ib.html" class="card" title="Elasticity Case Task (Coffee)">
+            <img src="pic-task-coffee-pe.png" alt="Elasticity Case Task Coffee">
         </a>
 
-        <!-- 5. КАРТОЧКА ЗАДАНИЯ С ЗАПРОСОМ ПАРОЛЯ -->
-        <div class="card" onclick="openPasswordModal()" title="Personalized Food Elasticity Simulator">
-            <img src="pic-task-3.png" alt="Personalized Elasticity Simulator">
+        <!-- 5. ПЯТАЯ КАРТОЧКА: ВИТРУВИАНСКИЙ ЧЕЛОВЕК (TASK 3) - С ПАРОЛЕМ -->
+        <div class="card" onclick="openPasswordModal('sim-stud-food-pe-auto.html')" title="Task 3: Vitruvian Man (Protected)">
+            <img src="pic-task-3.png" alt="Task 3 Vitruvian Man">
         </div>
 
         <!-- 6. Видеолекция -->
@@ -254,7 +254,7 @@
     <div id="pwdModal" class="modal-overlay">
         <div class="modal-box">
             <h3>🔒 Restricted Access Task</h3>
-            <p>Enter the access key provided by the instructor to open this task:</p>
+            <p>Enter the access key provided by the instructor to open Task 3:</p>
             <input type="password" id="taskPassword" placeholder="Enter Access Password">
             <button class="modal-btn" onclick="verifyTaskPassword()">Unlock Assignment</button>
             <div id="pwdError" class="error-text">Incorrect Password. Access Denied!</div>
@@ -267,7 +267,10 @@
     </footer>
 
     <script>
-        function openPasswordModal() {
+        let targetUrl = "";
+
+        function openPasswordModal(url) {
+            targetUrl = url;
             document.getElementById('pwdModal').style.display = 'flex';
             document.getElementById('taskPassword').value = '';
             document.getElementById('pwdError').style.display = 'none';
@@ -277,18 +280,16 @@
         function verifyTaskPassword() {
             const pwd = document.getElementById('taskPassword').value.trim();
             if (pwd === "TASK 3 ELASTICITY-IB") {
-                window.location.href = "sim-stud-food-pe-auto.html";
+                window.location.href = targetUrl;
             } else {
                 document.getElementById('pwdError').style.display = 'block';
             }
         }
 
-        // Поддержка нажатия Enter
         document.getElementById('taskPassword').addEventListener('keyup', function(e) {
             if (e.key === 'Enter') verifyTaskPassword();
         });
 
-        // Закрытие модалки при клике вне окна
         window.onclick = function(event) {
             const modal = document.getElementById('pwdModal');
             if (event.target === modal) {
