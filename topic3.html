@@ -32,7 +32,6 @@
             object-fit: contain;
         }
 
-        /* Кнопка "Назад" к списку тем */
         .back-button {
             position: absolute;
             top: 35px;
@@ -73,19 +72,18 @@
             margin: 0 auto;
         }
 
-        /* Сетка для 6 карточек материалов */
+        /* Расширенный контейнер для размещения всех 6 карточек в 1 ряд */
         .grid-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            max-width: 1200px;
+            flex-wrap: nowrap;
+            gap: 18px;
+            max-width: 1300px;
             width: 100%;
             justify-content: center;
             align-items: center;
             padding-bottom: 40px;
         }
 
-        /* ЕДИНАЯ РАМКА ДЛЯ КАРТОЧЕК */
         .card {
             display: inline-block;
             text-decoration: none;
@@ -98,6 +96,8 @@
             width: 180px; 
             height: 270px; 
             position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
         .card img {
@@ -112,6 +112,83 @@
             transform: translateY(-8px) scale(1.03);
             border-color: #001e50;
             box-shadow: 0 16px 30px rgba(0, 30, 80, 0.18);
+        }
+
+        /* Всплывающее окно запроса пароля */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 30, 80, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            width: 360px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 2px solid #001e50;
+        }
+
+        .modal-box h3 {
+            color: #001e50;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
+            outline: none;
+            font-weight: bold;
+        }
+
+        .modal-box input:focus {
+            border-color: #001e50;
+        }
+
+        .modal-btn {
+            background: #001e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .modal-btn:hover {
+            background: #003380;
+        }
+
+        .error-text {
+            color: #e53e3e;
+            font-size: 12px;
+            margin-top: 10px;
+            display: none;
+            font-weight: bold;
         }
 
         footer {
@@ -141,13 +218,13 @@
     </header>
 
     <main class="grid-container">
-        <!-- 1. Презентация (Piktochart) -->
+        <!-- 1. Презентация -->
         <a href="https://create.piktochart.com/output/5e85aaf8ac5c-elastisity" 
            target="_blank" class="card" title="Presentation: Elasticity">
             <img src="pic-preza3-pe.png" alt="Elasticity Presentation">
         </a>
 
-        <!-- 2. Симулятор эластичности (Спорт / Абонементы) -->
+        <!-- 2. Симулятор эластичности (Спорт) -->
         <a href="sim-elastisity-sport.html" class="card" title="Sports Membership Elasticity Simulator">
             <img src="pic-sim-elastisity-sport-pe.png" alt="Sports Elasticity Simulator">
         </a>
@@ -157,26 +234,68 @@
             <img src="pic-sim-elastisity-bananas-pe.png" alt="Banana Elasticity Simulator">
         </a>
 
-        <!-- 4. Практический кейс / Задача (Кофе) -->
+        <!-- 4. Практический кейс (Кофе) -->
         <a href="task-elastisity-pe-ib.html" class="card" title="Elasticity Case Study Task">
             <img src="pic-task-coffee-pe.png" alt="Elasticity Case Task">
         </a>
 
-        <!-- 5. Практический кейс 3 / Индивидуальный симулятор (С ПАРОЛЕМ) -->
-        <a href="sim-stud-food-pe-auto.html" class="card" title="Personalized Food Elasticity Simulator">
+        <!-- 5. КАРТОЧКА ЗАДАНИЯ С ЗАПРОСОМ ПАРОЛЯ -->
+        <div class="card" onclick="openPasswordModal()" title="Personalized Food Elasticity Simulator">
             <img src="pic-task-3.png" alt="Personalized Elasticity Simulator">
-        </a>
+        </div>
 
-        <!-- 6. Видеолекция на YouTube -->
+        <!-- 6. Видеолекция -->
         <a href="https://www.youtube.com/watch?v=4Zn-ktxeiKk" target="_blank" class="card" title="Video Lecture: Elasticity">
             <img src="pic-video3-pe.png" alt="Video Lecture on Elasticity">
         </a>
     </main>
 
+    <!-- МОДАЛЬНОЕ ОКНО ПАРОЛЯ -->
+    <div id="pwdModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>🔒 Restricted Access Task</h3>
+            <p>Enter the access key provided by the instructor to open this task:</p>
+            <input type="password" id="taskPassword" placeholder="Enter Access Password">
+            <button class="modal-btn" onclick="verifyTaskPassword()">Unlock Assignment</button>
+            <div id="pwdError" class="error-text">Incorrect Password. Access Denied!</div>
+        </div>
+    </div>
+
     <footer>
         <p>Developed for International Business Team AlmaU 2026 | Course: Principles of Economics</p>
         <p>© Almaty Management University | School of Digital Technologies & Economics</p>
     </footer>
+
+    <script>
+        function openPasswordModal() {
+            document.getElementById('pwdModal').style.display = 'flex';
+            document.getElementById('taskPassword').value = '';
+            document.getElementById('pwdError').style.display = 'none';
+            document.getElementById('taskPassword').focus();
+        }
+
+        function verifyTaskPassword() {
+            const pwd = document.getElementById('taskPassword').value.trim();
+            if (pwd === "TASK 3 ELASTICITY-IB") {
+                window.location.href = "sim-stud-food-pe-auto.html";
+            } else {
+                document.getElementById('pwdError').style.display = 'block';
+            }
+        }
+
+        // Поддержка нажатия Enter
+        document.getElementById('taskPassword').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') verifyTaskPassword();
+        });
+
+        // Закрытие модалки при клике вне окна
+        window.onclick = function(event) {
+            const modal = document.getElementById('pwdModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
