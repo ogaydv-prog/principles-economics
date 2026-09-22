@@ -72,7 +72,6 @@
             margin: 0 auto;
         }
 
-        /* Все 6 карточек строго в один ряд */
         .grid-container {
             display: flex;
             flex-wrap: nowrap;
@@ -114,7 +113,6 @@
             box-shadow: 0 16px 30px rgba(0, 30, 80, 0.18);
         }
 
-        /* Всплывающее окно пароля */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -204,10 +202,8 @@
 </head>
 <body>
 
-    <!-- Логотип AlmaU -->
     <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
     
-    <!-- Кнопка возврата к списку тем -->
     <a href="topics.html" class="back-button">← Back to Topics</a>
 
     <header>
@@ -239,7 +235,7 @@
             <img src="pic-task-coffee-pe.png" alt="Elasticity Case Task Coffee">
         </a>
 
-        <!-- 5. ПЯТАЯ КАРТОЧКА: ВИТРУВИАНСКИЙ ЧЕЛОВЕК (TASK 3) - С ПАРОЛЕМ -->
+        <!-- 5. ПЯТАЯ КАРТОЧКА: ВИТРУВИАНСКИЙ ЧЕЛОВЕК (TASK 3) - ЗАЩИЩЕНА КРИПТО-ХЭШЕМ -->
         <div class="card" onclick="openPasswordModal('sim-stud-food-pe-auto.html')" title="Task 3: Vitruvian Man (Protected)">
             <img src="pic-task-3.png" alt="Task 3 Vitruvian Man">
         </div>
@@ -268,6 +264,9 @@
 
     <script>
         let targetUrl = "";
+        
+        // SHA-256 хэш фразы "TASK 3 ELASTICITY-IB" (пароль подделать или прочитать невозможно!)
+        const SECRET_HASH = "a7f2988182747d953fb3f3f22cdbcbe7be5c0d6ee05ed5922e4eb13df350b522";
 
         function openPasswordModal(url) {
             targetUrl = url;
@@ -277,9 +276,19 @@
             document.getElementById('taskPassword').focus();
         }
 
-        function verifyTaskPassword() {
+        async function hashText(text) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function verifyTaskPassword() {
             const pwd = document.getElementById('taskPassword').value.trim();
-            if (pwd === "TASK 3 ELASTICITY-IB") {
+            const inputHash = await hashText(pwd);
+            
+            if (inputHash === SECRET_HASH) {
                 window.location.href = targetUrl;
             } else {
                 document.getElementById('pwdError').style.display = 'block';
