@@ -265,8 +265,8 @@
     <script>
         let targetUrl = "";
         
-        // Надежный хэш ключа "task-elasticity-ib"
-        const SECRET_HASH = "ca2e11899a1cb1cffbfef586df6e5ebbe124faee2029b9f9e7bdfdceaa7bb081";
+        // Точный хэш пароля "task-elasticity-ib"
+        const SECRET_HASH = "d16ffae4";
 
         function openPasswordModal(url) {
             targetUrl = url;
@@ -276,7 +276,6 @@
             document.getElementById('taskPassword').focus();
         }
 
-        // Автономный 128-битный хэш, который НЕ зависит от настроек браузера и https
         function fastHash(str) {
             let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
             for (let i = 0, ch; i < str.length; i++) {
