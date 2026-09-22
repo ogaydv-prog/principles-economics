@@ -235,7 +235,7 @@
             <img src="pic-task-coffee-pe.png" alt="Elasticity Case Task Coffee">
         </a>
 
-        <!-- 5. ПЯТАЯ КАРТОЧКА: ВИТРУВИАНСКИЙ ЧЕЛОВЕК (TASK 3) - С ЗАЩИТОЙ -->
+        <!-- 5. ПЯТАЯ КАРТОЧКА: ВИТРУВИАНСКИЙ ЧЕЛОВЕК (TASK 3) - ЗАЩИЩЕНА ПАРОЛЕМ -->
         <div class="card" onclick="openPasswordModal('sim-stud-food-pe-auto.html')" title="Task 3: Vitruvian Man (Protected)">
             <img src="pic-task-3.png" alt="Task 3 Vitruvian Man">
         </div>
@@ -251,7 +251,7 @@
         <div class="modal-box">
             <h3>🔒 Restricted Access Task</h3>
             <p>Enter the access key provided by the instructor to open Task 3:</p>
-            <input type="password" id="taskPassword" placeholder="Enter Password (e.g. TASK3IB)">
+            <input type="password" id="taskPassword" placeholder="Enter Access Key">
             <button class="modal-btn" onclick="verifyTaskPassword()">Unlock Assignment</button>
             <div id="pwdError" class="error-text">Incorrect Password. Access Denied!</div>
         </div>
@@ -265,8 +265,8 @@
     <script>
         let targetUrl = "";
         
-        // Точный SHA-256 хэш слова "TASK3IB"
-        const SECRET_HASH = "ca292e0df4ef97b5d848792e3a1f94c965b2fa01fafe8b8989a4ff5ff37be38e";
+        // SHA-256 хэш фразы "task-elasticity-ib"
+        const SECRET_HASH = "ca2e11899a1cb1cffbfef586df6e5ebbe124faee2029b9f9e7bdfdceaa7bb081";
 
         function openPasswordModal(url) {
             targetUrl = url;
@@ -285,9 +285,8 @@
         }
 
         async function verifyTaskPassword() {
-            // Очищаем ввод от случайно введенных пробелов и переводим в капс
             const rawPwd = document.getElementById('taskPassword').value;
-            const pwd = rawPwd.replace(/\s+/g, '').toUpperCase();
+            const pwd = rawPwd.trim().toLowerCase();
             
             const inputHash = await hashText(pwd);
             
