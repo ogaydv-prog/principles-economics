@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Экономика | Симулятор эластичности AlmaU</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0b0f13;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.05) 0px, transparent 50%);
+    user-select: none;
+  }
+
+  input[type="number"], textarea, input[type="text"], input[type="password"], select {
+    background-color: #151b22;
+    border: 1px solid #30363d;
+    color: #f0f6fc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    outline: none;
+    transition: all 0.2s;
+  }
+  input[type="number"]:focus, textarea:focus, input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  }
+
+  input[type="range"].vintage-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: #151b22;
+    height: 12px;
+    border-radius: 4px;
+    border: 1px solid #30363d;
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  input[type="range"].vintage-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 32px;
+    background: linear-gradient(to right, #8a95a5 0%, #cfd8dc 30%, #b0bec5 45%, #ef4444 48%, #ef4444 52%, #b0bec5 55%, #cfd8dc 70%, #8a95a5 100%);
+    border: 1.5px solid #0b0f13;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s ease-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .tab-btn { border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab-btn.active { border-bottom: 2px solid #10b981; color: #10b981; font-weight: 700; }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.6); }
+  }
+  .reveal-card { animation: pulseGlow 2s infinite ease-in-out; }
+</style>
+</head>
+<body class="text-slate-100 min-h-screen p-3 md:p-6 flex flex-col items-center justify-start overflow-x-hidden">
+
+<div class="w-full max-w-7xl bg-[#111518]/95 border border-emerald-500/10 shadow-[0_0_50px_rgba(16,185,129,0.05)] rounded-2xl p-4 md:p-6 backdrop-blur-md">
+  
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-5 mb-5 gap-4">
+    <div>
+      <span class="text-[10px] font-bold tracking-[0.25em] text-emerald-400 uppercase">Экономика | Микроэкономика | Практический модуль</span>
+      <h1 class="text-xl md:text-2xl font-black text-white tracking-tight mt-1">Симулятор рыночного равновесия и эластичности</h1>
+      <p class="text-slate-400 text-xs mt-0.5">Персональное исследование ценовой эластичности спроса на общественное питание</p>
+    </div>
+    
+    <!-- Navigation & Language -->
+    <div class="flex items-center gap-3">
+      <button onclick="toggleLanguage()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded-lg text-xs font-bold border border-slate-700 transition flex items-center gap-1">
+        🌐 <span>RU / EN</span>
+      </button>
+      <div class="flex items-center gap-1 bg-[#151b22] p-1.5 rounded-xl border border-slate-800">
+        <button onclick="switchTab('tab-intro')" id="btn-tab-intro" class="tab-btn active px-3 py-1.5 text-xs font-bold rounded-lg text-slate-300">🗺️ Выбор студента</button>
+        <button onclick="switchTab('tab-lab')" id="btn-tab-lab" class="tab-btn px-3 py-1.5 text-xs font-bold rounded-lg text-slate-400">🧪 Лаборатория</button>
+        <button onclick="switchTab('tab-teacher')" id="btn-tab-teacher" class="tab-btn px-3 py-1.5 text-xs font-bold rounded-lg text-slate-400 hover:text-rose-400 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          Преподаватель
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 0: INTRO / STUDENT SELECTION -->
+  <div id="tab-intro" class="tab-content active space-y-6">
+    <div class="bg-[#14181c] border border-slate-800 rounded-xl p-5">
+      <h2 class="text-sm font-black text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+        <span>🎓</span> Распределение индивидуальных исследовательских моделей
+      </h2>
+      <p class="text-xs text-slate-300 leading-relaxed mb-5">
+        Каждому студенту группы закреплен уникальный продуктовый кейс с зафиксированными рыночными границами цен. Выберите своё имя, чтобы открыть свой вариант и приступить к расчету!
+      </p>
+
+      <div class="bg-[#1a212a] p-5 rounded-xl border border-emerald-500/30 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-emerald-400 uppercase mb-2">Шаг 1. Найдите свое имя в списке группы:</label>
+          <select id="student-select" onchange="onStudentSelect()" class="text-xs font-bold bg-[#151b22] text-white py-2.5 px-3 rounded-lg border border-slate-700 w-full md:w-1/2">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <div id="mystery-box" class="pt-2">
+          <div class="bg-black/40 border border-dashed border-amber-500/40 rounded-xl p-5 text-center space-y-3">
+            <div class="text-3xl">🎁</div>
+            <p class="text-xs text-slate-300 font-medium">Ваше исследовательское блюдо и рыночные параметры зашифрованы!</p>
+            <button onclick="revealFood()" class="px-6 py-3 bg-gradient-to-r from-amber-500 to-emerald-600 hover:from-amber-400 hover:to-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all transform hover:scale-105">
+              ✨ Открыть мой исследовательский кейс
+            </button>
+          </div>
+        </div>
+
+        <div id="revealed-box" class="hidden pt-2">
+          <div class="bg-gradient-to-r from-amber-950/40 to-slate-900 border-2 border-amber-500/60 rounded-xl p-5 shadow-2xl reveal-card flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="space-y-1">
+              <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest block">Ваш вариант успешно распределен:</span>
+              <h3 id="res-dish-title" class="text-lg font-black text-white">-</h3>
+              <p id="res-dish-desc" class="text-xs text-slate-300 italic pt-1 max-w-xl">-</p>
+              <div class="pt-2 text-xs font-mono text-slate-400">
+                Фиксированная базовая цена: <span id="res-dish-price" class="font-bold text-amber-300">-</span>
+              </div>
+            </div>
+            <div class="flex flex-col gap-2 shrink-0 w-full md:w-auto">
+              <button onclick="loadAssignedToSimulator()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+                <span>🚀</span> Загрузить вариант в лабораторию
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 1: LABORATORY (STUDENTS) -->
+  <div id="tab-lab" class="tab-content">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT PANEL -->
+      <div class="lg:col-span-4 flex flex-col gap-4">
+        
+        <div class="bg-[#14181c] border border-slate-800 rounded-xl p-4 shadow-inner space-y-3">
+          <h3 class="text-xs font-black text-indigo-400 tracking-wider uppercase flex items-center gap-2">
+            <span class="w-2 h-2 bg-indigo-500 rounded-full"></span> Профиль исследования
+          </h3>
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">Продукт и Студент</label>
+            <input type="text" id="inp-product" readonly value="Выберите имя на вкладке 'Выбор студента'" class="w-full text-xs font-bold text-amber-300 bg-black/40">
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">Описание кейса</label>
+            <textarea id="inp-desc" rows="2" readonly class="w-full text-xs resize-none bg-black/40 text-slate-400">Параметры загрузятся автоматически.</textarea>
+          </div>
+        </div>
+
+        <div class="bg-[#14181c] border border-slate-800 rounded-xl p-4 shadow-inner">
+          <h3 class="text-xs font-black text-emerald-400 tracking-wider uppercase mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> Шаг 1. Точка равновесия E₀
+          </h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] text-slate-400">Базовая цена P₀ (₸) <span class="text-rose-400">*Lock</span></label>
+              <input type="number" id="inp-p0" readonly class="text-xs font-bold text-amber-400 bg-black/50">
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] text-slate-400">Объем продаж Q₀ (мес.)</label>
+              <input type="number" id="inp-q0" value="800" min="100" max="10000" class="text-xs font-bold text-emerald-300">
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#14181c] border border-slate-800 rounded-xl p-4 shadow-inner">
+          <h3 class="text-xs font-black text-sky-400 tracking-wider uppercase mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 bg-sky-400 rounded-full"></span> Шаг 2. Границы рынка
+          </h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] text-slate-400">Заградит. цена P_max (₸) <span class="text-rose-400">*Lock</span></label>
+              <input type="number" id="inp-pmax" readonly class="text-xs font-bold text-amber-400 bg-black/50">
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] text-slate-400">Мин. цена P_min (₸)</label>
+              <input type="number" id="inp-pmin" value="500" min="0" max="5000" class="text-xs font-bold text-sky-300">
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#14181c] border border-emerald-500/20 rounded-xl p-4 shadow-inner">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-xs font-black text-amber-400 tracking-wider uppercase">Шаг 3. Симуляция цены</h3>
+            <span id="price-badge" class="text-sm font-black text-emerald-400">0 ₸</span>
+          </div>
+          
+          <div class="py-2">
+            <input type="range" id="price-slider" min="0" max="7000" value="2500" class="w-full vintage-slider">
+          </div>
+          
+          <div class="grid grid-cols-2 gap-2 mt-2 text-[11px] text-slate-400">
+            <div class="bg-black/30 p-2 rounded-lg border border-slate-800">
+              <span class="block text-slate-500 uppercase text-[9px]">Мес. спрос (Qd)</span>
+              <span id="stat-q" class="text-white font-bold text-xs">0 порций</span>
+            </div>
+            <div class="bg-black/30 p-2 rounded-lg border border-slate-800">
+              <span class="block text-slate-500 uppercase text-[9px]">Выручка (TR)</span>
+              <span id="stat-tr" class="text-amber-400 font-bold text-xs font-mono">0 ₸</span>
+            </div>
+          </div>
+
+          <button id="toggleArea" class="w-full mt-3 py-1.5 px-3 bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all">
+            Скрыть площадь выручки
+          </button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="lg:col-span-8 flex flex-col gap-4">
+
+        <div class="bg-[#14181c] border border-slate-800 shadow-xl rounded-xl p-4 relative overflow-hidden">
+          <div class="flex flex-wrap gap-4 text-[11px] font-extrabold mb-2">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-full inline-block"></span><span class="text-slate-300">Кривая спроса (Demand)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-rose-500 rounded-full inline-block"></span><span class="text-slate-300">Предложение (Supply)</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 border-2 border-amber-400 rounded-full bg-[#14181c] inline-block"></span><span class="text-slate-300">Равновесие E₀</span></div>
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-indigo-400 rounded-full inline-block"></span><span class="text-slate-300">Пик выручки (TR)</span></div>
+          </div>
+          
+          <div class="w-full">
+            <canvas id="trackerCanvas" class="w-full h-auto block cursor-crosshair"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-[#14181c] border border-slate-800 rounded-xl p-4 shadow-inner space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xs font-black text-sky-400 tracking-wider uppercase flex items-center gap-2">
+              <span class="w-2 h-2 bg-sky-400 rounded-full"></span> Шаг 4. Управленческий вывод студента
+            </h3>
+            <span id="word-counter" class="text-[10px] font-mono text-amber-400">Слов: 0 / мин. 30</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            Проведите симуляцию цен. Как изменение месячного объема Q₀ меняет эластичность спроса? Рассчитайте, при какой цене заведение получит максимальную выручку и обоснованно опишите причину (от 30 до 50 слов).
+          </p>
+          <textarea id="inp-decision" rows="3" oninput="validateText()" placeholder="Введите ваш микроэкономический вывод (не менее 30 слов)..." class="w-full text-xs resize-none"></textarea>
+          
+          <div class="flex flex-col sm:flex-row items-center gap-3 pt-1">
+            <button id="btn-lock-token" disabled onclick="sendWorkToServer()" class="w-full sm:w-auto px-6 py-2.5 bg-slate-700 text-slate-400 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-not-allowed flex items-center gap-2">
+              <span id="btn-loader" class="hidden w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              Зафиксировать и отправить работу в ведомость
+            </button>
+            <div id="token-box" class="hidden flex-1 w-full bg-emerald-950/60 border border-emerald-500/30 p-2 rounded-lg text-emerald-300 text-xs text-center font-bold">
+              ✅ Работа успешно отправлена в ведомость преподавателя!
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 2: INSTRUCTOR PANEL -->
+  <div id="tab-teacher" class="tab-content">
+    <div id="teacher-login" class="max-w-sm mx-auto bg-[#14181c] p-6 rounded-xl border border-slate-800 text-center mt-12 shadow-2xl">
+      <h3 class="text-white font-bold mb-4">Панель управления преподавателя</h3>
+      <input type="password" id="inp-pin" placeholder="Введите PIN код" class="w-full text-center font-mono text-lg mb-4 tracking-widest">
+      <button onclick="unlockTeacherPanel()" class="w-full py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg text-xs uppercase tracking-wider">Войти в панель</button>
+    </div>
+    <div id="teacher-dashboard" class="hidden text-center py-12 text-slate-300 text-sm font-mono">
+      ✅ Ведомость подключена! Все результаты в режиме реального времени записываются в вашу Google Таблицу.
+    </div>
+  </div>
+
+  <div class="text-center text-[10px] text-slate-600 border-t border-slate-800/60 mt-6 pt-3">
+    Экономика | Микроэкономика | Интерактивный практический модуль © AlmaU 2026
+  </div>
+
+</div>
+
+<script>
+  // ВСТАВЬТЕ СЮДА ВАШ URL СКОПИРОВАННЫЙ ИЗ GOOGLE APPS SCRIPT
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2L0fA7tRNpL5b8vgbNnUAV6H9MpKYeVEndSYU_ABxpadd8SiKmMHOLeBlJwIhWMfWwA/exec";
+  let currentLang = 'ru';
+
+  const studentData = [
+    { id: 1, student: "Адильхан Надия Берікқызы", dish: "Японский Тонкоцу Рамен", p0: 3200, pmax: 6500, desc: "Питательный бульон с лапшой нудл." },
+    { id: 2, student: "Кожахметова Малика Азаматовна", dish: "Итальянская Паста Неаполитана", p0: 2000, pmax: 4200, desc: "Классическая паста с томатным соусом, базиликом и пармезаном." },
+    { id: 3, student: "Бахытов Алимжан Бахыткалиулы", dish: "Американский Смаш-Бургер", p0: 2400, pmax: 5000, desc: "Сочный двойной бургер с сыром чеддер и фри." },
+    { id: 4, student: "Берикбаланова Адина Сериковна", dish: "Вьетнамский Суп Фо Бо", p0: 2600, pmax: 5200, desc: "Насыщенный говяжий бульон с рисовой лапшой." },
+    { id: 5, student: "Сулейменова Айдана Нурлановна", dish: "Турецкий Искандер Кебаб", p0: 3000, pmax: 6000, desc: "Нежная говядина на лепешке с томатным соусом." },
+    { id: 6, student: "Югай Ксения Альбертовна", dish: "Корейский Корн-дог & Токпокки", p0: 1800, pmax: 3800, desc: "Хрустящий корн-дог и острые рисовые клецки." },
+    { id: 7, student: "Шабанов Анварбек", dish: "Мексиканский Бирриа Тако", p0: 2200, pmax: 4500, desc: "Тако с томленой говядиной и насыщенным бульонами." },
+    { id: 8, student: "Сериккалиева Еңлік Думанқызы", dish: "Французский Крок-Мадам", p0: 2500, pmax: 5000, desc: "Запеченный сэндвич с ветчиной, сыром и яйцом пашот." },
+    { id: 9, student: "Джумағұл Әмірлан Мағауияұлы", dish: "Греческая Гирос-Пита", p0: 2100, pmax: 4400, desc: "Сочная пита с мясом, овощами и соусом цацики." },
+    { id: 10, student: "Кабдрахманова Ажар Ниязовна", dish: "Тайский Пад Тай с креветками", p0: 3100, pmax: 6200, desc: "Обжаренная лапша с тигровыми креветками и арахисом." },
+    { id: 11, student: "Абдихай Салтанат Жалғасқызы", dish: "Испанские Чуррос с шоколадом", p0: 1900, pmax: 3900, desc: "Хрустящие горячие чуррос с горячим густым шоколадом." },
+    { id: 12, student: "Толстова Эвелина Евгеньевна", dish: "Английский Fish & Chips", p0: 2700, pmax: 5400, desc: "Филе трески в хрустящем кляре с картофелем." },
+    { id: 13, student: "Оспан Жанеля", dish: "Гонконгские Вафли с мороженым", p0: 2300, pmax: 4600, desc: "Бельгийские вафли с топпингами и ягодами." },
+    { id: 14, student: "Жұмажан Осман Дарменұлы", dish: "Балканская Плескавица", p0: 2400, pmax: 4800, desc: "Сочная говяжья котлета в пышной лепешке соусом каймак." },
+    { id: 15, student: "Көшкінбай Айару Арманқызы", dish: "Гавайский Поке с лососем", p0: 3200, pmax: 6400, desc: "Свежий боул с диким лососем, авокадо и рисом." },
+    { id: 16, student: "Степанченко Савелий Дмитриевич", dish: "Немецкий Currywurst", p0: 2200, pmax: 4500, desc: "Обжаренная сосиска под пикантным соусом карри." },
+    { id: 17, student: "Замотина Дарья Астемировна", dish: "Австралийский Мясной Пирог", p0: 2000, pmax: 4200, desc: "Закрытый пирог с сочной рубленой говядиной." },
+    { id: 18, student: "Хусаинова Адия Галимовна", dish: "Ливанский Фалафель в пите", p0: 1800, pmax: 3800, desc: "Шарики из нута с хумусом и свежими овощами." },
+    { id: 19, student: "Ким Есфирь Севастьяновна", dish: "Индийская Самоса с чаем Масала", p0: 1500, pmax: 3200, desc: "Хрустящий пирожок со специями и традиционным чаем." },
+    { id: 20, student: "Нугыманова София Руслановна", dish: "Узбекский Плов в казане", p0: 2200, pmax: 4500, desc: "Традиционный праздничный плов с бараниной." }
+  ];
+
+  function renderStudents() {
+    const select = document.getElementById('student-select');
+    select.innerHTML = '<option value="">-- Выберите свое имя из списка --</option>';
+
+    studentData.forEach((item) => {
+      const opt = document.createElement('option');
+      opt.value = item.id;
+      opt.innerText = `${item.id}. ${item.student}`;
+      select.appendChild(opt);
+    });
+  }
+
+  function onStudentSelect() {
+    document.getElementById('mystery-box').classList.remove('hidden');
+    document.getElementById('revealed-box').classList.add('hidden');
+  }
+
+  function revealFood() {
+    const idVal = document.getElementById('student-select').value;
+    if (!idVal) {
+      alert("Пожалуйста, сначала выберите свое имя из списка!");
+      return;
+    }
+    const id = parseInt(idVal);
+    const item = studentData.find(x => x.id === id);
+    if (!item) return;
+
+    document.getElementById('res-dish-title').innerText = `${item.dish} — ${item.student}`;
+    document.getElementById('res-dish-desc').innerText = item.desc;
+    document.getElementById('res-dish-price').innerText = `${formatValue(item.p0)}`;
+
+    document.getElementById('mystery-box').classList.add('hidden');
+    document.getElementById('revealed-box').classList.remove('hidden');
+  }
+
+  function loadAssignedToSimulator() {
+    const idVal = document.getElementById('student-select').value;
+    if (!idVal) return;
+    const id = parseInt(idVal);
+    const item = studentData.find(x => x.id === id);
+    if (!item) return;
+
+    document.getElementById('inp-product').value = `${item.dish} (${item.student})`;
+    document.getElementById('inp-desc').value = item.desc;
+    inpP0.value = item.p0;
+    inpPmax.value = item.pmax;
+    priceSlider.value = item.p0;
+
+    switchTab('tab-lab');
+    update();
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    
+    if (tabId === 'tab-intro') {
+      document.getElementById('btn-tab-intro').classList.add('active');
+    } else if (tabId === 'tab-lab') {
+      document.getElementById('btn-tab-lab').classList.add('active');
+      resizeCanvas();
+    } else {
+      document.getElementById('btn-tab-teacher').classList.add('active');
+    }
+  }
+
+  const inpP0 = document.getElementById('inp-p0');
+  const inpQ0 = document.getElementById('inp-q0');
+  const inpPmax = document.getElementById('inp-pmax');
+  const inpPmin = document.getElementById('inp-pmin');
+
+  const priceSlider = document.getElementById('price-slider');
+  const priceBadge = document.getElementById('price-badge');
+  const toggleAreaBtn = document.getElementById('toggleArea');
+
+  const statQ = document.getElementById('stat-q');
+  const statTr = document.getElementById('stat-tr');
+
+  const canvas = document.getElementById('trackerCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  const pad = { top: 25, right: 35, bottom: 40, left: 95 };
+  let showArea = true;
+  let isDraggingPrice = false;
+
+  function formatValue(val, suffix = ' ₸') {
+    return new Intl.NumberFormat('en-US').format(Math.round(val)) + suffix;
+  }
+
+  function calculateModel() {
+    const P0 = parseFloat(inpP0.value) || 0;
+    const Q0 = parseFloat(inpQ0.value) || 0;
+    const Pmax = parseFloat(inpPmax.value) || 0;
+    const Pmin = parseFloat(inpPmin.value) || 0;
+
+    if (Pmax <= P0 || Pmin >= P0 || P0 <= 0 || Q0 <= 0 || Pmax <= 0 || Pmin < 0) {
+      return { error: "Check conditions: P_max > P_0 > P_min >= 0" };
+    }
+
+    const b = Q0 / (Pmax - P0);
+    const a = Q0 + b * P0;
+
+    const d = Q0 / (P0 - Pmin);
+    const c = Q0 - d * P0;
+
+    const P_opt = a / (2 * b);
+    const Q_opt = a - b * P_opt;
+    const TR_max = P_opt * Q_opt;
+
+    return { a, b, c, d, P_opt, Q_opt, TR_max, P0, Q0, Pmax, Pmin };
+  }
+
+  function resizeCanvas() {
+    const container = canvas.parentElement;
+    canvas.width = container.clientWidth;
+    canvas.height = Math.max(280, container.clientWidth * 0.42);
+    update();
+  }
+
+  function getPriceFromY(mouseY, maxValP, gH) {
+    let relativeY = (mouseY - pad.top) / gH;
+    let price = (1 - relativeY) * maxValP;
+    return Math.max(0, Math.round(price));
+  }
+
+  function drawLabel(baseText, subText, valueText, x, y, color = '#94a3b8', font = '10px Inter', subFont = '8px Inter') {
+    ctx.fillStyle = color;
+    ctx.font = font;
+    ctx.fillText(baseText, x, y);
+    let currentX = x + ctx.measureText(baseText).width;
+    if (subText) {
+      ctx.font = subFont;
+      ctx.fillText(subText, currentX, y + 3);
+      currentX += ctx.measureText(subText).width;
+    }
+    if (valueText) {
+      ctx.font = font;
+      ctx.fillText(valueText, currentX, y);
+    }
+  }
+
+  function update() {
+    const model = calculateModel();
+
+    if (model.error) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    priceSlider.max = Math.round(model.Pmax * 1.15);
+    const P = Math.min(parseFloat(priceSlider.value), model.Pmax * 1.15);
+    priceBadge.innerText = formatValue(P);
+
+    const Qd = Math.max(0, model.a - model.b * P);
+    const Qs = Math.max(0, model.c + model.d * P);
+    const TR = P * Qd;
+    const Ed = Qd > 0 ? -(model.b * (P / Qd)) : -Infinity;
+
+    statQ.innerText = Math.round(Qd) + ' порций';
+    statTr.innerText = formatValue(TR);
+
+    drawGraphics(P, Qd, Qs, TR, Ed, model);
+  }
+
+  function drawGraphics(P, Qd, Qs, TR, Ed, model) {
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const gW = w - pad.left - pad.right;
+    const gH = h - pad.top - pad.bottom;
+
+    const maxValQ = Math.max(model.a, model.Q0 * 2) * 1.05;
+    const maxValP = Math.max(model.Pmax, model.P_opt * 2) * 1.15;
+
+    const getX = (q) => pad.left + (q / maxValQ) * gW;
+    const getY = (p) => pad.top + (1 - p / maxValP) * gH;
+
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 0.5;
+    for (let i = 1; i <= 5; i++) {
+      let q_grid = (maxValQ / 5) * i;
+      ctx.beginPath(); ctx.moveTo(getX(q_grid), pad.top); ctx.lineTo(getX(q_grid), h - pad.bottom); ctx.stroke();
+      let p_grid = (maxValP / 5) * i;
+      ctx.beginPath(); ctx.moveTo(pad.left, getY(p_grid)); ctx.lineTo(w - pad.right, getY(p_grid)); ctx.stroke();
+    }
+
+    ctx.strokeStyle = '#475569';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, pad.top - 10); ctx.lineTo(pad.left, h - pad.bottom); ctx.lineTo(w - pad.right + 10, h - pad.bottom);
+    ctx.stroke();
+
+    if (showArea && Qd > 0) {
+      let fillCol = 'rgba(16, 185, 129, 0.12)';
+      if (Math.abs(Ed) > 1.05) fillCol = 'rgba(56, 189, 248, 0.12)';
+      if (Math.abs(Ed) < 0.95) fillCol = 'rgba(244, 63, 94, 0.12)';
+      
+      ctx.fillStyle = fillCol;
+      ctx.fillRect(pad.left, getY(P), getX(Qd) - pad.left, h - pad.bottom - getY(P));
+      ctx.strokeStyle = Math.abs(Ed) > 1.05 ? '#38bdf8' : (Math.abs(Ed) < 0.95 ? '#f43f5e' : '#10b981');
+      ctx.lineWidth = 1;
+      ctx.strokeRect(pad.left, getY(P), getX(Qd) - pad.left, h - pad.bottom - getY(P));
+    }
+
+    // Demand
+    ctx.strokeStyle = '#10b981'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(getX(model.a), getY(0)); ctx.lineTo(getX(0), getY(model.Pmax)); ctx.stroke();
+
+    // Supply
+    ctx.strokeStyle = '#f43f5e'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(getX(0), getY(model.Pmin));
+    const pRight = maxValP;
+    const qRight = model.c + model.d * pRight;
+    ctx.lineTo(getX(qRight), getY(pRight)); ctx.stroke();
+
+    // Dashed line
+    ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(pad.left, getY(P)); ctx.lineTo(w - pad.right, getY(P)); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Points
+    ctx.fillStyle = '#1e293b'; ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(getX(model.Q0), getY(model.P0), 5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+
+    if (Qd > 0) {
+      ctx.fillStyle = '#10b981'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(getX(Qd), getY(P), 5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+    }
+
+    ctx.fillStyle = '#818cf8'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(getX(model.Q_opt), getY(model.P_opt), 5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+
+    drawLabel('Price ', '(P)', pad.left - 85, pad.top - 10, '#cbd5e1', 'bold 10px Inter');
+    drawLabel('Quantity ', '(Q)', w - pad.right - 50, h - pad.bottom + 25, '#cbd5e1', 'bold 10px Inter');
+
+    window.lastMaxValP = maxValP;
+    window.lastGH = gH;
+  }
+
+  function getMousePos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    return {
+      x: (clientX - rect.left) * (canvas.width / rect.width),
+      y: (clientY - rect.top) * (canvas.height / rect.height)
+    };
+  }
+
+  canvas.addEventListener('mousedown', (e) => { if (getMousePos(e).x >= pad.left) isDraggingPrice = true; });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDraggingPrice) return;
+    priceSlider.value = getPriceFromY(getMousePos(e).y, window.lastMaxValP, window.lastGH);
+    update();
+  });
+  window.addEventListener('mouseup', () => { isDraggingPrice = false; });
+
+  function validateText() {
+    const text = document.getElementById('inp-decision').value.trim();
+    const words = text ? text.split(/\s+/).length : 0;
+    const counter = document.getElementById('word-counter');
+    const btn = document.getElementById('btn-lock-token');
+
+    counter.innerText = `Слов: ${words} / мин. 30`;
+
+    if (words >= 30) {
+      counter.className = "text-[10px] font-mono text-emerald-400 font-bold";
+      btn.disabled = false;
+      btn.className = "w-full sm:w-auto px-6 py-2.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-lg cursor-pointer";
+    } else {
+      counter.className = "text-[10px] font-mono text-amber-400";
+      btn.disabled = true;
+      btn.className = "w-full sm:w-auto px-6 py-2.5 bg-slate-700 text-slate-400 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-not-allowed";
+    }
+  }
+
+  [inpP0, inpQ0, inpPmax, inpPmin, priceSlider].forEach(el => el.addEventListener('input', update));
+  
+  toggleAreaBtn.addEventListener('click', function() {
+    showArea = !showArea;
+    this.innerText = showArea ? "Скрыть площадь выручки" : "Показать площадь выручки";
+    update();
+  });
+
+  // ЭТАЛОННАЯ ОТПРАВКА НА СЕРВЕР (КАК В ЭТАЛОННОМ ФАЙЛЕ)
+  async function sendWorkToServer() {
+    const student = document.getElementById('inp-product').value;
+    const decision = document.getElementById('inp-decision').value;
+
+    if (!student || !decision) {
+      alert("Заполните вывод (не менее 30 слов)!");
+      return;
+    }
+
+    document.getElementById('btn-loader').classList.remove('hidden');
+
+    const url = `${GOOGLE_SCRIPT_URL}?action=createToken` +
+      `&student=${encodeURIComponent(student)}` +
+      `&product=${encodeURIComponent(document.getElementById('inp-product').value)}` +
+      `&finalP=${document.getElementById('price-slider').value}` +
+      `&decision=${encodeURIComponent(decision)}` +
+      `&P0=${inpP0.value}&Q0=${inpQ0.value}&Pmax=${inpPmax.value}&Pmin=${inpPmin.value}`;
+
+    try {
+      await fetch(url);
+      document.getElementById('token-box').classList.remove('hidden');
+      document.getElementById('btn-lock-token').innerText = "Отправлено ✓";
+      document.getElementById('btn-lock-token').classList.add("bg-emerald-600");
+    } catch(e) {
+      alert("Ошибка отправки данных!");
+    } finally {
+      document.getElementById('btn-loader').classList.add('hidden');
+    }
+  }
+
+  function unlockTeacherPanel() {
+    if (document.getElementById('inp-pin').value === "2026") {
+      document.getElementById('teacher-login').classList.add('hidden');
+      document.getElementById('teacher-dashboard').classList.remove('hidden');
+    } else {
+      alert("Неверный PIN код");
+    }
+  }
+
+  window.addEventListener('load', () => {
+    renderStudents();
+    resizeCanvas();
+  });
+  window.addEventListener('resize', resizeCanvas);
+</script>
+
+</body>
+</html>
