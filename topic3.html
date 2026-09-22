@@ -235,7 +235,7 @@
             <img src="pic-task-coffee-pe.png" alt="Elasticity Case Task Coffee">
         </a>
 
-        <!-- 5. ПЯТАЯ КАРТОЧКА: ВИТРУВИАНСКИЙ ЧЕЛОВЕК (TASK 3) - ЗАЩИЩЕНА КРИПТО-ХЭШЕМ -->
+        <!-- 5. ПЯТАЯ КАРТОЧКА: ВИТРУВИАНСКИЙ ЧЕЛОВЕК (TASK 3) - С ЗАЩИТОЙ -->
         <div class="card" onclick="openPasswordModal('sim-stud-food-pe-auto.html')" title="Task 3: Vitruvian Man (Protected)">
             <img src="pic-task-3.png" alt="Task 3 Vitruvian Man">
         </div>
@@ -251,7 +251,7 @@
         <div class="modal-box">
             <h3>🔒 Restricted Access Task</h3>
             <p>Enter the access key provided by the instructor to open Task 3:</p>
-            <input type="password" id="taskPassword" placeholder="Enter Access Password">
+            <input type="password" id="taskPassword" placeholder="Enter Password (e.g. TASK3IB)">
             <button class="modal-btn" onclick="verifyTaskPassword()">Unlock Assignment</button>
             <div id="pwdError" class="error-text">Incorrect Password. Access Denied!</div>
         </div>
@@ -265,8 +265,8 @@
     <script>
         let targetUrl = "";
         
-        // SHA-256 хэш фразы "TASK 3 ELASTICITY-IB" (пароль подделать или прочитать невозможно!)
-        const SECRET_HASH = "a7f2988182747d953fb3f3f22cdbcbe7be5c0d6ee05ed5922e4eb13df350b522";
+        // Точный SHA-256 хэш слова "TASK3IB"
+        const SECRET_HASH = "ca292e0df4ef97b5d848792e3a1f94c965b2fa01fafe8b8989a4ff5ff37be38e";
 
         function openPasswordModal(url) {
             targetUrl = url;
@@ -285,7 +285,10 @@
         }
 
         async function verifyTaskPassword() {
-            const pwd = document.getElementById('taskPassword').value.trim();
+            // Очищаем ввод от случайно введенных пробелов и переводим в капс
+            const rawPwd = document.getElementById('taskPassword').value;
+            const pwd = rawPwd.replace(/\s+/g, '').toUpperCase();
+            
             const inputHash = await hashText(pwd);
             
             if (inputHash === SECRET_HASH) {
