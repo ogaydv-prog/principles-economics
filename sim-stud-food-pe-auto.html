@@ -602,8 +602,8 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNZLWbEab_ge
     update();
   });
 
-  // ИДЕАЛЬНО СИНХРОНИЗИРОВАННАЯ ФУНКЦИЯ ОТПРАВКИ
-  async function sendWorkToServer() {
+ // НАДЕЖНАЯ ОТПРАВКА ДАННЫХ ЧЕРЕЗ GET (IMAGE BEACON)
+  function sendWorkToServer() {
     const student = document.getElementById('inp-product').value;
     const decision = document.getElementById('inp-decision').value;
 
@@ -614,48 +614,39 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNZLWbEab_ge
 
     document.getElementById('btn-loader').classList.remove('hidden');
 
-    // 1. Время выполнения в минутах
     const endTime = new Date();
     const timeSpentMin = Math.max(1, Math.round((endTime - startTime) / 1000 / 60));
 
-    // 2. Расчет актуальных показателей для отправки
     const model = calculateModel();
     const P = parseFloat(priceSlider.value);
     const Qd = Math.max(0, model.a - model.b * P);
     const TR = P * Qd;
     const Ed = Qd > 0 ? -(model.b * (P / Qd)) : 0;
 
-    // 3. Структура JSON-пакета для Google Apps Script (doPost)
-    const payload = {
-      studentName: student,
-      studentGroup: "Principles of Economics (IB)",
-      timeSpentMin: timeSpentMin,
-      tr: TR,
-      ed: Ed,
-      targetTR: model.TR_max,
-      targetEd: -1.0,
-      textReason: decision
-    };
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbzNZLWbEab_ges7RC1BdA_H5p07xwq8qCipj3yLRvB0xtQ9K1XcbU0gpTUqExKUkMNY4g/exec";
 
-    try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+    const fullUrl = scriptUrl + 
+      "?studentName=" + encodeURIComponent(student) +
+      "&studentGroup=" + encodeURIComponent("Principles of Economics (IB)") +
+      "&timeSpentMin=" + timeSpentMin +
+      "&tr=" + TR +
+      "&ed=" + Ed +
+      "&targetTR=" + model.TR_max +
+      "&targetEd=-1.0" +
+      "&textReason=" + encodeURIComponent(decision);
 
+    const img = new Image();
+    img.src = fullUrl;
+
+    setTimeout(() => {
+      document.getElementById('btn-loader').classList.add('hidden');
       document.getElementById('token-box').classList.remove('hidden');
       const btn = document.getElementById('btn-lock-token');
       btn.innerText = "✓ Успешно отправлено в ведомость";
       btn.classList.remove("bg-sky-600", "hover:bg-sky-500");
       btn.classList.add("bg-emerald-600");
       btn.disabled = true;
-    } catch(e) {
-      alert("Ошибка отправки данных. Попробуйте ещё раз!");
-    } finally {
-      document.getElementById('btn-loader').classList.add('hidden');
-    }
+    }, 1200);
   }
 
   function unlockTeacherPanel() {
