@@ -601,32 +601,46 @@
     update();
   });
 
-  // ЭТАЛОННАЯ ОТПРАВКА НА СЕРВЕР (ОБНОВЛЕННАЯ ССЫЛКА)
+  // ИСПРАВЛЕННАЯ ФУНКЦИЯ ОТПРАВКИ НА СЕРВЕР (POST + NO-CORS)
   async function sendWorkToServer() {
     const student = document.getElementById('inp-product').value;
     const decision = document.getElementById('inp-decision').value;
 
-    if (!student || !decision) {
-      alert("Заполните вывод (не менее 30 слов)!");
+    if (!student || student.includes("Выберите имя") || !decision) {
+      alert("Пожалуйста, выберите своё имя из списка и заполните вывод (не менее 30 слов)!");
       return;
     }
 
     document.getElementById('btn-loader').classList.remove('hidden');
 
-    const url = `${GOOGLE_SCRIPT_URL}?action=createToken` +
-      `&student=${encodeURIComponent(student)}` +
-      `&product=${encodeURIComponent(document.getElementById('inp-product').value)}` +
-      `&finalP=${document.getElementById('price-slider').value}` +
-      `&decision=${encodeURIComponent(decision)}` +
-      `&P0=${inpP0.value}&Q0=${inpQ0.value}&Pmax=${inpPmax.value}&Pmin=${inpPmin.value}`;
+    const payload = {
+      action: 'createToken',
+      student: student,
+      product: student,
+      finalP: document.getElementById('price-slider').value,
+      decision: decision,
+      P0: inpP0.value,
+      Q0: inpQ0.value,
+      Pmax: inpPmax.value,
+      Pmin: inpPmin.value
+    };
 
     try {
-      await fetch(url);
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
       document.getElementById('token-box').classList.remove('hidden');
-      document.getElementById('btn-lock-token').innerText = "Отправлено ✓";
-      document.getElementById('btn-lock-token').classList.add("bg-emerald-600");
+      const btn = document.getElementById('btn-lock-token');
+      btn.innerText = "✓ Успешно отправлено в ведомость";
+      btn.classList.remove("bg-sky-600", "hover:bg-sky-500");
+      btn.classList.add("bg-emerald-600");
+      btn.disabled = true;
     } catch(e) {
-      alert("Ошибка отправки данных!");
+      alert("Ошибка отправки данных. Попробуйте ещё раз!");
     } finally {
       document.getElementById('btn-loader').classList.add('hidden');
     }
