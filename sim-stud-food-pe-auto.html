@@ -288,9 +288,10 @@
 </div>
 
 <script>
-  // ОБНОВЛЕННАЯ ССЫЛКА НА ВАШ НОВЫЙ СКРИПТ С 95-БАЛЛЬНОЙ ПРОВЕРКОЙ
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-0gGiz0sQ1GaO9xk73pvSiYkEaESaHELvR-MDdbwje2NwJIuZ6P_Y78DpqCTnAzLWMg/exec";
+  // ССЫЛКА НА ВАШ НОВЫЙ GOOGLE APPS SCRIPT
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyAN-BMxOrwWGCpU75Hm-tCNlNw6r9DuU5AR2Is2UUVeASRT40lJ6qPhHAv5aMGLmsiuw/exec";
   let currentLang = 'ru';
+  let startTime = new Date(); // Засекаем время начала работы
 
   const studentData = [
     { id: 1, student: "Адильхан Надия Берікқызы", dish: "Японский Тонкоцу Рамен", p0: 3200, pmax: 6500, desc: "Питательный бульон с лапшой нудл." },
@@ -601,7 +602,7 @@
     update();
   });
 
-  // ИСПРАВЛЕННАЯ ФУНКЦИЯ ОТПРАВКИ НА СЕРВЕР (POST + NO-CORS)
+  // ИДЕАЛЬНО СИНХРОНИЗИРОВАННАЯ ФУНКЦИЯ ОТПРАВКИ
   async function sendWorkToServer() {
     const student = document.getElementById('inp-product').value;
     const decision = document.getElementById('inp-decision').value;
@@ -613,16 +614,27 @@
 
     document.getElementById('btn-loader').classList.remove('hidden');
 
+    // 1. Время выполнения в минутах
+    const endTime = new Date();
+    const timeSpentMin = Math.max(1, Math.round((endTime - startTime) / 1000 / 60));
+
+    // 2. Расчет актуальных показателей для отправки
+    const model = calculateModel();
+    const P = parseFloat(priceSlider.value);
+    const Qd = Math.max(0, model.a - model.b * P);
+    const TR = P * Qd;
+    const Ed = Qd > 0 ? -(model.b * (P / Qd)) : 0;
+
+    // 3. Структура JSON-пакета для Google Apps Script (doPost)
     const payload = {
-      action: 'createToken',
-      student: student,
-      product: student,
-      finalP: document.getElementById('price-slider').value,
-      decision: decision,
-      P0: inpP0.value,
-      Q0: inpQ0.value,
-      Pmax: inpPmax.value,
-      Pmin: inpPmin.value
+      studentName: student,
+      studentGroup: "Principles of Economics (IB)",
+      timeSpentMin: timeSpentMin,
+      tr: TR,
+      ed: Ed,
+      targetTR: model.TR_max,
+      targetEd: -1.0,
+      textReason: decision
     };
 
     try {
