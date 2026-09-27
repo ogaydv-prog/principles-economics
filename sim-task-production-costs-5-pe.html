@@ -977,8 +977,19 @@
     const jsonStr = JSON.stringify(payload);
     const token = btoa(encodeURIComponent(jsonStr));
 
+    // 1. Показываем модальное окно с токеном студенту
     document.getElementById('token-output').value = token;
     document.getElementById('token-modal').classList.remove('hidden');
+
+    // 2. Асинхронно отправляем токен в ваш Google Apps Script (Google Таблицу)
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxw6FB8w792nrFvLrNQtKTbj0Fi0y7QRl8q2g3VWtVGLN1NxoIRWrGU1F4rdblXX-IT/exec";
+    
+    fetch(scriptUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: token })
+    }).catch(err => console.error("Ошибка автоотправки в таблице:", err));
   }
 
   function closeTokenModal() { document.getElementById('token-modal').classList.add('hidden'); }
