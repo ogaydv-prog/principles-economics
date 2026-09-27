@@ -602,53 +602,61 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNZLWbEab_ge
     update();
   });
 
- // НАДЕЖНАЯ ОТПРАВКА ДАННЫХ ЧЕРЕЗ GET (IMAGE BEACON)
-  function sendWorkToServer() {
-    const student = document.getElementById('inp-product').value;
-    const decision = document.getElementById('inp-decision').value;
+ function sendWorkToServer() {
+  const student = document.getElementById('inp-product').value;
+  const decision = document.getElementById('inp-decision').value;
 
-    if (!student || student.includes("Выберите имя") || !decision) {
-      alert("Пожалуйста, выберите своё имя из списка и заполните вывод (не менее 30 слов)!");
-      return;
-    }
-
-    document.getElementById('btn-loader').classList.remove('hidden');
-
-    const endTime = new Date();
-    const timeSpentMin = Math.max(1, Math.round((endTime - startTime) / 1000 / 60));
-
-    const model = calculateModel();
-    const P = parseFloat(priceSlider.value);
-    const Qd = Math.max(0, model.a - model.b * P);
-    const TR = P * Qd;
-    const Ed = Qd > 0 ? -(model.b * (P / Qd)) : 0;
-
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbzNZLWbEab_ges7RC1BdA_H5p07xwq8qCipj3yLRvB0xtQ9K1XcbU0gpTUqExKUkMNY4g/exec";
-
-    const fullUrl = scriptUrl + 
-      "?studentName=" + encodeURIComponent(student) +
-      "&studentGroup=" + encodeURIComponent("Principles of Economics (IB)") +
-      "&timeSpentMin=" + timeSpentMin +
-      "&tr=" + TR +
-      "&ed=" + Ed +
-      "&targetTR=" + model.TR_max +
-      "&targetEd=-1.0" +
-      "&textReason=" + encodeURIComponent(decision);
-
-    const img = new Image();
-    img.src = fullUrl;
-
-    setTimeout(() => {
-      document.getElementById('btn-loader').classList.add('hidden');
-      document.getElementById('token-box').classList.remove('hidden');
-      const btn = document.getElementById('btn-lock-token');
-      btn.innerText = "✓ Успешно отправлено в ведомость";
-      btn.classList.remove("bg-sky-600", "hover:bg-sky-500");
-      btn.classList.add("bg-emerald-600");
-      btn.disabled = true;
-    }, 1200);
+  if (!student || student.includes("Выберите имя") || !decision) {
+    alert("Пожалуйста, выберите своё имя из списка и заполните вывод (не менее 30 слов)!");
+    return;
   }
 
+  const btn = document.getElementById('btn-lock-token');
+  const loader = document.getElementById('btn-loader');
+  
+  loader.classList.remove('hidden');
+  btn.disabled = true;
+
+  const endTime = new Date();
+  const timeSpentMin = Math.max(1, Math.round((endTime - startTime) / 1000 / 60));
+
+  const model = calculateModel();
+  const P = parseFloat(priceSlider.value);
+  const Qd = Math.max(0, model.a - model.b * P);
+  const TR = P * Qd;
+  const Ed = Qd > 0 ? -(model.b * (P / Qd)) : 0;
+
+  // Упаковываем все в JSON payload (как на MBA)
+  const payload = {
+    studentName: student,
+    studentGroup: "Principles of Economics (IB)",
+    timeSpentMin: timeSpentMin,
+    tr: Math.round(TR),
+    ed: Ed.toFixed(2),
+    targetTR: Math.round(model.TR_max),
+    targetEd: "-1.0",
+    textReason: decision
+  };
+
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNZLWbEab_ges7RC1BdA_H5p07xwq8qCipj3yLRvB0xtQ9K1XcbU0gpTUqExKUkMNY4g/exec";
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    loader.classList.add('hidden');
+    document.getElementById('token-box').classList.remove('hidden');
+    btn.innerText = "✓ Успешно отправлено в ведомость";
+    btn.classList.remove("bg-sky-600", "hover:bg-sky-500", "bg-slate-700");
+    btn.classList.add("bg-emerald-600");
+  }).catch(err => {
+    alert("Ошибка сети. Попробуйте еще раз.");
+    btn.disabled = false;
+    loader.classList.add('hidden');
+  });
+}
   function unlockTeacherPanel() {
     if (document.getElementById('inp-pin').value === "2026") {
       document.getElementById('teacher-login').classList.add('hidden');
