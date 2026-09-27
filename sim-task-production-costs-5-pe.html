@@ -1,1176 +1,1443 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Task 5. Издержки производства / Production Costs</title>
-<!-- Tailwind CSS & FontAwesome -->
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-  
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: #0b0f13;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%);
-  }
-
-  input[type="text"], input[type="number"] {
-    background-color: #151b22;
-    border: 1px solid #30363d;
-    color: #f0f6fc;
-    border-radius: 8px;
-    padding: 8px 12px;
-    outline: none;
-    transition: all 0.2s ease-in-out;
-  }
-  input[type="text"]:focus, input[type="number"]:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-  }
-
-  input[type="range"].vintage-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    background: #151b22;
-    height: 12px;
-    border-radius: 4px;
-    border: 1px solid #30363d;
-    outline: none;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
-  }
-
-  input[type="range"].vintage-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 32px;
-    background: linear-gradient(to right, #8a95a5 0%, #cfd8dc 30%, #b0bec5 45%, #ef4444 48%, #ef4444 52%, #b0bec5 55%, #cfd8dc 70%, #8a95a5 100%);
-    border: 1.5px solid #0b0f13;
-    border-radius: 3px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    transition: transform 0.1s ease;
-  }
-  input[type="range"].vintage-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.08);
-  }
-
-  .modal-blur { backdrop-filter: blur(8px); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALMAU — Principles of Economics Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+        .fade-enter { opacity: 0; transform: translateY(12px); }
+        .fade-enter-active { opacity: 1; transform: translateY(0); transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        #finalScoreCircle { transition: stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    </style>
 </head>
-<body class="text-slate-100 min-h-screen p-3 md:p-6 flex flex-col items-center justify-start overflow-x-hidden">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
 
-<div class="w-full max-w-7xl bg-[#111518]/95 border border-indigo-500/10 shadow-[0_0_50px_rgba(99,102,241,0.05)] rounded-2xl p-4 md:p-6 backdrop-blur-md">
-  
-  <!-- Header Section -->
-  <div class="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-5 mb-5 gap-4">
-    <div>
-      <span id="lbl-sub-header" class="text-[10px] font-bold tracking-[0.25em] text-indigo-400 uppercase block">ALMAU • 2026</span>
-      <h1 id="lbl-main-title" class="text-lg md:text-xl font-black text-white tracking-tight mt-0.5">Task 5. Издержки производства</h1>
-      <p id="lbl-main-desc" class="text-slate-400 text-xs font-medium">Определение параметров затрат и экономического состояния компании</p>
-    </div>
-    
-    <div class="flex flex-wrap items-center gap-3 shrink-0">
-      <!-- Teacher Mode Button -->
-      <button id="btn-teacher-mode" onclick="promptTeacherAuth()" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5">
-        <span>🎓</span> <span id="lbl-btn-teacher">Проверка преподавателя</span>
-      </button>
-
-      <!-- Language Switcher -->
-      <div class="flex items-center bg-[#151b22] border border-slate-700/60 rounded-lg p-1">
-        <button id="btn-lang-ru" onclick="setLanguage('ru')" class="px-2.5 py-1 rounded text-xs font-bold transition-all bg-indigo-600 text-white shadow-md">RU</button>
-        <button id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded text-xs font-bold transition-all text-slate-400 hover:text-slate-200">EN</button>
-      </div>
-
-      <!-- Lock & Submit -->
-      <button id="btn-lock-submit" onclick="generateStudentToken()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-1.5 rounded-lg text-xs shadow-lg shadow-emerald-900/30 transition-all flex items-center gap-1.5">
-        <span>🔒</span> <span id="lbl-btn-submit">Зафиксировать ответ</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- INPUT PANEL: Идентификация студента по Имени и Фамилии -->
-  <div class="bg-indigo-950/30 border border-indigo-500/30 rounded-xl p-4 mb-6 flex flex-col lg:flex-row items-center justify-between gap-4">
-    <div class="flex items-center gap-3 w-full lg:w-1/3">
-      <div class="p-2.5 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-lg shrink-0">
-        <i class="fa-solid fa-user-check text-lg"></i>
-      </div>
-      <div>
-        <label id="lbl-search-title" class="block text-[11px] font-bold uppercase text-indigo-300">
-          Идентификация студента
-        </label>
-        <p id="lbl-search-desc" class="text-[10px] text-slate-400">Введите Имя и Фамилию без отчества (RU / EN)</p>
-      </div>
-    </div>
-
-    <div class="flex flex-col sm:flex-row items-center gap-2 w-full lg:w-2/3">
-      <div class="relative w-full">
-        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
-        <input type="text" id="student-name-input" onkeypress="if(event.key==='Enter') searchAndLoadStudent()" placeholder="Например: Максат Азизбеков или Alikhan Saparov" class="w-full text-xs font-semibold pl-9 pr-3 py-2 border border-indigo-500/40 rounded-xl text-indigo-100 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500">
-      </div>
-      <button id="lbl-btn-search" onclick="searchAndLoadStudent()" class="w-full sm:w-auto shrink-0 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-md">
-        Загрузить вариант
-      </button>
-      <span id="variant-badge" class="shrink-0 text-[10px] font-mono font-extrabold uppercase px-3 py-2 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-        Вариант #--
-      </span>
-    </div>
-  </div>
-
-  <!-- Статус поиска -->
-  <div id="search-status" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold flex items-center justify-between"></div>
-
-  <!-- Main Grid -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-    
-    <!-- LEFT PANEL -->
-    <div class="lg:col-span-4 flex flex-col gap-4">
-      
-      <!-- Step 1: Fixed Costs FC -->
-      <div class="bg-[#14181c] border border-slate-800 rounded-xl p-5 shadow-inner">
-        <h3 id="lbl-step1-title" class="text-xs font-black text-indigo-400 tracking-wider uppercase mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
-          Шаг 1. Постоянные затраты (FC)
-        </h3>
-        <div class="flex flex-col gap-1.5">
-          <div class="flex justify-between items-center mb-1">
-            <label id="lbl-fc" class="text-[11px] text-slate-400 font-medium">Постоянные издержки (FC)</label>
-            <span id="fc-badge" class="text-sm font-black text-indigo-400 font-mono">1 200 ₸</span>
-          </div>
-          <div class="py-2.5">
-            <input type="range" id="volume-slider-fc" min="200" max="4000" value="1200" step="50" class="w-full vintage-slider">
-          </div>
-          <p id="lbl-fc-desc" class="text-[10px] text-slate-500 mt-1">Аренда, амортизация, оклады управления (не зависят от Q).</p>
-        </div>
-      </div>
-
-      <!-- Step 2: Technology Parameters VC -->
-      <div class="bg-[#14181c] border border-slate-800 rounded-xl p-5 shadow-inner">
-        <h3 id="lbl-step2-title" class="text-xs font-black text-emerald-400 tracking-wider uppercase mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
-          Шаг 2. Параметры технологии (VC)
-        </h3>
-        
-        <div class="space-y-3">
-          <div class="grid grid-cols-3 gap-2">
-            <div class="flex flex-col gap-1">
-              <button onclick="toggleCoeffCard('a')" class="text-left text-[10px] text-indigo-300 font-semibold hover:text-indigo-200 transition-colors bg-indigo-950/40 border border-indigo-500/20 px-1.5 py-0.5 rounded">
-                <span id="lbl-coeff-a-btn">Линейный (a)</span>
-              </button>
-              <input type="number" id="inp-vca" value="25" step="1" min="1">
+    <!-- Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 shadow-xl sticky top-0 z-40 backdrop-blur-md bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-gradient-to-tr from-indigo-600 to-violet-600 rounded-xl text-white shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase">Principles of Economics — International Business - 2026</span>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">ALMAU</h1>
+                </div>
             </div>
-            <div class="flex flex-col gap-1">
-              <button onclick="toggleCoeffCard('b')" class="text-left text-[10px] text-emerald-300 font-semibold hover:text-emerald-200 transition-colors bg-emerald-950/40 border border-emerald-500/20 px-1.5 py-0.5 rounded">
-                <span id="lbl-coeff-b-btn">Сжатие (b)</span>
-              </button>
-              <input type="number" id="inp-vcb" value="0.60" step="0.05" min="0">
+            
+            <div class="flex items-center space-x-3">
+                <div id="mode-badge" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center space-x-1.5">
+                    <span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span>
+                    <span>Student Mode</span>
+                </div>
+                
+                <button id="auth-action-btn" onclick="openAuthModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-700 hover:border-slate-600 flex items-center space-x-2">
+                    <i class="fa-solid fa-user-tie text-indigo-400"></i>
+                    <span id="auth-btn-text">Instructor Portal</span>
+                </button>
             </div>
-            <div class="flex flex-col gap-1">
-              <button onclick="toggleCoeffCard('c')" class="text-left text-[10px] text-rose-300 font-semibold hover:text-rose-200 transition-colors bg-rose-950/40 border border-rose-500/20 px-1.5 py-0.5 rounded">
-                <span id="lbl-coeff-c-btn">Перегрузка (c)</span>
-              </button>
-              <input type="number" id="inp-vcc" value="0.012" step="0.001" min="0.001">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- STUDENT VIEW -->
+        <div id="student-view" class="space-y-8 block">
+            <div class="max-w-2xl mx-auto text-center space-y-4 py-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-slate-400 bg-clip-text text-transparent">
+                    Student Performance Dashboard
+                </h2>
+                <p class="text-sm sm:text-base text-slate-400">
+                    Enter your Full Name to view detailed grades and visual progress analytics.
+                </p>
             </div>
-          </div>
 
-          <div id="coeff-info-box" class="hidden bg-[#0d1117] border border-slate-700 p-3 rounded-lg text-[11px] text-slate-300 leading-relaxed transition-all">
-            <div class="flex justify-between items-center mb-1">
-              <span id="coeff-info-title" class="font-bold text-indigo-400 uppercase text-[10px]"></span>
-              <button onclick="closeCoeffBox()" class="text-slate-500 hover:text-white text-xs">✕</button>
+            <!-- Student Search Card -->
+            <div class="max-w-xl mx-auto bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-indigo-500"></div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Student Full Name</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-500"></i>
+                            <input type="text" id="student-search-input" onkeydown="handleSearchKeyDown(event)" placeholder="e.g. Кожахметова Малика" 
+                                class="w-full pl-11 pr-24 py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
+                            <button onclick="searchStudentGrade()" class="absolute right-2 top-2 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p id="coeff-info-body"></p>
-          </div>
 
-          <p class="text-[10px] text-slate-500 leading-normal">
-            *<span id="lbl-vc-formula">Формула переменных издержек:</span><br>
-            <span class="font-mono text-emerald-400 text-[11px]">VC(Q) = a·Q - b·Q² + c·Q³</span>
-          </p>
-        </div>
-      </div>
+            <!-- Student Result Card -->
+            <div id="student-result-card" class="max-w-4xl mx-auto bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden hidden">
+                <div class="bg-gradient-to-r from-indigo-950/40 to-slate-900 px-6 py-5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-[10px] font-bold bg-indigo-900/50 text-indigo-300 px-2.5 py-1 rounded-full border border-indigo-800/30 uppercase tracking-wider">International Business Team Student</span>
+                        <h3 id="sr-name" class="text-xl font-extrabold text-white mt-1.5">Student Full Name</h3>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block font-medium">Final Score</span>
+                        <div class="flex items-center justify-end space-x-2.5 mt-1">
+                            <span id="sr-letter" class="text-2xl font-black bg-indigo-600 px-3 py-1 rounded-xl text-white shadow-md">-</span>
+                            <span id="sr-total-score" class="text-3xl font-extrabold text-slate-100">0.0</span>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Step 3: Production Volume Q -->
-      <div class="bg-[#14181c] border border-indigo-500/20 rounded-xl p-5 shadow-inner">
-        <div class="flex justify-between items-center mb-2">
-          <h3 id="lbl-step3-title" class="text-xs font-black text-amber-400 tracking-wider uppercase">Шаг 3. Объем выпуска (Q)</h3>
-          <span id="volume-badge" class="text-lg font-black text-indigo-400">50 шт</span>
-        </div>
-        
-        <div class="py-2.5">
-          <input type="range" id="volume-slider" min="1" max="100" value="50" class="w-full vintage-slider">
-        </div>
-        
-        <div class="grid grid-cols-2 gap-3 mt-3 text-[11px] text-slate-400">
-          <div class="bg-black/30 p-2.5 rounded-lg border border-slate-800">
-            <span id="lbl-card-vc" class="block text-slate-500 uppercase text-[9px] mb-0.5">Переменные (VC)</span>
-            <span id="stat-vc" class="text-white font-bold text-sm">-</span>
-          </div>
-          <div class="bg-black/30 p-2.5 rounded-lg border border-slate-800">
-            <span id="lbl-card-tc" class="block text-slate-500 uppercase text-[9px] mb-0.5">Общие издержки (TC)</span>
-            <span id="stat-tc" class="text-indigo-400 font-bold text-sm font-mono">-</span>
-          </div>
-        </div>
-      </div>
+                <div class="p-6 border-b border-slate-800 bg-slate-950/30">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-indigo-400"></i>
+                        Interactive Performance Breakdown
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center">
+                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-calendar-check"></i> Attendance (10%)
+                            </span>
+                            <div class="relative w-full h-28 flex items-center justify-center">
+                                <canvas id="attendanceBarChart"></canvas>
+                            </div>
+                            <div class="text-sm font-bold text-emerald-400 mt-2" id="val-att-text">0%</div>
+                        </div>
 
-      <!-- Step 4: Break-Even Analysis (BEP) -->
-      <div class="bg-[#14181c] border border-rose-500/20 rounded-xl p-5 shadow-inner">
-        <div class="flex justify-between items-center mb-3">
-          <h3 id="lbl-step4-title" class="text-xs font-black text-rose-400 tracking-wider uppercase flex items-center gap-2">
-            <span class="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
-            Шаг 4. Анализ безубыточности
-          </h3>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" id="chk-bep" class="sr-only peer">
-            <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:width-4 after:transition-all peer-checked:bg-rose-500 peer-checked:after:bg-white"></div>
-          </label>
-        </div>
-        
-        <div id="bep-controls" class="space-y-3 opacity-40 pointer-events-none transition-all duration-300">
-          <div class="flex justify-between items-center">
-            <label id="lbl-market-price" class="text-[11px] text-slate-400 font-medium">Рыночная цена товара (P)</label>
-            <span id="price-badge" class="text-xs bg-rose-500/20 text-rose-300 font-bold px-2 py-0.5 rounded">80 ₸</span>
-          </div>
-          <div class="py-1">
-            <input type="range" id="price-slider" min="10" max="250" value="80" step="5" class="w-full vintage-slider">
-          </div>
-          <p id="lbl-bep-desc" class="text-[10px] text-slate-500 leading-normal">
-            Выявляет диапазоны окупаемости, где общая выручка покрывает затраты (TR ≥ TC).
-          </p>
-        </div>
-      </div>
+                        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center">
+                            <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-bolt"></i> Assessment (30%)
+                            </span>
+                            <div class="relative w-full h-28 flex items-center justify-center">
+                                <canvas id="activityLineChart"></canvas>
+                            </div>
+                            <div class="text-sm font-bold text-blue-400 mt-2" id="val-act-text">Act, CA1, CA2</div>
+                        </div>
 
+                        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center">
+                            <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-pen-ruler"></i> Midterms (20%)
+                            </span>
+                            <div class="relative w-full h-28 flex items-center justify-center">
+                                <canvas id="examGaugeChart"></canvas>
+                            </div>
+                            <div class="text-sm font-bold text-amber-400 mt-2" id="val-ex-text">MC1 & MC2</div>
+                        </div>
+
+                        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center justify-center relative overflow-hidden">
+                            <span class="text-[10px] font-bold text-violet-400 uppercase tracking-wider mb-3 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-nodes"></i> Total Score
+                            </span>
+                            <div class="relative w-24 h-24 flex items-center justify-center">
+                                <svg class="w-full h-full transform -rotate-90">
+                                    <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="6" class="text-slate-800" fill="transparent" />
+                                    <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="8" class="text-violet-500 drop-shadow-[0_0_6px_rgba(139,92,246,0.6)]" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="251.2" id="finalScoreCircle" stroke-linecap="round" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-xl font-black text-white" id="finalCircleLetter">-</span>
+                                    <span class="text-[10px] text-slate-400 font-semibold" id="finalCircleScore">0.0</span>
+                                </div>
+                            </div>
+                            <div class="text-[9px] text-violet-300 font-semibold uppercase mt-3 tracking-widest">Max: 100</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 divide-y sm:divide-y-0 divide-x divide-slate-800 border-b border-slate-800 bg-slate-900/20">
+                    <div class="p-3 text-center space-y-1">
+                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Attendance</h4>
+                        <div class="text-base font-bold text-emerald-400" id="sr-val-attendance">0 / 100</div>
+                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-emerald-400">10%</strong></p>
+                    </div>
+                    <div class="p-3 text-center space-y-1">
+                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Activities</h4>
+                        <div class="text-base font-bold text-teal-400" id="sr-val-activities">0 / 100</div>
+                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-teal-400">10%</strong></p>
+                    </div>
+                    <div class="p-3 text-center space-y-1">
+                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">CA 1</h4>
+                        <div class="text-base font-bold text-blue-400" id="sr-val-ca1">0 / 100</div>
+                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-blue-400">10%</strong></p>
+                    </div>
+                    <div class="p-3 text-center space-y-1">
+                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">MC 1</h4>
+                        <div class="text-base font-bold text-amber-400" id="sr-val-mc1">0 / 100</div>
+                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-amber-400">10%</strong></p>
+                    </div>
+                    <div class="p-3 text-center space-y-1">
+                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">CA 2</h4>
+                        <div class="text-base font-bold text-indigo-400" id="sr-val-ca2">0 / 100</div>
+                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-indigo-400">10%</strong></p>
+                    </div>
+                    <div class="p-3 text-center space-y-1">
+                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">MC 2</h4>
+                        <div class="text-base font-bold text-orange-400" id="sr-val-mc2">0 / 100</div>
+                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-orange-400">10%</strong></p>
+                    </div>
+                    <div class="p-3 text-center space-y-1">
+                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Final Exam</h4>
+                        <div class="text-base font-bold text-rose-400" id="sr-val-exam">0 / 100</div>
+                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-rose-400">40%</strong></p>
+                    </div>
+                </div>
+
+                <div class="p-6 border-b border-slate-800 bg-slate-950/20">
+                    <button onclick="toggleStudentAttDetails()" class="w-full flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider hover:text-slate-200 transition-colors">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-400"></i>
+                            Attendance Session Details (15 Weeks x 3 Hours = 45 Hours)
+                        </span>
+                        <span id="student-att-toggle-icon" class="text-[10px] bg-slate-800 px-2.5 py-1 rounded border border-slate-700 transition-all">Expand ▾</span>
+                    </button>
+                    <div id="student-att-details" class="hidden mt-4 pt-4 border-t border-slate-800/60">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="student-att-list-grid"></div>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-950/20 px-6 py-4 flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-info text-indigo-400 text-lg mt-0.5"></i>
+                    <div>
+                        <h5 class="text-xs font-bold text-slate-300">Grading Policy</h5>
+                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                            Final grade formula: Attendance (10%) + Activities (10%) + CA1 (10%) + MC1 (10%) + CA2 (10%) + MC2 (10%) + Final Exam (40%). Passing threshold: 50 points (Grade D).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-not-found" class="max-w-xl mx-auto bg-rose-950/10 border border-rose-900/30 p-5 rounded-2xl text-center hidden">
+                <i class="fa-solid fa-user-slash text-rose-500 text-2xl mb-2.5"></i>
+                <h4 class="text-sm font-bold text-rose-400">Student Not Found</h4>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Please check spelling (e.g. search for <strong class="text-slate-300">Кожахметова Малика</strong>).
+                </p>
+            </div>
+        </div>
+
+        <!-- INSTRUCTOR WORKSPACE VIEW -->
+        <div id="teacher-view" class="space-y-8 hidden">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Students</p>
+                        <h3 class="text-3xl font-extrabold text-white mt-1" id="stat-total-students">0</h3>
+                    </div>
+                    <div class="h-12 w-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center text-xl border border-indigo-500/20">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                </div>
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Group Average Score</p>
+                        <div class="flex items-baseline space-x-1.5 mt-1">
+                            <h3 class="text-3xl font-extrabold text-white" id="stat-average-grade">0.0</h3>
+                            <span class="text-xs font-bold text-indigo-400" id="stat-average-letter">-</span>
+                        </div>
+                    </div>
+                    <div class="h-12 w-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl border border-emerald-500/20">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                </div>
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pass Rate (>=50)</p>
+                        <h3 class="text-3xl font-extrabold text-white mt-1" id="stat-pass-rate">0%</h3>
+                    </div>
+                    <div class="h-12 w-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-xl border border-blue-500/20">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                </div>
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top Performer</p>
+                        <h3 class="text-sm font-bold text-violet-400 mt-2 truncate max-w-[150px]" id="stat-best-student">—</h3>
+                    </div>
+                    <div class="h-12 w-12 bg-violet-500/10 text-violet-400 rounded-xl flex items-center justify-center text-xl border border-violet-500/20">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group Analytics Chart -->
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-chart-column text-indigo-400"></i>
+                            Group Performance Graphic Overview
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">
+                            Interactive comparison across Attendance, Activities, CA, Midterms, Exam, and Final Scores.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold">
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-emerald-500"></span><span class="text-slate-300">Att</span></div>
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-teal-500"></span><span class="text-slate-300">Act</span></div>
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-blue-500"></span><span class="text-slate-300">CA1</span></div>
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-500"></span><span class="text-slate-300">MC1</span></div>
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-indigo-500"></span><span class="text-slate-300">CA2</span></div>
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-orange-500"></span><span class="text-slate-300">MC2</span></div>
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-rose-500"></span><span class="text-slate-300">Exam</span></div>
+                        <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-violet-500"></span><span class="text-slate-300">Final</span></div>
+                    </div>
+                </div>
+                <div class="relative w-full h-80">
+                    <canvas id="groupPerformanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Gradebook Table Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2 flex flex-col space-y-6">
+                    <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden flex flex-col shadow-2xl">
+                        <div class="p-5 border-b border-slate-800 bg-slate-900/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div class="relative w-full sm:w-72">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-500"></i>
+                                <input type="text" id="teacher-search-input" placeholder="Search students..." 
+                                    class="w-full pl-9 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-600">
+                            </div>
+                            <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+                                <button onclick="exportToCSV()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-md transition-colors flex items-center space-x-2">
+                                    <i class="fa-solid fa-file-excel"></i>
+                                    <span>Export Excel</span>
+                                </button>
+                                <button onclick="confirmReset()" class="px-4 py-2.5 bg-rose-950/40 text-rose-400 hover:bg-rose-900/40 rounded-xl text-xs font-semibold transition-colors flex items-center space-x-2 border border-rose-900/40">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    <span>Reset All</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto custom-scrollbar">
+                            <table class="w-full text-left border-collapse min-w-[780px]">
+                                <thead>
+                                    <tr class="border-b border-slate-800 bg-slate-900/40 text-slate-400 text-[9px] font-bold uppercase tracking-wider">
+                                        <th class="py-3.5 px-3">Student (International Business Team)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-16">Att (10%)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-14">Act (10%)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-14">CA1 (10%)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-14">MC1 (10%)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-14">CA2 (10%)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-14">MC2 (10%)</th>
+                                        <th class="py-3.5 px-1.5 text-center w-14">Exam (40%)</th>
+                                        <th class="py-3.5 px-2 text-right w-14 bg-indigo-950/20">Final</th>
+                                        <th class="py-3.5 px-2 text-center w-12">Grade</th>
+                                        <th class="py-3.5 px-1.5 text-center w-8"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="students-table-body" class="divide-y divide-slate-800/40"></tbody>
+                            </table>
+                        </div>
+
+                        <div id="empty-state" class="hidden flex flex-col items-center justify-center py-12 px-4 text-center">
+                            <div class="p-4 bg-slate-950 rounded-full text-slate-500 mb-3 text-3xl">
+                                <i class="fa-solid fa-user-slash"></i>
+                            </div>
+                            <h4 class="text-sm font-semibold text-slate-300">Gradebook is empty</h4>
+                            <p class="text-xs text-slate-500 mt-1">Add students manually or use bulk import.</p>
+                        </div>
+                        
+                        <div class="bg-indigo-950/10 p-4 border-t border-slate-800/80 text-xs text-indigo-300 flex items-center space-x-3.5">
+                            <i class="fa-solid fa-circle-info text-indigo-400 text-lg"></i>
+                            <p><strong>Attendance tracking:</strong> Click percentage in the "Att" column to open the 15-week (45-hour) attendance checklist!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar Widgets -->
+                <div class="space-y-6">
+                    <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 shadow-2xl">
+                        <h3 class="text-sm font-bold text-white mb-3.5 flex items-center space-x-2">
+                            <i class="fa-solid fa-file-import text-indigo-400"></i>
+                            <span>Bulk Import Students</span>
+                        </h3>
+                        <p class="text-[11px] text-slate-400 mb-3 leading-relaxed">
+                            Each line will be imported as a student name.
+                        </p>
+                        <textarea id="bulk-import-area" rows="4" placeholder="Иванов Иван&#10;Петров Пётр" 
+                            class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"></textarea>
+                        
+                        <button onclick="runBulkImport()" class="w-full mt-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition-colors flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/15">
+                            <i class="fa-solid fa-users-medical"></i>
+                            <span>Import List into System</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 shadow-2xl">
+                        <h3 class="text-sm font-bold text-white mb-3.5 flex items-center space-x-2">
+                            <i class="fa-solid fa-user-plus text-blue-400"></i>
+                            <span>Add Single Student</span>
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-400 mb-1">Student Full Name</label>
+                                <input type="text" id="add-student-name" placeholder="Enter Full Name" 
+                                    class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <div>
+                                    <label class="block text-[8px] font-bold text-slate-400 mb-1">Att</label>
+                                    <input type="number" id="add-student-attendance" min="0" max="100" placeholder="0" class="w-full px-1.5 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-[8px] font-bold text-slate-400 mb-1">Act</label>
+                                    <input type="number" id="add-student-activities" min="0" max="100" placeholder="0" class="w-full px-1.5 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-[8px] font-bold text-slate-400 mb-1">CA 1</label>
+                                    <input type="number" id="add-student-ca1" min="0" max="100" placeholder="0" class="w-full px-1.5 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-[8px] font-bold text-slate-400 mb-1">MC 1</label>
+                                    <input type="number" id="add-student-mc1" min="0" max="100" placeholder="0" class="w-full px-1.5 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-[8px] font-bold text-slate-400 mb-1">CA 2</label>
+                                    <input type="number" id="add-student-ca2" min="0" max="100" placeholder="0" class="w-full px-1.5 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-[8px] font-bold text-slate-400 mb-1">MC 2</label>
+                                    <input type="number" id="add-student-mc2" min="0" max="100" placeholder="0" class="w-full px-1.5 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 text-center">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-[8px] font-bold text-slate-400 mb-1">Exam (40%)</label>
+                                    <input type="number" id="add-student-exam" min="0" max="100" placeholder="0" class="w-full px-1.5 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 text-center">
+                                </div>
+                            </div>
+                            <button onclick="addSingleStudent()" class="w-full mt-2 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs transition-colors flex items-center justify-center space-x-2 border border-slate-700">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Save to Register</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Modals -->
+    <div id="auth-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-slate-900 p-6 rounded-2xl max-w-sm w-full mx-4 shadow-2xl border border-slate-800 transform scale-95 transition-transform duration-200">
+            <div class="h-12 w-12 bg-indigo-500/10 text-indigo-400 rounded-full flex items-center justify-center text-xl mb-4 border border-indigo-500/20">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-white">Instructor Access</h3>
+            <p class="text-slate-400 text-xs mt-1">Enter password to unlock instructor management panel.</p>
+            
+            <div class="mt-4">
+                <input type="password" id="auth-password" onkeydown="handleAuthKeyDown(event)" placeholder="Enter password..." 
+                    class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            
+            <div class="mt-6 flex justify-end space-x-3">
+                <button onclick="closeAuthModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs">Cancel</button>
+                <button onclick="verifyTeacherPassword()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs shadow-lg shadow-indigo-600/30">Login</button>
+            </div>
+        </div>
     </div>
 
-    <!-- RIGHT PANEL -->
-    <div class="lg:col-span-8 flex flex-col gap-4">
-      
-      <!-- Metrics Bar -->
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-        <div class="bg-[#14181c] border-l-4 border-slate-500 p-4 rounded-r-xl">
-          <span id="lbl-afc-head" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Средние постоянные (AFC)</span>
-          <div id="val-afc" class="text-xs md:text-sm font-mono font-bold text-slate-200 mt-1">-</div>
-          <span id="lbl-afc-sub" class="text-[9px] text-slate-500 block mt-1">Постоянная нагрузка снижается</span>
+    <div id="confirm-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-slate-900 p-6 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-800 transform scale-95 transition-transform duration-200">
+            <div class="h-12 w-12 bg-rose-500/10 text-rose-500 rounded-full flex items-center justify-center text-xl mb-4 border border-rose-500/20">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Are you sure?</h3>
+            <p class="text-slate-400 text-xs mt-2">This action will erase all student data from the current gradebook.</p>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button onclick="closeConfirmModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs">Cancel</button>
+                <button onclick="resetAllData()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-xl text-xs shadow-lg shadow-rose-600/30">Reset Database</button>
+            </div>
         </div>
-
-        <div class="bg-[#14181c] border-l-4 border-emerald-500 p-4 rounded-r-xl">
-          <span id="lbl-atc-head" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Себестоимость (ATC)</span>
-          <div id="val-atc" class="text-xs md:text-sm font-mono font-bold text-emerald-400 mt-1">-</div>
-          <span class="text-[9px] text-slate-500 block mt-1">Min ATC: <span id="val-atc-min" class="font-bold text-slate-300">-</span></span>
-        </div>
-
-        <div class="bg-[#14181c] border-l-4 border-rose-500 p-4 rounded-r-xl">
-          <span id="lbl-mc-head" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Предельные издержки (MC)</span>
-          <div id="val-mc" class="text-xs md:text-sm font-mono font-bold text-rose-400 mt-1">-</div>
-          <span id="lbl-mc-sub" class="text-[9px] text-slate-500 block mt-1">Затраты на след. единицу</span>
-        </div>
-
-        <div class="bg-[#14181c] border-l-4 border-indigo-400 p-4 rounded-r-xl">
-          <span id="lbl-bep-head" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Безубыточность (BEP)</span>
-          <div id="val-bep" class="text-xs md:text-sm font-mono font-bold text-slate-500 mt-1">Off</div>
-          <span id="val-bep-desc" class="text-[9px] text-slate-500 block mt-1">Включите шаг 4</span>
-        </div>
-      </div>
-
-      <!-- Canvas Plot -->
-      <div class="bg-[#14181c] border border-slate-800 shadow-xl rounded-xl p-4 relative overflow-hidden">
-        <div class="flex flex-wrap gap-4 text-[10px] font-extrabold mb-3">
-          <div class="flex items-center gap-1.5"><span class="w-3 h-3 bg-emerald-500 rounded-full inline-block"></span><span class="text-slate-300">ATC</span></div>
-          <div class="flex items-center gap-1.5"><span class="w-3 h-3 bg-indigo-400 rounded-full inline-block"></span><span class="text-slate-300">AVC</span></div>
-          <div class="flex items-center gap-1.5"><span class="w-3 h-3 bg-slate-500 rounded-full inline-block"></span><span class="text-slate-300">AFC</span></div>
-          <div class="flex items-center gap-1.5"><span class="w-3 h-3 bg-rose-500 rounded-full inline-block"></span><span class="text-slate-300">MC</span></div>
-          <div class="flex items-center gap-1.5" id="legend-price-container" style="display:none;"><span class="w-3.5 h-0.5 bg-pink-400 inline-block border-t border-dashed"></span><span id="lbl-leg-price" class="text-slate-300">Цена (P)</span></div>
-          <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-400 inline-block border border-white"></span><span id="lbl-leg-opt" class="text-slate-300">Min ATC / Min AVC</span></div>
-        </div>
-        
-        <div class="w-full">
-          <canvas id="costCanvas" class="w-full h-auto block cursor-crosshair"></canvas>
-        </div>
-        <div id="lbl-drag-hint" class="text-[9px] text-slate-500 text-right mt-1">*Перемещайте маркер объема Q мышью или пальцем по полю графика</div>
-      </div>
-
-      <!-- Student Explanation Box -->
-      <div class="bg-[#14181c] border border-slate-800 rounded-xl p-4 shadow-inner">
-        <div class="flex justify-between items-center mb-2">
-          <label id="lbl-student-text-title" class="text-xs font-bold text-indigo-300 uppercase">Обоснование управленческого решения (до 150 слов)</label>
-          <span id="word-count-badge" class="text-[10px] font-mono text-slate-400">0 / 150 слов</span>
-        </div>
-        <textarea id="student-explanation" rows="4" class="w-full bg-[#0d1117] border border-slate-700/80 rounded-lg p-3 text-xs text-slate-200 outline-none focus:border-indigo-500 transition-all resize-none" placeholder="Проанализируйте полученные показатели издержек (ATC, AVC, MC) и охарактеризуйте финансовое состояние фирмы..."></textarea>
-      </div>
-
     </div>
 
-  </div>
+    <div id="attendance-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-slate-900 p-6 rounded-2xl max-w-2xl w-full mx-4 shadow-2xl border border-slate-800 transform scale-95 transition-transform duration-200 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center pb-3.5 border-b border-slate-800">
+                <div class="flex items-center space-x-3">
+                    <div class="h-10 w-10 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-lg border border-emerald-500/20">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-white" id="att-modal-student-name">Attendance Details</h3>
+                        <p class="text-[10px] text-slate-400">15 Weeks × 3 Hours/Week (45 Total Academic Hours)</p>
+                    </div>
+                </div>
+                <button onclick="closeAttendanceModal()" class="text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
 
-  <div id="lbl-footer" class="text-center text-[10px] text-slate-600 border-t border-slate-800/60 mt-5 pt-3">
-    AlmaU • 2026
-  </div>
+            <div class="flex-grow overflow-y-auto custom-scrollbar my-4 pr-1">
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 mb-4 flex justify-between items-center">
+                    <span class="text-xs text-slate-400 font-semibold">Total Attendance Rate:</span>
+                    <div class="flex items-center space-x-2">
+                        <span id="att-modal-percent" class="text-emerald-400 font-extrabold text-sm">0%</span>
+                        <span id="att-modal-hours" class="text-slate-500 text-xs font-medium">(0 of 45 hrs)</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-2.5" id="attendance-dates-grid"></div>
+            </div>
 
-</div>
-
-<!-- MODAL: Student Token Output -->
-<div id="token-modal" class="fixed inset-0 bg-black/80 modal-blur flex items-center justify-center p-4 z-50 hidden">
-  <div class="bg-[#161b22] border border-emerald-500/40 rounded-2xl max-w-lg w-full p-5 shadow-2xl relative">
-    <button onclick="closeTokenModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-lg">✕</button>
-    <h3 id="modal-token-title" class="text-sm font-black text-emerald-400 uppercase tracking-wide mb-1">🎯 Ответ зафиксирован</h3>
-    <p id="modal-token-desc" class="text-xs text-slate-400 mb-3">Скопируйте полученный токен и отправьте преподавателю для проверки:</p>
-    
-    <textarea id="token-output" readonly rows="4" class="w-full bg-[#0d1117] font-mono text-[11px] text-emerald-300 border border-slate-700 p-2.5 rounded-lg mb-3 break-all select-all"></textarea>
-    
-    <button id="lbl-modal-copy-btn" onclick="copyTokenToClipboard()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-lg text-xs transition-all">
-      📋 Скопировать токен в буфер обмена
-    </button>
-  </div>
-</div>
-
-<!-- MODAL: Teacher Evaluation Dashboard -->
-<div id="teacher-modal" class="fixed inset-0 bg-black/85 modal-blur flex items-center justify-center p-4 z-50 hidden">
-  <div class="bg-[#161b22] border border-amber-500/40 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-    <button onclick="closeTeacherModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-lg">✕</button>
-    <h3 id="modal-teacher-title" class="text-base font-black text-amber-400 uppercase tracking-wide mb-2">🎓 Панель проверки преподавателя</h3>
-    <p id="modal-teacher-desc" class="text-xs text-slate-400 mb-3">Вставьте зашифрованный токен студента для расшифровки и оценки:</p>
-
-    <div class="flex gap-2 mb-4">
-      <input type="text" id="teacher-token-input" placeholder="Вставьте токен..." class="flex-grow font-mono text-xs">
-      <button id="lbl-btn-eval" onclick="evaluateStudentToken()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-4 py-2 rounded-lg text-xs transition-all">
-        Анализировать
-      </button>
+            <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                <div class="flex space-x-1.5">
+                    <button onclick="toggleAllAttendance(true)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-[10px] border border-slate-700">Select All</button>
+                    <button onclick="toggleAllAttendance(false)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-[10px] border border-slate-700">Clear All</button>
+                </div>
+                <button onclick="saveAttendanceDetails()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs shadow-lg shadow-emerald-600/30 flex items-center space-x-1.5">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>Save Attendance</span>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div id="teacher-eval-result" class="hidden space-y-3 border-t border-slate-700/80 pt-4">
-      <div class="flex justify-between items-center bg-[#0d1117] p-3 rounded-xl border border-slate-800">
-        <div>
-          <span id="lbl-eval-score-title" class="text-[10px] text-slate-500 block uppercase">Автоматическая оценка решения</span>
-          <span id="eval-grade-score" class="text-2xl font-black text-amber-400 font-mono">8.5 / 10</span>
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2"></div>
+
+    <footer class="bg-slate-950 border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p>© 2026 ALMAU School of Digital Technologies & Economics. All rights reserved.</p>
+            <p class="text-slate-600">Syllabus: Att (10%) | Act (10%) | CA1 (10%) | MC1 (10%) | CA2 (10%) | MC2 (10%) | Exam (40%)</p>
         </div>
-        <div id="eval-status-badge" class="px-3 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-          Приемлемое решение
-        </div>
-      </div>
-
-      <div class="bg-[#0d1117] p-3 rounded-xl border border-slate-800 text-xs">
-        <span id="lbl-eval-summary-title" class="text-amber-400 font-bold block mb-1">Восстановленная модель студента:</span>
-        <div id="eval-params-summary" class="font-mono text-slate-300 text-[11px] grid grid-cols-2 gap-1.5"></div>
-      </div>
-
-      <div class="bg-[#0d1117] p-3 rounded-xl border border-slate-800 text-xs">
-        <span id="lbl-eval-verdict-title" class="text-indigo-400 font-bold block mb-1">Экспертный вердикт системы:</span>
-        <div id="eval-calculated-verdict" class="text-slate-200 leading-relaxed bg-indigo-950/30 p-2.5 rounded border border-indigo-500/20"></div>
-      </div>
-
-      <div class="bg-[#0d1117] p-3 rounded-xl border border-slate-800 text-xs">
-        <span id="lbl-eval-text-title" class="text-emerald-400 font-bold block mb-1">Текст обоснования студента:</span>
-        <p id="eval-student-text" class="text-slate-300 italic bg-black/40 p-2 rounded border border-slate-800"></p>
-      </div>
-
-      <div class="bg-[#0d1117] p-3 rounded-xl border border-slate-800 text-xs">
-        <span id="lbl-eval-audit-title" class="text-rose-400 font-bold block mb-1">Аудит соответствия и ошибок:</span>
-        <ul id="eval-audit-list" class="list-disc list-inside text-slate-300 space-y-1"></ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  let currentLang = 'ru';
-  let activeStudent = null;
-
-  // ПОЛНАЯ БАЗА СТУДЕНТОВ (80+ Economics RUS, 20 Principles, 9 SE)
-  const studentsDatabase = [
-    // --- economics-rus (Русское отделение) ---
-    { id: "rus_1", nameRu: "Азизбеков Максат", nameEn: "Maksat Azizbekov", repo: "economics-rus" },
-    { id: "rus_2", nameRu: "Амангелдиева Жанель", nameEn: "Zhanel Amangeldiyeva", repo: "economics-rus" },
-    { id: "rus_3", nameRu: "Алмуратова Гауһар", nameEn: "Gauhar Almuratova", repo: "economics-rus" },
-    { id: "rus_4", nameRu: "Ахметова Аделия", nameEn: "Adeliya Akhmetova", repo: "economics-rus" },
-    { id: "rus_5", nameRu: "Баранов Роман", nameEn: "Roman Baranov", repo: "economics-rus" },
-    { id: "rus_6", nameRu: "Григорьева Елизавета", nameEn: "Yelizaveta Grigoryeva", repo: "economics-rus" },
-    { id: "rus_7", nameRu: "Дудуев Абдулальварис", nameEn: "Abdulalvaris Duduyev", repo: "economics-rus" },
-    { id: "rus_8", nameRu: "Жақсылық Ерасыл", nameEn: "Yerasyl Zhaksylyk", repo: "economics-rus" },
-    { id: "rus_9", nameRu: "Жеткеева Светлана", nameEn: "Svetlana Zhetkeyeva", repo: "economics-rus" },
-    { id: "rus_10", nameRu: "Касенова Сарра", nameEn: "Sarra Kassenova", repo: "economics-rus" },
-    { id: "rus_11", nameRu: "Кулетов Алихан", nameEn: "Alikhan Kuletov", repo: "economics-rus" },
-    { id: "rus_12", nameRu: "Қуандық Ибраһим", nameEn: "Ibrahim Kuandyk", repo: "economics-rus" },
-    { id: "rus_13", nameRu: "Қуанышева Аружан", nameEn: "Aruzhan Kuanysheva", repo: "economics-rus" },
-    { id: "rus_14", nameRu: "Мусабаев Димаш", nameEn: "Dimash Mussabayev", repo: "economics-rus" },
-    { id: "rus_15", nameRu: "Резаев Никита", nameEn: "Nikita Rezayev", repo: "economics-rus" },
-    { id: "rus_16", nameRu: "Солдатенко Михаил", nameEn: "Mikhail Soldatenko", repo: "economics-rus" },
-    { id: "rus_17", nameRu: "Тоганасова Айдана", nameEn: "Aidana Toganassova", repo: "economics-rus" },
-    { id: "rus_18", nameRu: "Токбай Даулет", nameEn: "Daulet Tokbay", repo: "economics-rus" },
-    { id: "rus_19", nameRu: "Шаймухамбетов Алим", nameEn: "Alim Shaimukhambetov", repo: "economics-rus" },
-    { id: "rus_20", nameRu: "Абдул ахад Мухамедрашит", nameEn: "Abdul Ahad Mukhamedrashit", repo: "economics-rus" },
-    { id: "rus_21", nameRu: "Абдрахманов Тимур", nameEn: "Timur Abdrakhmanov", repo: "economics-rus" },
-    { id: "rus_22", nameRu: "Айтжанова Динара", nameEn: "Dinara Aitzhanova", repo: "economics-rus" },
-    { id: "rus_23", nameRu: "Алимжанов Данияр", nameEn: "Daniyar Alimzhanov", repo: "economics-rus" },
-    { id: "rus_24", nameRu: "Байжанов Арман", nameEn: "Arman Baizhanov", repo: "economics-rus" },
-    { id: "rus_25", nameRu: "Бекова Амина", nameEn: "Amina Bekova", repo: "economics-rus" },
-    { id: "rus_26", nameRu: "Васильев Илья", nameEn: "Ilya Vasilyev", repo: "economics-rus" },
-    { id: "rus_27", nameRu: "Гаврилов Андрей", nameEn: "Andrey Gavrilov", repo: "economics-rus" },
-    { id: "rus_28", nameRu: "Даулетов Бахтияр", nameEn: "Bakhtiyar Dauletov", repo: "economics-rus" },
-    { id: "rus_29", nameRu: "Есенова Асель", nameEn: "Assel Yessenova", repo: "economics-rus" },
-    { id: "rus_30", nameRu: "Жумагулов Руслан", nameEn: "Ruslan Zhumagulov", repo: "economics-rus" },
-    { id: "rus_31", nameRu: "Исмаилов Дамир", nameEn: "Damir Ismailov", repo: "economics-rus" },
-    { id: "rus_32", nameRu: "Каримова Камила", nameEn: "Kamila Karimova", repo: "economics-rus" },
-    { id: "rus_33", nameRu: "Логинов Дмитрий", nameEn: "Dmitriy Loginov", repo: "economics-rus" },
-    { id: "rus_34", nameRu: "Мамедова Лейла", nameEn: "Leyla Mamedova", repo: "economics-rus" },
-    { id: "rus_35", nameRu: "Нурпеисов Алмас", nameEn: "Almas Nurpeissov", repo: "economics-rus" },
-    { id: "rus_36", nameRu: "Омарова Мадина", nameEn: "Madina Omarova", repo: "economics-rus" },
-    { id: "rus_37", nameRu: "Павлов Артем", nameEn: "Artem Pavlov", repo: "economics-rus" },
-    { id: "rus_38", nameRu: "Рахимов Санжар", nameEn: "Sanzhar Rakhimov", repo: "economics-rus" },
-    { id: "rus_39", nameRu: "Садыкова Томирис", nameEn: "Tomiris Sadykova", repo: "economics-rus" },
-    { id: "rus_40", nameRu: "Турсунова Данэля", nameEn: "Danelya Tursunova", repo: "economics-rus" },
-    { id: "rus_41", nameRu: "Утегенов Айдар", nameEn: "Aydar Utegenov", repo: "economics-rus" },
-    { id: "rus_42", nameRu: "Филатов Максим", nameEn: "Maksim Filatov", repo: "economics-rus" },
-    { id: "rus_43", nameRu: "Хан Вероника", nameEn: "Veronika Khan", repo: "economics-rus" },
-    { id: "rus_44", nameRu: "Цай Александр", nameEn: "Aleksandr Tsay", repo: "economics-rus" },
-    { id: "rus_45", nameRu: "Чернов Владислав", nameEn: "Vladislav Chernov", repo: "economics-rus" },
-    { id: "rus_46", nameRu: "Шарипова Анель", nameEn: "Anel Sharipova", repo: "economics-rus" },
-    { id: "rus_47", nameRu: "Ыскак Ерсултан", nameEn: "Yersultan Yskak", repo: "economics-rus" },
-    { id: "rus_48", nameRu: "Югай Эдуард", nameEn: "Eduard Yugay", repo: "economics-rus" },
-    { id: "rus_49", nameRu: "Яковлева Полина", nameEn: "Polina Yakovleva", repo: "economics-rus" },
-    { id: "rus_50", nameRu: "Аманбаев Канат", nameEn: "Kanat Amanbayev", repo: "economics-rus" },
-
-    // --- principles-economics (International Business / English) ---
-    { id: "ib_1", nameRu: "Сапаров Аликхан", nameEn: "Alikhan Saparov", repo: "principles-economics" },
-    { id: "ib_2", nameRu: "Чен София", nameEn: "Sofia Chen", repo: "principles-economics" },
-    { id: "ib_3", nameRu: "Жумагалиева Арай", nameEn: "Arai Zhumagaliyeva", repo: "principles-economics" },
-    { id: "ib_4", nameRu: "Мухатов Даниал", nameEn: "Danial Mukhatov", repo: "principles-economics" },
-    { id: "ib_5", nameRu: "Ким Елена", nameEn: "Elena Kim", repo: "principles-economics" },
-    { id: "ib_6", nameRu: "Ахметов Темирлан", nameEn: "Temirlan Akhmetov", repo: "principles-economics" },
-    { id: "ib_7", nameRu: "Сулейменова Мадина", nameEn: "Madina Suleimenova", repo: "principles-economics" },
-    { id: "ib_8", nameRu: "Ли Роберт", nameEn: "Robert Lee", repo: "principles-economics" },
-    { id: "ib_9", nameRu: "Паак Дэвид", nameEn: "David Park", repo: "principles-economics" },
-    { id: "ib_10", nameRu: "Смирнова Анна", nameEn: "Anna Smirnova", repo: "principles-economics" },
-
-    // --- economics-se (Software Engineering) ---
-    { id: "se_1", nameRu: "Капанов Данияр", nameEn: "Daniyar Kapanov", repo: "economics-se" },
-    { id: "se_2", nameRu: "Волков Максим", nameEn: "Maxim Volkov", repo: "economics-se" },
-    { id: "se_3", nameRu: "Касымов Тимур", nameEn: "Timur Kasymov", repo: "economics-se" },
-    { id: "se_4", nameRu: "Смагулов Аслан", nameEn: "Aslan Smagulov", repo: "economics-se" },
-    { id: "se_5", nameRu: "Оспанов Руслан", nameEn: "Ruslan Ospanov", repo: "economics-se" },
-    { id: "se_6", nameRu: "Нурланов Адил", nameEn: "Adil Nurlanov", repo: "economics-se" },
-    { id: "se_7", nameRu: "Ковалев Артем", nameEn: "Artem Kovalev", repo: "economics-se" },
-    { id: "se_8", nameRu: "Ибраев Ержан", nameEn: "Yarzhan Ibrayev", repo: "economics-se" },
-    { id: "se_9", nameRu: "Бектурсынов Чингиз", nameEn: "Chingiz Bektursynov", repo: "economics-se" }
-  ];
-
-  // Уникальный генератор параметров по нормализованной строке "Имя + Фамилия"
-  function generateStudentParameters(fullName) {
-    const cleanName = fullName.toLowerCase().trim().replace(/\s+/g, ' ');
-    
-    let hash = 0;
-    for (let i = 0; i < cleanName.length; i++) {
-      hash = (hash << 5) - hash + cleanName.charCodeAt(i);
-      hash |= 0;
-    }
-    const absHash = Math.abs(hash);
-
-    const fc = 800 + (absHash % 33) * 50; 
-    const a = 18 + ((absHash >> 3) % 20); 
-    const b = Number((0.40 + ((absHash >> 5) % 40) * 0.01).toFixed(2)); 
-    const c = Number((0.008 + ((absHash >> 7) % 10) * 0.001).toFixed(3)); 
-    const variantNum = (absHash % 90) + 10;
-    
-    return { fc, a, b, c, variantNum, normalizedName: cleanName };
-  }
-
-  // Поиск и загрузка варианта строго по связке Name + Surname
-  function searchAndLoadStudent() {
-    const rawInput = document.getElementById('student-name-input').value.trim();
-    const statusBox = document.getElementById('search-status');
-
-    const tokens = rawInput.toLowerCase().split(/\s+/).filter(t => t.length > 0);
-
-    if (tokens.length < 2) {
-      statusBox.className = "mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30 block";
-      statusBox.innerText = currentLang === 'ru' 
-        ? "⚠️ Пожалуйста, введите и Имя, и Фамилию (например: Максат Азизбеков)!" 
-        : "⚠️ Please enter both Name and Surname (e.g., Alikhan Saparov)!";
-      return;
-    }
-
-    // Ищем совпадение пары слов в базе
-    const found = studentsDatabase.find(s => {
-      const ruName = s.nameRu.toLowerCase();
-      const enName = s.nameEn.toLowerCase();
-      
-      const matchRu = tokens.every(token => ruName.includes(token));
-      const matchEn = tokens.every(token => enName.includes(token));
-
-      return matchRu || matchEn;
-    });
-
-    if (found) {
-      activeStudent = found;
-      const params = generateStudentParameters(`${found.nameRu}`);
-
-      inpFc.value = params.fc;
-      inpVca.value = params.a;
-      inpVcb.value = params.b;
-      inpVcc.value = params.c;
-
-      document.getElementById('variant-badge').innerText = `Вариант #${params.variantNum}`;
-      
-      statusBox.className = "mb-4 p-3 rounded-xl text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 block";
-      statusBox.innerHTML = currentLang === 'ru' 
-        ? `✓ Студент найден: <strong>${found.nameRu}</strong> (${found.repo}) — Вариант #${params.variantNum} загружен!`
-        : `✓ Student found: <strong>${found.nameEn}</strong> (${found.repo}) — Variant #${params.variantNum} loaded!`;
-
-      update();
-    } else {
-      const customFullName = tokens.join(' ');
-      const params = generateStudentParameters(customFullName);
-
-      inpFc.value = params.fc;
-      inpVca.value = params.a;
-      inpVcb.value = params.b;
-      inpVcc.value = params.c;
-
-      document.getElementById('variant-badge').innerText = `Вариант #${params.variantNum}`;
-
-      statusBox.className = "mb-4 p-3 rounded-xl text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 block";
-      statusBox.innerHTML = currentLang === 'ru'
-        ? `ℹ️ Вариант #${params.variantNum} сформирован для пары: <strong>"${rawInput}"</strong>.`
-        : `ℹ️ Variant #${params.variantNum} generated for pair: <strong>"${rawInput}"</strong>.`;
-
-      update();
-    }
-  }
-
-  // Словарь двуязычного перевода элементов
-  const i18n = {
-    ru: {
-      subHeader: "ALMAU • 2026",
-      mainTitle: "Task 5. Издержки производства",
-      mainDesc: "Определение параметров затрат и экономического состояния компании",
-      btnTeacher: "Проверка преподавателя",
-      btnSubmit: "Зафиксировать ответ",
-      searchTitle: "Идентификация студента",
-      searchDesc: "Введите Имя и Фамилию без отчества (RU / EN)",
-      btnSearch: "Загрузить вариант",
-      placeholder: "Например: Максат Азизбеков или Alikhan Saparov",
-      
-      step1Title: "Шаг 1. Постоянные затраты (FC)",
-      fcLabel: "Постоянные издержки (FC)",
-      fcDesc: "Аренда, амортизация, оклады управления (не зависят от Q).",
-      step2Title: "Шаг 2. Параметры технологии (VC)",
-      vcFormula: "Формула переменных издержек:",
-      btnCoeffA: "Линейный (a)",
-      btnCoeffB: "Сжатие (b)",
-      btnCoeffC: "Перегрузка (c)",
-      step3Title: "Шаг 3. Объем выпуска (Q)",
-      cardVc: "Переменные (VC)",
-      cardTc: "Общие издержки (TC)",
-      step4Title: "Шаг 4. Анализ безубыточности",
-      marketPrice: "Рыночная цена товара (P)",
-      bepDesc: "Выявляет диапазоны окупаемости, где общая выручка покрывает затраты (TR ≥ TC).",
-      
-      afcHead: "Средние постоянные (AFC)",
-      afcSub: "Постоянная нагрузка снижается",
-      atcHead: "Себестоимость (ATC)",
-      mcHead: "Предельные издержки (MC)",
-      mcSub: "Затраты на след. единицу",
-      bepHead: "Безубыточность (BEP)",
-      legPrice: "Цена (P)",
-      legOpt: "Min ATC / Min AVC",
-      dragHint: "*Перемещайте маркер объема Q мышью или пальцем по полю графика",
-      studentTextTitle: "Обоснование управленческого решения (до 150 слов)",
-      footer: "AlmaU • 2026",
-      
-      coeffATitle: "Линейный параметр (a)",
-      coeffADesc: "Прямые переменные затраты сырья, материалов и энергии на единицу продукции.",
-      coeffBTitle: "Коэффициент сжатия (b)",
-      coeffBDesc: "Эффект масштаба и специализация труда, снижающие удельные издержки.",
-      coeffCTitle: "Коэффициент перегрузки (c)",
-      coeffCDesc: "Закон убывающей отдачи и перегрузка производственных мощностей.",
-
-      vCriticalTitle: "КРИТИЧЕСКАЯ ЗОНА: ЗАПУСК ПРЕДПРИЯТИЯ НЕОПТИМАЛЕН",
-      vCriticalText: (q, qAvc, fc) => `Выпуск <strong>${q} шт</strong> ниже точки закрытия (Shutdown Point = <strong>${qAvc} шт</strong>). <br><strong>Решение:</strong> Временно остановить производство, ограничив убытки уровнем FC (${fc}).`,
-      vLossTitle: "КРАТКОСРОЧНАЯ УБЫТОЧНОСТЬ (МИНИМИЗАЦИЯ ПОТЕРЬ)",
-      vLossText: (q, qAtc) => `Выпуск <strong>${q} шт</strong> покрывает VC, но не окупает FC. <br><strong>Решение:</strong> Продолжать работу в краткосрочном периоде. Расширить выпуск до <strong>${qAtc} шт</strong> (Min ATC).`,
-      vProfitTitle: "ЗОНА ТЕХНОЛОГИЧЕСКОЙ ЭФФЕКТИВНОСТИ И ПРИБЫЛИ",
-      vProfitText: (q, qAtc, mc) => `Выпуск <strong>${q} шт</strong> превышает точку окупаемости (Min ATC = ${qAtc} шт). <br><strong>Решение:</strong> Предприятие работает с прибылью. Контролируйте рост MC (сейчас ${mc}).`,
-
-      modalTokenTitle: "🎯 Ответ зафиксирован",
-      modalTokenDesc: "Скопируйте токен и отправьте преподавателю:",
-      modalCopyBtn: "📋 Скопировать токен в буфер обмена",
-      
-      modalTeacherTitle: "🎓 Панель проверки преподавателя",
-      modalTeacherDesc: "Вставьте зашифрованный токен студента для расшифровки и оценки:",
-      btnEval: "Анализировать",
-      evalScoreTitle: "Автоматическая оценка решения",
-      evalSummaryTitle: "Восстановленная модель студента:",
-      evalVerdictTitle: "Экспертный вердикт системы:",
-      evalTextTitle: "Текст обоснования студента:",
-      evalAuditTitle: "Аудит соответствия и ошибок:"
-    },
-    en: {
-      subHeader: "ALMAU • 2026",
-      mainTitle: "Task 5. Production Costs",
-      mainDesc: "Cost parameter determination and firm economic status",
-      btnTeacher: "Teacher Verification",
-      btnSubmit: "Lock & Submit Answer",
-      searchTitle: "Student Identification",
-      searchDesc: "Enter Name and Surname without patronymic (RU / EN)",
-      btnSearch: "Load Variant",
-      placeholder: "e.g., Maksat Azizbekov or Alikhan Saparov",
-      
-      step1Title: "Step 1. Fixed Costs (FC)",
-      fcLabel: "Fixed Costs (FC)",
-      fcDesc: "Rent, depreciation, executive salaries (independent of Q).",
-      step2Title: "Step 2. Technology Parameters (VC)",
-      vcFormula: "Variable cost formula:",
-      btnCoeffA: "Linear (a)",
-      btnCoeffB: "Compression (b)",
-      btnCoeffC: "Overload (c)",
-      step3Title: "Step 3. Output Volume (Q)",
-      cardVc: "Variable (VC)",
-      cardTc: "Total Cost (TC)",
-      step4Title: "Step 4. Break-Even Analysis",
-      marketPrice: "Market Price (P)",
-      bepDesc: "Identifies profitability ranges where total revenue covers costs (TR ≥ TC).",
-      
-      afcHead: "Average Fixed (AFC)",
-      afcSub: "Fixed cost burden decreases",
-      atcHead: "Unit Cost (ATC)",
-      mcHead: "Marginal Cost (MC)",
-      mcSub: "Cost of producing next unit",
-      bepHead: "Break-Even (BEP)",
-      legPrice: "Price (P)",
-      legOpt: "Min ATC / Min AVC",
-      dragHint: "*Drag the output volume Q marker with mouse or touch on the graph",
-      studentTextTitle: "Student Explanation of Managerial Decision (up to 150 words)",
-      footer: "AlmaU • 2026",
-      
-      coeffATitle: "Linear Parameter (a)",
-      coeffADesc: "Direct variable costs for materials and energy per unit of output.",
-      coeffBTitle: "Compression Coefficient (b)",
-      coeffBDesc: "Economies of scale and labor specialization reducing unit costs.",
-      coeffCTitle: "Overload Coefficient (c)",
-      coeffCDesc: "Law of diminishing returns and capacity overload effect.",
-
-      vCriticalTitle: "CRITICAL ZONE: PRODUCTION SHUTDOWN RECOMMENDED",
-      vCriticalText: (q, qAvc, fc) => `Output level <strong>${q} units</strong> is below Shutdown Point (<strong>${qAvc} units</strong>). <br><strong>Action:</strong> Temporarily suspend operations to limit losses to FC (${fc}).`,
-      vLossTitle: "SHORT-RUN LOSS MINIMIZATION ZONE",
-      vLossText: (q, qAtc) => `Output level <strong>${q} units</strong> covers VC but not FC. <br><strong>Action:</strong> Continue short-run operations. Expand output to <strong>${qAtc} units</strong> long term.`,
-      vProfitTitle: "PROFITABILITY AND HIGH EFFICIENCY ZONE",
-      vProfitText: (q, qAtc, mc) => `Output level <strong>${q} units</strong> exceeds break-even volume (Min ATC = ${qAtc} units).`,
-
-      modalTokenTitle: "🎯 Answer Recorded",
-      modalTokenDesc: "Copy the token and send it to your instructor:",
-      modalCopyBtn: "📋 Copy Token to Clipboard",
-      
-      modalTeacherTitle: "🎓 Teacher Verification Dashboard",
-      modalTeacherDesc: "Paste student encrypted token for decryption and evaluation:",
-      btnEval: "Analyze Token",
-      evalScoreTitle: "Automated Solution Evaluation",
-      evalSummaryTitle: "Restored Student Model:",
-      evalVerdictTitle: "System Expert Verdict:",
-      evalTextTitle: "Student Explanation Text:",
-      evalAuditTitle: "Compliance & Error Audit:"
-    }
-  };
-
-  function setLanguage(lang) {
-    currentLang = lang;
-    const t = i18n[lang];
-
-    document.getElementById('btn-lang-ru').className = lang === 'ru' ? "px-2.5 py-1 rounded text-xs font-bold transition-all bg-indigo-600 text-white shadow-md" : "px-2.5 py-1 rounded text-xs font-bold transition-all text-slate-400 hover:text-slate-200";
-    document.getElementById('btn-lang-en').className = lang === 'en' ? "px-2.5 py-1 rounded text-xs font-bold transition-all bg-indigo-600 text-white shadow-md" : "px-2.5 py-1 rounded text-xs font-bold transition-all text-slate-400 hover:text-slate-200";
-
-    document.getElementById('lbl-sub-header').innerText = t.subHeader;
-    document.getElementById('lbl-main-title').innerText = t.mainTitle;
-    document.getElementById('lbl-main-desc').innerText = t.mainDesc;
-    document.getElementById('lbl-btn-teacher').innerText = t.btnTeacher;
-    document.getElementById('lbl-btn-submit').innerText = t.btnSubmit;
-    document.getElementById('lbl-search-title').innerText = t.searchTitle;
-    document.getElementById('lbl-search-desc').innerText = t.searchDesc;
-    document.getElementById('lbl-btn-search').innerText = t.btnSearch;
-    document.getElementById('student-name-input').placeholder = t.placeholder;
-
-    document.getElementById('lbl-step1-title').innerHTML = `<span class="w-2 h-2 bg-indigo-500 rounded-full"></span> ${t.step1Title}`;
-    document.getElementById('lbl-fc').innerText = t.fcLabel;
-    document.getElementById('lbl-fc-desc').innerText = t.fcDesc;
-    document.getElementById('lbl-step2-title').innerHTML = `<span class="w-2 h-2 bg-emerald-500 rounded-full"></span> ${t.step2Title}`;
-    document.getElementById('lbl-vc-formula').innerText = t.vcFormula;
-    document.getElementById('lbl-coeff-a-btn').innerText = t.btnCoeffA;
-    document.getElementById('lbl-coeff-b-btn').innerText = t.btnCoeffB;
-    document.getElementById('lbl-coeff-c-btn').innerText = t.btnCoeffC;
-    document.getElementById('lbl-step3-title').innerText = t.step3Title;
-    document.getElementById('lbl-card-vc').innerText = t.cardVc;
-    document.getElementById('lbl-card-tc').innerText = t.cardTc;
-    document.getElementById('lbl-step4-title').innerHTML = `<span class="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span> ${t.step4Title}`;
-    document.getElementById('lbl-market-price').innerText = t.marketPrice;
-    document.getElementById('lbl-bep-desc').innerText = t.bepDesc;
-    document.getElementById('lbl-afc-head').innerText = t.afcHead;
-    document.getElementById('lbl-afc-sub').innerText = t.afcSub;
-    document.getElementById('lbl-atc-head').innerText = t.atcHead;
-    document.getElementById('lbl-mc-head').innerText = t.mcHead;
-    document.getElementById('lbl-mc-sub').innerText = t.mcSub;
-    document.getElementById('lbl-bep-head').innerText = t.bepHead;
-    document.getElementById('lbl-leg-price').innerText = t.legPrice;
-    document.getElementById('lbl-leg-opt').innerText = t.legOpt;
-    document.getElementById('lbl-drag-hint').innerText = t.dragHint;
-    document.getElementById('lbl-student-text-title').innerText = t.studentTextTitle;
-    document.getElementById('lbl-footer').innerText = t.footer;
-
-    document.getElementById('modal-token-title').innerText = t.modalTokenTitle;
-    document.getElementById('modal-token-desc').innerText = t.modalTokenDesc;
-    document.getElementById('lbl-modal-copy-btn').innerText = t.modalCopyBtn;
-
-    document.getElementById('modal-teacher-title').innerText = t.modalTeacherTitle;
-    document.getElementById('modal-teacher-desc').innerText = t.modalTeacherDesc;
-    document.getElementById('lbl-btn-eval').innerText = t.btnEval;
-    document.getElementById('lbl-eval-score-title').innerText = t.evalScoreTitle;
-    document.getElementById('lbl-eval-summary-title').innerText = t.evalSummaryTitle;
-    document.getElementById('lbl-eval-verdict-title').innerText = t.evalVerdictTitle;
-    document.getElementById('lbl-eval-text-title').innerText = t.evalTextTitle;
-    document.getElementById('lbl-eval-audit-title').innerText = t.evalAuditTitle;
-
-    update();
-  }
-
-  const inpFc = document.getElementById('volume-slider-fc');
-  const fcBadge = document.getElementById('fc-badge');
-  const inpVca = document.getElementById('inp-vca');
-  const inpVcb = document.getElementById('inp-vcb');
-  const inpVcc = document.getElementById('inp-vcc');
-
-  const chkBep = document.getElementById('chk-bep');
-  const bepControls = document.getElementById('bep-controls');
-  const priceSlider = document.getElementById('price-slider');
-  const priceBadge = document.getElementById('price-badge');
-  const legendPriceContainer = document.getElementById('legend-price-container');
-
-  const volumeSlider = document.getElementById('volume-slider');
-  const volumeBadge = document.getElementById('volume-badge');
-
-  const statVc = document.getElementById('stat-vc');
-  const statTc = document.getElementById('stat-tc');
-  const valAfc = document.getElementById('val-afc');
-  const valAtc = document.getElementById('val-atc');
-  const valMc = document.getElementById('val-mc');
-  const valAtcMin = document.getElementById('val-atc-min');
-  const valBep = document.getElementById('val-bep');
-  const valBepDesc = document.getElementById('val-bep-desc');
-
-  const studentExplanation = document.getElementById('student-explanation');
-  const wordCountBadge = document.getElementById('word-count-badge');
-
-  const canvas = document.getElementById('costCanvas');
-  const ctx = canvas.getContext('2d');
-  const pad = { top: 25, right: 40, bottom: 45, left: 80 };
-  let isDraggingQ = false;
-  let activeCoeffCard = null;
-
-  function formatValue(val, suffix = ' ₸') {
-    return new Intl.NumberFormat('ru-RU').format(Math.round(val)) + suffix;
-  }
-
-  function getCosts(Q, model) {
-    if (Q <= 0) return { fc: model.fc, vc: 0, tc: model.fc, afc: Infinity, avc: 0, atc: Infinity, mc: model.vca };
-    const fc = model.fc;
-    const vc = model.vca * Q - model.vcb * Q * Q + model.vcc * Q * Q * Q;
-    const tc = fc + vc;
-    const afc = fc / Q;
-    const avc = vc / Q;
-    const atc = tc / Q;
-    const mc = model.vca - 2 * model.vcb * Q + 3 * model.vcc * Q * Q;
-    return { fc, vc, tc, afc, avc, atc, mc };
-  }
-
-  function findMinima(model) {
-    let minATC = Infinity, qAtcMin = 1, minAVC = Infinity, qAvcMin = 1;
-    for (let q = 1; q <= 100; q += 0.1) {
-      const costs = getCosts(q, model);
-      if (costs.atc < minATC) { minATC = costs.atc; qAtcMin = q; }
-      if (costs.avc < minAVC) { minAVC = costs.avc; qAvcMin = q; }
-    }
-    return { qAtcMin, minATC, qAvcMin, minAVC };
-  }
-
-  function calculateModel() {
-    const fc = parseFloat(inpFc.value) || 0;
-    const vca = parseFloat(inpVca.value) || 0;
-    const vcb = parseFloat(inpVcb.value) || 0;
-    const vcc = parseFloat(inpVcc.value) || 0.001;
-    return { fc, vca, vcb, vcc };
-  }
-
-  function resizeCanvas() {
-    const container = canvas.parentElement;
-    canvas.width = container.clientWidth;
-    canvas.height = Math.max(280, container.clientWidth * 0.45);
-    update();
-  }
-
-  function getQFromX(mouseX, gW) {
-    let relativeX = (mouseX - pad.left) / gW;
-    return Math.max(1, Math.min(100, Math.round(relativeX * 100)));
-  }
-
-  function toggleCoeffCard(type) {
-    const box = document.getElementById('coeff-info-box');
-    const title = document.getElementById('coeff-info-title');
-    const body = document.getElementById('coeff-info-body');
-    const t = i18n[currentLang];
-
-    if (activeCoeffCard === type) {
-      closeCoeffBox();
-      return;
-    }
-
-    activeCoeffCard = type;
-    box.classList.remove('hidden');
-
-    if (type === 'a') {
-      title.innerText = t.coeffATitle;
-      body.innerText = t.coeffADesc;
-    } else if (type === 'b') {
-      title.innerText = t.coeffBTitle;
-      body.innerText = t.coeffBDesc;
-    } else if (type === 'c') {
-      title.innerText = t.coeffCTitle;
-      body.innerText = t.coeffCDesc;
-    }
-  }
-
-  function closeCoeffBox() {
-    activeCoeffCard = null;
-    document.getElementById('coeff-info-box').classList.add('hidden');
-  }
-
-  studentExplanation.addEventListener('input', () => {
-    const words = studentExplanation.value.trim().split(/\s+/).filter(w => w.length > 0);
-    if (words.length > 150) {
-      const trimmed = words.slice(0, 150).join(' ');
-      studentExplanation.value = trimmed;
-    }
-    wordCountBadge.innerText = `${Math.min(words.length, 150)} / 150 ${currentLang === 'ru' ? 'слов' : 'words'}`;
-  });
-
-  function update() {
-    const model = calculateModel();
-    const Q = parseInt(volumeSlider.value);
-    
-    volumeBadge.innerText = Q + (currentLang === 'ru' ? " шт" : " units");
-    fcBadge.innerText = formatValue(model.fc);
-
-    const costs = getCosts(Q, model);
-    const minima = findMinima(model);
-
-    statVc.innerText = formatValue(costs.vc);
-    statTc.innerText = formatValue(costs.tc);
-    valAfc.innerText = formatValue(costs.afc);
-    valAtc.innerText = formatValue(costs.atc);
-    valMc.innerText = formatValue(costs.mc);
-    valAtcMin.innerHTML = `Q = ${Math.round(minima.qAtcMin)} (${formatValue(minima.minATC)})`;
-
-    let bepPoints = [];
-    if (chkBep.checked) {
-      bepControls.classList.remove('opacity-40', 'pointer-events-none');
-      legendPriceContainer.style.display = 'flex';
-      const P = parseFloat(priceSlider.value);
-      priceBadge.innerText = P + " ₸";
-      
-      let profitStart = null, profitEnd = null;
-      for (let q = 1; q <= 100; q += 0.1) {
-        const c = getCosts(q, model);
-        if (P >= c.atc) {
-          if (profitStart === null) profitStart = q;
-          profitEnd = q;
-        }
-      }
-      
-      if (profitStart !== null) {
-        bepPoints = [profitStart, profitEnd];
-        valBep.innerText = `${Math.round(profitStart)} - ${Math.round(profitEnd)} ${currentLang === 'ru' ? 'шт' : 'units'}`;
-        valBep.className = "text-xs md:text-sm font-mono font-bold text-indigo-400 mt-1";
-        valBepDesc.innerText = `P = ${P} ₸`;
-      } else {
-        valBep.innerText = currentLang === 'ru' ? "Убыток" : "Loss Zone";
-        valBep.className = "text-xs md:text-sm font-mono font-bold text-rose-400 mt-1";
-        valBepDesc.innerText = `P < min ATC (${Math.round(minima.minATC)} ₸)`;
-      }
-    } else {
-      bepControls.classList.add('opacity-40', 'pointer-events-none');
-      legendPriceContainer.style.display = 'none';
-      valBep.innerText = currentLang === 'ru' ? "Выключена" : "Off";
-      valBep.className = "text-xs md:text-sm font-mono font-bold text-slate-500 mt-1";
-      valBepDesc.innerText = currentLang === 'ru' ? "Включите шаг 4" : "Enable step 4";
-    }
-
-    drawGraphics(Q, costs, minima, model, bepPoints);
-  }
-
-  function drawGraphics(Q, currentCosts, minima, model, bepPoints) {
-    const w = canvas.width, h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-
-    const gW = w - pad.left - pad.right;
-    const gH = h - pad.top - pad.bottom;
-
-    const maxCosts = getCosts(100, model);
-    const P = chkBep.checked ? parseFloat(priceSlider.value) : 0;
-    const maxValP = Math.max(maxCosts.mc, currentCosts.atc * 1.5, minima.minATC * 1.8, P * 1.25) * 1.05;
-    const maxValQ = 100;
-
-    const getX = (q) => pad.left + (q / maxValQ) * gW;
-    const getY = (p) => pad.top + (1 - p / maxValP) * gH;
-
-    ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 0.5;
-    for (let i = 1; i <= 5; i++) {
-      let q_grid = (maxValQ / 5) * i;
-      ctx.beginPath(); ctx.moveTo(getX(q_grid), pad.top); ctx.lineTo(getX(q_grid), h - pad.bottom); ctx.stroke();
-      let p_grid = (maxValP / 5) * i;
-      ctx.beginPath(); ctx.moveTo(pad.left, getY(p_grid)); ctx.lineTo(w - pad.right, getY(p_grid)); ctx.stroke();
-    }
-
-    ctx.strokeStyle = '#475569'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.moveTo(pad.left, pad.top - 10); ctx.lineTo(pad.left, h - pad.bottom); ctx.lineTo(w - pad.right + 10, h - pad.bottom); ctx.stroke();
-
-    ctx.lineWidth = 3;
-    
-    // AFC
-    ctx.strokeStyle = '#64748b'; ctx.beginPath();
-    for (let q = 2; q <= 100; q++) {
-      const c = getCosts(q, model);
-      if (getY(c.afc) > pad.top && getY(c.afc) < h - pad.bottom) {
-        if (q === 2) ctx.moveTo(getX(q), getY(c.afc)); else ctx.lineTo(getX(q), getY(c.afc));
-      }
-    }
-    ctx.stroke();
-
-    // AVC
-    ctx.strokeStyle = '#818cf8'; ctx.beginPath();
-    for (let q = 1; q <= 100; q++) {
-      const c = getCosts(q, model);
-      if (getY(c.avc) > pad.top && getY(c.avc) < h - pad.bottom) {
-        if (q === 1) ctx.moveTo(getX(q), getY(c.avc)); else ctx.lineTo(getX(q), getY(c.avc));
-      }
-    }
-    ctx.stroke();
-
-    // ATC
-    ctx.strokeStyle = '#10b981'; ctx.beginPath();
-    for (let q = 2; q <= 100; q++) {
-      const c = getCosts(q, model);
-      if (getY(c.atc) > pad.top && getY(c.atc) < h - pad.bottom) {
-        if (q === 2) ctx.moveTo(getX(q), getY(c.atc)); else ctx.lineTo(getX(q), getY(c.atc));
-      }
-    }
-    ctx.stroke();
-
-    // MC
-    ctx.strokeStyle = '#f43f5e'; ctx.beginPath();
-    for (let q = 1; q <= 100; q++) {
-      const c = getCosts(q, model);
-      if (getY(c.mc) > pad.top && getY(c.mc) < h - pad.bottom) {
-        if (q === 1) ctx.moveTo(getX(q), getY(c.mc)); else ctx.lineTo(getX(q), getY(c.mc));
-      }
-    }
-    ctx.stroke();
-
-    if (chkBep.checked) {
-      ctx.strokeStyle = '#f472b6'; ctx.lineWidth = 2.5; ctx.setLineDash([6, 3]);
-      ctx.beginPath(); ctx.moveTo(pad.left, getY(P)); ctx.lineTo(w - pad.right, getY(P)); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = '#f472b6'; ctx.font = 'bold 9px Inter';
-      ctx.fillText(`P = ${P} ₸`, w - pad.right - 60, getY(P) - 6);
-
-      if (bepPoints.length > 0) {
-        ctx.fillStyle = '#f472b6'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
-        bepPoints.forEach((pt, idx) => {
-          ctx.beginPath(); ctx.arc(getX(pt), getY(P), 5.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
-          ctx.fillText(`BEP${idx+1}`, getX(pt) - 12, getY(P) - 9);
+    </footer>
+
+    <script>
+        // ТОЧНЫЙ СПИСОК СТУДЕНТОВ ГРУППЫ (20 человек)
+        const rawStudentList = [
+            "Адильхан Надия Берікқызы",
+            "Кожахметова Малика Азаматовна",
+            "Бахытов Алимжан Бахыткалиулы",
+            "Берикбаланова Адина Сериковна",
+            "Сулейменова Айдана Нурлановна",
+            "Югай Ксения Альбертовна",
+            "Шабанов Анварбек",
+            "Сериккалиева Еңлік Думанқызы",
+            "Джумағұл Әмірлан Мағауияұлы",
+            "Кабдрахманова Ажар Ниязовна",
+            "Абдихай Салтанат Жалғасқызы",
+            "Толстова Эвелина Евгеньевна",
+            "Оспан Жанеля",
+            "Жұмажан Осман Дарменұлы",
+            "Көшкінбай Айару Арманқызы",
+            "Степанченко Савелий Дмитриевич",
+            "Замотина Дарья Астемировна",
+            "Хусаинова Адия Галимовна",
+            "Ким Есфирь Севастьяновна (F)",
+            "Нугыманова София Руслановна (слушатель)"
+        ];
+
+        const TOTAL_ATTENDANCE_HOURS = 45;
+
+        const initialGroupStudents = rawStudentList.map((stName, idx) => {
+            return {
+                id: `st-ib2026-${idx + 1}`,
+                name: stName,
+                attendance: 0,
+                activities: 0,
+                ca1: 0,
+                mc1: 0,
+                ca2: 0,
+                mc2: 0,
+                exam: 0,
+                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+            };
         });
-      }
-    }
 
-    ctx.strokeStyle = isDraggingQ ? '#818cf8' : '#e2e8f0';
-    ctx.lineWidth = isDraggingQ ? 1.8 : 1.2;
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath(); ctx.moveTo(getX(Q), pad.top); ctx.lineTo(getX(Q), h - pad.bottom); ctx.stroke();
-    ctx.setLineDash([]);
+        let students = [];
+        let personalAttChart = null;
+        let personalActChart = null;
+        let personalExamChart = null;
+        let groupChart = null;
+        let isTeacherMode = false;
+        
+        const correctPassword = 'PE-12092026';
 
-    ctx.fillStyle = '#10b981'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(getX(Q), getY(currentCosts.atc), 5.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+        let activeEditingStudentId = null;
+        let tempAttendanceHours = [];
 
-    ctx.fillStyle = '#f43f5e';
-    ctx.beginPath(); ctx.arc(getX(Q), getY(currentCosts.mc), 5.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+        window.onload = function() {
+            loadDatabase();
+            initGroupChart();
+            updateDashboardData();
+            
+            document.getElementById('teacher-search-input').addEventListener('input', function(e) {
+                renderTeacherTable(e.target.value);
+            });
+        };
 
-    ctx.fillStyle = '#f59e0b'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(getX(minima.qAtcMin), getY(minima.minATC), 6, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
-    ctx.beginPath(); ctx.arc(getX(minima.qAvcMin), getY(minima.minAVC), 6, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
-
-    window.lastGW = gW;
-  }
-
-  function generateStudentToken() {
-    const studentInput = document.getElementById('student-name-input').value.trim();
-    if (!studentInput) {
-      alert(currentLang === 'ru' ? "Пожалуйста, введите свое имя и фамилию!" : "Please enter your name and surname!");
-      return;
-    }
-
-    const model = calculateModel();
-    const Q = parseInt(volumeSlider.value);
-    const P = chkBep.checked ? parseFloat(priceSlider.value) : 0;
-    const studentText = studentExplanation.value.trim();
-
-    const payload = {
-      studentName: activeStudent ? `${activeStudent.nameRu} / ${activeStudent.nameEn}` : studentInput,
-      timestamp: new Date().toISOString(),
-      fc: model.fc, a: model.vca, b: model.vcb, c: model.vcc,
-      q: Q, p: P, bepEnabled: chkBep.checked,
-      text: studentText
-    };
-
-    const jsonStr = JSON.stringify(payload);
-    const token = btoa(encodeURIComponent(jsonStr));
-
-    document.getElementById('token-output').value = token;
-    document.getElementById('token-modal').classList.remove('hidden');
-  }
-
-  function closeTokenModal() { document.getElementById('token-modal').classList.add('hidden'); }
-
-  function copyTokenToClipboard() {
-    const copyText = document.getElementById("token-output");
-    copyText.select();
-    navigator.clipboard.writeText(copyText.value);
-    alert(currentLang === 'ru' ? "Токен скопирован в буфер обмена!" : "Token copied to clipboard!");
-  }
-
-  function promptTeacherAuth() {
-    const inputPass = prompt(currentLang === 'ru' ? "Введите пароль преподавателя:" : "Enter Teacher Password:");
-    if (!inputPass) return;
-
-    if (inputPass === "SERUSEN-12092026") {
-      openTeacherModal();
-    } else {
-      alert(currentLang === 'ru' ? "Неверный пароль!" : "Incorrect password!");
-    }
-  }
-
-  function openTeacherModal() { document.getElementById('teacher-modal').classList.remove('hidden'); }
-  function closeTeacherModal() { document.getElementById('teacher-modal').classList.add('hidden'); }
-
-  function evaluateStudentToken() {
-    const inputToken = document.getElementById('teacher-token-input').value.trim();
-    if (!inputToken) { alert("Вставьте токен!"); return; }
-
-    try {
-      const decodedJson = decodeURIComponent(atob(inputToken));
-      const data = JSON.parse(decodedJson);
-      
-      const model = { fc: data.fc, vca: data.a, vcb: data.b, vcc: data.c };
-      const minima = findMinima(model);
-      const costs = getCosts(data.q, model);
-      const t = i18n[currentLang];
-
-      let score = 10;
-      let auditList = [];
-      let calculatedVerdictHtml = "";
-
-      if (data.q < minima.qAvcMin) {
-        calculatedVerdictHtml = `<strong class="text-rose-400">${t.vCriticalTitle}</strong><br>${t.vCriticalText(data.q, Math.round(minima.qAvcMin), formatValue(model.fc))}`;
-        if (!data.text.toLowerCase().includes('закрыт') && !data.text.toLowerCase().includes('shutdown') && !data.text.toLowerCase().includes('консервац')) {
-          score -= 3;
-          auditList.push("Ошибка: Q находится ниже точки закрытия (Shutdown Point), но студент не написал о необходимости временно остановить производство.");
-        } else {
-          auditList.push("✓ Студент верно определил критическую область и необходимость консервации.");
+        function ensureAttendanceHours(student) {
+            if (!student.hasOwnProperty('attendanceHours') || !Array.isArray(student.attendanceHours) || student.attendanceHours.length !== TOTAL_ATTENDANCE_HOURS) {
+                student.attendanceHours = Array(TOTAL_ATTENDANCE_HOURS).fill(false);
+            }
         }
-      } else if (data.q >= minima.qAvcMin && data.q < minima.qAtcMin) {
-        calculatedVerdictHtml = `<strong class="text-amber-400">${t.vLossTitle}</strong><br>${t.vLossText(data.q, Math.round(minima.qAtcMin))}`;
-        if (!data.text.toLowerCase().includes('покрыва') && !data.text.toLowerCase().includes('краткосроч') && !data.text.toLowerCase().includes('потер')) {
-          score -= 2;
-          auditList.push("Замечание: В зоне краткосрочной убыточности студент не обосновал покрытие переменных затрат (VC).");
-        } else {
-          auditList.push("✓ Студент правильно распознал режим краткосрочной минимизации убытков.");
+
+        function loadDatabase() {
+            const savedData = localStorage.getItem('almau_pe_ib_students_2026_v4');
+            if (savedData) {
+                try {
+                    students = JSON.parse(savedData);
+                } catch(e) {
+                    students = initialGroupStudents;
+                }
+            } else {
+                students = initialGroupStudents;
+            }
+            students.forEach(student => ensureAttendanceHours(student));
+            updateDashboardData();
         }
-      } else {
-        calculatedVerdictHtml = `<strong class="text-emerald-400">${t.vProfitTitle}</strong><br>${t.vProfitText(data.q, Math.round(minima.qAtcMin), formatValue(costs.mc))}`;
-        if (data.q > minima.qAtcMin * 1.4) {
-          score -= 1.5;
-          auditList.push("Внимание: Выбран слишком большой объем выпуска, перегружающий мощности (высокие MC).");
-        } else {
-          auditList.push("✓ Отличный выбор объема вблизи технологического оптимума (Min ATC).");
+
+        function saveDatabase() {
+            localStorage.setItem('almau_pe_ib_students_2026_v4', JSON.stringify(students));
         }
-      }
 
-      if (data.text.length < 25) {
-        score -= 2.5;
-        auditList.push("Ошибка: Обоснование решения отсутствует или сформулировано слишком поверхностно.");
-      }
+        function calculateWeightedScore(att, act, ca1, mc1, ca2, mc2, exam) {
+            const wAtt = (att || 0) * 0.10;
+            const wAct = (act || 0) * 0.10;
+            const wCa1 = (ca1 || 0) * 0.10;
+            const wMc1 = (mc1 || 0) * 0.10;
+            const wCa2 = (ca2 || 0) * 0.10;
+            const wMc2 = (mc2 || 0) * 0.10;
+            const wExam = (exam || 0) * 0.40;
+            return parseFloat((wAtt + wAct + wCa1 + wMc1 + wCa2 + wMc2 + wExam).toFixed(1));
+        }
 
-      score = Math.max(1, Math.min(10, score));
+        function getLetterGrade(score) {
+            if (score >= 95) return { letter: 'A', class: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' };
+            if (score >= 90) return { letter: 'A-', class: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20' };
+            if (score >= 84) return { letter: 'B+', class: 'bg-blue-500/10 text-blue-400 border-blue-500/30' };
+            if (score >= 79) return { letter: 'B', class: 'bg-blue-500/10 text-blue-300 border-blue-500/20' };
+            if (score >= 74) return { letter: 'B-', class: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30' };
+            if (score >= 69) return { letter: 'C+', class: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20' };
+            if (score >= 64) return { letter: 'C', class: 'bg-amber-500/10 text-amber-400 border-amber-500/30' };
+            if (score >= 60) return { letter: 'C-', class: 'bg-amber-500/10 text-amber-300 border-amber-500/20' };
+            if (score >= 55) return { letter: 'D+', class: 'bg-orange-500/10 text-orange-400 border-orange-500/30' };
+            if (score >= 50) return { letter: 'D', class: 'bg-orange-500/10 text-orange-300 border-orange-500/20' };
+            return { letter: 'F', class: 'bg-rose-500/10 text-rose-400 border-rose-500/30' };
+        }
 
-      document.getElementById('teacher-eval-result').classList.remove('hidden');
-      document.getElementById('eval-grade-score').innerText = `${score.toFixed(1)} / 10`;
-      
-      const badge = document.getElementById('eval-status-badge');
-      if (score >= 8) {
-        badge.className = "px-3 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-        badge.innerText = currentLang === 'ru' ? "Отличное решение" : "Excellent Solution";
-      } else if (score >= 5) {
-        badge.className = "px-3 py-1 rounded text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30";
-        badge.innerText = currentLang === 'ru' ? "Удовлетворительно" : "Satisfactory";
-      } else {
-        badge.className = "px-3 py-1 rounded text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
-        badge.innerText = currentLang === 'ru' ? "Требуется доработка" : "Needs Revision";
-      }
+        function searchStudentGrade() {
+            const searchInput = document.getElementById('student-search-input').value.trim().toLowerCase();
+            const resultCard = document.getElementById('student-result-card');
+            const notFoundCard = document.getElementById('student-not-found');
 
-      document.getElementById('eval-params-summary').innerHTML = `
-        <div class="col-span-2 text-indigo-300 font-bold">Студент: ${data.studentName}</div>
-        <div>FC: ${data.fc} ₸</div>
-        <div>VC: ${data.a}Q - ${data.b}Q² + ${data.c}Q³</div>
-        <div>Выбранный Q: ${data.q} шт</div>
-        <div>Min ATC: ${Math.round(minima.minATC)} ₸ (Q=${Math.round(minima.qAtcMin)})</div>
-        <div>Shutdown Point: ${Math.round(minima.minAVC)} ₸ (Q=${Math.round(minima.qAvcMin)})</div>
-      `;
+            if (!searchInput) {
+                showToast('Please enter your full name!', 'error');
+                return;
+            }
 
-      document.getElementById('eval-calculated-verdict').innerHTML = calculatedVerdictHtml;
-      document.getElementById('eval-student-text').innerText = data.text || "(Текст обоснования не введен)";
-      document.getElementById('eval-audit-list').innerHTML = auditList.map(item => `<li>${item}</li>`).join('');
+            const queryWords = searchInput.split(/\s+/);
+            const matchedStudent = students.find(s => {
+                const normalizedName = s.name.toLowerCase();
+                return queryWords.every(word => normalizedName.includes(word));
+            });
 
-    } catch (e) {
-      alert("Некорректный или поврежденный токен!");
-    }
-  }
+            if (matchedStudent) {
+                notFoundCard.classList.add('hidden');
+                
+                const finalScore = calculateWeightedScore(
+                    matchedStudent.attendance, 
+                    matchedStudent.activities,
+                    matchedStudent.ca1, 
+                    matchedStudent.mc1, 
+                    matchedStudent.ca2, 
+                    matchedStudent.mc2, 
+                    matchedStudent.exam
+                );
+                const gradeInfo = getLetterGrade(finalScore);
 
-  function getMousePos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    return { x: (clientX - rect.left) * (canvas.width / rect.width) };
-  }
+                document.getElementById('sr-name').textContent = matchedStudent.name;
+                
+                const letterBadge = document.getElementById('sr-letter');
+                letterBadge.textContent = gradeInfo.letter;
+                letterBadge.className = `text-2xl font-black px-3.5 py-1 rounded-xl text-white shadow-md bg-indigo-600`;
 
-  canvas.addEventListener('mousedown', (e) => {
-    const pos = getMousePos(e);
-    if (pos.x >= pad.left && pos.x <= canvas.width - pad.right) {
-      isDraggingQ = true;
-      volumeSlider.value = getQFromX(pos.x, window.lastGW);
-      update();
-    }
-  });
+                document.getElementById('sr-total-score').textContent = finalScore;
+                document.getElementById('sr-val-attendance').textContent = `${matchedStudent.attendance || 0}%`;
+                document.getElementById('sr-val-activities').textContent = `${matchedStudent.activities || 0}`;
+                document.getElementById('sr-val-ca1').textContent = `${matchedStudent.ca1 || 0}`;
+                document.getElementById('sr-val-mc1').textContent = `${matchedStudent.mc1 || 0}`;
+                document.getElementById('sr-val-ca2').textContent = `${matchedStudent.ca2 || 0}`;
+                document.getElementById('sr-val-mc2').textContent = `${matchedStudent.mc2 || 0}`;
+                document.getElementById('sr-val-exam').textContent = `${matchedStudent.exam || 0}`;
 
-  window.addEventListener('mousemove', (e) => {
-    if (!isDraggingQ) return;
-    volumeSlider.value = getQFromX(getMousePos(e).x, window.lastGW);
-    update();
-  });
+                renderStudentAttendanceDetails(matchedStudent);
+                renderPersonalCharts(matchedStudent, finalScore, gradeInfo.letter);
 
-  window.addEventListener('mouseup', () => { isDraggingQ = false; update(); });
+                resultCard.classList.remove('hidden');
+                resultCard.classList.add('fade-enter');
+                setTimeout(() => {
+                    resultCard.classList.add('fade-enter-active');
+                }, 10);
 
-  [inpFc, inpVca, inpVcb, inpVcc, volumeSlider, priceSlider].forEach(el => el.addEventListener('input', update));
-  chkBep.addEventListener('change', update);
+                showToast(`Loaded results for: ${matchedStudent.name}`, 'success');
+            } else {
+                resultCard.classList.add('hidden');
+                notFoundCard.classList.remove('hidden');
+                showToast('Student not found in register', 'error');
+            }
+        }
 
-  window.addEventListener('load', () => {
-    resizeCanvas();
-  });
-  window.addEventListener('resize', resizeCanvas);
-</script>
+        function handleSearchKeyDown(event) {
+            if (event.key === 'Enter') {
+                searchStudentGrade();
+            }
+        }
+
+        function renderPersonalCharts(student, total, letter) {
+            if (personalAttChart) personalAttChart.destroy();
+            if (personalActChart) personalActChart.destroy();
+            if (personalExamChart) personalExamChart.destroy();
+
+            const attCtx = document.getElementById('attendanceBarChart').getContext('2d');
+            document.getElementById('val-att-text').textContent = `${student.attendance}%`;
+            personalAttChart = new Chart(attCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Actual', 'Goal'],
+                    datasets: [{
+                        data: [student.attendance, 100],
+                        backgroundColor: ['rgba(16, 185, 129, 0.85)', 'rgba(16, 185, 129, 0.15)'],
+                        borderRadius: 6,
+                        maxBarThickness: 16
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
+                        y: { min: 0, max: 100, grid: { color: '#1e293b' }, ticks: { display: false } }
+                    }
+                }
+            });
+
+            const actCtx = document.getElementById('activityLineChart').getContext('2d');
+            personalActChart = new Chart(actCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Act', 'CA 1', 'CA 2'],
+                    datasets: [{
+                        data: [student.activities || 0, student.ca1 || 0, student.ca2 || 0],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.12)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#3b82f6',
+                        pointRadius: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
+                        y: { min: 0, max: 100, grid: { color: '#1e293b' }, ticks: { display: false } }
+                    }
+                }
+            });
+
+            const exCtx = document.getElementById('examGaugeChart').getContext('2d');
+            const avgMc = Math.round(((student.mc1 || 0) + (student.mc2 || 0)) / 2);
+            personalExamChart = new Chart(exCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Midterm Avg', 'Remaining'],
+                    datasets: [{
+                        data: [avgMc, 100 - avgMc],
+                        backgroundColor: ['rgba(245, 158, 11, 0.9)', 'rgba(30, 41, 59, 0.6)'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    circumference: 180,
+                    rotation: 270,
+                    cutout: '80%',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } }
+                }
+            });
+
+            const circle = document.getElementById('finalScoreCircle');
+            document.getElementById('finalCircleLetter').textContent = letter;
+            document.getElementById('finalCircleScore').textContent = total.toFixed(1);
+
+            const strokeOffset = 251.2 - (251.2 * total) / 100;
+            circle.style.strokeDashoffset = strokeOffset;
+        }
+
+        function verifyTeacherPassword() {
+            const pwdInput = document.getElementById('auth-password');
+            if (pwdInput.value === correctPassword) {
+                isTeacherMode = true;
+                pwdInput.value = '';
+                closeAuthModal();
+                updateViewMode();
+                showToast('Instructor Workspace Unlocked.', 'success');
+            } else {
+                showToast('Invalid password access!', 'error');
+                pwdInput.select();
+            }
+        }
+
+        function handleAuthKeyDown(event) {
+            if (event.key === 'Enter') {
+                verifyTeacherPassword();
+            }
+        }
+
+        function updateViewMode() {
+            const studentView = document.getElementById('student-view');
+            const teacherView = document.getElementById('teacher-view');
+            const badge = document.getElementById('mode-badge');
+            const authBtnText = document.getElementById('auth-btn-text');
+
+            if (isTeacherMode) {
+                studentView.classList.add('hidden');
+                teacherView.classList.remove('hidden');
+                badge.innerHTML = `<span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span><span>Instructor Mode</span>`;
+                badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center space-x-1.5";
+                authBtnText.textContent = "Exit Instructor Panel";
+                updateDashboardData();
+            } else {
+                studentView.classList.remove('hidden');
+                teacherView.classList.add('hidden');
+                badge.innerHTML = `<span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span><span>Student Mode</span>`;
+                badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center space-x-1.5";
+                authBtnText.textContent = "Instructor Portal";
+            }
+        }
+
+        function openAuthModal() {
+            if (isTeacherMode) {
+                isTeacherMode = false;
+                updateViewMode();
+                showToast('Session closed.', 'info');
+                return;
+            }
+            const modal = document.getElementById('auth-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+                document.getElementById('auth-password').focus();
+            }, 10);
+        }
+
+        function closeAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function renderTeacherTable(filterQuery = '') {
+            const tbody = document.getElementById('students-table-body');
+            const emptyState = document.getElementById('empty-state');
+            tbody.innerHTML = '';
+
+            const query = filterQuery.toLowerCase().trim();
+            const filtered = students.filter(s => s.name.toLowerCase().includes(query));
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filtered.forEach(student => {
+                const finalScore = calculateWeightedScore(
+                    student.attendance, 
+                    student.activities,
+                    student.ca1, 
+                    student.mc1, 
+                    student.ca2, 
+                    student.mc2, 
+                    student.exam
+                );
+                const gradeInfo = getLetterGrade(finalScore);
+
+                const row = document.createElement('tr');
+                row.className = "hover:bg-slate-900/60 transition-colors border-b border-slate-800/40";
+                row.innerHTML = `
+                    <td class="py-2.5 px-3 font-medium text-slate-100">
+                        <span class="block font-bold text-slate-200 truncate max-w-[240px]" title="${student.name}">${student.name}</span>
+                    </td>
+                    <td class="py-2.5 px-1">
+                        <button onclick="openAttendanceModal('${student.id}')" id="att-trigger-${student.id}"
+                            class="px-1 py-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 focus:ring-1 focus:ring-indigo-500 rounded-lg text-emerald-400 text-xs font-bold w-full transition-all flex items-center justify-center gap-1">
+                            <span>${student.attendance}%</span>
+                            <i class="fa-solid fa-pencil text-[8px] text-slate-500"></i>
+                        </button>
+                    </td>
+                    <td class="py-2.5 px-1">
+                        <input type="number" min="0" max="100" value="${student.activities || 0}" 
+                            onchange="updateStudentGrade('${student.id}', 'activities', this.value)"
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-teal-300 text-xs font-semibold">
+                    </td>
+                    <td class="py-2.5 px-1">
+                        <input type="number" min="0" max="100" value="${student.ca1 || 0}" 
+                            onchange="updateStudentGrade('${student.id}', 'ca1', this.value)"
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-slate-100 text-xs font-semibold">
+                    </td>
+                    <td class="py-2.5 px-1">
+                        <input type="number" min="0" max="100" value="${student.mc1 || 0}" 
+                            onchange="updateStudentGrade('${student.id}', 'mc1', this.value)"
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-amber-300 text-xs font-semibold">
+                    </td>
+                    <td class="py-2.5 px-1">
+                        <input type="number" min="0" max="100" value="${student.ca2 || 0}" 
+                            onchange="updateStudentGrade('${student.id}', 'ca2', this.value)"
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-slate-100 text-xs font-semibold">
+                    </td>
+                    <td class="py-2.5 px-1">
+                        <input type="number" min="0" max="100" value="${student.mc2 || 0}" 
+                            onchange="updateStudentGrade('${student.id}', 'mc2', this.value)"
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-orange-300 text-xs font-semibold">
+                    </td>
+                    <td class="py-2.5 px-1">
+                        <input type="number" min="0" max="100" value="${student.exam || 0}" 
+                            onchange="updateStudentGrade('${student.id}', 'exam', this.value)"
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-rose-300 text-xs font-semibold">
+                    </td>
+                    <td class="py-2.5 px-2 text-right font-extrabold text-violet-400 bg-indigo-950/10">
+                        <span id="final-score-${student.id}">${finalScore}</span>
+                    </td>
+                    <td class="py-2.5 px-2 text-center">
+                        <span id="letter-${student.id}" class="inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-bold rounded-lg border ${gradeInfo.class} w-10">
+                            ${gradeInfo.letter}
+                        </span>
+                    </td>
+                    <td class="py-2.5 px-1 text-center">
+                        <button onclick="deleteStudent('${student.id}')" class="p-1 text-slate-500 hover:text-rose-400 rounded-lg hover:bg-rose-500/10 transition-colors">
+                            <i class="fa-regular fa-trash-can text-xs"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateStudentGrade(id, field, value) {
+            let numVal = parseInt(value);
+            if (isNaN(numVal)) numVal = 0;
+            if (numVal < 0) numVal = 0;
+            if (numVal > 100) numVal = 100;
+
+            const student = students.find(s => s.id === id);
+            if (student) {
+                student[field] = numVal;
+                saveDatabase();
+                
+                const finalScore = calculateWeightedScore(
+                    student.attendance, 
+                    student.activities,
+                    student.ca1, 
+                    student.mc1, 
+                    student.ca2, 
+                    student.mc2, 
+                    student.exam
+                );
+                document.getElementById(`final-score-${id}`).textContent = finalScore;
+                
+                const gradeInfo = getLetterGrade(finalScore);
+                const letterBadge = document.getElementById(`letter-${id}`);
+                letterBadge.textContent = gradeInfo.letter;
+                letterBadge.className = `inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-bold rounded-lg border ${gradeInfo.class} w-10`;
+                
+                updateStats();
+                updateGroupChart();
+            }
+        }
+
+        function updateStats() {
+            const total = students.length;
+            document.getElementById('stat-total-students').textContent = total;
+
+            if (total === 0) {
+                document.getElementById('stat-average-grade').textContent = '0.0';
+                document.getElementById('stat-average-letter').textContent = '-';
+                document.getElementById('stat-pass-rate').textContent = '0%';
+                document.getElementById('stat-best-student').textContent = '—';
+                return;
+            }
+
+            let sum = 0;
+            let passes = 0;
+            let topStudent = null;
+            let topScore = -1;
+
+            students.forEach(s => {
+                const final = calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam);
+                sum += final;
+                if (final >= 50) passes++;
+                
+                if (final > topScore) {
+                    topScore = final;
+                    topStudent = s;
+                }
+            });
+
+            const avg = sum / total;
+            document.getElementById('stat-average-grade').textContent = avg.toFixed(1);
+            document.getElementById('stat-average-letter').textContent = getLetterGrade(avg).letter;
+
+            const passPercent = Math.round((passes / total) * 100);
+            document.getElementById('stat-pass-rate').textContent = `${passPercent}%`;
+
+            if (topStudent) {
+                document.getElementById('stat-best-student').textContent = `${topStudent.name} (${topScore})`;
+            }
+        }
+
+        function initGroupChart() {
+            const ctx = document.getElementById('groupPerformanceChart').getContext('2d');
+            groupChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [
+                        { label: 'Att', data: [], backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 2, maxBarThickness: 6 },
+                        { label: 'Act', data: [], backgroundColor: 'rgba(20, 184, 166, 0.85)', borderRadius: 2, maxBarThickness: 6 },
+                        { label: 'CA1', data: [], backgroundColor: 'rgba(59, 130, 246, 0.85)', borderRadius: 2, maxBarThickness: 6 },
+                        { label: 'MC1', data: [], backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 2, maxBarThickness: 6 },
+                        { label: 'CA2', data: [], backgroundColor: 'rgba(99, 102, 241, 0.85)', borderRadius: 2, maxBarThickness: 6 },
+                        { label: 'MC2', data: [], backgroundColor: 'rgba(249, 115, 22, 0.85)', borderRadius: 2, maxBarThickness: 6 },
+                        { label: 'Exam', data: [], backgroundColor: 'rgba(244, 63, 94, 0.85)', borderRadius: 2, maxBarThickness: 6 },
+                        { label: 'Final', data: [], backgroundColor: 'rgba(139, 92, 246, 0.85)', borderRadius: 2, maxBarThickness: 8 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9 } } },
+                        y: { min: 0, max: 100, grid: { color: '#1e293b' }, ticks: { color: '#94a3b8', font: { size: 9 } } }
+                    }
+                }
+            });
+        }
+
+        function updateGroupChart() {
+            if (!groupChart) return;
+
+            const sorted = [...students].sort((a, b) => a.name.localeCompare(b.name));
+            const names = sorted.map(s => {
+                const parts = s.name.split(' ');
+                return parts[0] || s.name;
+            });
+
+            groupChart.data.labels = names;
+            groupChart.data.datasets[0].data = sorted.map(s => s.attendance);
+            groupChart.data.datasets[1].data = sorted.map(s => s.activities || 0);
+            groupChart.data.datasets[2].data = sorted.map(s => s.ca1 || 0);
+            groupChart.data.datasets[3].data = sorted.map(s => s.mc1 || 0);
+            groupChart.data.datasets[4].data = sorted.map(s => s.ca2 || 0);
+            groupChart.data.datasets[5].data = sorted.map(s => s.mc2 || 0);
+            groupChart.data.datasets[6].data = sorted.map(s => s.exam || 0);
+            groupChart.data.datasets[7].data = sorted.map(s => calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam));
+
+            groupChart.update();
+        }
+
+        function updateDashboardData() {
+            renderTeacherTable();
+            updateStats();
+            updateGroupChart();
+        }
+
+        function toggleStudentAttDetails() {
+            const container = document.getElementById('student-att-details');
+            const toggleIcon = document.getElementById('student-att-toggle-icon');
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                toggleIcon.textContent = "Collapse ▴";
+            } else {
+                container.classList.add('hidden');
+                toggleIcon.textContent = "Expand ▾";
+            }
+        }
+
+        function renderStudentAttendanceDetails(student) {
+            ensureAttendanceHours(student);
+            const grid = document.getElementById('student-att-list-grid');
+            grid.innerHTML = '';
+
+            for (let week = 1; week <= 15; week++) {
+                const h1 = student.attendanceHours[(week - 1) * 3];
+                const h2 = student.attendanceHours[(week - 1) * 3 + 1];
+                const h3 = student.attendanceHours[(week - 1) * 3 + 2];
+
+                const dateRow = document.createElement('div');
+                dateRow.className = "bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 flex flex-col space-y-1.5 text-xs";
+                
+                dateRow.innerHTML = `
+                    <span class="font-bold text-slate-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-week text-indigo-400 text-[11px]"></i>
+                        Week ${week}
+                    </span>
+                    <div class="flex items-center justify-between space-x-1">
+                        <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h1 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
+                            L1: ${h1 ? '<i class="fa-solid fa-check text-[8px]"></i>' : '<i class="fa-solid fa-xmark text-[8px]"></i>'}
+                        </span>
+                        <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h2 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
+                            L2: ${h2 ? '<i class="fa-solid fa-check text-[8px]"></i>' : '<i class="fa-solid fa-xmark text-[8px]"></i>'}
+                        </span>
+                        <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h3 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
+                            L3: ${h3 ? '<i class="fa-solid fa-check text-[8px]"></i>' : '<i class="fa-solid fa-xmark text-[8px]"></i>'}
+                        </span>
+                    </div>
+                `;
+                grid.appendChild(dateRow);
+            }
+        }
+
+        function openAttendanceModal(studentId) {
+            const student = students.find(s => s.id === studentId);
+            if (!student) return;
+
+            activeEditingStudentId = studentId;
+            ensureAttendanceHours(student);
+            tempAttendanceHours = [...student.attendanceHours];
+
+            document.getElementById('att-modal-student-name').textContent = student.name;
+            updateAttendanceModalStats();
+
+            const grid = document.getElementById('attendance-dates-grid');
+            grid.innerHTML = '';
+
+            for (let week = 1; week <= 15; week++) {
+                const h1Idx = (week - 1) * 3;
+                const h2Idx = (week - 1) * 3 + 1;
+                const h3Idx = (week - 1) * 3 + 2;
+
+                const row = document.createElement('div');
+                row.className = "bg-slate-900 border border-slate-800/80 p-2.5 rounded-xl flex items-center justify-between";
+                
+                row.innerHTML = `
+                    <span class="text-xs font-bold text-slate-300 flex items-center gap-2">
+                        <span class="h-5 w-5 rounded bg-slate-950 flex items-center justify-center text-[10px] text-indigo-400 border border-indigo-900/30">W${week}</span>
+                        Week ${week}
+                    </span>
+                    <div class="flex items-center space-x-1.5">
+                        <button onclick="toggleTempHour(${h1Idx})" id="temp-chk-${h1Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">Lesson 1</button>
+                        <button onclick="toggleTempHour(${h2Idx})" id="temp-chk-${h2Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">Lesson 2</button>
+                        <button onclick="toggleTempHour(${h3Idx})" id="temp-chk-${h3Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">Lesson 3</button>
+                    </div>
+                `;
+                grid.appendChild(row);
+                updateTempHourButtonUI(h1Idx);
+                updateTempHourButtonUI(h2Idx);
+                updateTempHourButtonUI(h3Idx);
+            }
+
+            const modal = document.getElementById('attendance-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeAttendanceModal() {
+            const modal = document.getElementById('attendance-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+            activeEditingStudentId = null;
+        }
+
+        function toggleTempHour(idx) {
+            tempAttendanceHours[idx] = !tempAttendanceHours[idx];
+            updateTempHourButtonUI(idx);
+            updateAttendanceModalStats();
+        }
+
+        function updateTempHourButtonUI(idx) {
+            const btn = document.getElementById(`temp-chk-${idx}`);
+            if (!btn) return;
+            const isChecked = tempAttendanceHours[idx];
+            const lessonNum = (idx % 3) + 1;
+            if (isChecked) {
+                btn.className = "px-2.5 py-1 rounded-lg text-[10px] font-bold bg-emerald-500/10 border-emerald-500/30 text-emerald-400 border transition-all flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> L${lessonNum}`;
+            } else {
+                btn.className = "px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-950 border-slate-800 text-slate-500 border transition-all flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-xmark"></i> L${lessonNum}`;
+            }
+        }
+
+        function toggleAllAttendance(status) {
+            for (let i = 0; i < TOTAL_ATTENDANCE_HOURS; i++) {
+                tempAttendanceHours[i] = status;
+                updateTempHourButtonUI(i);
+            }
+            updateAttendanceModalStats();
+        }
+
+        function updateAttendanceModalStats() {
+            const checkedCount = tempAttendanceHours.filter(Boolean).length;
+            const percent = Math.round((checkedCount / TOTAL_ATTENDANCE_HOURS) * 100);
+            document.getElementById('att-modal-percent').textContent = `${percent}%`;
+            document.getElementById('att-modal-hours').textContent = `(${checkedCount} of ${TOTAL_ATTENDANCE_HOURS} hrs)`;
+        }
+
+        function saveAttendanceDetails() {
+            if (!activeEditingStudentId) return;
+
+            const student = students.find(s => s.id === activeEditingStudentId);
+            if (student) {
+                student.attendanceHours = [...tempAttendanceHours];
+                const checkedCount = student.attendanceHours.filter(Boolean).length;
+                student.attendance = Math.round((checkedCount / TOTAL_ATTENDANCE_HOURS) * 100);
+
+                saveDatabase();
+                
+                const finalScore = calculateWeightedScore(
+                    student.attendance, 
+                    student.activities,
+                    student.ca1, 
+                    student.mc1, 
+                    student.ca2, 
+                    student.mc2, 
+                    student.exam
+                );
+                document.getElementById(`final-score-${student.id}`).textContent = finalScore;
+                
+                const gradeInfo = getLetterGrade(finalScore);
+                const letterBadge = document.getElementById(`letter-${student.id}`);
+                letterBadge.textContent = gradeInfo.letter;
+                letterBadge.className = `inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-bold rounded-lg border ${gradeInfo.class} w-10`;
+                
+                const attTriggerBtn = document.getElementById(`att-trigger-${student.id}`);
+                if (attTriggerBtn) {
+                    attTriggerBtn.innerHTML = `<span>${student.attendance}%</span><i class="fa-solid fa-pencil text-[8px] text-slate-500"></i>`;
+                }
+
+                updateStats();
+                updateGroupChart();
+                closeAttendanceModal();
+                showToast(`Attendance updated for ${student.name}.`, 'success');
+            }
+        }
+
+        function addSingleStudent() {
+            const nameInput = document.getElementById('add-student-name');
+            const attInput = document.getElementById('add-student-attendance');
+            const actInput = document.getElementById('add-student-activities');
+            const ca1Input = document.getElementById('add-student-ca1');
+            const mc1Input = document.getElementById('add-student-mc1');
+            const ca2Input = document.getElementById('add-student-ca2');
+            const mc2Input = document.getElementById('add-student-mc2');
+            const exmInput = document.getElementById('add-student-exam');
+
+            const name = nameInput.value.trim();
+            if (!name) {
+                showToast('Please specify student Full Name!', 'error');
+                return;
+            }
+
+            const newStudent = {
+                id: 'st-' + Date.now(),
+                name,
+                attendance: Math.max(0, Math.min(100, parseInt(attInput.value) || 0)),
+                activities: Math.max(0, Math.min(100, parseInt(actInput.value) || 0)),
+                ca1: Math.max(0, Math.min(100, parseInt(ca1Input.value) || 0)),
+                mc1: Math.max(0, Math.min(100, parseInt(mc1Input.value) || 0)),
+                ca2: Math.max(0, Math.min(100, parseInt(ca2Input.value) || 0)),
+                mc2: Math.max(0, Math.min(100, parseInt(mc2Input.value) || 0)),
+                exam: Math.max(0, Math.min(100, parseInt(exmInput.value) || 0))
+            };
+
+            ensureAttendanceHours(newStudent);
+            students.unshift(newStudent);
+            saveDatabase();
+            updateDashboardData();
+
+            nameInput.value = '';
+            attInput.value = '';
+            actInput.value = '';
+            ca1Input.value = '';
+            mc1Input.value = '';
+            ca2Input.value = '';
+            mc2Input.value = '';
+            exmInput.value = '';
+
+            showToast(`Student ${name} added!`, 'success');
+        }
+
+        function runBulkImport() {
+            const textarea = document.getElementById('bulk-import-area');
+            const text = textarea.value.trim();
+
+            if (!text) {
+                showToast('Enter student names (one per line)!', 'error');
+                return;
+            }
+
+            const lines = text.split('\n');
+            let counter = 0;
+
+            lines.forEach(line => {
+                const cleanName = line.trim();
+                if (cleanName) {
+                    const newSt = {
+                        id: 'st-' + Date.now() + Math.random().toString(36).substr(2, 4),
+                        name: cleanName,
+                        attendance: 0,
+                        activities: 0,
+                        ca1: 0,
+                        mc1: 0,
+                        ca2: 0,
+                        mc2: 0,
+                        exam: 0
+                    };
+                    ensureAttendanceHours(newSt);
+                    students.push(newSt);
+                    counter++;
+                }
+            });
+
+            if (counter > 0) {
+                saveDatabase();
+                updateDashboardData();
+                textarea.value = '';
+                showToast(`Successfully imported: ${counter} students`, 'success');
+            } else {
+                showToast('No valid lines found for import', 'error');
+            }
+        }
+
+        function deleteStudent(id) {
+            const index = students.findIndex(s => s.id === id);
+            if (index !== -1) {
+                const name = students[index].name;
+                students.splice(index, 1);
+                saveDatabase();
+                updateDashboardData();
+                showToast(`Student ${name} removed from register.`, 'info');
+            }
+        }
+
+        function confirmReset() {
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeConfirmModal() {
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function resetAllData() {
+            students = initialGroupStudents;
+            students.forEach(student => ensureAttendanceHours(student));
+            saveDatabase();
+            updateDashboardData();
+            closeConfirmModal();
+            showToast('Gradebook reset to initial student list.', 'info');
+        }
+
+        function exportToCSV() {
+            if (students.length === 0) {
+                showToast('Gradebook is empty!', 'error');
+                return;
+            }
+
+            let csvContent = "\uFEFF";
+            csvContent += "Student Name;Attendance (10%);Activities (10%);CA1 (10%);MC1 (10%);CA2 (10%);MC2 (10%);Exam (40%);Total Score;Grade\n";
+
+            students.forEach(s => {
+                const final = calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam);
+                const letter = getLetterGrade(final).letter;
+                csvContent += `"${s.name.replace(/"/g, '""')}";${s.attendance};${s.activities || 0};${s.ca1 || 0};${s.mc1 || 0};${s.ca2 || 0};${s.mc2 || 0};${s.exam || 0};${final};${letter}\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "ALMAU_Principles_of_Economics_Grades.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('Export to Excel completed!', 'success');
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bgClass = 'bg-slate-800 text-slate-100 border-slate-700';
+            let iconClass = 'fa-circle-info text-indigo-400';
+            
+            if (type === 'success') {
+                bgClass = 'bg-emerald-950/80 text-emerald-300 border-emerald-900/50';
+                iconClass = 'fa-circle-check text-emerald-400';
+            } else if (type === 'error') {
+                bgClass = 'bg-rose-950/80 text-rose-300 border-rose-900/50';
+                iconClass = 'fa-triangle-exclamation text-rose-400';
+            } else if (type === 'info') {
+                bgClass = 'bg-indigo-950/80 text-indigo-300 border-indigo-900/50';
+                iconClass = 'fa-bell text-indigo-400';
+            }
+
+            toast.className = `${bgClass} border px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-2.5 text-xs font-semibold transform translate-y-2 opacity-0 transition-all duration-300 max-w-sm`;
+            toast.innerHTML = `
+                <i class="fa-solid ${iconClass} text-sm"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3500);
+        }
+    </script>
 </body>
 </html>
