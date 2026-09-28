@@ -95,7 +95,7 @@
   </div>
 
   <!-- INPUT PANEL: Идентификация студента по Имени и Фамилии -->
-  <div class="bg-indigo-950/30 border border-indigo-500/30 rounded-xl p-4 mb-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+  <div class="bg-indigo-950/30 border border-indigo-500/30 rounded-xl p-4 mb-4 flex flex-col lg:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-3 w-full lg:w-1/3">
       <div class="p-2.5 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-lg shrink-0">
         <i class="fa-solid fa-user-check text-lg"></i>
@@ -119,6 +119,51 @@
       <span id="variant-badge" class="shrink-0 text-[10px] font-mono font-extrabold uppercase px-3 py-2 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
         Вариант #--
       </span>
+    </div>
+  </div>
+
+  <!-- НАГЛЯДНЫЙ ОТКРЫТЫЙ БЛОК: ИНСТРУКЦИЯ И ПОШАГОВЫЙ АЛГОРИТМ -->
+  <div class="bg-[#14181c] border border-slate-800 rounded-xl mb-6 p-4 border-l-4 border-l-indigo-500 shadow-md">
+    <div class="flex items-center gap-2.5 mb-3 border-b border-slate-800 pb-2">
+      <i class="fa-solid fa-graduation-cap text-indigo-400 text-base"></i>
+      <h3 id="lbl-instr-header" class="text-xs font-extrabold uppercase tracking-wider text-indigo-300">
+        Инструкция и алгоритм выполнения задания для студента
+      </h3>
+    </div>
+
+    <div class="text-xs text-slate-300 space-y-3">
+      <ol class="list-decimal list-inside space-y-2.5 leading-relaxed">
+        <li>
+          <strong id="lbl-step-id-title" class="text-indigo-400">Идентификация:</strong>
+          <span id="lbl-step-id-body">Введите Имя и Фамилию в поле выше и нажмите «Загрузить вариант». Система установит ваши персональные коэффициенты затрат (FC, a, b, c).</span>
+        </li>
+        <li>
+          <strong id="lbl-step-graph-title" class="text-emerald-400">Исследование графика и параметров издержек:</strong>
+          <span id="lbl-step-graph-body">Перемещайте ползунок «Объем выпуска (Q)» или тяните маркер напрямую по полю графика. Определите ключевые ориентиры:</span>
+          <ul class="list-disc list-inside ml-5 mt-1 space-y-1 text-slate-400">
+            <li id="lbl-step-opt">Где находится минимум ATC (желтый маркер — технологический оптимум);</li>
+            <li id="lbl-step-shutdown">Где находится минимум AVC (точка закрытия / консервации бизнеса);</li>
+            <li id="lbl-step-mc">Как ведет себя кривая предельных издержек MC (розовая линия).</li>
+          </ul>
+        </li>
+        <li>
+          <strong id="lbl-step-bep-title" class="text-rose-400">Анализ безубыточности (Шаг 4, опционально):</strong>
+          <span id="lbl-step-bep-body">Включите чекбокс «Анализ безубыточности», задайте рыночную цену P и найдите интервал окупаемости (BEP1 и BEP2), где P ≥ ATC.</span>
+        </li>
+        <li>
+          <strong id="lbl-step-explanation-title" class="text-amber-400">Написание управленческого обоснования (до 150 слов):</strong>
+          <span id="lbl-step-explanation-body">В текстовом поле снизу охарактеризуйте финансовое состояние фирмы при выбранном Q. Ответьте на вопросы:</span>
+          <ul class="list-disc list-inside ml-5 mt-1 space-y-1 text-slate-300 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800">
+            <li id="lbl-q-status">1. Каково финансовое состояние компании (прибыль, минимизация убытков или зона закрытия)?</li>
+            <li id="lbl-q-vc">2. Покрываются ли переменные издержки (VC)?</li>
+            <li id="lbl-q-atc">3. Насколько выбранный объем Q близок к технологическому оптимуму (min ATC)?</li>
+          </ul>
+        </li>
+        <li>
+          <strong id="lbl-step-submit-title" class="text-indigo-400">Фиксация ответа и получение токена:</strong>
+          <span id="lbl-step-submit-body">Нажмите зеленую кнопку «🔒 Зафиксировать ответ». Скопируйте полученный зашифрованный токен. Данные также автоматически направляются в Google Таблицу преподавателя.</span>
+        </li>
+      </ol>
     </div>
   </div>
 
@@ -498,6 +543,24 @@
       btnSearch: "Загрузить вариант",
       placeholder: "Например: Надия Адильхан или Nadiya Adilkhan",
       
+      instrHeader: "Инструкция и алгоритм выполнения задания для студента",
+      stepIdTitle: "Идентификация:",
+      stepIdBody: "Введите Имя и Фамилию в поле выше и нажмите «Загрузить вариант». Система установит ваши персональные коэффициенты затрат (FC, a, b, c).",
+      stepGraphTitle: "Исследование графика и параметров издержек:",
+      stepGraphBody: "Перемещайте ползунок «Объем выпуска (Q)» или тяните маркер напрямую по полю графика. Определите ключевые ориентиры:",
+      stepOpt: "Где находится минимум ATC (желтый маркер — технологический оптимум);",
+      stepShutdown: "Где находится минимум AVC (точка закрытия / консервации бизнеса);",
+      stepMc: "Как ведет себя кривая предельных издержек MC (розовая линия).",
+      stepBepTitle: "Анализ безубыточности (Шаг 4, опционально):",
+      stepBepBody: "Включите чекбокс «Анализ безубыточности», задайте рыночную цену P и найдите интервал окупаемости (BEP1 и BEP2), где P ≥ ATC.",
+      stepExplanationTitle: "Написание управленческого обоснования (до 150 слов):",
+      stepExplanationBody: "В текстовом поле снизу охарактеризуйте финансовое состояние фирмы при выбранном Q. Ответьте на вопросы:",
+      qStatus: "1. Каково финансовое состояние компании (прибыль, минимизация убытков или зона закрытия)?",
+      qVc: "2. Покрываются ли переменные издержки (VC)?",
+      qAtc: "3. Насколько выбранный объем Q близок к технологическому оптимуму (min ATC)?",
+      stepSubmitTitle: "Фиксация ответа и получение токена:",
+      stepSubmitBody: "Нажмите зеленую кнопку «🔒 Зафиксировать ответ». Скопируйте полученный зашифрованный токен. Данные также автоматически направляются в Google Таблицу преподавателя.",
+
       step1Title: "Шаг 1. Постоянные затраты (FC)",
       fcLabel: "Постоянные издержки (FC)",
       fcDesc: "Аренда, амортизация, оклады управления (не зависят от Q).",
@@ -563,6 +626,24 @@
       btnSearch: "Load Variant",
       placeholder: "e.g., Nadiya Adilkhan or Savely Stepanchenko",
       
+      instrHeader: "Assignment Instructions & Student Algorithm",
+      stepIdTitle: "Identification:",
+      stepIdBody: "Enter your Name and Surname above and click 'Load Variant'. The system will generate your personal cost coefficients (FC, a, b, c).",
+      stepGraphTitle: "Cost Curve & Parameter Analysis:",
+      stepGraphBody: "Move the 'Output Volume (Q)' slider or drag the marker directly on the canvas graph. Identify key benchmarks:",
+      stepOpt: "Locate minimum ATC (yellow marker — technological optimum);",
+      stepShutdown: "Locate minimum AVC (shutdown / business preservation point);",
+      stepMc: "Observe marginal cost dynamics MC (pink line).",
+      stepBepTitle: "Break-Even Analysis (Step 4, optional):",
+      stepBepBody: "Enable the 'Break-Even Analysis' checkbox, set market price P, and locate the profitability range (BEP1 and BEP2) where P ≥ ATC.",
+      stepExplanationTitle: "Managerial Decision Explanation (up to 150 words):",
+      stepExplanationBody: "In the text field below, describe the firm's economic status at selected Q. Address the following:",
+      qStatus: "1. What is the firm's financial status (profit, short-run loss minimization, or shutdown zone)?",
+      qVc: "2. Are variable costs (VC) covered?",
+      qAtc: "3. How close is the selected volume Q to the technological optimum (min ATC)?",
+      stepSubmitTitle: "Lock & Submit Answer:",
+      stepSubmitBody: "Click the green '🔒 Lock & Submit Answer' button. Copy your generated token. Data is also automatically logged into the instructor's Google Sheet.",
+
       step1Title: "Step 1. Fixed Costs (FC)",
       fcLabel: "Fixed Costs (FC)",
       fcDesc: "Rent, depreciation, executive salaries (independent of Q).",
@@ -635,6 +716,25 @@
     document.getElementById('lbl-search-desc').innerText = t.searchDesc;
     document.getElementById('lbl-btn-search').innerText = t.btnSearch;
     document.getElementById('student-name-input').placeholder = t.placeholder;
+
+    // Перевод блока инструкции
+    document.getElementById('lbl-instr-header').innerText = t.instrHeader;
+    document.getElementById('lbl-step-id-title').innerText = t.stepIdTitle;
+    document.getElementById('lbl-step-id-body').innerText = t.stepIdBody;
+    document.getElementById('lbl-step-graph-title').innerText = t.stepGraphTitle;
+    document.getElementById('lbl-step-graph-body').innerText = t.stepGraphBody;
+    document.getElementById('lbl-step-opt').innerText = t.stepOpt;
+    document.getElementById('lbl-step-shutdown').innerText = t.stepShutdown;
+    document.getElementById('lbl-step-mc').innerText = t.stepMc;
+    document.getElementById('lbl-step-bep-title').innerText = t.stepBepTitle;
+    document.getElementById('lbl-step-bep-body').innerText = t.stepBepBody;
+    document.getElementById('lbl-step-explanation-title').innerText = t.stepExplanationTitle;
+    document.getElementById('lbl-step-explanation-body').innerText = t.stepExplanationBody;
+    document.getElementById('lbl-q-status').innerText = t.qStatus;
+    document.getElementById('lbl-q-vc').innerText = t.qVc;
+    document.getElementById('lbl-q-atc').innerText = t.qAtc;
+    document.getElementById('lbl-step-submit-title').innerText = t.stepSubmitTitle;
+    document.getElementById('lbl-step-submit-body').innerText = t.stepSubmitBody;
 
     document.getElementById('lbl-step1-title').innerHTML = `<span class="w-2 h-2 bg-indigo-500 rounded-full"></span> ${t.step1Title}`;
     document.getElementById('lbl-fc').innerText = t.fcLabel;
