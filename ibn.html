@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #fcfbf9; color: #111111; }
@@ -15,19 +15,11 @@
         .brand-red { background-color: #e5001c; }
         .text-brand-red { color: #e5001c; }
         .border-brand-red { border-color: #e5001c; }
-        
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #12171f; }
-        ::-webkit-scrollbar-thumb { background: #2a3441; border-radius: 3px; }
-
-        .bar-row { cursor: pointer; transition: all 0.15s ease; }
-        .bar-row:hover { opacity: 0.9; filter: brightness(1.2); }
-        .active-row { outline: 2px solid #3b82f6; outline-offset: 1px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-600 selection:text-white border-t-4 border-brand-red">
 
-    <!-- HEADER -->
+    <!-- HEADER WITH HUB BUTTONS -->
     <header class="bg-white border-b border-stone-300 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-4">
@@ -39,11 +31,24 @@
                     <span class="text-xs text-stone-700">AlmaU • School of Economics and Digital Technologies</span>
                 </div>
             </div>
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-2 sm:space-x-3">
                 <a href="index.html" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold transition-all border border-stone-300 flex items-center space-x-1.5 rounded-sm">
-                    <i class="fa-solid fa-rotate text-brand-red"></i>
-                    <span>Refresh Feed</span>
+                    <i class="fa-solid fa-arrow-left text-brand-red"></i>
+                    <span>Main Hub</span>
                 </a>
+                
+                <!-- КНОПКА 1: KZ Economic Clock -->
+                <button onclick="openClockModal()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-xs transition-all border border-amber-600 flex items-center space-x-1.5 rounded-sm shadow-sm">
+                    <i class="fa-solid fa-clock text-black"></i>
+                    <span>KZ Economic Clock</span>
+                </button>
+
+                <!-- КНОПКА 2: Scale Case -->
+                <button onclick="openCaseModal()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-900 text-white font-bold text-xs transition-all border border-stone-900 flex items-center space-x-1.5 rounded-sm shadow-sm">
+                    <i class="fa-solid fa-calculator text-amber-400"></i>
+                    <span>Scale Case</span>
+                </button>
+
                 <div class="border-l border-stone-300 pl-3 ml-1">
                     <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="h-9 w-auto object-contain bg-white p-0.5 border border-stone-200 rounded-sm">
                 </div>
@@ -51,7 +56,6 @@
         </div>
     </header>
 
-    <!-- DATE BANNER -->
     <div class="bg-stone-100 border-b border-stone-200 py-2">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-xs text-stone-600">
             <span class="font-semibold uppercase tracking-wider"><i class="fa-solid fa-rotate text-brand-red mr-1"></i> Automated Multi-Source Briefing</span>
@@ -59,10 +63,7 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        
-        <!-- TITLE BLOCK -->
         <div class="border-b-2 border-stone-900 pb-6 mb-8">
             <span class="text-xs font-extrabold text-brand-red uppercase tracking-widest block mb-1">Global Economic Analysis</span>
             <h1 class="text-3xl sm:text-4xl font-black text-stone-900 serif leading-tight">
@@ -73,184 +74,105 @@
             </p>
         </div>
 
-        <!-- 3 INTERACTIVE ANALYTICS DASHBOARDS ROW -->
-        <section class="mb-10">
-            <div class="flex items-center justify-between mb-4 border-b border-stone-300 pb-2">
-                <h2 class="text-xs font-black uppercase tracking-widest text-stone-800 flex items-center gap-2">
-                    <i class="fa-solid fa-chart-pie text-brand-red"></i> Interactive Analytical Simulators & Hubs
-                </h2>
-                <span class="text-[11px] text-stone-500 italic">Click to launch interactive modules</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                
-                <!-- CARD 1: KZ Economic Clock -->
-                <div onclick="openClockModal()" class="bg-stone-900 hover:bg-stone-800 text-white p-5 rounded-xl border border-stone-800 shadow-md cursor-pointer transition-all transform hover:-translate-y-1 group flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="p-2 bg-amber-500/20 text-amber-400 rounded-lg border border-amber-500/30 text-xs font-bold uppercase">
-                                <i class="fa-solid fa-clock mr-1"></i> Real-time Clock
-                            </span>
-                            <span class="text-xs text-amber-400 group-hover:translate-x-1 transition-transform">Launch <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                        </div>
-                        <h3 class="text-lg font-extrabold text-white mb-1">KZ Economic Clock</h3>
-                        <p class="text-xs text-stone-400 leading-relaxed">
-                            Live macro indicators, national debt counters, GDP growth metrics, and economic clocks of Kazakhstan.
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-stone-800 text-[10px] text-amber-400/80 font-mono flex items-center justify-between">
-                        <span>Live Analytics Feed</span>
-                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    </div>
-                </div>
-
-                <!-- CARD 2: Scale Case -->
-                <div onclick="openCaseModal()" class="bg-stone-900 hover:bg-stone-800 text-white p-5 rounded-xl border border-stone-800 shadow-md cursor-pointer transition-all transform hover:-translate-y-1 group flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="p-2 bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 text-xs font-bold uppercase">
-                                <i class="fa-solid fa-calculator mr-1"></i> Macro Case
-                            </span>
-                            <span class="text-xs text-blue-400 group-hover:translate-x-1 transition-transform">Launch <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                        </div>
-                        <h3 class="text-lg font-extrabold text-white mb-1">The Scale of Money</h3>
-                        <p class="text-xs text-stone-400 leading-relaxed">
-                            Interactive visual case study comparing millions, billions, and trillions through temporal vector analysis.
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-stone-800 text-[10px] text-blue-400/80 font-mono">
-                        <span>Large Numbers Riddle Case</span>
-                    </div>
-                </div>
-
-                <!-- CARD 3: Inflation & Wages Hub -->
-                <div onclick="openInflationModal()" class="bg-stone-900 hover:bg-stone-800 text-white p-5 rounded-xl border border-stone-800 shadow-md cursor-pointer transition-all transform hover:-translate-y-1 group flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="p-2 bg-rose-500/20 text-rose-400 rounded-lg border border-rose-500/30 text-xs font-bold uppercase">
-                                <i class="fa-solid fa-chart-column mr-1"></i> Comparative Data
-                            </span>
-                            <span class="text-xs text-rose-400 group-hover:translate-x-1 transition-transform">Launch <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                        </div>
-                        <h3 class="text-lg font-extrabold text-white mb-1">Inflation, Wages & Fuel</h3>
-                        <p class="text-xs text-stone-400 leading-relaxed">
-                            Eurostat & US BLS multi-country comparative analysis of food inflation, minimum wage, and fuel prices (2021–2026).
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-stone-800 text-[10px] text-rose-400/80 font-mono">
-                        <span>Euronews & US BLS Data Hub</span>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- NEWS ARTICLES GRID (28 SEPTEMBER 2026) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            <!-- Article 1: The Guardian -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">The Guardian</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Should you lock into a fixed-rate savings account paying 5.25%?
+                        Burnham’s plan for a radical reset collides with economic reality | Heather Stewart
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Returns on top fixed-rate savings bonds hit multiyear highs as competition between lenders intensifies. Savers face a choice between locking in 5.25% returns now or waiting for prospective Bank of England rate rises...
+                        Surging energy bills, higher borrowing costs and rising inflation have left the PM and his chancellor in a fiscal bindAs Labour heads to Liverpool this week, Andy Burnham has promi...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/money/2026/sep/28/fixed-rate-savings-accounts-interest-highest-in-years" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/business/2026/sep/27/burnham-plan-radical-reset-economic-reality" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Article 2: The Guardian -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">The Guardian</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Crude oil falls 3% to $100 as global markets digest trade and inflation data
+                        Poland is racing ahead with military spending – but will it help or damage its economic growth story?
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Brent crude drops to $100.79 a barrel following high-level US-China trade discussions in New York, tempering global inflationary expectations and sending European bond yields lower across key markets...
+                        In the first article in a series on the Polish economy, we look at the country’s defence boom and its implicationsA short distance north from Warsaw along the Vistula river, camouf...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.theguardian.com/business/live/2026/sep/28/crude-oil-falls-markets-optimism-trade-talks" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.theguardian.com/world/2026/sep/27/poland-military-spending-economic-growth-economy-defence-boom" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Article 3: BBC News -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">BBC News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Air traffic system disruption resolved following flight delays across UK
+                        Why the PM could finally drop the triple lock pension pledge
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        National Air Traffic Services (NATS) resolves technical failure at Prestwick control centre after severe flight cancellations and delays in Scotland and Northern England hit corporate travel schedules...
+                        Andy Burnham said that he would make tough decisions to fund a new national care service....
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.bbc.co.uk/news/business" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.bbc.co.uk/news/articles/c6jdvmy1287yo?at_medium=RSS&at_campaign=rss" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Article 4: BBC News -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">BBC News</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        US expects talks with Iran to resume amid energy shipping concerns
+                        Healey to promise 'new age of industrialisation' for UK in conference speech
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        White House signals potential continuation of indirect negotiations regarding maritime access in the Strait of Hormuz after rejecting Tehran's initial seven-day truce conditions...
+                        The chancellor will unveil policies aimed at boosting British shipbuilding in his speech to Labour's annual conference on Monday....
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.bbc.co.uk/news/world" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.bbc.co.uk/news/articles/cjdx53edkglgo?at_medium=RSS&at_campaign=rss" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Article 5: Euronews -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Euronews</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        Housing affordability crises trigger mass protests across major European capitals
+                        EU pushes China to accept import quotas in bid to rebalance trade
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Demonstrations over living costs and rent spikes escalate in Madrid's Puerta del Sol, as rising energy prices and urban housing inflation place pressure on southern European household budgets...
+                        Brussels is pressing Beijing to accept quotas on Chinese exports as negotiations enter their final stretch, with the EU threatening trade measures unless tangible progress is made ...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.euronews.com/business" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.euronews.com/2026/09/28/eu-pushes-china-to-accept-import-quotas-in-bid-to-rebalance-trade" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Article 6: Euronews -->
             <div class="space-y-3 border-t-2 border-stone-900 pt-4 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-bold text-brand-red uppercase tracking-widest">Euronews</span>
                     <h3 class="text-lg font-bold text-stone-900 serif leading-snug mt-1">
-                        EU trade enforcement tightens following diplomatic accreditation revokations
+                        Where are salaries and job opportunities highest in Portugal?
                     </h3>
                     <p class="text-xs text-stone-600 leading-relaxed mt-2">
-                        Diplomatic disputes erupt after the Netherlands enforces a ban on specific regional goods, highlighting growing complexities in intra-European commercial agreements and trade policy...
+                        Information technology remains one of the most attractive fields in the Portuguese job market, offering high average salaries and strong job creation, according to Randstad's lates...
                     </p>
                 </div>
                 <div class="pt-4 font-sans">
-                    <a href="https://www.euronews.com/business" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
+                    <a href="https://www.euronews.com/2026/09/28/where-are-salaries-and-job-opportunities-highest-in-portugal" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-red font-bold hover:underline flex items-center space-x-1">
                         <span>Read Full Original Article →</span>
                     </a>
                 </div>
@@ -259,7 +181,6 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-stone-900 text-stone-400 py-8 border-t-4 border-brand-red mt-12 text-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
@@ -272,7 +193,7 @@
         </div>
     </footer>
 
-    <!-- MODAL 1: KAZAKHSTAN ECONOMIC CLOCK -->
+    <!-- МОДАЛЬНОЕ ОКНО 1: KAZAKHSTAN ECONOMIC CLOCK -->
     <div id="clockModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6">
         <div class="bg-[#090d16] w-full max-w-7xl h-[92vh] rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden relative">
             <div class="bg-[#0d1117] px-6 py-3 border-b border-gray-800 flex justify-between items-center">
@@ -291,7 +212,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: SCALE CASE -->
+    <!-- МОДАЛЬНОЕ ОКНО 2: SCALE CASE -->
     <div id="caseModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-3xl rounded-xl border border-stone-300 shadow-2xl flex flex-col overflow-hidden relative max-h-[90vh]">
             <div class="bg-stone-900 text-white px-6 py-4 flex justify-between items-center shrink-0">
@@ -357,255 +278,72 @@
         </div>
     </div>
 
-    <!-- MODAL 3: INFLATION & WAGES DASHBOARD -->
-    <div id="inflationModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
-        <div class="bg-[#0b0f14] w-full max-w-[1600px] h-[95vh] rounded-2xl border border-slate-800 shadow-2xl flex flex-col overflow-hidden relative">
-            
-            <div class="bg-[#0f141c] px-4 py-3 border-b border-slate-800 flex justify-between items-center shrink-0">
-                <div class="flex items-center gap-3">
-                    <span class="bg-[#0055a5] text-white font-extrabold text-[10px] px-2.5 py-1 rounded tracking-wider uppercase">EURONEWS & US BLS DATA</span>
-                    <div>
-                        <h1 id="lbl-title" class="text-xs sm:text-sm font-black text-white tracking-tight">Европа и США: Цены на продукты, Зарплаты и АЗС (2021–2026)</h1>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <div id="selected-badge" class="hidden sm:inline-block text-[10px] font-bold font-mono px-2.5 py-0.5 rounded bg-blue-600/20 text-blue-400 border border-blue-500/30">
-                        Выбрана: США
-                    </div>
-                    <div class="flex items-center bg-[#171e28] border border-slate-700/80 rounded-lg p-0.5">
-                        <button id="btn-lang-ru" onclick="setLang('ru')" class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white shadow">RU</button>
-                        <button id="btn-lang-en" onclick="setLang('en')" class="px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white">EN</button>
-                    </div>
-                    <button onclick="closeInflationModal()" class="text-slate-400 hover:text-white bg-slate-800 hover:bg-rose-600 px-2.5 py-1 rounded text-xs font-bold transition-all">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="flex-grow overflow-y-auto p-3 md:p-4 space-y-3">
-                
-                <!-- DYNAMIC KPI SUMMARY PANEL -->
-                <div class="grid grid-cols-2 md:grid-cols-6 gap-2">
-                    <div class="bg-[#151c28] border border-blue-500/30 p-2.5 rounded-lg border-l-4 border-l-blue-500">
-                        <span id="kpi-head-country" class="text-[9px] font-bold text-slate-400 uppercase block">Страна / Регион</span>
-                        <div id="kpi-country" class="text-xs md:text-sm font-black text-blue-300 mt-0.5 truncate">США</div>
-                        <span id="kpi-status" class="text-[9px] text-slate-500 block mt-0.5">Ориентир США (BLS)</span>
-                    </div>
-                    <div class="bg-[#151c28] border border-slate-800 p-2.5 rounded-lg border-l-4 border-l-rose-500">
-                        <span id="kpi-head-food" class="text-[9px] font-bold text-slate-400 uppercase block">Рост цен на еду (5 лет)</span>
-                        <div id="kpi-food" class="text-xs md:text-sm font-black text-rose-400 font-mono mt-0.5">+27.6%</div>
-                        <span id="kpi-food-sub" class="text-[9px] text-slate-500 block mt-0.5">За последний месяц: 0.0%</span>
-                    </div>
-                    <div class="bg-[#151c28] border border-slate-800 p-2.5 rounded-lg border-l-4 border-l-blue-400">
-                        <span id="kpi-head-wage" class="text-[9px] font-bold text-slate-400 uppercase block">Рост МРОТ (5 лет)</span>
-                        <div id="kpi-wage" class="text-xs md:text-sm font-black text-blue-400 font-mono mt-0.5">0% (Фед. $7.25)</div>
-                        <span id="kpi-wage-sub" class="text-[9px] text-slate-500 block mt-0.5">Минимальная зарплата</span>
-                    </div>
-                    <div class="bg-[#151c28] border border-slate-800 p-2.5 rounded-lg border-l-4 border-l-emerald-500">
-                        <span id="kpi-head-buy" class="text-[9px] font-bold text-slate-400 uppercase block">Покупательная способность</span>
-                        <div id="kpi-buy" class="text-xs md:text-sm font-black text-rose-500 font-mono mt-0.5">-21.6%</div>
-                        <span id="kpi-buy-sub" class="text-[9px] text-slate-500 block mt-0.5">Изменение доступности еды</span>
-                    </div>
-                    <div class="bg-[#151c28] border border-slate-800 p-2.5 rounded-lg border-l-4 border-l-amber-500">
-                        <span id="kpi-head-petrol" class="text-[9px] font-bold text-slate-400 uppercase block">Бензин (АЗС)</span>
-                        <div id="kpi-petrol" class="text-xs md:text-sm font-black text-amber-400 font-mono mt-0.5">$4.49 / гал (1.01 €/л)</div>
-                        <span id="kpi-petrol-sub" class="text-[9px] text-slate-500 block mt-0.5">Данные AAA 2026</span>
-                    </div>
-                    <div class="bg-[#151c28] border border-slate-800 p-2.5 rounded-lg border-l-4 border-l-indigo-400">
-                        <span id="kpi-head-diesel" class="text-[9px] font-bold text-slate-400 uppercase block">Дизельное топливо</span>
-                        <div id="kpi-diesel" class="text-xs md:text-sm font-black text-indigo-300 font-mono mt-0.5">$6.50 / гал (1.45 €/л)</div>
-                        <span id="kpi-burden" class="text-[9px] font-bold text-amber-400 block mt-0.5">Калифорния: до $8.40/гал</span>
-                    </div>
-                </div>
-
-                <!-- MAIN 3 BARCHART COLUMNS -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
-                    <div class="bg-[#131922] border border-slate-800 p-3 rounded-lg flex flex-col h-[380px]">
-                        <h2 id="lbl-c1-title" class="text-[11px] font-bold text-white uppercase mb-0.5">1. Инфляция продуктов питания</h2>
-                        <p id="lbl-c1-sub" class="text-[9px] text-slate-400 mb-1.5">(Август 2021–Август 2026, %)</p>
-                        <div class="flex justify-between text-[8px] font-mono text-slate-500 border-b border-slate-700/60 pb-1 px-1">
-                            <span>0%</span><span>100%</span><span>200%</span><span>500%</span><span>800%</span>
-                        </div>
-                        <div id="chart-food" class="overflow-y-auto pr-1 space-y-1 mt-1.5 flex-1"></div>
-                    </div>
-
-                    <div class="bg-[#131922] border border-slate-800 p-3 rounded-lg flex flex-col h-[380px]">
-                        <h2 id="lbl-c2-title" class="text-[11px] font-bold text-white uppercase mb-0.5">2. Рост минимальной зарплаты (МРОТ)</h2>
-                        <p id="lbl-c2-sub" class="text-[9px] text-slate-400 mb-1.5">(Август 2021–Август 2026, %)</p>
-                        <div class="flex justify-between text-[8px] font-mono text-slate-500 border-b border-slate-700/60 pb-1 px-1">
-                            <span>0%</span><span>100%</span><span>200%</span><span>500%</span><span>900%</span>
-                        </div>
-                        <div id="chart-wage" class="overflow-y-auto pr-1 space-y-1 mt-1.5 flex-1"></div>
-                    </div>
-
-                    <div class="bg-[#131922] border border-slate-800 p-3 rounded-lg flex flex-col h-[380px]">
-                        <h2 id="lbl-c3-title" class="text-[11px] font-bold text-white uppercase mb-0.5">3. Покупательная способность МРОТ по еде</h2>
-                        <p id="lbl-c3-sub" class="text-[9px] text-slate-400 mb-1.5">(Август 2021–Август 2026, %)</p>
-                        <div class="flex justify-between text-[8px] font-mono text-slate-500 border-b border-slate-700/60 pb-1 px-1">
-                            <span class="text-rose-400">-25%</span><span>0%</span><span>10%</span><span>25%</span><span>40%</span>
-                        </div>
-                        <div id="chart-buy" class="overflow-y-auto pr-1 space-y-1 mt-1.5 flex-1"></div>
-                    </div>
-                </div>
-
-                <!-- LOWER SECTION -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
-                    <div class="lg:col-span-6 bg-[#131922] border border-slate-800 p-3 rounded-lg">
-                        <div class="flex justify-between items-center mb-1.5 border-b border-slate-800 pb-1">
-                            <div>
-                                <h3 id="lbl-turkey-title" class="text-[11px] font-bold text-white">Турция: МРОТ vs Цены на еду (2021–2026)</h3>
-                                <p class="text-[9px] text-slate-400">(Август 2021 = 100)*</p>
-                            </div>
-                            <span id="lbl-turkey-badge" class="text-[9px] font-mono bg-blue-600/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">Инфляционный шок</span>
-                        </div>
-                        <div class="relative w-full h-[120px] bg-[#090d12] rounded border border-slate-800 p-2">
-                            <svg class="w-full h-full overflow-visible" viewBox="0 0 500 110">
-                                <line x1="30" y1="10" x2="480" y2="10" stroke="#1e293b" stroke-dasharray="2 2"/>
-                                <line x1="30" y1="40" x2="480" y2="40" stroke="#1e293b" stroke-dasharray="2 2"/>
-                                <line x1="30" y1="70" x2="480" y2="70" stroke="#1e293b" stroke-dasharray="2 2"/>
-                                <line x1="30" y1="95" x2="480" y2="95" stroke="#334155"/>
-                                <text x="5" y="13" fill="#64748b" font-size="8" font-family="monospace">1000</text>
-                                <text x="10" y="43" fill="#64748b" font-size="8" font-family="monospace">600</text>
-                                <text x="10" y="73" fill="#64748b" font-size="8" font-family="monospace">300</text>
-                                <text x="20" y="98" fill="#64748b" font-size="8" font-family="monospace">0</text>
-                                <text x="35" y="108" fill="#64748b" font-size="8">2022-01</text>
-                                <text x="145" y="108" fill="#64748b" font-size="8">2023-01</text>
-                                <text x="255" y="108" fill="#64748b" font-size="8">2024-01</text>
-                                <text x="365" y="108" fill="#64748b" font-size="8">2025-01</text>
-                                <text x="445" y="108" fill="#64748b" font-size="8">2026-08</text>
-                                <path d="M 35 92 Q 80 85, 130 78 T 240 60 T 350 40 T 465 18" fill="none" stroke="#ef4444" stroke-width="2"/>
-                                <path d="M 35 92 L 80 92 L 80 78 L 145 78 L 145 58 L 255 58 L 255 28 L 365 28 L 365 18 L 465 12" fill="none" stroke="#2563eb" stroke-width="2"/>
-                            </svg>
-                        </div>
-                        <div class="flex justify-center gap-6 text-[9px] font-bold mt-1.5">
-                            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#2563eb] inline-block rounded-sm"></span><span id="lbl-leg-wage" class="text-slate-300">МРОТ (+823%)</span></div>
-                            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-[#ef4444] inline-block rounded-sm"></span><span id="lbl-leg-food" class="text-slate-300">Цены на продукты (+752%)</span></div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-6 bg-[#131922] border border-slate-800 p-3 rounded-lg">
-                        <div class="flex justify-between items-center mb-1.5 border-b border-slate-800 pb-1">
-                            <h3 id="lbl-trend6-title" class="text-[11px] font-bold text-white">Изменение доступности еды (6 выбранных стран)</h3>
-                            <span class="text-[9px] text-slate-400">(Август 2021 = 100)</span>
-                        </div>
-                        <div class="grid grid-cols-3 gap-2 text-[9px]">
-                            <div class="bg-[#090d12] border border-slate-800 p-1.5 rounded text-center">
-                                <span id="lbl-c-turkey" class="font-bold text-amber-500 block mb-0.5">Турция (+8%)</span>
-                                <svg class="w-full h-8" viewBox="0 0 100 35"><path d="M 5 28 L 25 18 L 35 28 L 50 12 L 70 24 L 90 10" fill="none" stroke="#f59e0b" stroke-width="1.8"/></svg>
-                            </div>
-                            <div class="bg-[#090d12] border border-slate-800 p-1.5 rounded text-center">
-                                <span id="lbl-c-usa" class="font-bold text-rose-500 block mb-0.5">США (-21.6%)</span>
-                                <svg class="w-full h-8" viewBox="0 0 100 35"><path d="M 5 10 L 30 18 L 50 25 L 70 28 L 90 32" fill="none" stroke="#ef4444" stroke-width="1.8"/></svg>
-                            </div>
-                            <div class="bg-[#090d12] border border-slate-800 p-1.5 rounded text-center">
-                                <span id="lbl-c-croatia" class="font-bold text-blue-400 block mb-0.5">Хорватия (+30%)</span>
-                                <svg class="w-full h-8" viewBox="0 0 100 35"><path d="M 5 28 L 30 26 L 50 18 L 70 12 L 90 8" fill="none" stroke="#60a5fa" stroke-width="1.8"/></svg>
-                            </div>
-                            <div class="bg-[#090d12] border border-slate-800 p-1.5 rounded text-center">
-                                <span id="lbl-c-serbia" class="font-bold text-blue-600 block mb-0.5">Сербия (+37%)</span>
-                                <svg class="w-full h-8" viewBox="0 0 100 35"><path d="M 5 30 L 25 20 L 50 28 L 70 16 L 90 5" fill="none" stroke="#2563eb" stroke-width="1.8"/></svg>
-                            </div>
-                            <div class="bg-[#090d12] border border-slate-800 p-1.5 rounded text-center">
-                                <span id="lbl-c-spain" class="font-bold text-emerald-500 block mb-0.5">Испания (-5%)</span>
-                                <svg class="w-full h-8" viewBox="0 0 100 35"><path d="M 5 12 L 30 22 L 50 18 L 70 25 L 90 24" fill="none" stroke="#10b981" stroke-width="1.8"/></svg>
-                            </div>
-                            <div class="bg-[#090d12] border border-slate-800 p-1.5 rounded text-center">
-                                <span id="lbl-c-france" class="font-bold text-slate-400 block mb-0.5">Франция (-4%)</span>
-                                <svg class="w-full h-8" viewBox="0 0 100 35"><path d="M 5 10 L 30 18 L 50 22 L 70 21 L 90 22" fill="none" stroke="#94a3b8" stroke-width="1.8"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="lbl-footer-text" class="text-center text-[10px] text-slate-500 border-t border-slate-800 py-2 bg-[#0f141c] shrink-0">
-                Источники данных: Eurostat, Euronews, U.S. Bureau of Labor Statistics (BLS) & AAA Fuel Tracker (2026)
-            </div>
-
-        </div>
-    </div>
-
-    <!-- CONTROL SCRIPTS -->
+    <!-- СКРИПТЫ УПРАВЛЕНИЯ ЧАСАМИ И КЕЙСОМ -->
     <script>
         const clockUrl = "https://ogaydv-prog.github.io/KZ-economic-clock/index-en.html";
 
-        function openClockModal() {
+        function openClockModal() {{
             const modal = document.getElementById('clockModal');
             const iframe = document.getElementById('clockIframe');
-            if (!iframe.src || iframe.src !== clockUrl) {
+            if (!iframe.src || iframe.src !== clockUrl) {{
                 iframe.src = clockUrl;
-            }
+            }}
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-        }
+        }}
 
-        function closeClockModal() {
+        function closeClockModal() {{
             document.getElementById('clockModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
-        }
+        }}
 
-        function openCaseModal() {
+        function openCaseModal() {{
             document.getElementById('caseModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-        }
+        }}
 
-        function closeCaseModal() {
+        function closeCaseModal() {{
             document.getElementById('caseModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
-        }
+        }}
 
-        function openInflationModal() {
-            document.getElementById('inflationModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            setLang('ru');
-            selectCountry('usa');
-        }
-
-        function closeInflationModal() {
-            document.getElementById('inflationModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
+        document.addEventListener('keydown', function(event) {{
+            if (event.key === "Escape") {{
                 closeClockModal();
                 closeCaseModal();
-                closeInflationModal();
-            }
-        });
+            }}
+        }});
 
-        /* SCALE CASE LOGIC */
         let countInterval = null;
 
-        function toggleScaleRiddle() {
+        function toggleScaleRiddle() {{
             const panel = document.getElementById('scale-riddle-panel');
             const text = document.getElementById('riddle-toggle-text');
             const icon = document.getElementById('riddle-toggle-icon');
             
-            if (panel.style.display === 'none') {
+            if (panel.style.display === 'none') {{
                 panel.style.display = 'block';
                 text.innerText = 'Hide Scale Riddle Panel';
                 icon.innerText = '✨';
                 resetRiddleState(); 
-            } else {
+            }} else {{
                 panel.style.display = 'none';
                 text.innerText = 'Click to Unlock: The Large Numbers Riddle';
                 icon.innerText = '👁️‍🗨️';
                 resetRiddleState(); 
-            }
-        }
+            }}
+        }}
 
-        function resetRiddleState() {
+        function resetRiddleState() {{
             if (countInterval) clearInterval(countInterval);
             const outputZone = document.getElementById('riddle-output-zone');
             outputZone.style.opacity = '0';
             outputZone.style.visibility = 'hidden';
-        }
+        }}
 
-        function runScaleStep(type, btnElement) {
+        function runScaleStep(type, btnElement) {{
             btnElement.style.transform = 'translateY(4px)';
-            setTimeout(() => { btnElement.style.transform = 'translateY(0)'; }, 100);
+            setTimeout(() => {{ btnElement.style.transform = 'translateY(0)'; }}, 100);
 
             if (countInterval) clearInterval(countInterval);
 
@@ -623,7 +361,7 @@
 
             let startTime = performance.now();
 
-            if (type === 'million') {
+            if (type === 'million') {{
                 badge.innerText = "Scale Vector: 1 Million ($1,000,000)";
                 badge.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
                 badge.style.color = '#60a5fa';
@@ -633,7 +371,7 @@
                 progressBar.style.backgroundColor = '#3b82f6';
                 let duration = 1200; 
                 
-                countInterval = setInterval(() => {
+                countInterval = setInterval(() => {{
                     let elapsed = performance.now() - startTime;
                     let progress = Math.min(elapsed / duration, 1);
                     let current = progress * 11.6;
@@ -649,9 +387,9 @@
                     dynamicMarker.innerText = `-${current.toFixed(1)} Days`;
 
                     if (progress === 1) clearInterval(countInterval);
-                }, 16);
+                }}, 16);
 
-            } else if (type === 'billion') {
+            }} else if (type === 'billion') {{
                 badge.innerText = "Scale Vector: 1 Billion ($1,000,000,000)";
                 badge.style.backgroundColor = 'rgba(234, 179, 8, 0.2)';
                 badge.style.color = '#fde047';
@@ -661,7 +399,7 @@
                 progressBar.style.backgroundColor = '#eab308';
                 let duration = 2000; 
 
-                countInterval = setInterval(() => {
+                countInterval = setInterval(() => {{
                     let elapsed = performance.now() - startTime;
                     let progress = Math.min(elapsed / duration, 1);
                     let current = progress * 31.7;
@@ -677,9 +415,9 @@
                     dynamicMarker.innerText = `-${current.toFixed(1)} Yrs (1994)`;
 
                     if (progress === 1) clearInterval(countInterval);
-                }, 16);
+                }}, 16);
 
-            } else if (type === 'trillion') {
+            }} else if (type === 'trillion') {{
                 badge.innerText = "Scale Vector: 1 Trillion ($1,000,000,000,000)";
                 badge.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
                 badge.style.color = '#fca5a5';
@@ -689,7 +427,7 @@
                 progressBar.style.backgroundColor = '#ef4444';
                 let duration = 4000; 
 
-                countInterval = setInterval(() => {
+                countInterval = setInterval(() => {{
                     let elapsed = performance.now() - startTime;
                     let progress = Math.min(elapsed / duration, 1);
                     let easeProgress = Math.pow(progress, 3);
@@ -706,249 +444,9 @@
                     dynamicMarker.innerText = `-${current.toLocaleString()} Years`;
 
                     if (progress === 1) clearInterval(countInterval);
-                }, 16);
-            }
-        }
-
-        /* INFLATION DASHBOARD LOGIC */
-        let currentLang = 'ru';
-        let selectedCountryId = 'usa';
-
-        const i18n = {
-            ru: {
-                title: "Европа и США: Цены на продукты, Зарплаты и АЗС (2021–2026)",
-                subtitle: "Сравнительный анализ Евростата, Euronews и Бюро статистики труда США (US BLS / AAA)",
-                selectedPrefix: "Выбрана: ",
-                kpiHeadCountry: "Страна / Регион",
-                kpiHeadFood: "Рост цен на еду (5 лет)",
-                kpiHeadWage: "Рост МРОТ (5 лет)",
-                kpiHeadBuy: "Покупательная способность",
-                kpiHeadPetrol: "Бензин (АЗС)",
-                kpiHeadDiesel: "Дизельное топливо",
-                kpiWageSub: "Минимальная зарплата",
-                kpiBuySub: "Изменение доступности еды",
-                c1Title: "1. Инфляция продуктов питания",
-                c1Sub: "(Август 2021–Август 2026, %)",
-                c2Title: "2. Рост минимальной зарплаты (МРОТ)",
-                c2Sub: "(Август 2021–Август 2026, %)",
-                c3Title: "3. Покупательная способность МРОТ по еде",
-                c3Sub: "(Август 2021–Август 2026, %)",
-                turkeyTitle: "Турция: МРОТ vs Цены на еду (2021–2026)",
-                turkeyBadge: "Инфляционный шок",
-                legWage: "МРОТ (+823%)",
-                legFood: "Цены на продукты (+752%)",
-                trend6Title: "Изменение доступности еды (6 выбранных стран)",
-                footerText: "Источники данных: Eurostat, Euronews, U.S. Bureau of Labor Statistics (BLS) & AAA Fuel Tracker (2026)",
-                stUsa: "Ориентир США (BLS)",
-                stEu: "Член Евросоюза (EU)",
-                stNonEu: "Вне ЕС (Non-EU)"
-            },
-            en: {
-                title: "Europe & USA: Food Prices, Wages & Fuel (2021–2026)",
-                subtitle: "Comparative analysis of Eurostat, Euronews, and US Bureau of Labor Statistics (US BLS / AAA)",
-                selectedPrefix: "Selected: ",
-                kpiHeadCountry: "Country / Region",
-                kpiHeadFood: "Food Inflation (5 Years)",
-                kpiHeadWage: "Min Wage Growth (5 Years)",
-                kpiHeadBuy: "Purchasing Power",
-                kpiHeadPetrol: "Gasoline / Petrol",
-                kpiHeadDiesel: "Diesel Fuel",
-                kpiWageSub: "Gross Minimum Wage",
-                kpiBuySub: "Food Volume Change",
-                c1Title: "1. Food & Beverage Inflation",
-                c1Sub: "(August 2021–August 2026, %)",
-                c2Title: "2. Gross Minimum Wage Change",
-                c2Sub: "(August 2021–August 2026, %)",
-                c3Title: "3. Food Volume Bought by Min Wage",
-                c3Sub: "(August 2021–August 2026, %)",
-                turkeyTitle: "Turkey: Min Wage vs Food Prices (2021–2026)",
-                turkeyBadge: "Inflation Shock",
-                legWage: "Min Wage (+823%)",
-                legFood: "Food Prices (+752%)",
-                trend6Title: "Food Affordability Trend (6 Selected Countries)",
-                footerText: "Data Sources: Eurostat, Euronews, U.S. Bureau of Labor Statistics (BLS) & AAA Fuel Tracker (2026)",
-                stUsa: "US BLS Benchmark",
-                stEu: "EU Member State",
-                stNonEu: "Non-EU Country"
-            }
-        };
-
-        const dataset = [
-            { id: 'usa', ru: 'США', en: 'USA Benchmark', food: 27.6, wage: 0, buy: -21.6, eu: false, petrol: '$4.49 / gal (1.01 €/L)', diesel: '$6.50 / gal (1.45 €/L)', burdenRu: 'Фед. МРОТ $7.25 / Дизель до $8.40', burdenEn: 'Fed Wage $7.25 / Diesel up to $8.40', foodSubRu: 'За последний месяц: 0.0%', foodSubEn: 'Month-over-Month: 0.0%' },
-            { id: 'turkey', ru: 'Турция', en: 'Turkey', food: 752, wage: 823, buy: 8, eu: false, petrol: '1.75 €/L', diesel: '1.72 €/L', burdenRu: 'Критическая (Низкий ППС)', burdenEn: 'Critical (Low PPP)', foodSubRu: 'Шок цен в лирах', foodSubEn: 'Lira Price Shock' },
-            { id: 'hungary', ru: 'Венгрия', en: 'Hungary', food: 57, wage: 93, buy: 23, eu: true, petrol: '1.85 €/L', diesel: '1.89 €/L', burdenRu: 'Высокая', burdenEn: 'High', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'bulgaria', ru: 'Болгария', en: 'Bulgaria', food: 54, wage: 87, buy: 21, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'romania', ru: 'Румыния', en: 'Romania', food: 53, wage: 88, buy: 23, eu: true, petrol: '1.72 €/L', diesel: '1.75 €/L', burdenRu: 'Высокая', burdenEn: 'High', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'estonia', ru: 'Эстония', en: 'Estonia', food: 50, wage: 62, buy: 8, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'lithuania', ru: 'Литва', en: 'Lithuania', food: 49, wage: 80, buy: 20, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'montenegro', ru: 'Черногория', en: 'Montenegro', food: 49, wage: 102, buy: 37, eu: false, petrol: '1.70 €/L', diesel: '1.68 €/L', burdenRu: 'Высокая', burdenEn: 'High', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'serbia', ru: 'Сербия', en: 'Serbia', food: 48, wage: 103, buy: 37, eu: false, petrol: '1.78 €/L', diesel: '1.82 €/L', burdenRu: 'Высокая', burdenEn: 'High', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'macedonia', ru: 'Сев. Македония', en: 'N.Macedonia', food: 46, wage: 74, buy: 19, eu: false, petrol: '1.65 €/L', diesel: '1.62 €/L', burdenRu: 'Высокая', burdenEn: 'High', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'latvia', ru: 'Латвия', en: 'Latvia', food: 46, wage: 56, buy: 7, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'slovakia', ru: 'Словакия', en: 'Slovakia', food: 43, wage: 47, buy: 2, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'poland', ru: 'Польша', en: 'Poland', food: 43, wage: 72, buy: 20, eu: true, petrol: '1.81 €/L', diesel: '1.84 €/L', burdenRu: 'Повышенная', burdenEn: 'Elevated', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'croatia', ru: 'Хорватия', en: 'Croatia', food: 43, wage: 86, buy: 30, eu: true, petrol: '1.75 €/L', diesel: '1.78 €/L', burdenRu: 'Умеренная', burdenEn: 'Moderate', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'iceland', ru: 'Исландия', en: 'Iceland', food: 40, wage: null, buy: null, eu: false, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'slovenia', ru: 'Словения', en: 'Slovenia', food: 35, wage: 46, buy: 7, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'spain', ru: 'Испания', en: 'Spain', food: 35, wage: 29, buy: -5, eu: true, petrol: '1.92 €/L', diesel: '1.95 €/L', burdenRu: 'Умеренная', burdenEn: 'Moderate', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'malta', ru: 'Мальта', en: 'Malta', food: 35, wage: 27, buy: -6, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'portugal', ru: 'Португалия', en: 'Portugal', food: 34, wage: 38, buy: 3, eu: true, petrol: '1.95 €/L', diesel: '1.90 €/L', burdenRu: 'Повышенная', burdenEn: 'Elevated', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'norway', ru: 'Норвегия', en: 'Norway', food: 34, wage: null, buy: null, eu: false, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'eu', ru: 'ЕС (Среднее)', en: 'EU Average', food: 34, wage: null, buy: null, eu: true, petrol: '2.12 €/L', diesel: '2.16 €/L', burdenRu: 'Базовый уровень', burdenEn: 'Base Benchmark', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'germany', ru: 'Германия', en: 'Germany', food: 34, wage: 46, buy: 9, eu: true, petrol: '2.24 €/L', diesel: '2.28 €/L', burdenRu: 'Умеренная', burdenEn: 'Moderate', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'greece', ru: 'Греция', en: 'Greece', food: 32, wage: 42, buy: 7, eu: true, petrol: '2.10 €/L', diesel: '2.05 €/L', burdenRu: 'Высокая', burdenEn: 'High', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'austria', ru: 'Австрия', en: 'Austria', food: 32, wage: null, buy: null, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'albania', ru: 'Албания', en: 'Albania', food: 31, wage: 67, buy: 27, eu: false, petrol: '1.75 €/L', diesel: '1.74 €/L', burdenRu: 'Критическая', burdenEn: 'Critical', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'netherlands', ru: 'Нидерланды', en: 'Netherlands', food: 30, wage: 37, buy: 6, eu: true, petrol: '2.43 €/L', diesel: '2.10 €/L', burdenRu: 'Макс. цена Бензина', burdenEn: 'Max Petrol Price', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'belgium', ru: 'Бельгия', en: 'Belgium', food: 30, wage: 37, buy: 6, eu: true, petrol: '2.15 €/L', diesel: '2.18 €/L', burdenRu: 'Низкая', burdenEn: 'Low', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'italy', ru: 'Италия', en: 'Italy', food: 30, wage: null, buy: null, eu: true, petrol: '2.21 €/L', diesel: '2.19 €/L', burdenRu: 'Средняя', burdenEn: 'Moderate', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'denmark', ru: 'Дания', en: 'Denmark', food: 29, wage: null, buy: null, eu: true, petrol: '2.38 €/L', diesel: '2.52 €/L', burdenRu: 'Макс. цена Дизеля', burdenEn: 'Max Diesel Price', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'czechia', ru: 'Чехия', en: 'Czechia', food: 27, wage: 47, buy: 16, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'ireland', ru: 'Ирландия', en: 'Ireland', food: 26, wage: 39, buy: 10, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'luxembourg', ru: 'Люксембург', en: 'Luxembourg', food: 25, wage: 26, buy: 1, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'finland', ru: 'Финляндия', en: 'Finland', food: 25, wage: null, buy: null, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'france', ru: 'Франция', en: 'France', food: 25, wage: 20, buy: -4, eu: true, petrol: '2.18 €/L', diesel: '2.20 €/L', burdenRu: 'Средняя', burdenEn: 'Moderate', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'sweden', ru: 'Швеция', en: 'Sweden', food: 25, wage: null, buy: null, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'cyprus', ru: 'Кипр', en: 'Cyprus', food: 21, wage: null, buy: null, eu: true, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' },
-            { id: 'switzerland', ru: 'Швейцария', en: 'Switzerland', food: 5, wage: null, buy: null, eu: false, petrol: 'Н/Д (Нет в Euronews)', diesel: 'Н/Д (Нет в Euronews)', burdenRu: 'Нет данных в статье', burdenEn: 'N/A in article', foodSubRu: 'Евростат 5 л.', foodSubEn: 'Eurostat 5Y' }
-        ];
-
-        function selectCountry(id) {
-            selectedCountryId = id;
-            updateKpis();
-            renderAllCharts();
-        }
-
-        function updateKpis() {
-            const t = i18n[currentLang];
-            const item = dataset.find(x => x.id === selectedCountryId) || dataset[0];
-            const name = currentLang === 'ru' ? item.ru : item.en;
-
-            document.getElementById('selected-badge').innerText = `${t.selectedPrefix}${name}`;
-            document.getElementById('kpi-country').innerText = name;
-            document.getElementById('kpi-status').innerText = item.id === 'usa' ? t.stUsa : (item.eu ? t.stEu : t.stNonEu);
-            document.getElementById('kpi-food').innerText = `+${item.food}%`;
-            document.getElementById('kpi-food-sub').innerText = currentLang === 'ru' ? item.foodSubRu : item.foodSubEn;
-            document.getElementById('kpi-wage').innerText = item.wage !== null ? `+${item.wage}%` : 'N/A';
-            
-            if (item.buy !== null) {
-                document.getElementById('kpi-buy').innerText = `${item.buy > 0 ? '+' : ''}${item.buy}%`;
-                document.getElementById('kpi-buy').className = item.buy < 0 
-                    ? "text-xs md:text-sm font-black text-rose-500 font-mono mt-0.5" 
-                    : "text-xs md:text-sm font-black text-emerald-400 font-mono mt-0.5";
-            } else {
-                document.getElementById('kpi-buy').innerText = 'N/A';
-                document.getElementById('kpi-buy').className = "text-xs md:text-sm font-black text-slate-500 font-mono mt-0.5";
-            }
-
-            document.getElementById('kpi-petrol').innerText = item.petrol;
-            document.getElementById('kpi-diesel').innerText = item.diesel;
-            document.getElementById('kpi-burden').innerText = currentLang === 'ru' ? item.burdenRu : item.burdenEn;
-        }
-
-        function renderAllCharts() {
-            // 1. CHART FOOD
-            const foodSorted = [...dataset].sort((a,b) => b.food - a.food);
-            document.getElementById('chart-food').innerHTML = foodSorted.map(item => {
-                const name = currentLang === 'ru' ? item.ru : item.en;
-                const widthPct = (item.food / 752) * 100;
-                const isSelected = item.id === selectedCountryId;
-                const isUsa = item.id === 'usa';
-                const barColor = isUsa ? 'bg-amber-500' : (item.eu ? 'bg-[#0055a5]' : 'bg-[#002b55]');
-
-                return `
-                    <div onclick="selectCountry('${item.id}')" class="bar-row flex items-center gap-1.5 text-[10px] p-0.5 rounded ${isSelected ? 'active-row bg-blue-950/40' : ''}">
-                        <span class="w-24 text-right truncate font-medium ${isUsa ? 'text-amber-400 font-bold' : (item.eu ? 'text-slate-200' : 'text-blue-400')}">${name}</span>
-                        <div class="flex-1 bg-slate-900 h-3.5 rounded-sm overflow-hidden flex items-center">
-                            <div class="${barColor} h-3.5" style="width: ${Math.max(1.5, widthPct)}%"></div>
-                            <span class="text-[9px] font-mono font-bold ml-1.5 ${isUsa ? 'text-amber-400' : (item.id==='turkey'?'text-blue-400':'text-slate-300')}">${item.food}%</span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            // 2. CHART WAGE
-            const wageSorted = dataset.filter(x => x.wage !== null).sort((a,b) => b.wage - a.wage);
-            document.getElementById('chart-wage').innerHTML = wageSorted.map(item => {
-                const name = currentLang === 'ru' ? item.ru : item.en;
-                const widthPct = (item.wage / 823) * 100;
-                const isSelected = item.id === selectedCountryId;
-                const isUsa = item.id === 'usa';
-                const barColor = isUsa ? 'bg-amber-500' : (item.eu ? 'bg-[#0055a5]' : 'bg-[#002244]');
-
-                return `
-                    <div onclick="selectCountry('${item.id}')" class="bar-row flex items-center gap-1.5 text-[10px] p-0.5 rounded ${isSelected ? 'active-row bg-blue-950/40' : ''}">
-                        <span class="w-24 text-right truncate font-medium ${isUsa ? 'text-amber-400 font-bold' : (item.eu ? 'text-slate-200' : 'text-blue-400')}">${name}</span>
-                        <div class="flex-1 bg-slate-900 h-3.5 rounded-sm overflow-hidden flex items-center">
-                            <div class="${barColor} h-3.5" style="width: ${Math.max(1.5, widthPct)}%"></div>
-                            <span class="text-[9px] font-mono font-bold ml-1.5 ${isUsa ? 'text-amber-400' : 'text-blue-300'}">${item.wage}%</span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            // 3. CHART BUYING POWER
-            const buySorted = dataset.filter(x => x.buy !== null).sort((a,b) => b.buy - a.buy);
-            document.getElementById('chart-buy').innerHTML = buySorted.map(item => {
-                const name = currentLang === 'ru' ? item.ru : item.en;
-                const isSelected = item.id === selectedCountryId;
-                const isNegative = item.buy < 0;
-                const isUsa = item.id === 'usa';
-                const barColor = isUsa ? 'bg-amber-600' : (isNegative ? 'bg-rose-600' : 'bg-[#0055a5]');
-
-                return `
-                    <div onclick="selectCountry('${item.id}')" class="bar-row flex items-center gap-1.5 text-[10px] p-0.5 rounded ${isSelected ? 'active-row bg-blue-950/40' : ''}">
-                        <span class="w-24 text-right truncate font-medium ${isUsa ? 'text-amber-400 font-bold' : (item.eu ? 'text-slate-200' : 'text-blue-400')}">${name}</span>
-                        <div class="flex-1 bg-slate-900 h-3.5 rounded-sm overflow-hidden flex items-center relative">
-                            <div class="${barColor} h-3.5" style="width: ${Math.abs(item.buy) * 2.2}%"></div>
-                            <span class="text-[9px] font-mono font-bold ml-1.5 ${isUsa ? 'text-amber-400' : (isNegative ? 'text-rose-400' : 'text-blue-300')}">${item.buy}%</span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function setLang(lang) {
-            currentLang = lang;
-            const t = i18n[lang];
-
-            document.getElementById('lbl-title').innerText = t.title;
-            document.getElementById('kpi-head-country').innerText = t.kpiHeadCountry;
-            document.getElementById('kpi-head-food').innerText = t.kpiHeadFood;
-            document.getElementById('kpi-head-wage').innerText = t.kpiHeadWage;
-            document.getElementById('kpi-head-buy').innerText = t.kpiHeadBuy;
-            document.getElementById('kpi-head-petrol').innerText = t.kpiHeadPetrol;
-            document.getElementById('kpi-head-diesel').innerText = t.kpiHeadDiesel;
-            document.getElementById('kpi-wage-sub').innerText = t.kpiWageSub;
-            document.getElementById('kpi-buy-sub').innerText = t.kpiBuySub;
-
-            document.getElementById('lbl-c1-title').innerText = t.c1Title;
-            document.getElementById('lbl-c1-sub').innerText = t.c1Sub;
-            document.getElementById('lbl-c2-title').innerText = t.c2Title;
-            document.getElementById('lbl-c2-sub').innerText = t.c2Sub;
-            document.getElementById('lbl-c3-title').innerText = t.c3Title;
-            document.getElementById('lbl-c3-sub').innerText = t.c3Sub;
-
-            document.getElementById('lbl-turkey-title').innerText = t.turkeyTitle;
-            document.getElementById('lbl-turkey-badge').innerText = t.turkeyBadge;
-            document.getElementById('lbl-leg-wage').innerText = t.legWage;
-            document.getElementById('lbl-leg-food').innerText = t.legFood;
-            document.getElementById('lbl-trend6-title').innerText = t.trend6Title;
-            document.getElementById('lbl-footer-text').innerText = t.footerText;
-
-            document.getElementById('lbl-c-turkey').innerText = lang==='ru' ? 'Турция (+8%)' : 'Turkey (+8%)';
-            document.getElementById('lbl-c-usa').innerText = lang==='ru' ? 'США (-21.6%)' : 'USA (-21.6%)';
-            document.getElementById('lbl-c-croatia').innerText = lang==='ru' ? 'Хорватия (+30%)' : 'Croatia (+30%)';
-            document.getElementById('lbl-c-serbia').innerText = lang==='ru' ? 'Сербия (+37%)' : 'Serbia (+37%)';
-            document.getElementById('lbl-c-spain').innerText = lang==='ru' ? 'Испания (-5%)' : 'Spain (-5%)';
-            document.getElementById('lbl-c-france').innerText = lang==='ru' ? 'Франция (-4%)' : 'France (-4%)';
-
-            document.getElementById('btn-lang-ru').className = lang === 'ru' ? "px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white shadow" : "px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white";
-            document.getElementById('btn-lang-en').className = lang === 'en' ? "px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white shadow" : "px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 hover:text-white";
-            
-            updateKpis();
-            renderAllCharts();
-        }
+                }}, 16);
+            }}
+        }}
     </script>
 </body>
 </html>
