@@ -23,10 +23,17 @@
             position: relative;
         }
 
+        /* Навигационная панель для логотипа и кнопки "Назад" */
+        .nav-header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
         .top-left-logo {
-            position: absolute;
-            top: 25px;
-            left: 30px;
             width: 55px;
             height: 55px;
             object-fit: contain;
@@ -34,9 +41,6 @@
 
         /* Кнопка "Назад" к списку тем */
         .back-button {
-            position: absolute;
-            top: 35px;
-            right: 30px;
             text-decoration: none;
             background-color: #001e50;
             color: white;
@@ -45,6 +49,7 @@
             font-weight: 600;
             font-size: 14px;
             transition: background-color 0.3s ease;
+            display: inline-block;
         }
 
         .back-button:hover {
@@ -55,6 +60,7 @@
             text-align: center;
             margin-top: 10px;
             margin-bottom: 30px;
+            padding: 0 10px;
         }
 
         h1 {
@@ -62,7 +68,7 @@
             font-weight: 700;
             color: #001e50;
             margin-bottom: 8px;
-            margin-top: 20px;
+            line-height: 1.25;
         }
 
         .subtitle {
@@ -73,7 +79,7 @@
             margin: 0 auto;
         }
 
-        /* Сетка для карточек материалов */
+        /* Сетка для карточек материалов (Адаптирована под все экраны) */
         .grid-container {
             display: flex;
             flex-wrap: wrap;
@@ -116,18 +122,6 @@
             box-shadow: 0 16px 30px rgba(0, 30, 80, 0.18);
         }
 
-        /* Стиль для карточек в процессе разработки */
-        .card.disabled {
-            cursor: not-allowed;
-            opacity: 0.85;
-        }
-
-        .card.disabled:hover {
-            transform: translateY(-4px);
-            border-color: #cbd5e1;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
-        }
-
         /* Модальное окно выбора видеолекции */
         .modal-overlay {
             position: fixed;
@@ -141,14 +135,15 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 15px;
         }
 
         .modal-content {
             background: #ffffff;
-            padding: 30px;
+            padding: 30px 24px;
             border-radius: 16px;
             max-width: 420px;
-            width: 90%;
+            width: 100%;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             border: 2px solid #001e50;
@@ -190,11 +185,12 @@
             position: absolute;
             top: 12px;
             right: 16px;
-            font-size: 20px;
+            font-size: 24px;
             color: #888;
             cursor: pointer;
             border: none;
             background: none;
+            line-height: 1;
         }
 
         .close-modal:hover {
@@ -203,22 +199,58 @@
 
         footer {
             margin-top: auto;
-            font-size: 14px;
+            font-size: 13px;
             color: #718096;
-            padding-top: 30px;
+            padding-top: 20px;
             padding-bottom: 20px;
             text-align: center;
             line-height: 1.6;
+        }
+
+        /* АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ И ЭКРАНОВ С МАЛОЙ ШИРИНОЙ */
+        @media (max-width: 600px) {
+            body {
+                padding: 12px 12px;
+            }
+
+            .top-left-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .back-button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            h1 {
+                font-size: 22px;
+                margin-top: 10px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+            }
+
+            .grid-container {
+                gap: 15px;
+            }
+
+            /* На смартфонах показываем карточки чуть компактнее, чтобы помещалось 2 в ряд */
+            .card {
+                width: 145px;
+                height: 218px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Логотип AlmaU -->
-    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
-    
-    <!-- Кнопка возврата к списку тем -->
-    <a href="topics.html" class="back-button">← Back to Topics</a>
+    <!-- Навигационный блок: Логотип AlmaU и Кнопка возврата -->
+    <div class="nav-header">
+        <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
+        <a href="topics.html" class="back-button">← Back to Topics</a>
+    </div>
 
     <header>
         <h1>Topic 5: The Theory of Production and Costs</h1>
@@ -228,8 +260,8 @@
     </header>
 
     <main class="grid-container">
-        <!-- 1. Презентация (В разработке) -->
-        <a href="#" onclick="alert('Presentation is under development.'); return false;" class="card disabled" title="Presentation: Production & Costs (Coming Soon)">
+        <!-- 1. Презентация (Гугл Диск) -->
+        <a href="https://drive.google.com/file/d/1LefG9uDQpgWzYXBDXE8bab4ZT4O-tz1K/view?usp=sharing" target="_blank" class="card" title="Presentation: Production & Costs">
             <img src="pic-preza5-pe.png" alt="Production & Costs Presentation">
         </a>
 
