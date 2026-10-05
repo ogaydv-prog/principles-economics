@@ -13,33 +13,51 @@
         body { font-family: 'Inter', sans-serif; background-color: #0b1121; color: #f8fafc; overflow-x: hidden; }
         .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
         
-        /* Стилизация слайдера первой вкладки */
-        #slider-q { -webkit-appearance: none; width: 100%; background: #0f172a; height: 12px; border-radius: 6px; border: 1px solid #334155; }
-        #slider-q::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 32px; background: #3b82f6; border-radius: 4px; cursor: pointer; border: 2px solid #1e293b; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-        
-        /* Стилизация слайдеров во второй вкладке с красной полоской (red accent track) */
-        .hhi-slider {
+        /* ------------------------------------------------------------------
+           Винтажный прямоугольный бегунок с красной риской (как на магнитофонах)
+           ------------------------------------------------------------------ */
+        input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
-            height: 8px;
-            border-radius: 4px;
-            background: linear-gradient(to right, #ef4444 0%, #dc2626 100%);
-            border: 1px solid #7f1d1d;
+            background: #0f172a;
+            height: 10px;
+            border-radius: 5px;
+            border: 1px solid #334155;
             outline: none;
         }
-        .hhi-slider::-webkit-slider-thumb {
+
+        /* Webkit (Chrome, Safari, Edge) */
+        input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 2px solid #ef4444;
+            width: 22px;
+            height: 32px;
+            /* Металлический градиент бегунка с красной вертикальной полоской по центру */
+            background: 
+                linear-gradient(to right, transparent 9px, #ef4444 9px, #ef4444 13px, transparent 13px),
+                linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 4px;
             cursor: pointer;
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
-            transition: transform 0.1s ease;
+            border: 1px solid #60a5fa;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), 0 0 6px rgba(239, 68, 68, 0.6);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
         }
-        .hhi-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7), 0 0 10px rgba(239, 68, 68, 0.9);
+        }
+
+        /* Firefox */
+        input[type="range"]::-moz-range-thumb {
+            width: 22px;
+            height: 32px;
+            background: 
+                linear-gradient(to right, transparent 9px, #ef4444 9px, #ef4444 13px, transparent 13px),
+                linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid #60a5fa;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), 0 0 6px rgba(239, 68, 68, 0.6);
         }
 
         .scenario-btn { transition: all 0.2s; }
@@ -292,7 +310,6 @@
             chart2LegMC: "Предельные издержки (MC)",
             chart2LegAVC: "Средние переменные издержки (AVC)",
             
-            // HHI Dashboard
             presetSoda: "Безалкогольные напитки (США)",
             presetAircraft: "Авиастроение",
             presetTelecom: "Связь (Казахстан)",
@@ -347,7 +364,6 @@
             chart2LegMC: "Marginal Cost (MC)",
             chart2LegAVC: "Average Variable Cost (AVC)",
             
-            // HHI Dashboard
             presetSoda: "Soft Drinks (USA)",
             presetAircraft: "Aircraft Manufacturing",
             presetTelecom: "Telecom (Kazakhstan)",
@@ -490,7 +506,6 @@
         document.getElementById('btn-lang-ru').className = lang === 'ru' ? "px-3 py-1 rounded-lg text-xs font-bold transition-all bg-blue-600 text-white" : "px-3 py-1 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200";
         document.getElementById('btn-lang-en').className = lang === 'en' ? "px-3 py-1 rounded-lg text-xs font-bold transition-all bg-blue-600 text-white" : "px-3 py-1 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200";
 
-        // Header & Tab 1
         document.getElementById('lbl-main-title').innerText = t.mainTitle;
         document.getElementById('lbl-main-subtitle').innerText = t.mainSubtitle;
         document.getElementById('lbl-tab-comp').innerText = t.tabComp;
@@ -513,7 +528,6 @@
         document.getElementById('lbl-profit-title').innerText = t.profitTitle;
         document.getElementById('lbl-verdict-title').innerText = t.verdictTitle;
 
-        // Tab 2 (HHI Dashboard UI)
         document.getElementById('lbl-preset-soda').innerText = t.presetSoda;
         document.getElementById('lbl-preset-aircraft').innerText = t.presetAircraft;
         document.getElementById('lbl-preset-telecom').innerText = t.presetTelecom;
@@ -545,7 +559,6 @@
             mrMcChartInst.update();
         }
 
-        // Обновляем текущий пресет под выбранный язык
         loadPreset(currentPresetKey);
         updateDashboard();
     }
@@ -700,7 +713,6 @@
         document.getElementById('val-verdict').innerHTML = verdict;
     }
 
-    // Двуязычные пресеты для HHI
     const presets = {
         soda: {
             ru: [
@@ -776,16 +788,15 @@
 
     let firms = [...presets.soda.ru];
 
-    // Новая яркая, сочная и контрастная палитра цветов для Pie/Bar чартов
     const colors = [
-        '#38bdf8', // Неоново-голубой
-        '#f43f5e', // Ярко-розовый
-        '#10b981', // Изумрудно-зеленый
-        '#a855f7', // Фиолетовый
-        '#f59e0b', // Янтарно-желтый
-        '#ec4899', // Малиновый
-        '#06b6d4', // Бирюзовый
-        '#84cc16'  // Салатовый
+        '#38bdf8',
+        '#f43f5e',
+        '#10b981',
+        '#a855f7',
+        '#f59e0b',
+        '#ec4899',
+        '#06b6d4',
+        '#84cc16'
     ];
 
     let pieChart, barChart;
@@ -824,7 +835,7 @@
                     <span style="color: ${colors[index % colors.length]}">${firm.name}</span>
                     <span class="font-mono text-slate-200">${firm.share.toFixed(1)}%</span>
                 </div>
-                <input type="range" min="1" max="100" value="${firm.share}" oninput="updateShare(${index}, this.value)" class="hhi-slider cursor-pointer">
+                <input type="range" min="1" max="100" value="${firm.share}" oninput="updateShare(${index}, this.value)">
             `;
             container.appendChild(div);
         });
