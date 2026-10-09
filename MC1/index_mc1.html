@@ -308,6 +308,11 @@
             const statusBox = document.getElementById('student-status-box');
             const examHub = document.getElementById('exam-hub');
 
+            if (typeof STUDENTS_LIST === 'undefined') {
+                console.error("STUDENTS_LIST is not defined! Check questions_p1_p2.js file.");
+                return;
+            }
+
             let foundIdx = STUDENTS_LIST.findIndex(s => s.toLowerCase().includes(val) && val.length >= 3);
 
             if (foundIdx !== -1) {
@@ -330,9 +335,17 @@
         }
 
         function generatePersonalizedExam(idx) {
-            renderQuestionsP1P2(idx, currentLang);
-            renderTasksP3(idx, currentLang);
-            renderCaseP4(idx, currentLang);
+            try {
+                if (typeof renderQuestionsP1P2 === 'function') renderQuestionsP1P2(idx, currentLang);
+            } catch(e) { console.error("Error in Questions P1/P2:", e); }
+
+            try {
+                if (typeof renderTasksP3 === 'function') renderTasksP3(idx, currentLang);
+            } catch(e) { console.error("Error in Tasks P3:", e); }
+
+            try {
+                if (typeof renderCaseP4 === 'function') renderCaseP4(idx, currentLang);
+            } catch(e) { console.error("Error in Case P4:", e); }
         }
 
         function switchTab(tabId) {
