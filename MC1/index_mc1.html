@@ -39,22 +39,22 @@
     <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <div id="toast-bg" class="bg-indigo-600 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 border border-indigo-400/30">
             <i class="fas fa-info-circle text-lg"></i>
-            <span id="toast-msg" class="text-xs font-semibold">Notification</span>
+            <span id="toast-msg" class="text-sm font-semibold">Notification</span>
         </div>
     </div>
 
     <!-- Professor Auth Modal -->
     <div id="teacher-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
-        <div class="card p-6 max-w-sm w-full bg-slate-900 border border-slate-700/60 space-y-4">
+        <div class="card p-6 max-w-md w-full bg-slate-900 border border-slate-700/60 space-y-4">
             <div class="flex items-center gap-3 text-indigo-400">
                 <i class="fas fa-key text-2xl"></i>
-                <h4 class="text-md font-bold" data-lang-en="Professor Panel Auth" data-lang-ru="Панель Преподавателя">Professor Panel Auth</h4>
+                <h4 class="text-lg font-bold" data-lang-en="Professor Panel Auth" data-lang-ru="Панель Преподавателя">Professor Panel Auth</h4>
             </div>
-            <p class="text-xs text-slate-300" data-lang-en="Enter master key to access grading & AI detection." data-lang-ru="Введите мастер-ключ для проверки работ и ИИ-анализа.">Enter master key to access grading & AI detection.</p>
-            <input type="password" id="teacher-key" class="w-full bg-slate-950 border border-slate-800 rounded-md p-2 text-xs text-slate-200 focus:ring-1 focus:ring-indigo-500 outline-none" placeholder="Master Key">
+            <p class="text-sm text-slate-300" data-lang-en="Enter master key to access grading & AI detection." data-lang-ru="Введите мастер-ключ для проверки работ и ИИ-анализа.">Enter master key to access grading & AI detection.</p>
+            <input type="password" id="teacher-key" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Master Key">
             <div class="flex justify-end gap-3 pt-2">
-                <button onclick="toggleModal('teacher-modal', false)" class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-lang-en="Cancel" data-lang-ru="Отмена">Cancel</button>
-                <button onclick="verifyTeacherKey()" class="px-4 py-2 rounded-lg text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition" data-lang-en="Unlock" data-lang-ru="Войти">Unlock</button>
+                <button onclick="toggleModal('teacher-modal', false)" class="px-4 py-2.5 rounded-lg text-xs md:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-lang-en="Cancel" data-lang-ru="Отмена">Cancel</button>
+                <button onclick="verifyTeacherKey()" class="px-4 py-2.5 rounded-lg text-xs md:text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition" data-lang-en="Unlock" data-lang-ru="Войти">Unlock</button>
             </div>
         </div>
     </div>
@@ -83,9 +83,9 @@
         <section class="card p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-2" data-lang-en="Student Credentials (Select Your Name)" data-lang-ru="Идентификация студента (Выберите ФИО)">Student Credentials (Select Your Name)</label>
+                    <label class="block text-xs uppercase font-bold text-slate-400 tracking-wider mb-2" data-lang-en="Student Credentials (Select Your Name)" data-lang-ru="Идентификация студента (Выберите ФИО)">Student Credentials (Select Your Name)</label>
                     <input type="text" id="student-name" list="students-list" placeholder="Begin typing your name..." 
-                           class="w-full bg-slate-950 border border-slate-800 p-3.5 rounded-lg text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                           class="w-full bg-slate-950 border border-slate-800 p-3.5 rounded-lg text-base text-white focus:ring-2 focus:ring-indigo-500 outline-none transition"
                            oninput="detectStudentAndLoadExam()">
                     <datalist id="students-list">
                         <option value="Hebatallah Aldada"></option>
@@ -108,10 +108,10 @@
                         <option value="Шабанов Анварбек"></option>
                         <option value="Югай Ксения Альбертовна"></option>
                     </datalist>
-                    <p class="text-[10px] text-slate-500 mt-2" data-lang-en="Personalized variant parameters load automatically upon validation." data-lang-ru="Индивидуальные параметры варианта загружаются автоматически после выбора ФИО.">Personalized variant parameters load automatically upon validation.</p>
+                    <p class="text-xs text-slate-500 mt-2" data-lang-en="Personalized variant parameters load automatically upon validation." data-lang-ru="Индивидуальные параметры варианта загружаются автоматически после выбора ФИО.">Personalized variant parameters load automatically upon validation.</p>
                 </div>
                 <div class="flex flex-col justify-center bg-slate-950/40 border border-slate-800/60 p-4 rounded-xl">
-                    <div class="text-[10px] uppercase font-bold text-slate-500 tracking-wider" data-lang-en="Assigned Variant Status" data-lang-ru="Статус персонального варианта">Assigned Variant Status</div>
+                    <div class="text-xs uppercase font-bold text-slate-500 tracking-wider" data-lang-en="Assigned Variant Status" data-lang-ru="Статус персонального варианта">Assigned Variant Status</div>
                     <div id="student-status-box" class="flex items-center gap-3 mt-2 text-indigo-300 font-bold text-lg">
                         <i class="fas fa-user-graduate text-2xl text-slate-700 animate-pulse"></i>
                         <span class="text-slate-500 font-normal" data-lang-en="Awaiting authentic name selection..." data-lang-ru="Ожидание выбора имени студента...">Awaiting authentic name selection...</span>
@@ -125,19 +125,19 @@
             
             <!-- Navigation Tabs -->
             <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-2">
-                <button onclick="switchTab('tab-part1')" class="tab-btn active px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
-                    <i class="fas fa-brain mr-1.5"></i> <span data-lang-en="Part 1: Foundations" data-lang-ru="Часть 1: Основы">Part 1: Foundations</span>
+                <button onclick="switchTab('tab-part1')" class="tab-btn active px-4 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
+                    <i class="fas fa-brain mr-1.5"></i> <span data-lang-en="Part 1: Foundations (4 Qs)" data-lang-ru="Часть 1: Основы (4 вопр.)">Part 1: Foundations (4 Qs)</span>
                 </button>
-                <button onclick="switchTab('tab-part2')" class="tab-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
-                    <i class="fas fa-chart-line mr-1.5"></i> <span data-lang-en="Part 2: Markets & Supply" data-lang-ru="Часть 2: Рынки и Предложение">Part 2: Markets & Supply</span>
+                <button onclick="switchTab('tab-part2')" class="tab-btn px-4 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
+                    <i class="fas fa-chart-line mr-1.5"></i> <span data-lang-en="Part 2: Markets & Supply (6 Qs)" data-lang-ru="Часть 2: Рынки и Предложение (6 вопр.)">Part 2: Markets & Supply (6 Qs)</span>
                 </button>
-                <button onclick="switchTab('tab-part3')" class="tab-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
+                <button onclick="switchTab('tab-part3')" class="tab-btn px-4 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
                     <i class="fas fa-calculator mr-1.5"></i> <span data-lang-en="Part 3: Computational Tasks" data-lang-ru="Часть 3: Задачи и Издержки">Part 3: Computational Tasks</span>
                 </button>
-                <button onclick="switchTab('tab-part4')" class="tab-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
+                <button onclick="switchTab('tab-part4')" class="tab-btn px-4 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wider rounded-lg border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white">
                     <i class="fas fa-lightbulb mr-1.5"></i> <span data-lang-en="Part 4: Case Analysis" data-lang-ru="Часть 4: Аналитический Кейс">Part 4: Case Analysis</span>
                 </button>
-                <button onclick="switchTab('tab-submit')" class="tab-btn px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-emerald-800 bg-emerald-950/20 text-emerald-400 ml-auto transition hover:bg-emerald-600 hover:text-white">
+                <button onclick="switchTab('tab-submit')" class="tab-btn px-4 py-2.5 text-xs md:text-sm font-bold uppercase tracking-wider rounded-lg border border-emerald-800 bg-emerald-950/20 text-emerald-400 ml-auto transition hover:bg-emerald-600 hover:text-white">
                     <i class="fas fa-paper-plane mr-1.5"></i> <span data-lang-en="Finalize Session" data-lang-ru="Завершить и Отправить">Finalize Session</span>
                 </button>
             </div>
@@ -169,8 +169,8 @@
                         <i class="fas fa-stamp text-4xl"></i>
                     </div>
                     <h2 class="text-xl font-bold text-slate-100" data-lang-en="Finalize Exam Session" data-lang-ru="Финализация и Подтверждение">Finalize Exam Session</h2>
-                    <p class="text-xs text-slate-400 max-w-md mx-auto" data-lang-en="Compiles all responses into a secure token for evaluation." data-lang-ru="Формирует защищенный шифрованный токен для отправки преподавателю.">Compiles all responses into a secure token for evaluation.</p>
-                    <button onclick="compileFinalToken()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-lg text-xs tracking-wider uppercase transition shadow-lg shadow-emerald-950/50" data-lang-en="Compile & Generate Token" data-lang-ru="Сформировать Токен Проверки">
+                    <p class="text-xs md:text-sm text-slate-400 max-w-md mx-auto" data-lang-en="Compiles all responses into a secure token for evaluation." data-lang-ru="Формирует защищенный шифрованный токен для отправки преподавателю.">Compiles all responses into a secure token for evaluation.</p>
+                    <button onclick="compileFinalToken()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg text-sm tracking-wider uppercase transition shadow-lg shadow-emerald-950/50" data-lang-en="Compile & Generate Token" data-lang-ru="Сформировать Токен Проверки">
                         Compile & Generate Token
                     </button>
                 </div>
@@ -178,8 +178,8 @@
                 <div id="passport-block" class="hidden card p-6 border-t-4 border-emerald-500 bg-slate-900/20 space-y-6">
                     <div class="flex justify-between items-start border-b border-slate-800 pb-4 flex-wrap gap-4">
                         <div>
-                            <h3 class="text-md font-black text-white tracking-tight">ALMAU MIDTERM CONTROL 1 CERTIFICATE</h3>
-                            <p class="text-[10px] text-slate-400 font-mono">Principles of Economics • International Business • Spring 2026</p>
+                            <h3 class="text-md md:text-lg font-black text-white tracking-tight">ALMAU MIDTERM CONTROL 1 CERTIFICATE</h3>
+                            <p class="text-xs text-slate-400 font-mono">Principles of Economics • International Business • Spring 2026</p>
                         </div>
                         <div class="text-right text-xs">
                             <span class="text-slate-400" data-lang-en="Protocol Status:" data-lang-ru="Статус токена:">Protocol Status:</span>
@@ -187,24 +187,24 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                         <div class="bg-slate-950/50 p-3 rounded border border-slate-800">
-                            <span class="text-[10px] text-slate-500 uppercase block" data-lang-en="Candidate Name:" data-lang-ru="Студент:">Candidate Name:</span>
+                            <span class="text-xs text-slate-500 uppercase block" data-lang-en="Candidate Name:" data-lang-ru="Студент:">Candidate Name:</span>
                             <span class="font-bold text-slate-200" id="p-student"></span>
                         </div>
                         <div class="bg-slate-950/50 p-3 rounded border border-slate-800">
-                            <span class="text-[10px] text-slate-500 uppercase block" data-lang-en="Assigned Variant:" data-lang-ru="Вариант:">Assigned Variant:</span>
+                            <span class="text-xs text-slate-500 uppercase block" data-lang-en="Assigned Variant:" data-lang-ru="Вариант:">Assigned Variant:</span>
                             <span class="font-bold text-indigo-400" id="p-variant"></span>
                         </div>
                         <div class="bg-slate-950/50 p-3 rounded border border-slate-800">
-                            <span class="text-[10px] text-slate-500 uppercase block" data-lang-en="Completion Time:" data-lang-ru="Время сборки:">Completion Time:</span>
+                            <span class="text-xs text-slate-500 uppercase block" data-lang-en="Completion Time:" data-lang-ru="Время сборки:">Completion Time:</span>
                             <span class="font-bold text-slate-200" id="p-time"></span>
                         </div>
                     </div>
 
                     <div class="bg-slate-950 border border-emerald-500/20 p-4 rounded-lg text-center space-y-2">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block" data-lang-en="VERIFICATION KEY (CLICK TO COPY & TRANSMIT TO INSTRUCTOR)" data-lang-ru="КЛЮЧ ПРОВЕРКИ (НАЖМИТЕ ЧТОБЫ СКОПИРОВАТЬ И ОТПРАВИТЬ ПРЕПОДАВАТЕЛЮ)">VERIFICATION KEY (CLICK TO COPY & TRANSMIT TO INSTRUCTOR)</span>
-                        <div class="font-mono text-[11px] text-emerald-400 break-all select-all cursor-pointer bg-slate-900/60 p-3 rounded" id="p-token" onclick="copyToClipboard()">Compiling...</div>
+                        <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block" data-lang-en="VERIFICATION KEY (CLICK TO COPY & TRANSMIT TO INSTRUCTOR)" data-lang-ru="КЛЮЧ ПРОВЕРКИ (НАЖМИТЕ ЧТОБЫ СКОПИРОВАТЬ И ОТПРАВИТЬ ПРЕПОДАВАТЕЛЮ)">VERIFICATION KEY (CLICK TO COPY & TRANSMIT TO INSTRUCTOR)</span>
+                        <div class="font-mono text-xs md:text-sm text-emerald-400 break-all select-all cursor-pointer bg-slate-900/60 p-3 rounded" id="p-token" onclick="copyToClipboard()">Compiling...</div>
                     </div>
                 </div>
 
@@ -212,7 +212,7 @@
                 <div id="prof-grade-panel" class="hidden card p-6 border-t-4 border-indigo-500 bg-indigo-950/10 space-y-4">
                     <div class="border-b border-slate-800 pb-2">
                         <h4 class="font-bold text-sm text-indigo-400 uppercase tracking-wider"><i class="fas fa-user-shield mr-1.5"></i> <span data-lang-en="Professor Verification & AI Audit Hub" data-lang-ru="Панель Оценки и ИИ-Аудита Эссе">Professor Verification & AI Audit Hub</span></h4>
-                        <p class="text-[10px] text-slate-400" data-lang-en="Paste student verification token below to decrypt answers, auto-grade and run AI generation check." data-lang-ru="Вставьте токен студента ниже для расшифровки, оценки и запуска детектора ИИ-генерации.">Paste student verification token below to decrypt answers, auto-grade and run AI generation check.</p>
+                        <p class="text-xs text-slate-400" data-lang-en="Paste student verification token below to decrypt answers, auto-grade and run AI generation check." data-lang-ru="Вставьте токен студента ниже для расшифровки, оценки и запуска детектора ИИ-генерации.">Paste student verification token below to decrypt answers, auto-grade and run AI generation check.</p>
                     </div>
                     <div class="space-y-3">
                         <textarea id="prof-token-input" class="w-full bg-slate-950 border border-slate-800 rounded-md p-2 text-xs text-slate-200 h-16 resize-none custom-scrollbar" placeholder="Insert compiled candidate token..."></textarea>
@@ -222,7 +222,7 @@
                     </div>
 
                     <div id="grade-panel-output" class="hidden bg-slate-950/80 p-4 rounded-lg border border-slate-800 text-xs space-y-4">
-                        <h5 class="font-bold text-indigo-400 border-b border-slate-800 pb-1 uppercase text-[10px]">Session Audit Analytics</h5>
+                        <h5 class="font-bold text-indigo-400 border-b border-slate-800 pb-1 uppercase text-xs">Session Audit Analytics</h5>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-slate-300">
                             <div>Candidate: <span class="text-white font-bold block" id="dec-student"></span></div>
                             <div>Variant: <span class="text-white font-bold block" id="dec-variant"></span></div>
@@ -233,11 +233,11 @@
                         <!-- AI Generation Audit Result Box -->
                         <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-800 space-y-2">
                             <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                                <span class="text-[10px] font-bold text-slate-400 uppercase"><i class="fas fa-robot mr-1 text-indigo-400"></i> AI Generation Likelihood Assessment</span>
-                                <span id="ai-score-badge" class="px-2 py-0.5 rounded text-[10px] font-bold">0% Risk</span>
+                                <span class="text-xs font-bold text-slate-400 uppercase"><i class="fas fa-robot mr-1 text-indigo-400"></i> AI Generation Likelihood Assessment</span>
+                                <span id="ai-score-badge" class="px-2 py-0.5 rounded text-xs font-bold">0% Risk</span>
                             </div>
-                            <p class="text-slate-200 italic text-[11px]" id="dec-brief"></p>
-                            <div id="ai-analysis-details" class="text-[10px] text-slate-400 font-mono space-y-1 border-t border-slate-800/60 pt-2"></div>
+                            <p class="text-slate-200 italic text-xs" id="dec-brief"></p>
+                            <div id="ai-analysis-details" class="text-xs text-slate-400 font-mono space-y-1 border-t border-slate-800/60 pt-2"></div>
                         </div>
                     </div>
                 </div>
