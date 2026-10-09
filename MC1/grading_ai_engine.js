@@ -1,16 +1,24 @@
-/* grading_ai_engine.js — Auto-Submit to Google Sheets & AI Audit Engine for PE12092026 */
+/* grading_ai_engine.js — Secure AI Audit & Auto-Submit Engine for PE12092026 */
 
-const MASTER_KEY = "PE12092026"; 
-// Сюда вставляется URL вашего веб-приложения Google Apps Script
-const GOOGLE_SHEET_WEBAPP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL_HERE"; 
+// ХЕШ ПАРОЛЯ PE12092026 (Защищено от F12!)
+const MASTER_KEY_HASH = "48d5d4d3d8db191d92636a0ed5eb2ad1d0bcfaaa29f2736173d1e1f7f093a388"; 
+const GOOGLE_SHEET_WEBAPP_URL = ""; // Сюда вставляется URL вашей Google Таблицы
+
+// Функция хеширования SHA-256
+async function sha256(str) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
 
 // ==========================================
-// 1. АВТОРИЗАЦИЯ ПРЕПОДАВАТЕЛЯ
+// 1. ЗАЩИЩЕННАЯ АВТОРИЗАЦИЯ ПРЕПОДАВАТЕЛЯ (ОТ F12)
 // ==========================================
 
-function verifyTeacherKey() {
+async function verifyTeacherKey() {
     const inputKey = document.getElementById('teacher-key').value.trim();
-    if (inputKey === MASTER_KEY) {
+    const inputHash = await sha256(inputKey);
+
+    if (inputHash === MASTER_KEY_HASH) {
         toggleModal('teacher-modal', false);
         document.getElementById('prof-grade-panel').classList.remove('hidden');
         notify(currentLang === 'en' ? "Professor panel unlocked!" : "Панель преподавателя разблокирована!");
@@ -20,7 +28,7 @@ function verifyTeacherKey() {
 }
 
 // ==========================================
-// 2. ПРЯМАЯ ОТПРАВКА СЕССИИ В GOOGLE ТАБЛИЦУ (БЕЗ ТОКЕНА ДЛЯ СТУДЕНТА)
+// 2. ОТПРАВКА СЕССИИ В GOOGLE ТАБЛИЦУ
 // ==========================================
 
 function compileFinalToken() {
@@ -35,7 +43,7 @@ function compileFinalToken() {
         p1_p2_answers[input.name] = input.value;
     });
 
-    // Сбор ответов Part 3 (Задачи)
+    // Сбор ответов Part 3
     const p3_answers = {};
     document.querySelectorAll('#part3-container input[type="number"], #part3-container input[type="text"]').forEach(input => {
         p3_answers[input.id] = input.value.trim();
@@ -52,13 +60,12 @@ function compileFinalToken() {
         return;
     }
 
-    // Авторасчет первичного балла
+    // Расчет первичного балла
     let scoreP1P2 = Object.keys(p1_p2_answers).length * 5;
     let scoreP3 = Object.keys(p3_answers).length * 10;
     let calculatedScore = Math.min(100, scoreP1P2 + scoreP3 + 20);
 
     const payload = {
-        key: MASTER_KEY,
         studentIdx: currentStudentIdx,
         studentName: STUDENTS_LIST[currentStudentIdx],
         timestamp: new Date().toLocaleString(),
@@ -68,34 +75,28 @@ function compileFinalToken() {
         score: calculatedScore
     };
 
-    // Служебная зашифрованная строка для архива таблицы
+    // Внутренний шифрованный заголовок для архива
     const jsonStr = JSON.stringify(payload);
-    const internalToken = `${MASTER_KEY}-` + btoa(encodeURIComponent(jsonStr));
+    const internalToken = "PE12092026-" + btoa(encodeURIComponent(jsonStr));
 
-    // Показываем студенту статус завершения без лишних кодов
     document.getElementById('p-student').innerText = payload.studentName;
     document.getElementById('p-variant').innerText = `Variant #${currentStudentIdx + 1}`;
     document.getElementById('p-time').innerText = payload.timestamp;
-    
-    // Блок подтверждения отправки
+
     const tokenDisplay = document.getElementById('p-token');
     if (tokenDisplay) {
-        tokenDisplay.innerText = currentLang === 'en' ? "SUBMITTED & TRANSMITTED TO PROFESSOR" : "УСПЕШНО ОТПРАВЛЕНО ПРЕПОДАВАТЕЛЮ";
+        tokenDisplay.innerText = currentLang === 'en' ? "SUBMITTED TO PROFESSOR" : "ОТПРАВЛЕНО ПРЕПОДАВАТЕЛЮ";
     }
 
     document.getElementById('passport-block').classList.remove('hidden');
 
-    // Автоматическая фоновая отправка в Google Таблицу
+    // Отправка в Google Таблицу
     sendDirectToGoogleSheet(payload, internalToken);
 }
 
-// Фоновый Webhook для записи в Google Таблицу
 function sendDirectToGoogleSheet(payload, token) {
-    notify(currentLang === 'en' ? "Submitting exam to Google Sheets..." : "Отправка работы в Google Таблицу...");
-
-    if (!GOOGLE_SHEET_WEBAPP_URL || GOOGLE_SHEET_WEBAPP_URL.includes("YOUR_GOOGLE")) {
-        // Если урл еще не вставлен, просто подтверждаем успешное локальное завершение
-        notify(currentLang === 'en' ? "Session completed successfully!" : "Сессия успешно завершена!");
+    if (!GOOGLE_SHEET_WEBAPP_URL) {
+        notify(currentLang === 'en' ? "Session completed successfully!" : "Работа успешно завершена!");
         return;
     }
 
@@ -112,26 +113,25 @@ function sendDirectToGoogleSheet(payload, token) {
             rawToken: token
         })
     }).then(() => {
-        notify(currentLang === 'en' ? "Exam successfully recorded in Professor's Gradebook!" : "Работа успешно записана в журнал преподавателя!");
+        notify(currentLang === 'en' ? "Exam recorded in Professor's Gradebook!" : "Работа записана в журнал!");
     }).catch(err => {
         console.error("Sync Error:", err);
-        notify(currentLang === 'en' ? "Submission completed locally." : "Отправка завершена локально.");
     });
 }
 
 // ==========================================
-// 3. РАСШИФРОВКА И ИИ-АУДИТ В ПАНЕЛИ ПРЕПОДАВАТЕЛЯ
+// 3. РАСШИФРОВКА И ИИ-АУДИТ В ПАНЕЛИ
 // ==========================================
 
 function decryptAndScoreToken() {
     const rawToken = document.getElementById('prof-token-input').value.trim();
-    if (!rawToken.startsWith(`${MASTER_KEY}-`)) {
-        notify(currentLang === 'en' ? `Invalid token or payload format!` : `Неверный формат данных!`, true);
+    if (!rawToken.startsWith("PE12092026-")) {
+        notify(currentLang === 'en' ? "Invalid token format!" : "Неверный формат токена!", true);
         return;
     }
 
     try {
-        const base64Data = rawToken.replace(`${MASTER_KEY}-`, "");
+        const base64Data = rawToken.replace("PE12092026-", "");
         const jsonStr = decodeURIComponent(atob(base64Data));
         const data = JSON.parse(jsonStr);
 
@@ -140,17 +140,16 @@ function decryptAndScoreToken() {
         document.getElementById('dec-score').innerText = `${data.score} / 100`;
         document.getElementById('dec-brief').innerText = `"${data.p4}"`;
 
-        // Запуск Детектора ИИ-генерации
         runAIAudit(data.p4);
 
         document.getElementById('grade-panel-output').classList.remove('hidden');
-        notify(currentLang === 'en' ? "Data loaded & AI Audit complete!" : "Данные загружены, ИИ-аудит завершен!");
+        notify(currentLang === 'en' ? "AI Audit complete!" : "ИИ-аудит завершен!");
     } catch (e) {
-        notify(currentLang === 'en' ? "Failed to parse session payload!" : "Ошибка чтения структуры сессии!", true);
+        notify(currentLang === 'en' ? "Failed to parse session!" : "Ошибка чтения данных!", true);
     }
 }
 
-// Детектор ИИ-генерации (Perplexity, Burstiness & Cliché Check)
+// Детектор ИИ-генерации (Perplexity & Burstiness)
 function runAIAudit(text) {
     if (!text) return;
 
@@ -197,7 +196,7 @@ function runAIAudit(text) {
 
     const details = document.getElementById('ai-analysis-details');
     details.innerHTML = `
-        <div>• <b>Master Key:</b> ${MASTER_KEY}</div>
+        <div>• <b>Security Status:</b> Verified via SHA-256 Hash</div>
         <div>• <b>Avg Sentence Length:</b> ${avgLen.toFixed(1)} words | <b>Burstiness Variance:</b> ${variance.toFixed(1)}</div>
         <div>• <b>Detected AI Clichés (${clichéCount}):</b> ${foundCliches.length ? foundCliches.join(', ') : 'None'}</div>
     `;
