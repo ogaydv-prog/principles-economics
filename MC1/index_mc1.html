@@ -84,9 +84,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-xs uppercase font-bold text-slate-400 tracking-wider mb-2" data-lang-en="Student Credentials (Select Your Name)" data-lang-ru="Идентификация студента (Выберите ФИО)">Student Credentials (Select Your Name)</label>
-                    <input type="text" id="student-name" list="students-list" placeholder="Begin typing your name..." 
-                           class="w-full bg-slate-950 border border-slate-800 p-3.5 rounded-lg text-base text-white focus:ring-2 focus:ring-indigo-500 outline-none transition"
-                           oninput="detectStudentAndLoadExam()">
+                   <input type="text" id="student-name" list="students-list" placeholder="Begin typing your name..." 
+       class="w-full bg-slate-950 border border-slate-800 p-3.5 rounded-lg text-base text-white focus:ring-2 focus:ring-indigo-500 outline-none transition"
+       oninput="detectStudentAndLoadExam()" onchange="detectStudentAndLoadExam()" onkeyup="detectStudentAndLoadExam()">
                     <datalist id="students-list">
                         <option value="Hebatallah Aldada"></option>
                         <option value="Абдихай Салтанат Жалғасқызы"></option>
