@@ -1,396 +1,431 @@
-/* questions_p1_p2.js — Complete Bilinguial 40-Question Bank (EN/RU) for AlmaU MC1 (2026) */
+// ==========================================
+// MIDTERM CONTROL 1 • QUESTIONS DATABASE
+// AlmaU SDTE 2026 • International Business
+// ==========================================
 
 const STUDENTS_LIST = [
-    "Hebatallah Aldada", "Абдихай Салтанат Жалғасқызы", "Абдрахманов Бабур Хамза улы",
-    "Адильхан Надия Берікқызы", "Бахытов Алимжан Бахыткалиулы", "Берикбаланова Адина Сериковна",
-    "Жұмажан Осман Дарменұлы", "Замотина Дарья Астемировна", "Кабдрахманова Ажар Ниязовна",
-    "Ким Есфирь Севастьяновна", "Кожахметова Малика Азаматовна", "Көшкінбай Айару Арманқызы",
-    "Сериккалиева Еңлік Думанқызы", "Степанченко Савелий Дмитриевич", "Сулейменова Айдана Нурлановна",
-    "Толстова Эвелина Евгеньевна", "Хусаинова Адия Галимовна", "Шабанов Анварбек", "Югай Ксения Альбертовна"
+    "Hebatallah Aldada", 
+    "Абдихай Салтанат Жалғасқызы", 
+    "Абдрахманов Бабур Хамза улы",
+    "Адильхан Надия Берікқызы", 
+    "Бахытов Алимжан Бахыткалиулы", 
+    "Берикбаланова Адина Сериковна",
+    "Жұмажан Осман Дарменұлы", 
+    "Замотина Дарья Астемировна", 
+    "Кабдрахманова Ажар Ниязовна",
+    "Ким Есфирь Севастьяновна", 
+    "Кожахметова Малика Азаматовна", 
+    "Көшкінбай Айару Арманқызы",
+    "Сериккалиева Еңлік Думанқызы", 
+    "Степанченко Савелий Дмитриевич", 
+    "Сулейменова Айдана Нурлановна",
+    "Толстова Эвелина Евгеньевна", 
+    "Хусаинова Адия Галимовна", 
+    "Шабанов Анварбек", 
+    "Югай Ксения Альбертовна"
 ];
 
-const QUESTIONS_DATABASE = [
+const PART1_POOL = [
     {
-        id: 1,
-        q: { en: "Which of the following is the fixed cost of firm?", ru: "Что из перечисленного относится к постоянным издержкам фирмы?" },
-        options: {
-            en: ["Loan’ payment", "Security guard costs", "Rent payment", "Cost of raw materials", "Staff salary"],
-            ru: ["Выплата по кредиту", "Расходы на охрану", "Арендная плата", "Затраты на сырье", "Заработная плата штата"]
-        }
+        q_en: "Microeconomics is primarily defined as the study of?",
+        q_ru: "Микроэкономика в первую очередь изучает?",
+        opts_en: [
+            "A) How households and firms make decisions under resource scarcity",
+            "B) National inflation rates and aggregate unemployment levels",
+            "C) How sovereign debt impacts global capital movements",
+            "D) Methods for central bank monetary base expansion",
+            "E) Gross domestic product calculation methodologies"
+        ],
+        opts_ru: [
+            "A) Как домохозяйства и фирмы принимают решения в условиях ограниченности ресурсов",
+            "B) Уровень инфляции в стране и агрегированную безработицу",
+            "C) Влияние государственного долга на мировые потоки капитала",
+            "D) Методы расширения денежной базы центральным банком",
+            "E) Методологию расчета валового внутреннего продукта"
+        ],
+        ans: "A"
     },
     {
-        id: 2,
-        q: { en: "Some production analyses dates: TC of 5 units - 300, MC of 6-th unit – 60, ATC of 6 units is…", ru: "Данные анализа производства: TC 5 единиц - 300, MC 6-й единицы – 60, ATC 6 единиц составляет…" },
-        options: {
-            en: ["40", "30", "2160", "60", "36"],
-            ru: ["40", "30", "2160", "60", "36"]
-        }
+        q_en: "Scarcity exists in economic theory primarily because?",
+        q_ru: "Проблема ограниченности (редкости) в экономической теории существует потому, что?",
+        opts_en: [
+            "A) Physical supplies of land and natural capital are infinite",
+            "B) Human wants and desires exceed available productive capacity",
+            "C) Industrial machinery does not suffer from physical depreciation",
+            "D) Population growth eliminates market structural unemployment",
+            "E) State planning completely prevents free market pricing"
+        ],
+        opts_ru: [
+            "A) Физические запасы земли и капитала бесконечны",
+            "B) Человеческие потребности превышают имеющиеся производственные возможности",
+            "C) Промышленное оборудование не подвержено физическому износу",
+            "D) Рост населения полностью устраняет структурную безработицу",
+            "E) Государственное планирование полностью исключает рыночные цены"
+        ],
+        ans: "B"
     },
     {
-        id: 3,
-        q: { en: "Which of the following is a variable cost of firm?", ru: "Что из перечисленного относится к переменным издержкам фирмы?" },
-        options: {
-            en: ["Logistics costs", "Loan’ payment", "Depreciation of raw materials", "Cost of raw materials", "Productions workers salary"],
-            ru: ["Логистические расходы", "Выплата по кредиту", "Амортизация оборудования", "Затраты на сырье", "Сдельная зарплата рабочих"]
-        }
+        q_en: "An indifference curve graphically illustrates?",
+        q_ru: "Кривая безразличия графически показывает?",
+        opts_en: [
+            "A) Consumption bundles that yield identical total utility to the consumer",
+            "B) Alternative combinations of goods providing different satisfaction levels",
+            "C) Production possibility frontiers achieved by two competing firms",
+            "D) The direct functional relationship between price and quantity supplied",
+            "E) Total production cost trajectories as output scales"
+        ],
+        opts_ru: [
+            "A) Наборы потребления, обеспечивающие потребителю одинаковый уровень полезности",
+            "B) Комбинации товаров, предоставляющие различный уровень удовлетворения",
+            "C) Границы производственных возможностей двух конкурирующих фирм",
+            "D) Прямую функциональную зависимость между ценой и предложением",
+            "E) Динамику совокупных издержек по мере масштабирования выпуска"
+        ],
+        ans: "A"
     },
     {
-        id: 4,
-        q: { en: "Perfectly elastic Demand Curve looks like…", ru: "Кривая совершенно эластичного спроса выглядит как…" },
-        options: {
-            en: ["as a vertical", "has a negative slope", "as a horizontal", "has a positive slope", "as 45-degree line"],
-            ru: ["вертикальная линия", "имеет отрицательный наклон", "горизонтальная линия", "имеет положительный наклон", "линия под углом 45 градусов"]
-        }
-    },
-    {
-        id: 5,
-        q: { en: "Both the Demand and Supply are QD= 800 – 2Р, QS=200 +3Р, which of the following are an equilibrium price and quantity of goods:", ru: "Спрос и предложение заданы уравнениями QD= 800 – 2Р, QS=200 +3Р, найдите равновесную цену и объем:" },
-        options: {
-            en: ["Р = 80, Q = 400", "Р = 400, Q = 50", "Р = 350, Q = 100", "Р = 40, Q = 120", "Р = 120, Q = 560"],
-            ru: ["Р = 80, Q = 400", "Р = 400, Q = 50", "Р = 350, Q = 100", "Р = 40, Q = 120", "Р = 120, Q = 560"]
-        }
-    },
-    {
-        id: 6,
-        q: { en: "Which of the following is marginal cost?", ru: "Какая формула соответствует предельным издержкам (MC)?" },
-        options: {
-            en: ["MC=TR/Q", "MC= ∆TC/∆Q", "MC=PQ", "MC=P*2Q)", "MC=∆TR/∆Q"],
-            ru: ["MC=TR/Q", "MC= ∆TC/∆Q", "MC=PQ", "MC=P*2Q)", "MC=∆TR/∆Q"]
-        }
-    },
-    {
-        id: 7,
-        q: { en: "Increases of consumers income looks like as graphically:", ru: "Рост доходов потребителей графически выглядит как:" },
-        options: {
-            en: ["Change in slope of the budget line", "Raises in slope of the budget line", "Reduces in slope of the budget line", "Shifts the budget line rightwards", "Shifts the budget line leftwards"],
-            ru: ["Изменение наклона бюджетной линии", "Увеличение наклона бюджетной линии", "Уменьшение наклона бюджетной линии", "Сдвиг бюджетной линии вправо", "Сдвиг бюджетной линии влево"]
-        }
-    },
-    {
-        id: 8,
-        q: { en: "Who is the most interested to maximized of Marginal revenue in the economy?", ru: "Кто больше всего заинтересован в максимизации предельного дохода (MR) в экономике?" },
-        options: {
-            en: ["landlords", "consumers", "employers", "government", "firms"],
-            ru: ["землевладельцы", "потребители", "работодатели", "государство", "фирмы"]
-        }
-    },
-    {
-        id: 9,
-        q: { en: "Which of the following best describes the monopolistic competition market?", ru: "Что лучше всего характеризует рынок монополистической конкуренции?" },
-        options: {
-            en: ["Free entry", "Nonprice competition", "No controls of prices", "Large number of sellers", "Differentiated products"],
-            ru: ["Свободный вход", "Неценовая конкуренция", "Отсутствие контроля цен", "Большое количество продавцов", "Дифференцированные товары"]
-        }
-    },
-    {
-        id: 10,
-        q: { en: "Which of the following best describes the oligopoly market?", ru: "Что лучше всего характеризует рынок олигополии?" },
-        options: {
-            en: ["Free entry", "Nonprice competition", "No controls of prices", "Large number of sellers", "Differentiated products"],
-            ru: ["Свободный вход", "Неценовая конкуренция", "Отсутствие контроля цен", "Большое число продавцов", "Дифференцированные товары"]
-        }
-    },
-    {
-        id: 11,
-        q: { en: "Which of the following might shifts the Demand Curve", ru: "Что из перечисленного может вызвать сдвиг кривой спроса?" },
-        options: {
-            en: ["Change in cost of production", "Change in technology of production", "Change in prices of substitutes", "Change in price of good", "Change in marginal cost"],
-            ru: ["Изменение издержек производства", "Изменение технологии производства", "Изменение цен на товары-заменители", "Изменение цены самого товара", "Изменение предельных издержек"]
-        }
-    },
-    {
-        id: 12,
-        q: { en: "Who is the most interested in maximizing marginal utility in the economy?", ru: "Кто больше всего заинтересован в максимизации предельной полезности (MU) в экономике?" },
-        options: {
-            en: ["landlords", "consumers", "employers", "government", "firms"],
-            ru: ["землевладельцы", "потребители", "работодатели", "государство", "фирмы"]
-        }
-    },
-    {
-        id: 13,
-        q: { en: "Which of the following best describes Demand Curve in case of the pure competition?", ru: "Что лучше всего описывает кривую спроса в условиях совершенной конкуренции?" },
-        options: {
-            en: ["the Demand Curve has a positive slope", "the Demand Curve is vertical", "the Demand Curve has a negative slope", "the Demand Curve is horizontal", "the Demand Curve has a 45-degree line"],
-            ru: ["кривая спроса имеет положительный наклон", "кривая спроса вертикальна", "кривая спроса имеет отрицательный наклон", "кривая спроса горизонтальна", "кривая спроса под углом 45 градусов"]
-        }
-    },
-    {
-        id: 14,
-        q: { en: "Which of the following best describes the cost of production in the long run?", ru: "Что лучше всего описывает издержки производства в долгосрочном периоде?" },
-        options: {
-            en: ["Costs are divided into fixed costs and variable costs", "All of costs are variable", "All of costs are fixed", "Costs are divided into fixed costs and marginal costs", "Costs in the long run look like as cost in the short run"],
-            ru: ["Издержки делятся на постоянные и переменные", "Все издержки являются переменными", "Все издержки являются постоянными", "Издержки делятся на постоянные и предельные", "Издержки аналогичны краткосрочному периоду"]
-        }
-    },
-    {
-        id: 15,
-        q: { en: "Which of the following leads to change amount of demand without shifts of the demand curve", ru: "Что из перечисленного ведет к изменению величины спроса без сдвига кривой спроса?" },
-        options: {
-            en: ["Consumers income", "Consumers preferences", "expectations about the future prices and incomes", "substitutions goods", "change in prices"],
-            ru: ["Доходы потребителей", "Предпочтения потребителей", "Ожидания будущих цен и доходов", "Товары-заменители", "Изменение цены самого товара"]
-        }
-    },
-    {
-        id: 16,
-        q: { en: "Microeconomics is the study of?", ru: "Что изучает микроэкономика?" },
-        options: {
-            en: ["the behavior of consumers", "how households and firms make decisions", "how government affects the economy", "how the economy as a whole works", "rates of unemployment and inflation"],
-            ru: ["поведение потребителей", "как домохозяйства и фирмы принимают решения", "как государство влияет на экономику", "функционирование экономики в целом", "уровни безработицы и инфляции"]
-        }
-    },
-    {
-        id: 17,
-        q: { en: "Perfectly Elastic Demand Curve looks like…", ru: "Кривая совершенно эластичного спроса выглядит как…" },
-        options: {
-            en: ["as a vertical", "has a negative slope", "as a horizontal", "has a positive slope", "as 45 degree line"],
-            ru: ["вертикальная линия", "имеет отрицательный наклон", "горизонтальная линия", "имеет положительный наклон", "линия под углом 45 градусов"]
-        }
-    },
-    {
-        id: 18,
-        q: { en: "Scarcity exists because", ru: "Ограниченность ресурсов существует потому, что:" },
-        options: {
-            en: ["human wants exceed the productive capacity of the economy", "supplies of land and other natural resources are unlimited", "physical capital does not depreciate", "population and labor force growth are slowing", "innovation causes unemployment"],
-            ru: ["потребности людей превышают производственные возможности экономики", "запасы земли и ресурсов неограниченны", "физический капитал не изнашивается", "рост населения замедляется", "инновации вызывают безработицу"]
-        }
-    },
-    {
-        id: 19,
-        q: { en: "Which of the following leads to change amount of demand without shifts of the demand curve", ru: "Что приводит к изменению объема спроса без сдвига самой кривой спроса?" },
-        options: {
-            en: ["Consumer’s income", "Consumer’s preferences", "expectations about the future prices and incomes", "substitutions goods", "change in prices"],
-            ru: ["Доход потребителя", "Предпочтения потребителя", "Ожидания цен и доходов", "Товары-субституты", "Изменение цены товара"]
-        }
-    },
-    {
-        id: 20,
-        q: { en: "The price elasticity of supply measures how much:", ru: "Ценовая эластичность предложения измеряет:" },
-        options: {
-            en: ["The quantity supplied responds to changes in input prices", "The quantity supplied responds to changes in the prices of the good", "The price of the good responds to changes in supply", "Sellers responds to changes in technology", "The quantity demanded responds to changes in input prices"],
-            ru: ["Реакцию объема предложения на изменение цен ресурсов", "Реакцию объема предложения на изменение цены товара", "Реакцию цены товара на изменение предложения", "Реакцию продавцов на изменение технологий", "Реакцию объема спроса на изменение цен ресурсов"]
-        }
-    },
-    {
-        id: 21,
-        q: { en: "Both the Demand and Supply are QD=500 – 2Р, QS=200 +4Р, which of the following are an equilibrium price and quantity of goods:", ru: "Спрос и предложение заданы как QD=500 – 2Р, QS=200 +4Р, найдите равновесные цену и объем:" },
-        options: {
-            en: ["Р = 80, Q = 400", "Р = 400, Q = 50", "Р = 350, Q = 1600", "Р = 50, Q = 400", "Р = 60, Q = 400"],
-            ru: ["Р = 80, Q = 400", "Р = 400, Q = 50", "Р = 350, Q = 1600", "Р = 50, Q = 400", "Р = 60, Q = 400"]
-        }
-    },
-    {
-        id: 22,
-        q: { en: "Increases of consumers income looks like as graphically:", ru: "Рост доходов потребителя графически отражается как:" },
-        options: {
-            en: ["Change in slope of the budget line", "Raises in slope of the budget line", "Reduces in slope of the budget line", "Shifts the budget line rightwards", "Shifts the budget line leftwards"],
-            ru: ["Изменение наклона бюджетной линии", "Увеличение наклона бюджетной линии", "Уменьшение наклона бюджетной линии", "Сдвиг бюджетной линии вправо", "Сдвиг бюджетной линии влево"]
-        }
-    },
-    {
-        id: 23,
-        q: { en: "Which of the following is a variable cost of firm?", ru: "Что из перечисленного относится к переменным издержкам фирмы?" },
-        options: {
-            en: ["Loan’ payment", "Rent", "Depreciation", "Cost of raw materials", "Staff salary"],
-            ru: ["Выплата по кредиту", "Аренда", "Амортизация", "Затраты на сырье", "Зарплата штата"]
-        }
-    },
-    {
-        id: 24,
-        q: { en: "Suppose that an increase in the price of cucumber from $1.20 to $1.40 per pound raises the amount of cucumber that farmers produce from 1.2 k pounds to 1.6 k pounds. Using the midpoint method, what would be the elasticity of supply?", ru: "Рост цены огурцов с $1.20 до $1.40 за фунт увеличивает объем производства с 1.2k до 1.6k фунтов. Используя метод средней точки, эластичность предложения равна:" },
-        options: {
-            en: ["2.00", "1.06", "0.58", "2.80", "1.86"],
-            ru: ["2.00", "1.06", "0.58", "2.80", "1.86"]
-        }
-    },
-    {
-        id: 25,
-        q: { en: "The marginal costs is ?", ru: "Предельные издержки (MC) рассчитываются как:" },
-        options: {
-            en: ["MC=ΔTC/ΔQ", "MC=Δπ/ΔQ", "MC=ΔTFC/ΔQ", "MC=ΔTVC/ΔQ", "MC = TFC - TFC"],
-            ru: ["MC=ΔTC/ΔQ", "MC=Δπ/ΔQ", "MC=ΔTFC/ΔQ", "MC=ΔTVC/ΔQ", "MC = TFC - TFC"]
-        }
-    },
-    {
-        id: 26,
-        q: { en: "Which of the following best describes Demand Curve in case of the pure competition market?", ru: "Кривая спроса для отдельной фирмы в условиях совершенной конкуренции:" },
-        options: {
-            en: ["the Demand Curve has a positive slope", "the Demand Curve as a vertical", "the Demand Curve S as a horizontal", "the Demand Curve has a negative slope", "the Demand Curve has a 45-degree line"],
-            ru: ["имеет положительный наклон", "вертикальная", "горизонтальная", "имеет отрицательный наклон", "линия под углом 45 градусов"]
-        }
-    },
-    {
-        id: 27,
-        q: { en: "What indifference curve shows?", ru: "Что показывает кривая безразличия?" },
-        options: {
-            en: ["consumption bundles that give the consumer the same level of satisfaction", "set of goods which do for the difference level of utilities", "consumption bundles that give the consumer the different level of satisfaction", "set of goods in which consumer make a difference", "consumption bundles that the consumer want to buy"],
-            ru: ["наборы товаров, приносящие одинаковый уровень удовлетворения", "наборы товаров с разным уровнем полезности", "наборы товаров с различным уровнем удовлетворения", "наборы товаров, между которыми потребитель делает различие", "наборы товаров, которые потребитель хочет купить"]
-        }
-    },
-    {
-        id: 28,
-        q: { en: "Which of the following is marginal revenue?", ru: "Что из перечисленного является предельным доходом (MR)?" },
-        options: {
-            en: ["MR=TR/Q", "MR= TC/Q", "MR=PQ", "MR=P*2Q)", "MR=∆TR/∆Q"],
-            ru: ["MR=TR/Q", "MR= TC/Q", "MR=PQ", "MR=P*2Q)", "MR=∆TR/∆Q"]
-        }
-    },
-    {
-        id: 29,
-        q: { en: "Who is the most interested to maximized of marginal utilities?", ru: "Кто наиболее заинтересован в максимизации предельной полезности?" },
-        options: {
-            en: ["landlords", "consumers", "employers", "government", "firms"],
-            ru: ["землевладельцы", "потребители", "работодатели", "государство", "фирмы"]
-        }
-    },
-    {
-        id: 30,
-        q: { en: "The table shows wheat market data. At Equilibrium price $1.50, quantity is 20,000. Which combination represents equilibrium?", ru: "В таблице рынка пшеницы равновесие достигается при цене $1.50 и объеме 20,000. Какая комбинация является равновесной?" },
-        options: {
-            en: ["$2.00 ; 10,000", "$1.75 ; 15,000", "$1.50 ; 20,000", "$1.25 ; 30,000", "$0.75 ; 5,000"],
-            ru: ["$2.00 ; 10,000", "$1.75 ; 15,000", "$1.50 ; 20,000", "$1.25 ; 30,000", "$0.75 ; 5,000"]
-        }
-    },
-    {
-        id: 31,
-        q: { en: "Which of the following best describes a point to maximized output in case of pure competition market", ru: "Какое условие определяет максимизацию прибыли фирмы в условиях совершенной конкуренции?" },
-        options: {
-            en: ["P=MR=AC", "P=MC", "P=M", "P>MR=MC", "P=MR>MC."],
-            ru: ["P=MR=AC", "P=MC", "P=M", "P>MR=MC", "P=MR>MC."]
-        }
-    },
-    {
-        id: 32,
-        q: { en: "If the average total costs would be on minimum level on the graph, the marginal costs:", ru: "Если средние общие издержки (ATC) находятся на минимальном уровне, предельные издержки (MC):" },
-        options: {
-            en: ["will be minimum", "will be maximum", "must be equal total costs", "must be equal fixed costs", "must be equal average total costs"],
-            ru: ["будут минимальны", "будут максимальны", "должны быть равны общим издержкам", "должны быть равны постоянным издержкам", "должны быть равны средним общим издержкам"]
-        }
-    },
-    {
-        id: 33,
-        q: { en: "Consumer surplus is?", ru: "Излишек потребителя — это:" },
-        options: {
-            en: ["A buyer’s willingness to pay minus the price", "A buyer’s willingness to pay plus the price", "The price of the product minus the buyer’s willingness to pay", "When the buyer’s willingness to pay and the price of the product are equal", "When consumer’s buy more goods than they need"],
-            ru: ["Готовность покупателя платить минус фактическая цена", "Готовность покупателя платить плюс цена", "Цена товара минус готовность покупателя платить", "Равенство готовности платить и цены", "Когда покупают больше товаров, чем нужно"]
-        }
-    },
-    {
-        id: 34,
-        q: { en: "An increase in the price of a key input will cause the demand curve and the supply curve to change in which of the following ways?", ru: "Рост цены ключевого ресурса приведет к следующим изменениям кривых спроса и предложения:" },
-        options: {
-            en: ["Demand: shift to the right | Supply: shift to the right", "Demand: shift to the left | Supply: shift to the left", "Demand: shift to the left | Supply: no change", "Demand: no change | Supply: shift to the left", "Demand: no change | Supply: shift to the right"],
-            ru: ["Спрос: вправо | Предложение: вправо", "Спрос: влево | Предложение: влево", "Спрос: влево | Предложение: без изменений", "Спрос: без изменений | Предложение: влево", "Спрос: без изменений | Предложение: вправо"]
-        }
-    },
-    {
-        id: 35,
-        q: { en: "Which of the following best describes the oligopoly market?", ru: "Что лучше всего характеризует рынок олигополии?" },
-        options: {
-            en: ["Free entry", "Nonprice competition", "No controls of prices", "Large number of sellers", "Differentiated products"],
-            ru: ["Свободный вход", "Неценовая конкуренция", "Отсутствие контроля цен", "Большое число продавцов", "Дифференцированные товары"]
-        }
-    },
-    {
-        id: 36,
-        q: { en: "Workers at a bicycle plant currently make minimum wage. If the government increases the minimum wage by $1 an hour it is likely that the?", ru: "Повышение минимальной зарплаты рабочим велосипедного завода на $1 приведет к:" },
-        options: {
-            en: ["Demand for bicycle assembly workers will increase.", "Supply of bicycles will shift to the right.", "Supply of bicycles will shift to the left.", "Firm must increases output to maintain profit levels", "Demand of bicycles will shift to the right."],
-            ru: ["Росту спроса на рабочих", "Сдвигу предложения велосипедов вправо", "Сдвигу предложения велосипедов влево", "Росту объема производства фирмы", "Сдвигу спроса на велосипеды вправо"]
-        }
-    },
-    {
-        id: 37,
-        q: { en: "A simultaneous increase in both the demand for and the supply of a good in a market will lead to which of the following changes in the equilibrium price and quantity of the good?", ru: "Одновременный рост спроса и предложения товара приведет к следующим изменениям равновесия:" },
-        options: {
-            en: ["Price: Increase | Quantity: Increase", "Price: Indeterminate | Quantity: Decrease", "Price: Indeterminate | Quantity: Increase", "Price: Increase | Quantity: Indeterminate", "Price: Decrease | Quantity: Increase"],
-            ru: ["Цена: Вырастет | Объем: Вырастет", "Цена: Неопределенно | Объем: Упадет", "Цена: Неопределенно | Объем: Вырастет", "Цена: Вырастет | Объем: Неопределенно", "Цена: Упадет | Объем: Вырастет"]
-        }
-    },
-    {
-        id: 38,
-        q: { en: "Which of the following might shifts the Demand Curve", ru: "Что из перечисленного может вызвать сдвиг кривой спроса?" },
-        options: {
-            en: ["Change in cost of production", "Change in technology of production", "Change in prices of substitutes", "Change in price of good", "Change in marginal cost"],
-            ru: ["Изменение издержек производства", "Изменение технологии", "Изменение цен товаров-заменителей", "Изменение цены самого товара", "Изменение предельных издержек"]
-        }
-    },
-    {
-        id: 39,
-        q: { en: "Which of the following best describes the cost of production in the long run?", ru: "Издержки производства в долгосрочном периоде характеризуются тем, что:" },
-        options: {
-            en: ["Costs are divided into fixed costs and variable costs", "All of costs are variable", "All of costs are fixed", "Costs are divided into fixed costs and marginal costs", "Costs in the long run look like as cost in the short run"],
-            ru: ["Делятся на постоянные и переменные", "Все издержки являются переменными", "Все издержки являются постоянными", "Делятся на постоянные и предельные", "Выглядят так же, как в краткосрочном периоде"]
-        }
-    },
-    {
-        id: 40,
-        q: { en: "If the minimum wage is above the equilibrium wage,", ru: "Если минимальная заработная плата установлена выше равновесной," },
-        options: {
-            en: ["the quantity demanded of labor will be greater than the quantity supplied", "the quantity demanded of labor will equal than the quantity supplied", "the quantity demanded of labor will be less than the quantity supplied", "anyone who wants a job at the minimum wage can find one", "the deficit of the labor force exists in the labor market"],
-            ru: ["величина спроса на труд превысит предложение", "величина спроса на труд сравняется с предложением", "величина спроса на труд будет меньше величины предложения", "каждый желающий сможет найти работу", "возникнет дефицит рабочей силы"]
-        }
+        q_en: "Who is most interested in maximizing marginal utility in an economy?",
+        q_ru: "Кто в наибольшей степени заинтересован в максимизации предельной полезности?",
+        opts_en: [
+            "A) Commercial property landlords",
+            "B) Rational individual consumers",
+            "C) Corporate business employers",
+            "D) Central government regulators",
+            "E) Commercial banking institutions"
+        ],
+        opts_ru: [
+            "A) Собственники коммерческой недвижимости",
+            "B) Рациональные индивидуальные потребители",
+            "C) Работодатели и корпорации",
+            "D) Центральные государственные регуляторы",
+            "E) Коммерческие банковские институты"
+        ],
+        ans: "B"
     }
 ];
 
-function pseudoRandom(seed) {
-    let x = Math.sin(seed++) * 10000;
-    return x - Math.floor(x);
-}
+const PART2_POOL = [
+    {
+        q_en: "A perfectly elastic demand curve is represented graphically as?",
+        q_ru: "Совершенно эластичная кривая спроса выглядит на графике как?",
+        opts_en: [
+            "A) A strictly vertical line",
+            "B) A strictly horizontal line",
+            "C) A negatively sloped linear curve",
+            "D) A positively sloped supply line",
+            "E) A 45-degree origin ray"
+        ],
+        opts_ru: [
+            "A) Строго вертикальная линия",
+            "B) Строго горизонтальная линия",
+            "C) Линейная кривая с отрицательным наклоном",
+            "D) Линия предложения с положительным наклоном",
+            "E) Луч из начала координат под углом 45 градусов"
+        ],
+        ans: "B"
+    },
+    {
+        q_en: "Which factor causes a movement along the demand curve rather than a shift?",
+        q_ru: "Какой фактор вызывает изменение величины спроса (движение вдоль кривой), а не сдвиг самой кривой?",
+        opts_en: [
+            "A) A sudden shift in consumer tastes",
+            "B) An increase in household disposable income",
+            "C) A change in the market price of the good itself",
+            "D) Expected future inflation adjustment",
+            "E) A price rise in complementary commodities"
+        ],
+        opts_ru: [
+            "A) Внезапное изменение вкусов потребителей",
+            "B) Рост располагаемого дохода домохозяйств",
+            "C) Изменение рыночной цены самого данного товара",
+            "D) Ожидания будущего роста цен",
+            "E) Рост цен на сопряженные сопутствующие товары"
+        ],
+        ans: "C"
+    },
+    {
+        q_en: "Which of the following constitutes a variable cost for a manufacturing firm?",
+        q_ru: "Что из перечисленного относится к переменным издержкам производственной фирмы?",
+        opts_en: [
+            "A) Monthly factory building lease",
+            "B) Purchase costs of raw materials",
+            "C) Annual bank loan interest pay",
+            "D) Long-term equipment depreciation",
+            "E) Executive management base salary"
+        ],
+        opts_ru: [
+            "A) Ежемесячная аренда производственного здания",
+            "B) Затраты на приобретение сырья и материалов",
+            "C) Проценты по долгосрочному банковскому кредиту",
+            "D) Амортизация промышленного оборудования",
+            "E) Оклад высшего управленческого персонала"
+        ],
+        ans: "B"
+    },
+    {
+        q_en: "In the long run economic horizon, production costs are classified such that?",
+        q_ru: "В долгосрочном периоде издержки производства классифицируются следующим образом:",
+        opts_en: [
+            "A) All production inputs and costs are variable",
+            "B) All costs remain strictly fixed",
+            "C) Costs are divided into fixed and marginal only",
+            "D) Fixed overheads dominate variable expenses",
+            "E) Capital costs cannot be adjusted"
+        ],
+        opts_ru: [
+            "A) Все факторы производства и издержки являются переменными",
+            "B) Все издержки остаются строго постоянными",
+            "C) Издержки делятся только на постоянные и предельные",
+            "D) Постоянные накладные расходы превышают переменные",
+            "E) Затраты на капитал не могут быть изменены"
+        ],
+        ans: "A"
+    },
+    {
+        q_en: "Which market structure features product differentiation and active non-price competition?",
+        q_ru: "Для какой рыночной структуры характерны дифференциация продукта и неценовая конкуренция?",
+        opts_en: [
+            "A) Pure Competition",
+            "B) Monopolistic Competition",
+            "C) Pure Monopoly",
+            "D) Monopsony",
+            "E) Cartel Duopoly"
+        ],
+        opts_ru: [
+            "A) Совершенная конкуренция",
+            "B) Монополистическая конкуренция",
+            "C) Чистая монополия",
+            "D) Монопсония",
+            "E) Картельный дуополия"
+        ],
+        ans: "B"
+    }
+];
 
-function renderQuestionsP1P2(studentIdx, lang = 'en') {
-    const containerP1 = document.getElementById('part1-container');
-    const containerP2 = document.getElementById('part2-container');
+// Графические сценарии для вопроса 2.6
+const GRAPH_SCENARIOS = [
+    {
+        type: "demand_shift_right",
+        title_en: "Question 2.6 • Demand Shift Analysis",
+        title_ru: "Вопрос 2.6 • Анализ сдвига спроса",
+        prompt_en: "An increase in consumer income for a normal good causes the demand curve to shift rightward from D1 to D2. Which option accurately describes this market movement?",
+        prompt_ru: "Рост доходов потребителей для нормального товара вызывает сдвиг кривой спроса вправо из D1 в D2. Какое утверждение верно описывает это изменение?",
+        opts_en: [
+            "A) Increase in Demand (Demand curve D shifts rightward)",
+            "B) Decrease in Demand (Demand curve D shifts leftward)",
+            "C) Increase in Quantity Demanded (Point moves down along D)",
+            "D) Decrease in Supply (Supply curve S shifts leftward)",
+            "E) No change in equilibrium position"
+        ],
+        opts_ru: [
+            "A) Увеличение спроса (Кривая спроса D сдвигается вправо)",
+            "B) Уменьшение спроса (Кривая спроса D сдвигается влево)",
+            "C) Увеличение величины спроса (Точка перемещается вниз вдоль D)",
+            "D) Уменьшение предложения (Кривая предложения S сдвигается влево)",
+            "E) Равновесие на рынке не изменяется"
+        ],
+        ans: "A"
+    },
+    {
+        type: "demand_point_move",
+        title_en: "Question 2.6 • Quantity Demanded Movement",
+        title_ru: "Вопрос 2.6 • Изменение величины спроса",
+        prompt_en: "A reduction in product price causes equilibrium point E1 to move down along the blue demand curve D to E2. How is this change classified?",
+        prompt_ru: "Снижение цены товара вызывает перемещение точки равновесия E1 вниз вдоль синей кривой спроса D в точку E2. Как классифицируется это изменение?",
+        opts_en: [
+            "A) Increase in Quantity Demanded (Point moves down-right along D curve)",
+            "B) Increase in Demand (Demand curve shifts rightward)",
+            "C) Decrease in Demand (Demand curve shifts leftward)",
+            "D) Increase in Supply (Supply curve shifts rightward)",
+            "E) Decrease in Quantity Supplied"
+        ],
+        opts_ru: [
+            "A) Увеличение величины спроса (Точка перемещается вниз-вправо вдоль кривой D)",
+            "B) Увеличение спроса (Кривая спроса D сдвигается вправо)",
+            "C) Уменьшение спроса (Кривая спроса D сдвигается влево)",
+            "D) Увеличение предложения (Кривая предложения S сдвигается вправо)",
+            "E) Уменьшение величины предложения"
+        ],
+        ans: "A"
+    },
+    {
+        type: "supply_shift_right",
+        title_en: "Question 2.6 • Supply Shift Analysis",
+        title_ru: "Вопрос 2.6 • Анализ сдвига предложения",
+        prompt_en: "A technological innovation lowers unit production costs, shifting the red supply curve S1 rightward to S2. Identify the correct economic event:",
+        prompt_ru: "Технологический прогресс снижает издержки производства, сдвигая красную кривую предложения S1 вправо в S2. Укажите правильный экономический процесс:",
+        opts_en: [
+            "A) Increase in Supply (Supply curve S shifts rightward)",
+            "B) Decrease in Supply (Supply curve S shifts leftward)",
+            "C) Increase in Quantity Supplied (Point moves up along S)",
+            "D) Increase in Demand (Demand curve D shifts rightward)",
+            "E) Elasticity of demand becomes zero"
+        ],
+        opts_ru: [
+            "A) Увеличение предложения (Кривая предложения S сдвигается вправо)",
+            "B) Уменьшение предложения (Кривая предложения S сдвигается влево)",
+            "C) Увеличение величины предложения (Точка перемещается вверх вдоль S)",
+            "D) Увеличение спроса (Кривая спроса D сдвигается вправо)",
+            "E) Эластичность спроса становится равной нулю"
+        ],
+        ans: "A"
+    },
+    {
+        type: "supply_point_move",
+        title_en: "Question 2.6 • Quantity Supplied Movement",
+        title_ru: "Вопрос 2.6 • Изменение величины предложения",
+        prompt_en: "An increase in market price leads to a movement from E1 upward along the red supply curve S to E2. What does this movement signify?",
+        prompt_ru: "Рост рыночной цены приводит к перемещению точки из E1 вверх вдоль красной кривой предложения S в E2. Что означает это перемещение?",
+        opts_en: [
+            "A) Increase in Quantity Supplied (Point moves up-right along S curve)",
+            "B) Increase in Supply (Supply curve shifts rightward)",
+            "C) Decrease in Supply (Supply curve shifts leftward)",
+            "D) Decrease in Demand (Demand curve shifts leftward)",
+            "E) Perfect elasticity of supply"
+        ],
+        opts_ru: [
+            "A) Увеличение величины предложения (Точка перемещается вверх-вправо вдоль S)",
+            "B) Увеличение предложения (Кривая предложения S сдвигается вправо)",
+            "C) Уменьшение предложения (Кривая предложения S сдвигается влево)",
+            "D) Уменьшение спроса (Кривая спроса D сдвигается влево)",
+            "E) Совершенная эластичность предложения"
+        ],
+        ans: "A"
+    }
+];
 
-    if (!containerP1 || !containerP2) return;
-
-    containerP1.innerHTML = '';
-    containerP2.innerHTML = '';
-
-    let seed = (studentIdx + 1) * 777;
-
-    // Генерируем случайную перестановку всех 40 вопросов под студента
-    let shuffledBank = [...QUESTIONS_DATABASE];
-    for (let i = shuffledBank.length - 1; i > 0; i--) {
-        const j = Math.floor(pseudoRandom(seed++) * (i + 1));
-        [shuffledBank[i], shuffledBank[j]] = [shuffledBank[j], shuffledBank[i]];
+function renderQuestionsP1P2(studentIdx, lang) {
+    // Рендеринг Части 1 (4 вопроса)
+    const container1 = document.getElementById('part1-container');
+    if (container1) {
+        container1.innerHTML = '';
+        PART1_POOL.forEach((qObj, i) => {
+            const qText = lang === 'en' ? qObj.q_en : qObj.q_ru;
+            const opts = lang === 'en' ? qObj.opts_en : qObj.opts_ru;
+            container1.innerHTML += `
+                <div class="card p-6 space-y-4 border-t-2 border-slate-700 hover:border-indigo-500">
+                    <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest inline-block">Question 1.${i + 1}</span>
+                    <h4 class="text-base md:text-lg font-bold text-slate-100 leading-snug">${qText}</h4>
+                    <div class="space-y-2.5 pt-1">
+                        ${opts.map((opt, oIdx) => `
+                            <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
+                                <input type="radio" name="p1-q${i+1}" value="${String.fromCharCode(65 + oIdx)}" class="mt-1 accent-indigo-500 w-4 h-4">
+                                <span>\${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        });
     }
 
-    // Выбираем 10 вопросов для персонального билета студента
-    const selectedQuestions = shuffledBank.slice(0, 10);
-
-    selectedQuestions.forEach((qObj, index) => {
-        const textQ = qObj.q[lang] || qObj.q['en'];
-        const opts = qObj.options[lang] || qObj.options['en'];
-
-        let cardHtml = `
-        <div class="card p-5 bg-slate-900/90 border border-slate-800 space-y-4 rounded-xl shadow-lg">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">${lang === 'en' ? 'Question' : 'Вопрос'} #${index + 1}</span>
-                <span class="text-[9px] text-slate-500 font-mono">Bank ID: ${qObj.id}</span>
-            </div>
-            <h4 class="text-xs font-bold text-white leading-relaxed">${textQ}</h4>
-            <div class="space-y-2">
-        `;
-
-        opts.forEach((optText, optIdx) => {
-            const letter = String.fromCharCode(97 + optIdx); // a, b, c, d, e
-            cardHtml += `
-                <label class="flex items-start gap-3 p-2.5 rounded-lg border border-slate-800 hover:border-indigo-500/50 bg-slate-950/60 cursor-pointer transition">
-                    <input type="radio" name="q_${qObj.id}" value="${letter}" class="mt-0.5 accent-indigo-500">
-                    <span class="text-xs text-slate-300"><b>${letter})</b> ${optText}</span>
-                </label>
+    // Рендеринг Части 2 (5 вопросов + 1 вопрос с графиком)
+    const container2 = document.getElementById('part2-container');
+    if (container2) {
+        container2.innerHTML = '';
+        PART2_POOL.forEach((qObj, i) => {
+            const qText = lang === 'en' ? qObj.q_en : qObj.q_ru;
+            const opts = lang === 'en' ? qObj.opts_en : qObj.opts_ru;
+            container2.innerHTML += `
+                <div class="card p-6 space-y-4 border-t-2 border-slate-700 hover:border-indigo-500">
+                    <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest inline-block">Question 2.${i + 1}</span>
+                    <h4 class="text-base md:text-lg font-bold text-slate-100 leading-snug">${qText}</h4>
+                    <div class="space-y-2.5 pt-1">
+                        ${opts.map((opt, oIdx) => `
+                            <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
+                                <input type="radio" name="p2-q${i+1}" value="${String.fromCharCode(65 + oIdx)}" class="mt-1 accent-indigo-500 w-4 h-4">
+                                <span>\${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
             `;
         });
 
-        cardHtml += `
+        // Вопрос 2.6 с динамическим Canvas графиком
+        const sc = GRAPH_SCENARIOS[studentIdx % GRAPH_SCENARIOS.length];
+        const title = lang === 'en' ? sc.title_en : sc.title_ru;
+        const prompt = lang === 'en' ? sc.prompt_en : sc.prompt_ru;
+        const opts = lang === 'en' ? sc.opts_en : sc.opts_ru;
+
+        container2.innerHTML += `
+            <div class="card p-6 space-y-4 border-t-2 border-indigo-500 md:col-span-2">
+                <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest inline-block">${title}</span>
+                <p class="text-base md:text-lg font-bold text-slate-100 leading-snug">${prompt}</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
+                    <div class="lg:col-span-5 bg-slate-950 p-4 rounded-xl border border-slate-800 flex justify-center shadow-inner">
+                        <canvas id="marketCanvas" width="300" height="200"></canvas>
+                    </div>
+                    <div class="lg:col-span-7 space-y-2.5">
+                        ${opts.map((opt, oIdx) => `
+                            <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
+                                <input type="radio" name="p2-q6" value="\${String.fromCharCode(65 + oIdx)}" class="mt-1 accent-indigo-500 w-4 h-4">
+                                <span>\${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
             </div>
-        </div>
         `;
 
-        if (index < 5) {
-            containerP1.innerHTML += cardHtml;
-        } else {
-            containerP2.innerHTML += cardHtml;
-        }
-    });
+        setTimeout(() => drawScenarioGraph(sc.type), 150);
+    }
+}
+
+function drawScenarioGraph(type) {
+    const cvs = document.getElementById('marketCanvas');
+    if (!cvs) return;
+    const ctx = cvs.getContext('2d');
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+    // Оси координат P и Q
+    ctx.strokeStyle = '#64748b'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(35, 15); ctx.lineTo(35, 165); ctx.lineTo(280, 165); ctx.stroke();
+    ctx.fillStyle = '#94a3b8'; ctx.font = 'bold 12px Inter';
+    ctx.fillText('P', 15, 25); ctx.fillText('Q', 265, 185);
+
+    if (type === 'demand_shift_right') {
+        ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(45, 45); ctx.lineTo(190, 155); ctx.stroke();
+        ctx.fillStyle = '#60a5fa'; ctx.fillText('D1', 195, 160);
+
+        ctx.strokeStyle = '#60a5fa'; ctx.lineWidth = 2.5; ctx.setLineDash([5,5]);
+        ctx.beginPath(); ctx.moveTo(90, 45); ctx.lineTo(235, 155); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillText('D2', 240, 160);
+
+        ctx.strokeStyle = '#f43f5e'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(55, 155); ctx.lineTo(225, 35); ctx.stroke();
+        ctx.fillStyle = '#fb7185'; ctx.fillText('S', 230, 40);
+    } else if (type === 'demand_point_move') {
+        ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(55, 35); ctx.lineTo(240, 155); ctx.stroke();
+        ctx.fillStyle = '#60a5fa'; ctx.fillText('D', 245, 160);
+
+        ctx.fillStyle = '#10b981'; ctx.beginPath(); ctx.arc(110, 71, 6, 0, Math.PI*2); ctx.fill();
+        ctx.fillText('E1', 120, 68);
+        ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.arc(185, 120, 6, 0, Math.PI*2); ctx.fill();
+        ctx.fillText('E2', 195, 118);
+    } else if (type === 'supply_shift_right') {
+        ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(55, 35); ctx.lineTo(230, 155); ctx.stroke();
+        ctx.fillStyle = '#60a5fa'; ctx.fillText('D', 235, 160);
+
+        ctx.strokeStyle = '#f43f5e'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(45, 145); ctx.lineTo(190, 35); ctx.stroke();
+        ctx.fillStyle = '#fb7185'; ctx.fillText('S1', 195, 40);
+
+        ctx.strokeStyle = '#fb7185'; ctx.lineWidth = 2.5; ctx.setLineDash([5,5]);
+        ctx.beginPath(); ctx.moveTo(90, 145); ctx.lineTo(235, 35); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillText('S2', 240, 40);
+    } else {
+        ctx.strokeStyle = '#f43f5e'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(55, 155); ctx.lineTo(240, 35); ctx.stroke();
+        ctx.fillStyle = '#fb7185'; ctx.fillText('S', 245, 40);
+
+        ctx.fillStyle = '#10b981'; ctx.beginPath(); ctx.arc(110, 120, 6, 0, Math.PI*2); ctx.fill();
+        ctx.fillText('E1', 120, 122);
+        ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.arc(185, 71, 6, 0, Math.PI*2); ctx.fill();
+        ctx.fillText('E2', 195, 73);
+    }
 }
