@@ -347,17 +347,25 @@ function renderQuestionsP1P2(studentIdx, lang) {
         selected.part1.forEach((qObj, i) => {
             const qText = lang === 'en' ? qObj.q_en : qObj.q_ru;
             const opts = lang === 'en' ? qObj.opts_en : qObj.opts_ru;
+            
+            let optionsHTML = '';
+            for (let oIdx = 0; oIdx < opts.length; oIdx++) {
+                const optText = opts[oIdx];
+                const letter = String.fromCharCode(65 + oIdx);
+                optionsHTML += `
+                    <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
+                        <input type="radio" name="p1-q${i+1}" value="${letter}" class="mt-1 accent-indigo-500 w-4 h-4">
+                        <span>${optText}</span>
+                    </label>
+                `;
+            }
+
             container1.innerHTML += `
                 <div class="card p-6 space-y-4 border-t-2 border-slate-700 hover:border-indigo-500">
                     <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest inline-block">Question 1.${i + 1}</span>
                     <h4 class="text-base md:text-lg font-bold text-slate-100 leading-snug">${qText}</h4>
                     <div class="space-y-2.5 pt-1">
-                        ${opts.map((opt, oIdx) => `
-                            <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
-                                <input type="radio" name="p1-q${i+1}" value="${String.fromCharCode(65 + oIdx)}" class="mt-1 accent-indigo-500 w-4 h-4">
-                                <span>\${opt}</span>
-                            </label>
-                        `).join('')}
+                        ${optionsHTML}
                     </div>
                 </div>
             `;
@@ -371,17 +379,25 @@ function renderQuestionsP1P2(studentIdx, lang) {
         selected.part2.forEach((qObj, i) => {
             const qText = lang === 'en' ? qObj.q_en : qObj.q_ru;
             const opts = lang === 'en' ? qObj.opts_en : qObj.opts_ru;
+            
+            let optionsHTML = '';
+            for (let oIdx = 0; oIdx < opts.length; oIdx++) {
+                const optText = opts[oIdx];
+                const letter = String.fromCharCode(65 + oIdx);
+                optionsHTML += `
+                    <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
+                        <input type="radio" name="p2-q${i+1}" value="${letter}" class="mt-1 accent-indigo-500 w-4 h-4">
+                        <span>${optText}</span>
+                    </label>
+                `;
+            }
+
             container2.innerHTML += `
                 <div class="card p-6 space-y-4 border-t-2 border-slate-700 hover:border-indigo-500">
                     <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest inline-block">Question 2.${i + 1}</span>
                     <h4 class="text-base md:text-lg font-bold text-slate-100 leading-snug">${qText}</h4>
                     <div class="space-y-2.5 pt-1">
-                        ${opts.map((opt, oIdx) => `
-                            <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
-                                <input type="radio" name="p2-q${i+1}" value="${String.fromCharCode(65 + oIdx)}" class="mt-1 accent-indigo-500 w-4 h-4">
-                                <span>\${opt}</span>
-                            </label>
-                        `).join('')}
+                        ${optionsHTML}
                     </div>
                 </div>
             `;
@@ -393,6 +409,18 @@ function renderQuestionsP1P2(studentIdx, lang) {
         const prompt = lang === 'en' ? sc.prompt_en : sc.prompt_ru;
         const opts = lang === 'en' ? sc.opts_en : sc.opts_ru;
 
+        let graphOptionsHTML = '';
+        for (let oIdx = 0; oIdx < opts.length; oIdx++) {
+            const optText = opts[oIdx];
+            const letter = String.fromCharCode(65 + oIdx);
+            graphOptionsHTML += `
+                <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
+                    <input type="radio" name="p2-q6" value="${letter}" class="mt-1 accent-indigo-500 w-4 h-4">
+                    <span>${optText}</span>
+                </label>
+            `;
+        }
+
         container2.innerHTML += `
             <div class="card p-6 space-y-4 border-t-2 border-indigo-500 md:col-span-2">
                 <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest inline-block">${title}</span>
@@ -403,12 +431,7 @@ function renderQuestionsP1P2(studentIdx, lang) {
                         <canvas id="marketCanvas" width="300" height="200"></canvas>
                     </div>
                     <div class="lg:col-span-7 space-y-2.5">
-                        ${opts.map((opt, oIdx) => `
-                            <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
-                                <input type="radio" name="p2-q6" value="\${String.fromCharCode(65 + oIdx)}" class="mt-1 accent-indigo-500 w-4 h-4">
-                                <span>\${opt}</span>
-                            </label>
-                        `).join('')}
+                        ${graphOptionsHTML}
                     </div>
                 </div>
             </div>
