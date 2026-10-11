@@ -338,14 +338,9 @@
         <p>© Almaty Management University | School of Digital Technologies & Economics</p>
     </footer>
 
-  <script>
-        // Зашифрованный хеш пароля PE-12102026MC1
-        const MC1_ACCESS_HASH = "59bd5ccdfeb11ee76e33db82d3ca65edcb61d8b7a66b9ae7e78ee2347eb10fe6";
-
-        async function sha256(str) {
-            const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
-        }
+ <script>
+        // Зашифрованный токен для проверки (PE-12102026MC1)
+        const TARGET_TOKEN = "UEUtMTIxMDIwMjZNQzE=";
 
         function openPasswordModal() {
             document.getElementById('pwdModal').classList.add('active');
@@ -358,11 +353,11 @@
             document.getElementById('pwdModal').classList.remove('active');
         }
 
-        async function verifyAccessKey() {
-            const inputVal = document.getElementById('mc1PwdInput').value.trim().toUpperCase();
-            const inputHash = await sha256(inputVal);
-
-            if (inputHash === MC1_ACCESS_HASH) {
+        function verifyAccessKey() {
+            const inputVal = document.getElementById('mc1PwdInput').value.trim();
+            
+            // Кодируем введенный пароль в Base64 и сравниваем
+            if (btoa(inputVal) === TARGET_TOKEN) {
                 window.location.href = "MC1/index_mc1.html";
             } else {
                 document.getElementById('pwdError').style.display = 'block';
