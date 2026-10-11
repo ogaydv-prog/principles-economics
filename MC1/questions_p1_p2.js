@@ -1,8 +1,8 @@
-// ==========================================
-// MIDTERM CONTROL 1 • FULL QUESTION BANK
-// AlmaU SDTE 2026 • International Business
-// Fully Checked & Corrected Answer Keys
-// ==========================================
+/* ==========================================
+   MIDTERM CONTROL 1 • FULL QUESTION BANK
+   AlmaU SDTE 2026 • International Business
+   Fully Checked, Randomized & Balanced
+   ========================================== */
 
 const STUDENTS_LIST = [
     "Hebatallah Aldada", 
@@ -71,7 +71,6 @@ const PART1_POOL = [
         ans: "C"
     },
     {
-        // ИСПРАВЛЕННЫЙ ВОПРОС: 1 Постоянные издержки (C - Аренда) и 4 Переменные издержки
         q_en: "Which of the following is a fixed cost for a manufacturing firm in the short run?",
         q_ru: "Что из перечисленного относится к постоянным издержкам фирмы в краткосрочном периоде?",
         opts_en: [
@@ -184,7 +183,6 @@ const PART2_POOL = [
         ans: "A"
     },
     {
-        // ИСПРАВЛЕННЫЙ ВОПРОС: Метод средней точки дает 1.86 (E)
         q_en: "Price increases from $1.20 to $1.40, quantity supplied rises from 1,200 to 1,600 lbs. Using midpoint method, elasticity of supply is?",
         q_ru: "Рост цены с $1.20 до $1.40 увеличил предложение с 1,200 до 1,600 фунтов. Используя метод средней точки, рассчитайте эластичность предложения:",
         opts_en: ["A) 2.00", "B) 1.06", "C) 0.58", "D) 2.80", "E) 1.86"],
@@ -333,17 +331,65 @@ const GRAPH_SCENARIOS = [
     }
 ];
 
-// ВЫБОРКА УНИКАЛЬНЫХ ВОПРОСОВ ДЛЯ СТУДЕНТА
+// ВЫБОРКА УНИКАЛЬНЫХ И РАНДОМИЗИРОВАННЫХ ВОПРОСОВ ДЛЯ СТУДЕНТА
 function getStudentQuestions(studentIdx) {
+    // Вспомогательный генератор случайных чисел от имени студента
+    const pseudoRandom = (seed) => {
+        let x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
+    };
+
+    // Функция перемешивания вариантов ответов A, B, C, D, E для вопроса
+    const shuffleQuestionOptions = (qObj, seed) => {
+        const letters = ["A", "B", "C", "D", "E"];
+        const correctIndex = letters.indexOf(qObj.ans);
+        const correctTextEn = qObj.opts_en[correctIndex].replace(/^[A-E]\)\s*/, '');
+        const correctTextRu = qObj.opts_ru[correctIndex].replace(/^[A-E]\)\s*/, '');
+
+        // Очищаем варианты от букв A-E
+        let itemsEn = qObj.opts_en.map(o => o.replace(/^[A-E]\)\s*/, ''));
+        let itemsRu = qObj.opts_ru.map(o => o.replace(/^[A-E]\)\s*/, ''));
+
+        // Перемешивание методом Фишера-Йейтса
+        let indices = [0, 1, 2, 3, 4];
+        for (let i = indices.length - 1; i > 0; i--) {
+            let j = Math.floor(pseudoRandom(seed + i * 13) * (i + 1));
+            [indices[i], indices[j]] = [indices[j], indices[i]];
+        }
+
+        let newOptsEn = [];
+        let newOptsRu = [];
+        let newAns = "A";
+
+        indices.forEach((origIdx, newIdx) => {
+            const letter = letters[newIdx];
+            newOptsEn.push(`${letter}) ${itemsEn[origIdx]}`);
+            newOptsRu.push(`${letter}) ${itemsRu[origIdx]}`);
+            if (origIdx === correctIndex) {
+                newAns = letter;
+            }
+        });
+
+        return {
+            q_en: qObj.q_en,
+            q_ru: qObj.q_ru,
+            opts_en: newOptsEn,
+            opts_ru: newOptsRu,
+            ans: newAns
+        };
+    };
+
     const getSelection = (pool, count, offset) => {
         let result = [];
         let usedIndexes = new Set();
         let i = 0;
         while (result.length < count) {
-            let idx = (studentIdx * 3 + offset + i * 5) % pool.length;
+            let idx = Math.floor(pseudoRandom(studentIdx * 17 + offset + i * 31) * pool.length);
             if (!usedIndexes.has(idx)) {
                 usedIndexes.add(idx);
-                result.push(pool[idx]);
+                // Применяем уникальную рандомизацию вариантов ответов
+                const shuffledQ = shuffleQuestionOptions(pool[idx], studentIdx * 100 + idx);
+                result.push(shuffledQ);
             }
             i++;
         }
@@ -351,8 +397,8 @@ function getStudentQuestions(studentIdx) {
     };
 
     return {
-        part1: getSelection(PART1_POOL, 4, 1),
-        part2: getSelection(PART2_POOL, 5, 2)
+        part1: getSelection(PART1_POOL, 4, 101),
+        part2: getSelection(PART2_POOL, 5, 202)
     };
 }
 
@@ -374,7 +420,7 @@ function renderQuestionsP1P2(studentIdx, lang) {
                 const letter = String.fromCharCode(65 + oIdx);
                 optionsHTML += `
                     <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
-                        <input type="radio" name="p1-q${i+1}" value="${letter}" class="mt-1 accent-indigo-500 w-4 h-4">
+                        <input type="radio" name="p1-q${i+1}" value="${letter}" data-ans="${qObj.ans}" class="mt-1 accent-indigo-500 w-4 h-4">
                         <span>${optText}</span>
                     </label>
                 `;
@@ -407,7 +453,7 @@ function renderQuestionsP1P2(studentIdx, lang) {
                 const letter = String.fromCharCode(65 + oIdx);
                 optionsHTML += `
                     <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
-                        <input type="radio" name="p2-q${i+1}" value="${letter}" class="mt-1 accent-indigo-500 w-4 h-4">
+                        <input type="radio" name="p2-q${i+1}" value="${letter}" data-ans="${qObj.ans}" class="mt-1 accent-indigo-500 w-4 h-4">
                         <span>${optText}</span>
                     </label>
                 `;
@@ -435,7 +481,7 @@ function renderQuestionsP1P2(studentIdx, lang) {
             const letter = String.fromCharCode(65 + oIdx);
             graphOptionsHTML += `
                 <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
-                    <input type="radio" name="p2-q6" value="${letter}" class="mt-1 accent-indigo-500 w-4 h-4">
+                    <input type="radio" name="p2-q6" value="${letter}" data-ans="${sc.ans}" class="mt-1 accent-indigo-500 w-4 h-4">
                     <span>${optText}</span>
                 </label>
             `;
