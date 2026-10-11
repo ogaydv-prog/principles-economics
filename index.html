@@ -77,6 +77,7 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 190px;
             height: 240px;
+            cursor: pointer;
         }
 
         .card img {
@@ -106,6 +107,117 @@
             text-align: center;
             line-height: 1.6;
             width: 100%;
+        }
+
+        /* Стили модального окна пароля */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 30, 80, 0.6);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            border: 2px solid #001e50;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-card h3 {
+            color: #001e50;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .modal-card p {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .modal-card input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 1px;
+            transition: border-color 0.2s;
+        }
+
+        .modal-card input:focus {
+            border-color: #001e50;
+        }
+
+        .modal-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-btn-submit {
+            background: #001e50;
+            color: #ffffff;
+        }
+
+        .modal-btn-submit:hover {
+            background: #002b73;
+        }
+
+        .modal-btn-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .modal-btn-cancel:hover {
+            background: #e2e8f0;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
         }
 
         /* Мобильная адаптация */
@@ -190,9 +302,12 @@
         <a href="ibn.html" class="card" title="International Business News">
             <img src="https://ogaydv-prog.github.io/principles-economics/pic-ibn.png" alt="International Business News">
         </a>
-     <a href="MC1/index_mc1.html" class="card" title="Midterm Control 1">
-    <img src="https://ogaydv-prog.github.io/principles-economics/pic-mc1.png" alt="Midterm Control 1">
-</a>
+        
+        <!-- Защищенная карточка Midterm Control 1 -->
+        <div onclick="openPasswordModal()" class="card" title="Midterm Control 1">
+            <img src="https://ogaydv-prog.github.io/principles-economics/pic-mc1.png" alt="Midterm Control 1">
+        </div>
+
         <a href="mc2.html" class="card" title="Midterm Control 2">
             <img src="https://ogaydv-prog.github.io/principles-economics/pic-mc2.png" alt="Midterm Control 2">
         </a>
@@ -204,10 +319,62 @@
         </a>
     </main>
 
+    <!-- Modal Password Verification -->
+    <div id="pwdModal" class="modal-overlay">
+        <div class="modal-card">
+            <h3>Midterm Control 1 Access</h3>
+            <p>Enter official access key provided by the instructor to proceed.</p>
+            <input type="password" id="mc1PwdInput" placeholder="Enter Access Key..." onkeypress="handleKeyPress(event)">
+            <div id="pwdError" class="error-msg">Invalid access key! Please try again.</div>
+            <div class="modal-btn-group">
+                <button onclick="closePasswordModal()" class="modal-btn modal-btn-cancel">Cancel</button>
+                <button onclick="verifyAccessKey()" class="modal-btn modal-btn-submit">Enter Exam</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>Developed for International Business Team AlmaU 2026 | Course: Principles of Economics</p>
         <p>© Almaty Management University | School of Digital Technologies & Economics</p>
     </footer>
+
+    <script>
+        // SHA-256 Hash от 'PE-12102026MC1' (Защита от считывания через F12!)
+        const MC1_ACCESS_HASH = "9c16eb88bdc38ffb698e6c7eb07dd5b31e9c20a9a1d3090ef8c34479edeb8e10";
+
+        async function sha256(str) {
+            const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+        }
+
+        function openPasswordModal() {
+            document.getElementById('pwdModal').classList.add('active');
+            document.getElementById('mc1PwdInput').value = '';
+            document.getElementById('pwdError').style.display = 'none';
+            setTimeout(() => document.getElementById('mc1PwdInput').focus(), 100);
+        }
+
+        function closePasswordModal() {
+            document.getElementById('pwdModal').classList.remove('active');
+        }
+
+        async function verifyAccessKey() {
+            const inputVal = document.getElementById('mc1PwdInput').value.trim();
+            const inputHash = await sha256(inputVal);
+
+            if (inputHash === MC1_ACCESS_HASH) {
+                window.location.href = "MC1/index_mc1.html";
+            } else {
+                document.getElementById('pwdError').style.display = 'block';
+            }
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                verifyAccessKey();
+            }
+        }
+    </script>
 
 </body>
 </html>
