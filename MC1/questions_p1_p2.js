@@ -1,6 +1,7 @@
 // ==========================================
 // MIDTERM CONTROL 1 • FULL QUESTION BANK
 // AlmaU SDTE 2026 • International Business
+// Fully Checked & Corrected Answer Keys
 // ==========================================
 
 const STUDENTS_LIST = [
@@ -25,7 +26,7 @@ const STUDENTS_LIST = [
     "Югай Ксения Альбертовна"
 ];
 
-// ПУЛ 1: ОСНОВЫ МИКРОЭКОНОМИКИ И ИЗДЕРЖКИ (Очищено от старых номеров)
+// ПУЛ 1: ОСНОВЫ МИКРОЭКОНОМИКИ И ИЗДЕРЖКИ
 const PART1_POOL = [
     {
         q_en: "Microeconomics is the study of?",
@@ -44,58 +45,83 @@ const PART1_POOL = [
     {
         q_en: "What does an indifference curve show?",
         q_ru: "Что показывает кривая безразличия?",
-        opts_en: ["A) Consumption bundles that give the consumer the same level of satisfaction", "B) Set of goods which give different level of utilities", "C) Consumption bundles that give different level of satisfaction", "D) Set of goods in which consumer makes a difference", "E) Consumption bundles that the consumer wants to buy"],
-        opts_ru: ["A) Наборы потребления, обеспечивающие одинаковый уровень удовлетворения", "B) Набор товаров, дающих разный уровень полезности", "C) Наборы потребления с различным уровнем удовлетворения", "D) Набор товаров, между которыми потребитель делает различие", "E) Наборы товаров, которые потребитель хочет купить"],
-        ans: "A"
+        opts_en: ["A) Set of goods which give different level of utilities", "B) Consumption bundles that give different level of satisfaction", "C) Set of goods in which consumer makes a difference", "D) Consumption bundles that give the consumer the same level of satisfaction", "E) Consumption bundles that the consumer wants to buy"],
+        opts_ru: ["A) Набор товаров, дающих разный уровень полезности", "B) Наборы потребления с различным уровнем удовлетворения", "C) Набор товаров, между которыми потребитель делает различие", "D) Наборы потребления, обеспечивающие одинаковый уровень удовлетворения", "E) Наборы товаров, которые потребитель хочет купить"],
+        ans: "D"
     },
     {
         q_en: "Who is most interested in maximizing marginal utility in the economy?",
         q_ru: "Кто больше всего заинтересован в максимизации предельной полезности в экономике?",
-        opts_en: ["A) Landlords", "B) Consumers", "C) Employers", "D) Government", "E) Firms"],
-        opts_ru: ["A) Домовладельцы", "B) Потребители", "C) Работодатели", "D) Государство", "E) Фирмы"],
-        ans: "B"
+        opts_en: ["A) Landlords", "B) Employers", "C) Consumers", "D) Government", "E) Firms"],
+        opts_ru: ["A) Домовладельцы", "B) Работодатели", "C) Потребители", "D) Государство", "E) Фирмы"],
+        ans: "C"
     },
     {
         q_en: "Increases of consumers income graphically look like?",
         q_ru: "Рост доходов потребителей графически выглядит как?",
-        opts_en: ["A) Change in slope of the budget line", "B) Raises in slope of the budget line", "C) Reduces in slope of the budget line", "D) Shifts the budget line rightwards", "E) Shifts the budget line leftwards"],
-        opts_ru: ["A) Изменение наклона бюджетной линии", "B) Увеличение наклона бюджетной линии", "C) Уменьшение наклона бюджетной линии", "D) Параллельный сдвиг бюджетной линии вправо", "E) Параллельный сдвиг бюджетной линии влево"],
+        opts_en: ["A) Change in slope of the budget line", "B) Shifts the budget line leftwards", "C) Reduces in slope of the budget line", "D) Shifts the budget line rightwards", "E) Parallel shift of indifference curve downwards"],
+        opts_ru: ["A) Изменение наклона бюджетной линии", "B) Параллельный сдвиг бюджетной линии влево", "C) Уменьшение наклона бюджетной линии", "D) Параллельный сдвиг бюджетной линии вправо", "E) Сдвиг кривой безразличия вниз"],
         ans: "D"
     },
     {
         q_en: "Consumer surplus is defined as?",
         q_ru: "Излишек потребителя — это?",
-        opts_en: ["A) A buyer's willingness to pay minus the price paid", "B) A buyer's willingness to pay plus the price paid", "C) The price of the product minus the buyer's willingness to pay", "D) When willingness to pay and price are equal", "E) When consumers buy more goods than they need"],
-        opts_ru: ["A) Готовность покупателя платить минус фактически уплаченная цена", "B) Готовность покупателя платить плюс цена", "C) Цена товара минус готовность покупателя платить", "D) Равенство готовности платить и цены", "E) Ситуация, когда покупают больше товаров, чем нужно"],
-        ans: "A"
+        opts_en: ["A) A buyer's willingness to pay plus the price paid", "B) The price of the product minus the buyer's willingness to pay", "C) A buyer's willingness to pay minus the price paid", "D) When willingness to pay and price are equal", "E) When consumers buy more goods than they need"],
+        opts_ru: ["A) Готовность покупателя платить плюс цена", "B) Цена товара минус готовность покупателя платить", "C) Готовность покупателя платить минус фактически уплаченная цена", "D) Равенство готовности платить и цены", "E) Ситуация, когда покупают больше товаров, чем нужно"],
+        ans: "C"
     },
     {
-        q_en: "Which of the following is a fixed cost of a firm?",
-        q_ru: "Что из перечисленного относится к постоянным издержкам фирмы?",
-        opts_en: ["A) Loan payment", "B) Security guard costs", "C) Rent payment", "D) Cost of raw materials", "E) Staff salary"],
-        opts_ru: ["A) Выплаты по кредиту", "B) Затраты на охрану", "C) Арендная плата", "D) Затраты на сырье и материалы", "E) Заработная плата персонала"],
+        // ИСПРАВЛЕННЫЙ ВОПРОС: 1 Постоянные издержки (C - Аренда) и 4 Переменные издержки
+        q_en: "Which of the following is a fixed cost for a manufacturing firm in the short run?",
+        q_ru: "Что из перечисленного относится к постоянным издержкам фирмы в краткосрочном периоде?",
+        opts_en: [
+            "A) Cost of raw materials used in production",
+            "B) Piece-rate wages paid to assembly line workers",
+            "C) Monthly rent payment for factory premises",
+            "D) Electricity consumed by manufacturing equipment",
+            "E) Packaging and shipping expenses"
+        ],
+        opts_ru: [
+            "A) Затраты на сырье и материалы, используемые в производстве",
+            "B) Сдельная оплата труда рабочих сборочного цеха",
+            "C) Ежемесячная арендная плата за производственное помещение",
+            "D) Электроэнергия, потребляемая производственным оборудованием",
+            "E) Расходы на упаковочные материалы и транспортировку"
+        ],
         ans: "C"
     },
     {
         q_en: "Which of the following is a variable cost of a firm?",
         q_ru: "Что из перечисленного относится к переменным издержкам фирмы?",
-        opts_en: ["A) Loan payment", "B) Rent", "C) Depreciation", "D) Cost of raw materials", "E) Management staff salary"],
-        opts_ru: ["A) Выплаты по кредиту", "B) Аренда", "C) Амортизация", "D) Затраты на сырье и материалы", "E) Оклад управленческого персонала"],
+        opts_en: [
+            "A) Loan payment",
+            "B) Rent",
+            "C) Property insurance",
+            "D) Cost of raw materials",
+            "E) Annual license fee"
+        ],
+        opts_ru: [
+            "A) Выплаты по кредиту",
+            "B) Аренда",
+            "C) Страхование имущества",
+            "D) Затраты на сырье и материалы",
+            "E) Ежегодный лицензионный сбор"
+        ],
         ans: "D"
     },
     {
         q_en: "Production analysis: TC of 5 units = 300, MC of 6th unit = 60. ATC of 6 units is?",
         q_ru: "Анализ производства: TC 5 единиц = 300, MC 6-й единицы = 60. Чему равны средние общие издержки (ATC) 6 единиц?",
-        opts_en: ["A) 40", "B) 30", "C) 2160", "D) 60", "E) 36"],
-        opts_ru: ["A) 40", "B) 30", "C) 2160", "D) 60", "E) 36"],
-        ans: "D"
+        opts_en: ["A) 40", "B) 60", "C) 30", "D) 2160", "E) 36"],
+        opts_ru: ["A) 40", "B) 60", "C) 30", "D) 2160", "E) 36"],
+        ans: "B"
     },
     {
         q_en: "Which of the following formula defines Marginal Cost (MC)?",
         q_ru: "Какая из формул определяет предельные издержки (MC)?",
-        opts_en: ["A) MC = TR / Q", "B) MC = ΔTC / ΔQ", "C) MC = P * Q", "D) MC = P * 2Q", "E) MC = ΔTR / ΔQ"],
-        opts_ru: ["A) MC = TR / Q", "B) MC = ΔTC / ΔQ", "C) MC = P * Q", "D) MC = P * 2Q", "E) MC = ΔTR / ΔQ"],
-        ans: "B"
+        opts_en: ["A) MC = TR / Q", "B) MC = P * Q", "C) MC = ΔTC / ΔQ", "D) MC = P * 2Q", "E) MC = ΔTR / ΔQ"],
+        opts_ru: ["A) MC = TR / Q", "B) MC = P * Q", "C) MC = ΔTC / ΔQ", "D) MC = P * 2Q", "E) MC = ΔTR / ΔQ"],
+        ans: "C"
     },
     {
         q_en: "Who is most interested in maximizing Marginal Revenue (MR) in the economy?",
@@ -107,16 +133,16 @@ const PART1_POOL = [
     {
         q_en: "In the long run horizon, how are production costs classified?",
         q_ru: "Как классифицируются издержки производства в долгосрочном периоде?",
-        opts_en: ["A) Divided into fixed and variable", "B) All costs are variable", "C) All costs are fixed", "D) Divided into fixed and marginal", "E) Same as in the short run"],
-        opts_ru: ["A) Делятся на постоянные и переменные", "B) Все издержки являются переменными", "C) Все издержки являются постоянными", "D) Делятся на постоянные и предельные", "E) Выглядят так же, как в краткосрочном периоде"],
-        ans: "B"
+        opts_en: ["A) Divided into fixed and variable", "B) All costs are fixed", "C) All costs are variable", "D) Divided into fixed and marginal", "E) Same as in the short run"],
+        opts_ru: ["A) Делятся на постоянные и переменные", "B) Все издержки являются постоянными", "C) Все издержки являются переменными", "D) Делятся на постоянные и предельные", "E) Выглядят так же, как в краткосрочном периоде"],
+        ans: "C"
     },
     {
         q_en: "If Average Total Cost (ATC) is at its minimum point, Marginal Cost (MC) must be?",
         q_ru: "Если средние общие издержки (ATC) находятся в точке своего минимума, то предельные издержки (MC):",
-        opts_en: ["A) At minimum", "B) At maximum", "C) Equal to Total Costs", "D) Equal to Fixed Costs", "E) Equal to Average Total Costs"],
-        opts_ru: ["A) Минимальны", "B) Максимальны", "C) Равны совокупным издержкам", "D) Равны постоянным издержкам", "E) Равны средним общим издержкам (MC = ATC)"],
-        ans: "E"
+        opts_en: ["A) Equal to Average Total Costs", "B) At minimum", "C) At maximum", "D) Equal to Total Costs", "E) Equal to Fixed Costs"],
+        opts_ru: ["A) Равны средним общим издержкам (MC = ATC)", "B) Минимальны", "C) Максимальны", "D) Равны совокупным издержкам", "E) Равны постоянным издержкам"],
+        ans: "A"
     }
 ];
 
@@ -125,23 +151,23 @@ const PART2_POOL = [
     {
         q_en: "A Perfectly Elastic Demand Curve looks like?",
         q_ru: "Совершенно эластичная кривая спроса выглядит как?",
-        opts_en: ["A) Vertical line", "B) Negatively sloped line", "C) Horizontal line", "D) Positively sloped line", "E) 45-degree line"],
-        opts_ru: ["A) Вертикальная линия", "B) Линия с отрицательным наклоном", "C) Горизонтальная линия", "D) Линия с положительным наклоном", "E) Линия под углом 45 градусов"],
-        ans: "C"
+        opts_en: ["A) Vertical line", "B) Horizontal line", "C) Negatively sloped line", "D) Positively sloped line", "E) 45-degree line"],
+        opts_ru: ["A) Вертикальная линия", "B) Горизонтальная линия", "C) Линия с отрицательным наклоном", "D) Линия с положительным наклоном", "E) Линия под углом 45 градусов"],
+        ans: "B"
     },
     {
         q_en: "Which factor leads to a change in quantity demanded WITHOUT shifting the demand curve?",
         q_ru: "Какой фактор приводит к изменению величины спроса БЕЗ сдвига самой кривой спроса?",
-        opts_en: ["A) Consumer's income", "B) Consumer's preferences", "C) Price expectations", "D) Prices of substitute goods", "E) Change in price of the good itself"],
-        opts_ru: ["A) Доходы потребителей", "B) Предпочтения потребителей", "C) Ожидания будущего роста цен", "D) Цены на товары-заменители", "E) Изменение цены самого данного товара"],
-        ans: "E"
+        opts_en: ["A) Consumer's income", "B) Consumer's preferences", "C) Price expectations", "D) Change in price of the good itself", "E) Prices of substitute goods"],
+        opts_ru: ["A) Доходы потребителей", "B) Предпочтения потребителей", "C) Ожидания будущего роста цен", "D) Изменение цены самого данного товара", "E) Цены на товары-заменители"],
+        ans: "D"
     },
     {
         q_en: "The price elasticity of supply measures how much?",
         q_ru: "Эластичность предложения по цене измеряет, насколько?",
-        opts_en: ["A) Quantity supplied responds to input price changes", "B) Quantity supplied responds to changes in the price of the good", "C) Price responds to supply changes", "D) Sellers respond to technology", "E) Quantity demanded responds to input prices"],
-        opts_ru: ["A) Объем предложения реагирует на цены ресурсов", "B) Объем предложения реагирует на изменение цены самого товара", "C) Цена реагирует на изменения предложения", "D) Продавцы реагируют на технологии", "E) Объем спроса реагирует на цены ресурсов"],
-        ans: "B"
+        opts_en: ["A) Quantity supplied responds to changes in the price of the good", "B) Quantity supplied responds to input price changes", "C) Price responds to supply changes", "D) Sellers respond to technology", "E) Quantity demanded responds to input prices"],
+        opts_ru: ["A) Объем предложения реагирует на изменение цены самого товара", "B) Объем предложения реагирует на цены ресурсов", "C) Цена реагирует на изменения предложения", "D) Продавцы реагируют на технологии", "E) Объем спроса реагирует на цены ресурсов"],
+        ans: "A"
     },
     {
         q_en: "Demand: QD = 500 - 2P, Supply: QS = 200 + 4P. What is the equilibrium price and quantity?",
@@ -153,23 +179,24 @@ const PART2_POOL = [
     {
         q_en: "Demand: QD = 800 - 2P, Supply: QS = 200 + 3P. What is the equilibrium price and quantity?",
         q_ru: "Спрос: QD = 800 - 2P, Предложение: QS = 200 + 3P. Определите равновесную цену и объем:",
-        opts_en: ["A) P = 80, Q = 400", "B) P = 400, Q = 50", "C) P = 350, Q = 100", "D) P = 40, Q = 120", "E) P = 120, Q = 560"],
-        opts_ru: ["A) P = 80, Q = 400", "B) P = 400, Q = 50", "C) P = 350, Q = 100", "D) P = 40, Q = 120", "E) P = 120, Q = 560"],
-        ans: "E"
+        opts_en: ["A) P = 120, Q = 560", "B) P = 80, Q = 400", "C) P = 400, Q = 50", "D) P = 350, Q = 100", "E) P = 40, Q = 120"],
+        opts_ru: ["A) P = 120, Q = 560", "B) P = 80, Q = 400", "C) P = 400, Q = 50", "D) P = 350, Q = 100", "E) P = 40, Q = 120"],
+        ans: "A"
     },
     {
+        // ИСПРАВЛЕННЫЙ ВОПРОС: Метод средней точки дает 1.86 (E)
         q_en: "Price increases from $1.20 to $1.40, quantity supplied rises from 1,200 to 1,600 lbs. Using midpoint method, elasticity of supply is?",
         q_ru: "Рост цены с $1.20 до $1.40 увеличил предложение с 1,200 до 1,600 фунтов. Используя метод средней точки, рассчитайте эластичность предложения:",
         opts_en: ["A) 2.00", "B) 1.06", "C) 0.58", "D) 2.80", "E) 1.86"],
         opts_ru: ["A) 2.00", "B) 1.06", "C) 0.58", "D) 2.80", "E) 1.86"],
-        ans: "A"
+        ans: "E"
     },
     {
         q_en: "Which of the following describes the Demand Curve under Pure Competition?",
         q_ru: "Какое утверждение лучше всего описывает кривую спроса для фирмы в условиях совершенной конкуренции?",
-        opts_en: ["A) Positive slope", "B) Vertical line", "C) Perfectly Horizontal line", "D) Negative slope", "E) 45-degree line"],
-        opts_ru: ["A) Имеет положительный наклон", "B) Является строго вертикальной", "C) Совершенно горизонтальная линия", "D) Имеет отрицательный наклон", "E) Линия под углом 45 градусов"],
-        ans: "C"
+        opts_en: ["A) Positive slope", "B) Perfectly Horizontal line", "C) Vertical line", "D) Negative slope", "E) 45-degree line"],
+        opts_ru: ["A) Имеет положительный наклон", "B) Совершенно горизонтальная линия", "C) Является строго вертикальной", "D) Имеет отрицательный наклон", "E) Линия под углом 45 градусов"],
+        ans: "B"
     },
     {
         q_en: "Wheat Market Table: P=$2.00 (QD=10k, QS=40k), P=$1.75 (QD=15k, QS=35k), P=$1.50 (QD=20k, QS=20k). What is equilibrium?",
@@ -181,9 +208,9 @@ const PART2_POOL = [
     {
         q_en: "Which condition describes profit-maximizing output under Pure Competition?",
         q_ru: "Какое условие описывает объем выпуска, максимизирующий прибыль при совершенной конкуренции?",
-        opts_en: ["A) P = MR = AC", "B) P = MC (or MR = MC)", "C) P = M", "D) P > MR = MC", "E) P = MR > MC"],
-        opts_ru: ["A) P = MR = AC", "B) P = MC (или MR = MC)", "C) P = M", "D) P > MR = MC", "E) P = MR > MC"],
-        ans: "B"
+        opts_en: ["A) P = MC (or MR = MC)", "B) P = MR = AC", "C) P = M", "D) P > MR = MC", "E) P = MR > MC"],
+        opts_ru: ["A) P = MC (или MR = MC)", "B) P = MR = AC", "C) P = M", "D) P > MR = MC", "E) P = MR > MC"],
+        ans: "A"
     },
     {
         q_en: "An increase in the price of a key input will affect Demand and Supply curves how?",
@@ -200,8 +227,8 @@ const PART2_POOL = [
         ans: "B"
     },
     {
-        q_en: "Government increases minimum wage for bicycle workers by $1/hr. What is the immediate effect?",
-        q_ru: "Государство повышает минимальную зарплату рабочих велозавода на $1/час. Каков результат?",
+        q_en: "Government increases minimum wage for bicycle workers by \$1/hr. What is the immediate effect?",
+        q_ru: "Государство повышает минимальную зарплату рабочих велозавода на \$1/час. Каков результат?",
         opts_en: ["A) Demand for workers increases", "B) Supply of bicycles shifts right", "C) Supply of bicycles shifts left", "D) Output increases", "E) Demand for bicycles shifts right"],
         opts_ru: ["A) Спрос на рабочих вырастет", "B) Предложение велосипедов сдвинется вправо", "C) Предложение велосипедов сдвинется влево", "D) Выпуск автоматически увеличится", "E) Спрос на велосипеды сдвинется вправо"],
         ans: "C"
@@ -222,7 +249,7 @@ const PART2_POOL = [
     }
 ];
 
-// ГРАФИЧЕСКИЕ СЦЕНАРИИ ДЛЯ ВОПРОСА 2.6 (УБРАНЫ ПОДСКАЗКИ В СКОБКАХ)
+// ГРАФИЧЕСКИЕ СЦЕНАРИИ ДЛЯ ВОПРОСА 2.6
 const GRAPH_SCENARIOS = [
     {
         type: "demand_shift_right",
@@ -249,60 +276,60 @@ const GRAPH_SCENARIOS = [
         prompt_en: "A reduction in product price causes equilibrium point E1 to move down along the blue demand curve D to E2. How is this change classified?",
         prompt_ru: "Снижение цены товара вызывает перемещение точки равновесия E1 вниз вдоль синей кривой спроса D в точку E2. Как классифицируется это изменение?",
         opts_en: [
-            "A) Increase in Quantity Demanded",
-            "B) Increase in Demand",
+            "A) Increase in Demand",
+            "B) Increase in Quantity Demanded",
             "C) Decrease in Demand",
             "D) Increase in Supply",
             "E) Decrease in Quantity Supplied"
         ],
         opts_ru: [
-            "A) Увеличение величины спроса",
-            "B) Увеличение спроса",
+            "A) Увеличение спроса",
+            "B) Увеличение величины спроса",
             "C) Уменьшение спроса",
             "D) Увеличение предложения",
             "E) Уменьшение величины предложения"
         ],
-        ans: "A"
+        ans: "B"
     },
     {
         type: "supply_shift_right",
         prompt_en: "A technological innovation lowers unit production costs, shifting the red supply curve S1 rightward to S2. Identify the correct economic event:",
         prompt_ru: "Технологический прогресс снижает издержки производства, сдвигая красную кривую предложения S1 вправо в S2. Укажите правильный экономический процесс:",
         opts_en: [
-            "A) Increase in Supply",
-            "B) Decrease in Supply",
-            "C) Increase in Quantity Supplied",
+            "A) Decrease in Supply",
+            "B) Increase in Quantity Supplied",
+            "C) Increase in Supply",
             "D) Increase in Demand",
             "E) Elasticity becomes zero"
         ],
         opts_ru: [
-            "A) Увеличение предложения",
-            "B) Уменьшение предложения",
-            "C) Увеличение величины предложения",
+            "A) Уменьшение предложения",
+            "B) Увеличение величины предложения",
+            "C) Увеличение предложения",
             "D) Увеличение спроса",
             "E) Эластичность равна нулю"
         ],
-        ans: "A"
+        ans: "C"
     },
     {
         type: "supply_point_move",
         prompt_en: "An increase in market price leads to a movement from E1 upward along the red supply curve S to E2. What does this movement signify?",
         prompt_ru: "Рост рыночной цены приводит к перемещению точки из E1 вверх вдоль красной кривой предложения S в E2. Что означает это перемещение?",
         opts_en: [
-            "A) Increase in Quantity Supplied",
-            "B) Increase in Supply",
-            "C) Decrease in Supply",
-            "D) Decrease in Demand",
+            "A) Increase in Supply",
+            "B) Decrease in Supply",
+            "C) Decrease in Demand",
+            "D) Increase in Quantity Supplied",
             "E) Perfect elasticity of supply"
         ],
         opts_ru: [
-            "A) Увеличение величины предложения",
-            "B) Увеличение предложения",
-            "C) Уменьшение предложения",
-            "D) Уменьшение спроса",
+            "A) Увеличение предложения",
+            "B) Уменьшение предложения",
+            "C) Уменьшение спроса",
+            "D) Увеличение величины предложения",
             "E) Совершенная эластичность предложения"
         ],
-        ans: "A"
+        ans: "D"
     }
 ];
 
@@ -337,7 +364,6 @@ function renderQuestionsP1P2(studentIdx, lang) {
     if (container1) {
         container1.innerHTML = '';
         selected.part1.forEach((qObj, i) => {
-            // Очищаем вопрос от цифр в начале, если они случайно остались
             const rawQText = lang === 'en' ? qObj.q_en : qObj.q_ru;
             const qText = rawQText.replace(/^\d+\.\s*/, '');
             const opts = lang === 'en' ? qObj.opts_en : qObj.opts_ru;
@@ -398,7 +424,7 @@ function renderQuestionsP1P2(studentIdx, lang) {
             `;
         });
 
-        // ВОПРОС 2.6 С ГРАФИКОМ (СЖАТЫЙ И КОМПАКТНЫЙ В РАЗМЕРЕ СТАНДАРТНОЙ ЯЧЕЙКИ)
+        // ВОПРОС 2.6 С ГРАФИКОМ
         const sc = GRAPH_SCENARIOS[studentIdx % GRAPH_SCENARIOS.length];
         const prompt = lang === 'en' ? sc.prompt_en : sc.prompt_ru;
         const opts = lang === 'en' ? sc.opts_en : sc.opts_ru;
