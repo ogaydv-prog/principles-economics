@@ -179,7 +179,7 @@ function renderCaseP4(studentIdx, lang) {
             3. В эссе ниже обоснуйте, как вход новых брендов сдвигает спрос и почему возникает феномен <b>Избыточных мощностей (Excess Capacity)</b>.`,
             
             `<b>ЗАДАНИЕ КЕЙСА (Чистая монополия):</b><br>
-            1. Управляйте тарифом (<b>P</b>) и объемом грузопотока (<b>Q</b>), отслеживая графики $TR, TC, MR, MC$.<br>
+            1. Управляйте тарифом (<b>P</b>) и объемом грузопотока (<b>Q</b>), отслеживая графики TR, TC, MR, MC.<br>
             2. Определите по графикам объем, максимизирующий монопольную прибыль (<b>MR = MC</b>).<br>
             3. В эссе сопоставьте монопольное ценообразование с конкурентным рынком и объясните потери общества.`
         ]
@@ -241,9 +241,10 @@ function renderCaseP4(studentIdx, lang) {
                 <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
                     <div class="flex justify-between items-center">
                         <label class="text-xs font-bold text-slate-300 uppercase">${lang==='en'?'Export Volume (Q)':'Объем экспорта (Q)'}</label>
-                        <span id="p4-pc-val-q" class="text-lg font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">9 units</span>
+                        <span id="p4-pc-val-q" class="text-lg font-black text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">0 units</span>
                     </div>
-                    <input type="range" id="p4-pc-slider-q" min="0" max="10" value="9" step="1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" oninput="p4_updatePcDashboard()">
+                    <!-- Слайдер всегда стартует с min (0) -->
+                    <input type="range" id="p4-pc-slider-q" min="0" max="10" value="0" step="1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500" oninput="p4_updatePcDashboard()">
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 text-xs font-mono">
@@ -287,9 +288,10 @@ function renderCaseP4(studentIdx, lang) {
                     <div>
                         <div class="flex justify-between items-center mb-1">
                             <label class="text-xs font-bold text-slate-300 uppercase">${lang==='en'?'Sales Quantity (Q)':'Объем продаж (Q)'}</label>
-                            <span id="p4-mc-val-q" class="text-lg font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">4 units</span>
+                            <span id="p4-mc-val-q" class="text-lg font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">0 units</span>
                         </div>
-                        <input type="range" id="p4-mc-slider-q" min="0" max="10" value="4" step="1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500" oninput="p4_updateMcDashboard()">
+                        <!-- Слайдер всегда стартует с min (0) -->
+                        <input type="range" id="p4-mc-slider-q" min="0" max="10" value="0" step="1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500" oninput="p4_updateMcDashboard()">
                     </div>
                 </div>
 
@@ -318,7 +320,7 @@ function renderCaseP4(studentIdx, lang) {
     else {
         const minTariff = p4_monoTableData[10].p;
         const maxTariff = p4_monoTableData[0].p;
-        const defTariff = p4_monoTableData[5].p;
+        const defTariff = p4_monoTableData[0].p; // Старт с максимального тарифа при Q=0
         const stepTariff = roundInt(10 * activeMult);
 
         html += `
@@ -336,9 +338,10 @@ function renderCaseP4(studentIdx, lang) {
                     <div>
                         <div class="flex justify-between items-center mb-1">
                             <label class="text-xs font-bold text-slate-300 uppercase">${lang==='en'?'Cargo Flow (Q)':'Объем грузопотока (Q)'}</label>
-                            <span id="p4-mo-val-q" class="text-lg font-black text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">5 units</span>
+                            <span id="p4-mo-val-q" class="text-lg font-black text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">0 units</span>
                         </div>
-                        <input type="range" id="p4-mo-slider-q" min="0" max="10" value="5" step="1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
+                        <!-- Слайдер всегда стартует с min (0) -->
+                        <input type="range" id="p4-mo-slider-q" min="0" max="10" value="0" step="1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500">
                     </div>
                 </div>
 
@@ -428,14 +431,7 @@ function p4_setPcScenario(price) {
     p4Chart2Inst.data.datasets[0].data = p4_pcTableData.map(d => price);
     p4Chart2Inst.update();
 
-    const slider = document.getElementById('p4-pc-slider-q');
-    const mcQ9 = p4_pcTableData[9].mc;
-    const mcQ6 = p4_pcTableData[6].mc;
-
-    if (Math.abs(price - (mcQ9 + 2)) < 3) slider.value = 9;
-    else if (Math.abs(price - (mcQ6 + 1)) < 3) slider.value = 6;
-    else slider.value = 0;
-
+    // НЕ двигаем слайдер автоматически при смене сценария — студент регулирует сам!
     p4_updatePcDashboard();
 }
 
