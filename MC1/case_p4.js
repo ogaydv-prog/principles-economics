@@ -155,34 +155,34 @@ function renderCaseP4(studentIdx, lang) {
     const instructions = {
         en: [
             `<b>EXECUTIVE TASK (Perfect Competition):</b><br>
-            1. Test market scenarios: <b>Boom</b> (Price P=$${pBoomInt}), <b>Recession</b> (P=$${pRecInt}), and <b>Crisis</b> (P=$${pCrisInt}).<br>
-            2. For each price level, adjust output Q to find profit-maximizing or loss-minimizing point ($MR = MC$).<br>
-            3. In your essay, explain why $Q=9$ is optimal in Boom, why $Q=6$ minimizes loss in Recession, and why the firm MUST apply the <b>Shutdown Rule ($Q=0$)</b> during Crisis ($P < AVC$).`,
+            1. Test market scenarios: <b>Boom</b> (Price P = $${pBoomInt}), <b>Recession</b> (P = $${pRecInt}), and <b>Crisis</b> (P = $${pCrisInt}).<br>
+            2. For each price level, adjust output <b>Q</b> to find profit-maximizing or loss-minimizing point (<b>MR = MC</b>).<br>
+            3. In your essay, explain why <b>Q = 9</b> is optimal in Boom, why <b>Q = 6</b> minimizes loss in Recession, and why the firm MUST apply the <b>Shutdown Rule (Q = 0)</b> during Crisis (<b>P < AVC</b>).`,
             
             `<b>EXECUTIVE TASK (Monopolistic Competition):</b><br>
             1. Toggle between <b>Short-Run (SR)</b> brand monopoly and <b>Long-Run (LR)</b> market equilibrium.<br>
-            2. Find $Q$ where $MR = MC$ in SR to determine maximum economic profit ($P > ATC$).<br>
-            3. Switch to LR and explain why entrant competition erodes profit to zero ($P = ATC$), causing <b>Excess Capacity</b> ($Q=3$ vs min $ATC$ at $Q=4$).`,
+            2. Find <b>Q</b> where <b>MR = MC</b> in SR to determine maximum economic profit (<b>P > ATC</b>).<br>
+            3. Switch to LR and explain why entrant competition erodes profit to zero (<b>P = ATC</b>), causing <b>Excess Capacity</b> (<b>Q = 3</b> vs min <b>ATC</b> at <b>Q = 4</b>).`,
             
             `<b>EXECUTIVE TASK (Pure Monopoly):</b><br>
-            1. Adjust Tariff Rate ($P$) and Cargo Volume ($Q$) to explore total revenue ($TR$) and profit curves.<br>
-            2. Identify profit-maximizing volume $Q$ where $MR = MC$.<br>
+            1. Adjust Tariff Rate (<b>P</b>) and Cargo Volume (<b>Q</b>) to explore total revenue (<b>TR</b>) and profit curves.<br>
+            2. Identify profit-maximizing volume <b>Q</b> where <b>MR = MC</b>.<br>
             3. In your essay, contrast monopoly pricing with competitive markets and explain how restricting output creates deadweight loss.`
         ],
         ru: [
             `<b>ЗАДАНИЕ КЕЙСА (Совершенная конкуренция):</b><br>
-            1. Протестируйте 3 сценария цен: <b>Бум</b> (Цена P=$${pBoomInt}), <b>Спад</b> (P=$${pRecInt}) и <b>Кризис</b> (P=$${pCrisInt}).<br>
-            2. Для каждой цены двигайте ползунок $Q$ и найдите точку максимизации прибыли или минимизации убытков ($MR = MC$).<br>
-            3. В эссе обоснуйте: почему при Буме выгодно производить $Q=9$, почему при Спаде производят $Q=6$, и почему при Кризисе срабатывает <b>Правило закрытия фирмы ($Q=0$)</b>, так как $P < AVC$.`,
+            1. Протестируйте 3 сценария цен: <b>Бум</b> (Цена P = $${pBoomInt}), <b>Спад</b> (P = $${pRecInt}) и <b>Кризис</b> (P = $${pCrisInt}).<br>
+            2. Для каждой цены двигайте ползунок <b>Q</b> и найдите точку максимизации прибыли или минимизации убытков (<b>MR = MC</b>).<br>
+            3. В эссе обоснуйте: почему при Буме выгодно производить <b>Q = 9</b>, почему при Спаде производят <b>Q = 6</b>, и почему при Кризисе срабатывает <b>Правило закрытия фирмы (Q = 0)</b>, так как <b>P < AVC</b>.`,
             
             `<b>ЗАДАНИЕ КЕЙСА (Монополистическая конкуренция):</b><br>
-            1. Переключайте режимы между <b>Краткосрочным ($SR$)</b> и <b>Долгосрочным ($LR$)</b> периодами.<br>
-            2. В $SR$ найдите $Q$, где $MR = MC$, и определите величину экономической прибыли ($P > ATC$).<br>
-            3. Переключите в $LR$ и объясните, почему приход конкурентов сводит прибыль к $0$ ($P = ATC$) и приводит к <b>Избыточным мощностям (Excess Capacity)</b> ($Q=3$ против мин. $ATC$ при $Q=4$).`,
+            1. Переключайте режимы между <b>Краткосрочным (SR)</b> и <b>Долгосрочным (LR)</b> периодами.<br>
+            2. В SR найдите <b>Q</b>, где <b>MR = MC</b>, и определите величину экономической прибыли (<b>P > ATC</b>).<br>
+            3. Переключите в LR и объясните, почему приход конкурентов сводит прибыль к 0 (<b>P = ATC</b>) и приводит к <b>Избыточным мощностям (Excess Capacity)</b> (<b>Q = 3</b> против мин. <b>ATC</b> при <b>Q = 4</b>).`,
             
             `<b>ЗАДАНИЕ КЕЙСА (Чистая монополия):</b><br>
-            1. Управляйте тарифом ($P$) и объемом грузопотока ($Q$), отслеживая изменения $TR$, $MR$ и $MC$.<br>
-            2. Найдите точку максимизации монопольной прибыли ($MR = MC$).<br>
+            1. Управляйте тарифом (<b>P</b>) и объемом грузопотока (<b>Q</b>), отслеживая изменения <b>TR</b>, <b>MR</b> и <b>MC</b>.<br>
+            2. Найдите точку максимизации монопольной прибыли (<b>MR = MC</b>).<br>
             3. В эссе сопоставьте монопольное ценообразование с конкурентным рынком и объясните, почему монополист завышает цену и ограничивает объем.`
         ]
     };
@@ -213,9 +213,9 @@ function renderCaseP4(studentIdx, lang) {
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
             <div class="xl:col-span-5 space-y-4">
                 <div class="flex flex-wrap gap-2 mb-2">
-                    <button onclick="p4_setPcScenario(${pBoomInt})" id="p4-pc-btn-boom" class="scenario-btn bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pBoomInt} (${lang==='en'?'Boom':'Бум'})</button>
-                    <button onclick="p4_setPcScenario(${pRecInt})" id="p4-pc-btn-rec" class="scenario-btn bg-amber-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pRecInt} (${lang==='en'?'Recession':'Спад'})</button>
-                    <button onclick="p4_setPcScenario(${pCrisInt})" id="p4-pc-btn-cris" class="scenario-btn bg-rose-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pCrisInt} (${lang==='en'?'Crisis':'Кризис'})</button>
+                    <button onclick="p4_setPcScenario(${pBoomInt})" id="p4-pc-btn-boom" class="scenario-btn bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P = $${pBoomInt} (${lang==='en'?'Boom':'Бум'})</button>
+                    <button onclick="p4_setPcScenario(${pRecInt})" id="p4-pc-btn-rec" class="scenario-btn bg-amber-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P = $${pRecInt} (${lang==='en'?'Recession':'Спад'})</button>
+                    <button onclick="p4_setPcScenario(${pCrisInt})" id="p4-pc-btn-cris" class="scenario-btn bg-rose-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P = $${pCrisInt} (${lang==='en'?'Crisis':'Кризис'})</button>
                 </div>
 
                 <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
@@ -486,16 +486,16 @@ function p4_updatePcDashboard() {
     let verdict = "";
     if (Math.abs(p4_pcCurrentPrice - (mcQ9 + 2)) < 3) {
         verdict = q === 9 
-            ? `<b>Optimal Output (MR = MC)!</b> Exporting Q=9 units maximizes economic profit (+$${profit}).` 
+            ? `<b>Optimal Output (MR = MC)!</b> Exporting Q = 9 units maximizes economic profit (+$${profit}).` 
             : "Adjust export Q to 9 where MR equals MC.";
     } else if (Math.abs(p4_pcCurrentPrice - (mcQ6 + 1)) < 3) {
         verdict = q === 6 
             ? `<b>Loss Minimization (MR = MC).</b> Revenue covers variable operational costs and minimizes loss to -$${Math.abs(profit)}.` 
-            : "Loss is minimized at Q=6. Ceasing operations increases loss to TFC.";
+            : "Loss is minimized at Q = 6. Ceasing operations increases loss to TFC.";
     } else {
         verdict = q === 0 
             ? `<b>SHUTDOWN RULE TRIGGERED!</b> Price ($${p4_pcCurrentPrice}) < min AVC. Cease production immediately to limit losses to TFC.` 
-            : "<b>Operating Error!</b> Producing Q>0 increases losses beyond fixed costs.";
+            : "<b>Operating Error!</b> Producing Q > 0 increases losses beyond fixed costs.";
     }
     document.getElementById('p4-pc-val-verdict').innerHTML = verdict;
 }
@@ -563,8 +563,8 @@ function p4_updateMcDashboard() {
     profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
 
     const verdict = period === 'SR' 
-        ? (q === 4 ? `<b>Short-Run Optimum (MR = MC = $${data.mc})!</b> Brand differentiation generates +$${profit} economic profit.` : "Adjust sales to Q=4 to reach short-run profit maximum.")
-        : (q === 3 ? `<b>Long-Run Tangency Equilibrium (P = ATC = $${data.atc}).</b> Market entry eliminated profit ($0). Demonstrates Excess Capacity (Q=3 vs min ATC Q=4).` : "Long-run competitor entry reduced demand.");
+        ? (q === 4 ? `<b>Short-Run Optimum (MR = MC = $${data.mc})!</b> Brand differentiation generates +$${profit} economic profit.` : "Adjust sales to Q = 4 to reach short-run profit maximum.")
+        : (q === 3 ? `<b>Long-Run Tangency Equilibrium (P = ATC = $${data.atc}).</b> Market entry eliminated profit ($0). Demonstrates Excess Capacity (Q = 3 vs min ATC Q = 4).` : "Long-run competitor entry reduced demand.");
     document.getElementById('p4-mc-val-verdict').innerHTML = verdict;
 }
 
@@ -635,7 +635,7 @@ function p4_updateMoDashboard() {
     profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
 
     const verdict = q === 5 
-        ? `<b>Monopoly Optimum (MR = MC = $${data.mc})!</b> Setting port tariff at $${data.p} maximizes profit (+$${profit}) by restricting capacity to Q=5.` 
+        ? `<b>Monopoly Optimum (MR = MC = $${data.mc})!</b> Setting port tariff at $${data.p} maximizes profit (+$${profit}) by restricting capacity to Q = 5.` 
         : (q < 5 ? "MR > MC — lowering tariff expands volume and profit." : "MC > MR — overcapacity reduces profit.");
     document.getElementById('p4-mo-val-verdict').innerHTML = verdict;
 }
