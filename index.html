@@ -338,9 +338,9 @@
         <p>© Almaty Management University | School of Digital Technologies & Economics</p>
     </footer>
 
-    <script>
-        // SHA-256 Hash от 'PE-12102026MC1' (Защита от считывания через F12!)
-        const MC1_ACCESS_HASH = "9c16eb88bdc38ffb698e6c7eb07dd5b31e9c20a9a1d3090ef8c34479edeb8e10";
+  <script>
+        // Зашифрованный хеш пароля PE-12102026MC1
+        const MC1_ACCESS_HASH = "59bd5ccdfeb11ee76e33db82d3ca65edcb61d8b7a66b9ae7e78ee2347eb10fe6";
 
         async function sha256(str) {
             const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
@@ -359,7 +359,7 @@
         }
 
         async function verifyAccessKey() {
-            const inputVal = document.getElementById('mc1PwdInput').value.trim();
+            const inputVal = document.getElementById('mc1PwdInput').value.trim().toUpperCase();
             const inputHash = await sha256(inputVal);
 
             if (inputHash === MC1_ACCESS_HASH) {
@@ -375,6 +375,5 @@
             }
         }
     </script>
-
 </body>
 </html>
