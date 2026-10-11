@@ -86,7 +86,6 @@ function renderCaseP4(studentIdx, lang) {
 
     const marketType = studentIdx % 3; // 0: PC, 1: MC, 2: Monopoly
     
-    // Индивидуальный сдвиг и множитель для исключения совпадений
     const variantShift = (studentIdx * 7) % 23; 
     activeMult = 1.05 + ((studentIdx * 4) % 7) * 0.08;
 
@@ -143,7 +142,6 @@ function renderCaseP4(studentIdx, lang) {
         ]
     };
 
-    // Динамические уникальные цены для каждого студента
     const mcQ9 = p4_pcTableData[9].mc || 130;
     const mcQ6 = p4_pcTableData[6].mc || 80;
     const avcMin = p4_pcTableData[5].avc || 74;
@@ -156,36 +154,58 @@ function renderCaseP4(studentIdx, lang) {
         en: [
             `<b>EXECUTIVE TASK (Perfect Competition):</b><br>
             1. Test market scenarios: <b>Boom</b> (Price P = $${pBoomInt}), <b>Recession</b> (P = $${pRecInt}), and <b>Crisis</b> (P = $${pCrisInt}).<br>
-            2. For each price level, adjust output <b>Q</b> to find profit-maximizing or loss-minimizing point (<b>MR = MC</b>).<br>
-            3. In your essay, explain why <b>Q = 9</b> is optimal in Boom, why <b>Q = 6</b> minimizes loss in Recession, and why the firm MUST apply the <b>Shutdown Rule (Q = 0)</b> during Crisis (<b>P < AVC</b>).`,
+            2. Analyze curves on charts to find optimal output <b>Q</b> using <b>MR = MC</b> condition.<br>
+            3. Explain your decision in the essay below: calculate economic profit/loss based on chart data and justify output choice for each scenario.`,
             
             `<b>EXECUTIVE TASK (Monopolistic Competition):</b><br>
             1. Toggle between <b>Short-Run (SR)</b> brand monopoly and <b>Long-Run (LR)</b> market equilibrium.<br>
-            2. Find <b>Q</b> where <b>MR = MC</b> in SR to determine maximum economic profit (<b>P > ATC</b>).<br>
-            3. Switch to LR and explain why entrant competition erodes profit to zero (<b>P = ATC</b>), causing <b>Excess Capacity</b> (<b>Q = 3</b> vs min <b>ATC</b> at <b>Q = 4</b>).`,
+            2. Examine chart curves to locate optimal volume <b>Q</b> where <b>MR = MC</b>.<br>
+            3. In your essay, explain how entry of competitors affects demand and why long-run tangency leads to <b>Excess Capacity</b>.`,
             
             `<b>EXECUTIVE TASK (Pure Monopoly):</b><br>
-            1. Adjust Tariff Rate (<b>P</b>) and Cargo Volume (<b>Q</b>) to explore total revenue (<b>TR</b>) and profit curves.<br>
-            2. Identify profit-maximizing volume <b>Q</b> where <b>MR = MC</b>.<br>
-            3. In your essay, contrast monopoly pricing with competitive markets and explain how restricting output creates deadweight loss.`
+            1. Adjust Tariff Rate (<b>P</b>) and Cargo Volume (<b>Q</b>) while inspecting the charts.<br>
+            2. Determine optimal output where <b>MR = MC</b> on the graph.<br>
+            3. In your essay, calculate total revenue, profit, and explain deadweight loss from monopoly output restriction.`
         ],
         ru: [
             `<b>ЗАДАНИЕ КЕЙСА (Совершенная конкуренция):</b><br>
-            1. Протестируйте 3 сценария цен: <b>Бум</b> (Цена P = $${pBoomInt}), <b>Спад</b> (P = $${pRecInt}) и <b>Кризис</b> (P = $${pCrisInt}).<br>
-            2. Для каждой цены двигайте ползунок <b>Q</b> и найдите точку максимизации прибыли или минимизации убытков (<b>MR = MC</b>).<br>
-            3. В эссе обоснуйте: почему при Буме выгодно производить <b>Q = 9</b>, почему при Спаде производят <b>Q = 6</b>, и почему при Кризисе срабатывает <b>Правило закрытия фирмы (Q = 0)</b>, так как <b>P < AVC</b>.`,
+            1. Протестируйте 3 сценария цен: <b>Бум</b> (P = $${pBoomInt}), <b>Спад</b> (P = $${pRecInt}) и <b>Кризис</b> (P = $${pCrisInt}).<br>
+            2. Анализируйте графики кривых издержек, чтобы найти оптимальный объем <b>Q</b> по правилу <b>MR = MC</b>.<br>
+            3. В эссе ниже рассчитайте прибыль/убыток по графикам и обоснуйте выбор объемов для каждого сценария (включая правило закрытия).`,
             
             `<b>ЗАДАНИЕ КЕЙСА (Монополистическая конкуренция):</b><br>
             1. Переключайте режимы между <b>Краткосрочным (SR)</b> и <b>Долгосрочным (LR)</b> периодами.<br>
-            2. В SR найдите <b>Q</b>, где <b>MR = MC</b>, и определите величину экономической прибыли (<b>P > ATC</b>).<br>
-            3. Переключите в LR и объясните, почему приход конкурентов сводит прибыль к 0 (<b>P = ATC</b>) и приводит к <b>Избыточным мощностям (Excess Capacity)</b> (<b>Q = 3</b> против мин. <b>ATC</b> при <b>Q = 4</b>).`,
+            2. Найдите по графикам точку равновесия <b>Q</b>, где <b>MR = MC</b>.<br>
+            3. В эссе ниже обоснуйте, как вход новых брендов сдвигает спрос и почему возникает феномен <b>Избыточных мощностей (Excess Capacity)</b>.`,
             
             `<b>ЗАДАНИЕ КЕЙСА (Чистая монополия):</b><br>
-            1. Управляйте тарифом (<b>P</b>) и объемом грузопотока (<b>Q</b>), отслеживая изменения <b>TR</b>, <b>MR</b> и <b>MC</b>.<br>
-            2. Найдите точку максимизации монопольной прибыли (<b>MR = MC</b>).<br>
-            3. В эссе сопоставьте монопольное ценообразование с конкурентным рынком и объясните, почему монополист завышает цену и ограничивает объем.`
+            1. Управляйте тарифом (<b>P</b>) и объемом грузопотока (<b>Q</b>), отслеживая графики $TR, TC, MR, MC$.<br>
+            2. Определите по графикам объем, максимизирующий монопольную прибыль (<b>MR = MC</b>).<br>
+            3. В эссе сопоставьте монопольное ценообразование с конкурентным рынком и объясните потери общества.`
         ]
     };
+
+    const essayHTML = `
+        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2 mt-4">
+            <div class="flex justify-between items-center">
+                <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fas fa-pen-nib text-indigo-400"></i>
+                    ${lang === 'en' ? 'Executive Strategy Justification (Min 100 Words)' : 'Стратегическое обоснование (Минимум 100 слов)'}
+                </label>
+                <span id="p4-word-counter" class="text-[10px] font-mono font-bold text-rose-400">0 / 100 ${lang === 'en' ? 'words' : 'слов'}</span>
+            </div>
+            
+            <textarea id="p4-essay-input" 
+                class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-xs text-slate-200 h-44 focus:ring-2 focus:ring-indigo-500 outline-none resize-none custom-scrollbar" 
+                placeholder="${lang === 'en' ? 'Write your analysis based on chart curves...' : 'Опишите ваше обоснование на основе графиков: определите пересечение MR=MC, сравните P и ATC, рассчитайте прибыль и укажите стратегию...'}"
+                onpaste="notify('${lang === 'en' ? 'Pasting is disabled. Type manually.' : 'Вставка заблокирована. Введите текст вручную.'}', true); return false;"
+                oninput="p4_checkWordCount()"></textarea>
+            
+            <p class="text-[9px] text-slate-500 leading-tight">
+                ${lang === 'en' ? 'Direct copy-paste is disabled. Minimum 100 words required.' : 'Защита от вставки активирована. Для отправки требуется минимум 100 слов.'}
+            </p>
+        </div>
+    `;
 
     let html = `
     <div class="card p-6 space-y-6 bg-slate-900/90 border border-slate-800">
@@ -233,21 +253,14 @@ function renderCaseP4(studentIdx, lang) {
                     <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><span class="text-slate-500 block text-[9px] uppercase">MC</span><span id="p4-pc-val-mc" class="text-amber-400 font-bold text-base">$0</span></div>
                 </div>
 
-                <div id="p4-pc-profit-panel" class="p-4 rounded-xl border border-slate-800 bg-slate-950/80 space-y-2">
-                    <div class="flex justify-between items-end">
-                        <span class="text-xs font-bold text-slate-400 uppercase">${lang==='en'?'Net Profit':'Чистая прибыль'}</span>
-                        <span id="p4-pc-val-profit" class="text-2xl font-black font-mono text-emerald-400">+$0</span>
-                    </div>
-                    <div class="h-px w-full bg-slate-800 my-2"></div>
-                    <p id="p4-pc-val-verdict" class="text-xs text-slate-300 leading-relaxed"></p>
-                </div>
+                ${essayHTML}
             </div>
 
             <div class="xl:col-span-7 space-y-4">
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl h-[220px] relative">
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl h-[360px] relative">
                     <canvas id="p4Chart1Canvas"></canvas>
                 </div>
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl h-[220px] relative">
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl h-[360px] relative">
                     <canvas id="p4Chart2Canvas"></canvas>
                 </div>
             </div>
@@ -287,21 +300,14 @@ function renderCaseP4(studentIdx, lang) {
                     <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><span class="text-slate-500 block text-[9px] uppercase">MC</span><span id="p4-mc-val-mc" class="text-amber-400 font-bold text-base">$0</span></div>
                 </div>
 
-                <div id="p4-mc-profit-panel" class="p-4 rounded-xl border border-slate-800 bg-slate-950/80 space-y-2">
-                    <div class="flex justify-between items-end">
-                        <span class="text-xs font-bold text-slate-400 uppercase">${lang==='en'?'Economic Profit':'Экономическая прибыль'}</span>
-                        <span id="p4-mc-val-profit" class="text-2xl font-black font-mono text-emerald-400">+$0</span>
-                    </div>
-                    <div class="h-px w-full bg-slate-800 my-2"></div>
-                    <p id="p4-mc-val-verdict" class="text-xs text-slate-300 leading-relaxed"></p>
-                </div>
+                ${essayHTML}
             </div>
 
             <div class="xl:col-span-7 space-y-4">
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl h-[220px] relative">
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl h-[360px] relative">
                     <canvas id="p4Chart1Canvas"></canvas>
                 </div>
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl h-[220px] relative">
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl h-[360px] relative">
                     <canvas id="p4Chart2Canvas"></canvas>
                 </div>
             </div>
@@ -342,51 +348,20 @@ function renderCaseP4(studentIdx, lang) {
                     <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 col-span-2"><span class="text-slate-500 block text-[9px] uppercase">MC</span><span id="p4-mo-val-mc" class="text-amber-400 font-bold text-base">$0</span></div>
                 </div>
 
-                <div id="p4-mo-profit-panel" class="p-4 rounded-xl border border-slate-800 bg-slate-950/80 space-y-2">
-                    <div class="flex justify-between items-end">
-                        <span class="text-xs font-bold text-slate-400 uppercase">${lang==='en'?'Monopoly Rent':'Монопольная прибыль'}</span>
-                        <span id="p4-mo-val-profit" class="text-2xl font-black font-mono text-emerald-400">+$0</span>
-                    </div>
-                    <div class="h-px w-full bg-slate-800 my-2"></div>
-                    <p id="p4-mo-val-verdict" class="text-xs text-slate-300 leading-relaxed"></p>
-                </div>
+                ${essayHTML}
             </div>
 
             <div class="xl:col-span-7 space-y-4">
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl h-[220px] relative">
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl h-[360px] relative">
                     <canvas id="p4Chart1Canvas"></canvas>
                 </div>
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl h-[220px] relative">
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl h-[360px] relative">
                     <canvas id="p4Chart2Canvas"></canvas>
                 </div>
             </div>
         </div>
         `;
     }
-
-    // Essay Answer Box with Anti-Cheat & Live Counter
-    html += `
-        <div class="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3 mt-6">
-            <div class="flex justify-between items-center">
-                <label class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                    <i class="fas fa-pen-nib text-indigo-400"></i>
-                    ${lang === 'en' ? 'Executive Strategy Justification (Min 100 Words)' : 'Стратегическое обоснование (Минимум 100 слов)'}
-                </label>
-                <span id="p4-word-counter" class="text-[11px] font-mono font-bold text-rose-400">0 / 100 ${lang === 'en' ? 'words' : 'слов'}</span>
-            </div>
-            
-            <textarea id="p4-essay-input" 
-                class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3.5 text-xs text-slate-200 h-36 focus:ring-2 focus:ring-indigo-500 outline-none resize-none custom-scrollbar" 
-                placeholder="${lang === 'en' ? 'Write your analysis according to the executive instructions above...' : 'Опишите ваше обоснование в соответствии с инструкциями выше: как соотносятся MR и MC, покрываются ли AVC/ATC, и каковы долгосрочные риски...'}"
-                onpaste="notify('${lang === 'en' ? 'Pasting is disabled. Type your response manually.' : 'Вставка заблокирована. Введите текст вручную.'}', true); return false;"
-                oninput="p4_checkWordCount()"></textarea>
-            
-            <p class="text-[10px] text-slate-500">
-                ${lang === 'en' ? 'Direct copy-paste is disabled to ensure original analysis. Token compilation requires at least 100 words.' : 'Защита от вставки из буфера активирована. Для завершения работы требуется не менее 100 слов.'}
-            </p>
-        </div>
-    </div>
-    `;
 
     container.innerHTML = html;
 
@@ -406,8 +381,8 @@ function p4_checkWordCount() {
     const words = txt ? txt.split(/\s+/).length : 0;
     const counter = document.getElementById('p4-word-counter');
     if (counter) {
-        counter.innerText = `${words} / 100 ${currentLang === 'en' ? 'words' : 'слов'}`;
-        counter.className = words >= 100 ? "text-[11px] font-mono font-bold text-emerald-400" : "text-[11px] font-mono font-bold text-rose-400";
+        counter.innerText = `${words} / 100 ${typeof currentLang !== 'undefined' && currentLang === 'en' ? 'words' : 'слов'}`;
+        counter.className = words >= 100 ? "text-[10px] font-mono font-bold text-emerald-400" : "text-[10px] font-mono font-bold text-rose-400";
     }
 }
 
@@ -468,36 +443,12 @@ function p4_updatePcDashboard() {
     const q = parseInt(document.getElementById('p4-pc-slider-q').value);
     const data = p4_pcTableData[q];
     const tr = roundInt(q * p4_pcCurrentPrice);
-    const profit = roundInt(tr - data.tc);
 
     document.getElementById('p4-pc-val-q').innerText = `${q} units`;
     document.getElementById('p4-pc-val-tr').innerText = `$${tr}`;
     document.getElementById('p4-pc-val-tc').innerText = `$${data.tc}`;
     document.getElementById('p4-pc-val-mr').innerText = `$${p4_pcCurrentPrice}`;
     document.getElementById('p4-pc-val-mc').innerText = data.mc ? `$${data.mc}` : '-';
-
-    const profitEl = document.getElementById('p4-pc-val-profit');
-    profitEl.innerText = (profit >= 0 ? '+$' : '-$') + Math.abs(profit);
-    profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
-
-    const mcQ9 = p4_pcTableData[9].mc;
-    const mcQ6 = p4_pcTableData[6].mc;
-
-    let verdict = "";
-    if (Math.abs(p4_pcCurrentPrice - (mcQ9 + 2)) < 3) {
-        verdict = q === 9 
-            ? `<b>Optimal Output (MR = MC)!</b> Exporting Q = 9 units maximizes economic profit (+$${profit}).` 
-            : "Adjust export Q to 9 where MR equals MC.";
-    } else if (Math.abs(p4_pcCurrentPrice - (mcQ6 + 1)) < 3) {
-        verdict = q === 6 
-            ? `<b>Loss Minimization (MR = MC).</b> Revenue covers variable operational costs and minimizes loss to -$${Math.abs(profit)}.` 
-            : "Loss is minimized at Q = 6. Ceasing operations increases loss to TFC.";
-    } else {
-        verdict = q === 0 
-            ? `<b>SHUTDOWN RULE TRIGGERED!</b> Price ($${p4_pcCurrentPrice}) < min AVC. Cease production immediately to limit losses to TFC.` 
-            : "<b>Operating Error!</b> Producing Q > 0 increases losses beyond fixed costs.";
-    }
-    document.getElementById('p4-pc-val-verdict').innerHTML = verdict;
 }
 
 // MC Module
@@ -542,7 +493,6 @@ function p4_updateMcDashboard() {
 
     const dataset = p4_mcData[period];
     const data = dataset.find(d => d.q === q);
-    const profit = roundInt(data.tr - data.tc);
 
     p4Chart1Inst.data.datasets[0].data = dataset.map(d => d.tr);
     p4Chart1Inst.data.datasets[1].data = dataset.map(d => d.tc);
@@ -557,15 +507,6 @@ function p4_updateMcDashboard() {
     document.getElementById('p4-mc-val-atc').innerText = data.atc ? `$${data.atc}` : '-';
     document.getElementById('p4-mc-val-mr').innerText = data.mr !== null ? `$${data.mr}` : '-';
     document.getElementById('p4-mc-val-mc').innerText = data.mc !== null ? `$${data.mc}` : '-';
-
-    const profitEl = document.getElementById('p4-mc-val-profit');
-    profitEl.innerText = (profit >= 0 ? '+$' : '-$') + Math.abs(profit);
-    profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
-
-    const verdict = period === 'SR' 
-        ? (q === 4 ? `<b>Short-Run Optimum (MR = MC = $${data.mc})!</b> Brand differentiation generates +$${profit} economic profit.` : "Adjust sales to Q = 4 to reach short-run profit maximum.")
-        : (q === 3 ? `<b>Long-Run Tangency Equilibrium (P = ATC = $${data.atc}).</b> Market entry eliminated profit ($0). Demonstrates Excess Capacity (Q = 3 vs min ATC Q = 4).` : "Long-run competitor entry reduced demand.");
-    document.getElementById('p4-mc-val-verdict').innerHTML = verdict;
 }
 
 // Monopoly Module
@@ -622,22 +563,12 @@ function p4_initMoModule() {
 function p4_updateMoDashboard() {
     const q = parseInt(document.getElementById('p4-mo-slider-q').value);
     const data = p4_monoTableData[q];
-    const profit = roundInt(data.tr - data.tc);
 
     document.getElementById('p4-mo-val-q').innerText = `${q} units`;
     document.getElementById('p4-mo-slider-val-p').innerText = `$${data.p}`;
     document.getElementById('p4-mo-val-mr').innerText = data.mr !== null ? `$${data.mr}` : '-';
     document.getElementById('p4-mo-val-atc').innerText = data.atc !== null ? `$${data.atc}` : '-';
     document.getElementById('p4-mo-val-mc').innerText = data.mc !== null ? `$${data.mc}` : '-';
-
-    const profitEl = document.getElementById('p4-mo-val-profit');
-    profitEl.innerText = (profit >= 0 ? '+$' : '-$') + Math.abs(profit);
-    profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
-
-    const verdict = q === 5 
-        ? `<b>Monopoly Optimum (MR = MC = $${data.mc})!</b> Setting port tariff at $${data.p} maximizes profit (+$${profit}) by restricting capacity to Q = 5.` 
-        : (q < 5 ? "MR > MC — lowering tariff expands volume and profit." : "MC > MR — overcapacity reduces profit.");
-    document.getElementById('p4-mo-val-verdict').innerHTML = verdict;
 }
 
 // ==========================================
