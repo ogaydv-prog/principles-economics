@@ -4,7 +4,7 @@ let p4Chart1Inst = null;
 let p4Chart2Inst = null;
 
 // ==========================================
-// 1. BASE DATA MODELS
+// 1. BASE DATA MODELS & DYNAMIC GENERATION
 // ==========================================
 
 const p4_basePcTable = [
@@ -23,54 +23,52 @@ const p4_basePcTable = [
 
 const p4_baseMcData = {
     'SR': [
-        { q: 0, p: 120, mr: null, mc: null, atc: null, tr: 0, tc: 100 },
-        { q: 1, p: 110, mr: 110, mc: 40, atc: 140, tr: 110, tc: 140 },
-        { q: 2, p: 100, mr: 90,  mc: 30, atc: 85,  tr: 200, tc: 170 },
-        { q: 3, p: 90,  mr: 70,  mc: 40, atc: 70,  tr: 270, tc: 210 },
-        { q: 4, p: 80,  mr: 50,  mc: 50, atc: 65,  tr: 320, tc: 260 }, 
-        { q: 5, p: 70,  mr: 30,  mc: 70, atc: 66,  tr: 350, tc: 330 },
-        { q: 6, p: 60,  mr: 10,  mc: 90, atc: 70,  tr: 360, tc: 420 },
-        { q: 7, p: 50,  mr: -10, mc: 110, atc: 76, tr: 350, tc: 530 },
-        { q: 8, p: 40,  mr: -30, mc: 130, atc: 83, tr: 320, tc: 660 },
-        { q: 9, p: 30,  mr: -50, mc: 150, atc: 90, tr: 270, tc: 810 },
-        { q: 10, p: 20, mr: -70, mc: 170, atc: 98, tr: 200, tc: 980 }
+        { q: 0, p: 125, mr: null, mc: null, atc: null, tr: 0, tc: 100 },
+        { q: 1, p: 115, mr: 115, mc: 45, atc: 145, tr: 115, tc: 145 },
+        { q: 2, p: 105, mr: 95,  mc: 35, atc: 90,  tr: 210, tc: 180 },
+        { q: 3, p: 95,  mr: 75,  mc: 45, atc: 75,  tr: 285, tc: 225 },
+        { q: 4, p: 85,  mr: 55,  mc: 55, atc: 68,  tr: 340, tc: 272 }, 
+        { q: 5, p: 75,  mr: 35,  mc: 75, atc: 69,  tr: 375, tc: 345 },
+        { q: 6, p: 65,  mr: 15,  mc: 95, atc: 73,  tr: 390, tc: 438 },
+        { q: 7, p: 55,  mr: -5,  mc: 115, atc: 79, tr: 385, tc: 553 },
+        { q: 8, p: 45,  mr: -25, mc: 135, atc: 86, tr: 360, tc: 688 },
+        { q: 9, p: 35,  mr: -45, mc: 155, atc: 93, tr: 315, tc: 837 },
+        { q: 10, p: 25, mr: -65, mc: 175, atc: 101, tr: 250, tc: 1010 }
     ],
     'LR': [
-        { q: 0, p: 115, mr: null, mc: null, atc: null, tr: 0, tc: 100 },
-        { q: 1, p: 100, mr: 100, mc: 40, atc: 140, tr: 100, tc: 140 },
-        { q: 2, p: 85,  mr: 70,  mc: 30, atc: 85,  tr: 170, tc: 170 },
-        { q: 3, p: 70,  mr: 40,  mc: 40, atc: 70,  tr: 210, tc: 210 }, 
-        { q: 4, p: 55,  mr: 10,  mc: 50, atc: 65,  tr: 220, tc: 260 }, 
-        { q: 5, p: 40,  mr: -20, mc: 70, atc: 66,  tr: 200, tc: 330 },
-        { q: 6, p: 25,  mr: -50, mc: 90, atc: 70,  tr: 150, tc: 420 },
-        { q: 7, p: 10,  mr: -80, mc: 110, atc: 76, tr: 70,  tc: 530 },
-        { q: 8, p: 0,   mr: -110,mc: 130, atc: 83, tr: 0,   tc: 660 },
-        { q: 9, p: 0,   mr: -140,mc: 150, atc: 90, tr: 0,   tc: 810 },
-        { q: 10, p: 0,  mr: -170,mc: 170, atc: 98, tr: 0,   tc: 980 }
+        { q: 0, p: 120, mr: null, mc: null, atc: null, tr: 0, tc: 100 },
+        { q: 1, p: 105, mr: 105, mc: 45, atc: 145, tr: 105, tc: 145 },
+        { q: 2, p: 90,  mr: 75,  mc: 35, atc: 90,  tr: 180, tc: 180 },
+        { q: 3, p: 75,  mr: 45,  mc: 45, atc: 75,  tr: 225, tc: 225 }, 
+        { q: 4, p: 60,  mr: 15,  mc: 55, atc: 68,  tr: 240, tc: 272 }, 
+        { q: 5, p: 45,  mr: -15, mc: 75, atc: 69,  tr: 225, tc: 345 },
+        { q: 6, p: 30,  mr: -45, mc: 95, atc: 73,  tr: 180, tc: 438 },
+        { q: 7, p: 15,  mr: -75, mc: 115, atc: 79, tr: 105, tc: 553 },
+        { q: 8, p: 0,   mr: -105,mc: 135, atc: 86, tr: 0,   tc: 688 },
+        { q: 9, p: 0,   mr: -135,mc: 155, atc: 93, tr: 0,   tc: 837 },
+        { q: 10, p: 0,  mr: -165,mc: 175, atc: 101, tr: 0,  tc: 1010 }
     ]
 };
 
 const p4_baseMonoTable = [
-    { q: 0, p: 160, tr: 0, mr: null, tc: 100, mc: null, atc: null },
-    { q: 1, p: 150, tr: 150, mr: 150, tc: 190, mc: 90, atc: 190 },
-    { q: 2, p: 140, tr: 280, mr: 130, tc: 270, mc: 80, atc: 135 },
-    { q: 3, p: 130, tr: 390, mr: 110, tc: 340, mc: 70, atc: 113 },
-    { q: 4, p: 120, tr: 480, mr: 90, tc: 400, mc: 60, atc: 100 },
-    { q: 5, p: 110, tr: 550, mr: 70, tc: 470, mc: 70, atc: 94 },
-    { q: 6, p: 100, tr: 600, mr: 50, tc: 550, mc: 80, atc: 92 },
-    { q: 7, p: 90, tr: 630, mr: 30, tc: 640, mc: 90, atc: 91 },
-    { q: 8, p: 80, tr: 640, mr: 10, tc: 750, mc: 110, atc: 94 },
-    { q: 9, p: 70, tr: 630, mr: -10, tc: 880, mc: 130, atc: 98 },
-    { q: 10, p: 60, tr: 600, mr: -30, tc: 1030, mc: 150, atc: 103 }
+    { q: 0, p: 170, tr: 0, mr: null, tc: 110, mc: null, atc: null },
+    { q: 1, p: 160, tr: 160, mr: 160, tc: 200, mc: 90, atc: 200 },
+    { q: 2, p: 150, tr: 300, mr: 140, tc: 280, mc: 80, atc: 140 },
+    { q: 3, p: 140, tr: 420, mr: 120, tc: 350, mc: 70, atc: 117 },
+    { q: 4, p: 130, tr: 520, mr: 100, tc: 410, mc: 60, atc: 103 },
+    { q: 5, p: 120, tr: 600, mr: 80, tc: 480, mc: 70, atc: 96 },
+    { q: 6, p: 110, tr: 660, mr: 60, tc: 560, mc: 80, atc: 93 },
+    { q: 7, p: 100, tr: 700, mr: 40, tc: 650, mc: 90, atc: 93 },
+    { q: 8, p: 90, tr: 720, mr: 20, tc: 760, mc: 110, atc: 95 },
+    { q: 9, p: 80, tr: 720, mr: 0, tc: 890, mc: 130, atc: 99 },
+    { q: 10, p: 70, tr: 700, mr: -20, tc: 1040, mc: 150, atc: 104 }
 ];
 
-// Scaled data
 let p4_pcTableData = [];
 let p4_mcData = {};
 let p4_monoTableData = [];
 let activeMult = 1.0;
 
-// Helper to guarantee clean rounded integers
 function roundInt(val) {
     return val !== null && val !== undefined ? Math.round(val) : null;
 }
@@ -88,36 +86,48 @@ function renderCaseP4(studentIdx, lang) {
 
     const marketType = studentIdx % 3; // 0: PC, 1: MC, 2: Monopoly
     
-    // Scale factor: 1.0, 1.1, 1.2, 1.3, 1.4, or 1.5
-    activeMult = 1 + ((studentIdx * 3) % 6) * 0.1;
+    // Индивидуальный сдвиг и множитель для исключения совпадений
+    const variantShift = (studentIdx * 7) % 23; 
+    activeMult = 1.05 + ((studentIdx * 4) % 7) * 0.08;
 
-    // Scale tables dynamically with integer rounding
     p4_pcTableData = p4_basePcTable.map(d => ({
         q: d.q,
-        tvc: roundInt(d.tvc * activeMult),
-        tc: roundInt(d.tc * activeMult),
-        mc: roundInt(d.mc * activeMult),
-        avc: roundInt(d.avc * activeMult),
-        atc: roundInt(d.atc * activeMult)
+        tvc: roundInt((d.tvc + variantShift) * activeMult),
+        tc: roundInt((d.tc + variantShift) * activeMult),
+        mc: roundInt((d.mc ? d.mc + variantShift * 0.2 : null) * activeMult),
+        avc: roundInt((d.avc ? d.avc + variantShift * 0.2 : null) * activeMult),
+        atc: roundInt((d.atc ? d.atc + variantShift * 0.2 : null) * activeMult)
     }));
 
     p4_mcData = {
         'SR': p4_baseMcData['SR'].map(d => ({
-            q: d.q, p: roundInt(d.p * activeMult), mr: roundInt(d.mr * activeMult),
-            mc: roundInt(d.mc * activeMult), atc: roundInt(d.atc * activeMult),
-            tr: roundInt(d.tr * activeMult), tc: roundInt(d.tc * activeMult)
+            q: d.q, 
+            p: roundInt((d.p + variantShift) * activeMult), 
+            mr: roundInt((d.mr !== null ? d.mr + variantShift : null) * activeMult),
+            mc: roundInt((d.mc !== null ? d.mc + variantShift * 0.2 : null) * activeMult), 
+            atc: roundInt((d.atc !== null ? d.atc + variantShift * 0.2 : null) * activeMult),
+            tr: roundInt((d.tr + d.q * variantShift) * activeMult), 
+            tc: roundInt((d.tc + variantShift) * activeMult)
         })),
         'LR': p4_baseMcData['LR'].map(d => ({
-            q: d.q, p: roundInt(d.p * activeMult), mr: roundInt(d.mr * activeMult),
-            mc: roundInt(d.mc * activeMult), atc: roundInt(d.atc * activeMult),
-            tr: roundInt(d.tr * activeMult), tc: roundInt(d.tc * activeMult)
+            q: d.q, 
+            p: roundInt((d.p + variantShift) * activeMult), 
+            mr: roundInt((d.mr !== null ? d.mr + variantShift : null) * activeMult),
+            mc: roundInt((d.mc !== null ? d.mc + variantShift * 0.2 : null) * activeMult), 
+            atc: roundInt((d.atc !== null ? d.atc + variantShift * 0.2 : null) * activeMult),
+            tr: roundInt((d.tr + d.q * variantShift) * activeMult), 
+            tc: roundInt((d.tc + variantShift) * activeMult)
         }))
     };
 
     p4_monoTableData = p4_baseMonoTable.map(d => ({
-        q: d.q, p: roundInt(d.p * activeMult), tr: roundInt(d.tr * activeMult),
-        mr: roundInt(d.mr * activeMult), tc: roundInt(d.tc * activeMult),
-        mc: roundInt(d.mc * activeMult), atc: roundInt(d.atc * activeMult)
+        q: d.q, 
+        p: roundInt((d.p + variantShift) * activeMult), 
+        tr: roundInt((d.tr + d.q * variantShift) * activeMult),
+        mr: roundInt((d.mr !== null ? d.mr + variantShift : null) * activeMult), 
+        tc: roundInt((d.tc + variantShift) * activeMult),
+        mc: roundInt((d.mc !== null ? d.mc + variantShift * 0.2 : null) * activeMult), 
+        atc: roundInt((d.atc !== null ? d.atc + variantShift * 0.2 : null) * activeMult)
     }));
 
     const titles = {
@@ -133,10 +143,14 @@ function renderCaseP4(studentIdx, lang) {
         ]
     };
 
-    // Calculate integer prices for PC scenario buttons
-    const pBoomInt = Math.round(131 * activeMult);
-    const pRecInt = Math.round(81 * activeMult);
-    const pCrisInt = Math.round(71 * activeMult);
+    // Динамические уникальные цены для каждого студента
+    const mcQ9 = p4_pcTableData[9].mc || 130;
+    const mcQ6 = p4_pcTableData[6].mc || 80;
+    const avcMin = p4_pcTableData[5].avc || 74;
+
+    const pBoomInt = roundInt(mcQ9 + 2); 
+    const pRecInt = roundInt(mcQ6 + 1);  
+    const pCrisInt = roundInt(avcMin - 12);
 
     const instructions = {
         en: [
@@ -183,7 +197,7 @@ function renderCaseP4(studentIdx, lang) {
                 <h3 class="text-xl font-black text-white mt-1">${titles[lang][marketType]}</h3>
             </div>
             <div class="bg-indigo-950/60 border border-indigo-500/30 px-3 py-1.5 rounded-lg text-xs text-indigo-300 font-mono font-bold">
-                ${lang === 'en' ? 'Student Variant Scale Factor: ' : 'Индивидуальный коэффициент варианта: '}${activeMult.toFixed(1)}x
+                ${lang === 'en' ? 'Student Variant Scale Factor: ' : 'Индивидуальный коэффициент варианта: '}${activeMult.toFixed(2)}x
             </div>
         </div>
 
@@ -193,17 +207,15 @@ function renderCaseP4(studentIdx, lang) {
         </div>
     `;
 
-    // ----------------------------------------------------
     // TYPE 0: PERFECT COMPETITION HTML
-    // ----------------------------------------------------
     if (marketType === 0) {
         html += `
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
             <div class="xl:col-span-5 space-y-4">
                 <div class="flex flex-wrap gap-2 mb-2">
-                    <button onclick="p4_setPcScenario(${pBoomInt})" id="p4-pc-btn-131" class="scenario-btn bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pBoomInt} (${lang==='en'?'Boom':'Бум'})</button>
-                    <button onclick="p4_setPcScenario(${pRecInt})" id="p4-pc-btn-81" class="scenario-btn bg-amber-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pRecInt} (${lang==='en'?'Recession':'Спад'})</button>
-                    <button onclick="p4_setPcScenario(${pCrisInt})" id="p4-pc-btn-71" class="scenario-btn bg-rose-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pCrisInt} (${lang==='en'?'Crisis':'Кризис'})</button>
+                    <button onclick="p4_setPcScenario(${pBoomInt})" id="p4-pc-btn-boom" class="scenario-btn bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pBoomInt} (${lang==='en'?'Boom':'Бум'})</button>
+                    <button onclick="p4_setPcScenario(${pRecInt})" id="p4-pc-btn-rec" class="scenario-btn bg-amber-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pRecInt} (${lang==='en'?'Recession':'Спад'})</button>
+                    <button onclick="p4_setPcScenario(${pCrisInt})" id="p4-pc-btn-cris" class="scenario-btn bg-rose-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">P=$${pCrisInt} (${lang==='en'?'Crisis':'Кризис'})</button>
                 </div>
 
                 <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
@@ -242,9 +254,7 @@ function renderCaseP4(studentIdx, lang) {
         </div>
         `;
     } 
-    // ----------------------------------------------------
     // TYPE 1: MONOPOLISTIC COMPETITION HTML
-    // ----------------------------------------------------
     else if (marketType === 1) {
         html += `
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
@@ -298,14 +308,12 @@ function renderCaseP4(studentIdx, lang) {
         </div>
         `;
     } 
-    // ----------------------------------------------------
     // TYPE 2: PURE MONOPOLY HTML
-    // ----------------------------------------------------
     else {
-        const minTariff = Math.round(60 * activeMult);
-        const maxTariff = Math.round(160 * activeMult);
-        const defTariff = Math.round(110 * activeMult);
-        const stepTariff = Math.round(10 * activeMult);
+        const minTariff = p4_monoTableData[10].p;
+        const maxTariff = p4_monoTableData[0].p;
+        const defTariff = p4_monoTableData[5].p;
+        const stepTariff = roundInt(10 * activeMult);
 
         html += `
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
@@ -383,7 +391,7 @@ function renderCaseP4(studentIdx, lang) {
     container.innerHTML = html;
 
     setTimeout(() => {
-        if (marketType === 0) p4_initPcModule();
+        if (marketType === 0) p4_initPcModule(pBoomInt);
         else if (marketType === 1) p4_initMcModule();
         else p4_initMoModule();
     }, 50);
@@ -404,9 +412,9 @@ function p4_checkWordCount() {
 }
 
 // PC Module
-let p4_pcCurrentPrice = 131;
+let p4_pcCurrentPrice = 0;
 
-function p4_initPcModule() {
+function p4_initPcModule(defaultBoomPrice) {
     const ctx1 = document.getElementById('p4Chart1Canvas').getContext('2d');
     p4Chart1Inst = new Chart(ctx1, {
         type: 'line',
@@ -431,10 +439,10 @@ function p4_initPcModule() {
                 { label: 'AVC', data: p4_pcTableData.map(d => d.avc), borderColor: '#a855f7', borderWidth: 2 }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'P / MC / AVC', color: '#fff' } }, scales: { y: { min: Math.round(40 * activeMult), max: Math.round(200 * activeMult), grid: { color: '#1e293b' } }, x: { grid: { color: '#1e293b' } } } }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'P / MC / AVC', color: '#fff' } }, scales: { y: { grid: { color: '#1e293b' } }, x: { grid: { color: '#1e293b' } } } }
     });
 
-    p4_setPcScenario(Math.round(131 * activeMult));
+    p4_setPcScenario(defaultBoomPrice);
 }
 
 function p4_setPcScenario(price) {
@@ -446,9 +454,11 @@ function p4_setPcScenario(price) {
     p4Chart2Inst.update();
 
     const slider = document.getElementById('p4-pc-slider-q');
-    const baseP = Math.round(price / activeMult);
-    if (Math.abs(baseP - 131) < 2) slider.value = 9;
-    else if (Math.abs(baseP - 81) < 2) slider.value = 6;
+    const mcQ9 = p4_pcTableData[9].mc;
+    const mcQ6 = p4_pcTableData[6].mc;
+
+    if (Math.abs(price - (mcQ9 + 2)) < 3) slider.value = 9;
+    else if (Math.abs(price - (mcQ6 + 1)) < 3) slider.value = 6;
     else slider.value = 0;
 
     p4_updatePcDashboard();
@@ -470,19 +480,21 @@ function p4_updatePcDashboard() {
     profitEl.innerText = (profit >= 0 ? '+$' : '-$') + Math.abs(profit);
     profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
 
-    const baseP = Math.round(p4_pcCurrentPrice / activeMult);
+    const mcQ9 = p4_pcTableData[9].mc;
+    const mcQ6 = p4_pcTableData[6].mc;
+
     let verdict = "";
-    if (Math.abs(baseP - 131) < 2) {
+    if (Math.abs(p4_pcCurrentPrice - (mcQ9 + 2)) < 3) {
         verdict = q === 9 
-            ? `<b>Optimal Output (MR = MC = \$${roundInt(130*activeMult)})!</b> Exporting Q=9 units maximizes economic profit (+\$${profit}).` 
+            ? `<b>Optimal Output (MR = MC)!</b> Exporting Q=9 units maximizes economic profit (+$${profit}).` 
             : "Adjust export Q to 9 where MR equals MC.";
-    } else if (Math.abs(baseP - 81) < 2) {
+    } else if (Math.abs(p4_pcCurrentPrice - (mcQ6 + 1)) < 3) {
         verdict = q === 6 
-            ? `<b>Loss Minimization (MR = MC = \$${roundInt(80*activeMult)}).</b> Revenue covers variable operational costs and minimizes loss to -$${Math.abs(profit)}.` 
+            ? `<b>Loss Minimization (MR = MC).</b> Revenue covers variable operational costs and minimizes loss to -$${Math.abs(profit)}.` 
             : "Loss is minimized at Q=6. Ceasing operations increases loss to TFC.";
     } else {
         verdict = q === 0 
-            ? `<b>SHUTDOWN RULE TRIGGERED!</b> Price (\$${p4_pcCurrentPrice}) < min AVC (\$${roundInt(74*activeMult)}). Cease production immediately to limit losses to TFC.` 
+            ? `<b>SHUTDOWN RULE TRIGGERED!</b> Price ($${p4_pcCurrentPrice}) < min AVC. Cease production immediately to limit losses to TFC.` 
             : "<b>Operating Error!</b> Producing Q>0 increases losses beyond fixed costs.";
     }
     document.getElementById('p4-pc-val-verdict').innerHTML = verdict;
@@ -515,7 +527,7 @@ function p4_initMcModule() {
                 { label: 'ATC', data: p4_mcData['SR'].map(d => d.atc), borderColor: '#cbd5e1', borderWidth: 2 }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Price (P) / MR / MC / ATC', color: '#fff' } }, scales: { y: { min: Math.round(-100 * activeMult), max: Math.round(150 * activeMult), grid: { color: '#1e293b' } }, x: { grid: { color: '#1e293b' } } } }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Price (P) / MR / MC / ATC', color: '#fff' } }, scales: { y: { grid: { color: '#1e293b' } }, x: { grid: { color: '#1e293b' } } } }
     });
 
     p4_updateMcDashboard();
@@ -551,8 +563,8 @@ function p4_updateMcDashboard() {
     profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
 
     const verdict = period === 'SR' 
-        ? (q === 4 ? `<b>Short-Run Optimum (MR = MC = \$${roundInt(50*activeMult)})!</b> Brand differentiation generates +\$${profit} economic profit.` : "Adjust sales to Q=4 to reach short-run profit maximum.")
-        : (q === 3 ? `<b>Long-Run Tangency Equilibrium (P = ATC = \$${roundInt(70*activeMult)}).</b> Market entry eliminated profit (\$0). Demonstrates Excess Capacity (Q=3 vs min ATC Q=4).` : "Long-run competitor entry reduced demand.");
+        ? (q === 4 ? `<b>Short-Run Optimum (MR = MC = $${data.mc})!</b> Brand differentiation generates +$${profit} economic profit.` : "Adjust sales to Q=4 to reach short-run profit maximum.")
+        : (q === 3 ? `<b>Long-Run Tangency Equilibrium (P = ATC = $${data.atc}).</b> Market entry eliminated profit ($0). Demonstrates Excess Capacity (Q=3 vs min ATC Q=4).` : "Long-run competitor entry reduced demand.");
     document.getElementById('p4-mc-val-verdict').innerHTML = verdict;
 }
 
@@ -583,7 +595,7 @@ function p4_initMoModule() {
                 { label: 'ATC', data: p4_monoTableData.map(d => d.atc), borderColor: '#f43f5e', borderWidth: 2 }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Tariff (P) / MR / MC / ATC', color: '#fff' } }, scales: { y: { min: Math.round(-50 * activeMult), max: Math.round(200 * activeMult), grid: { color: '#1e293b' } }, x: { grid: { color: '#1e293b' } } } }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Tariff (P) / MR / MC / ATC', color: '#fff' } }, scales: { y: { grid: { color: '#1e293b' } }, x: { grid: { color: '#1e293b' } } } }
     });
 
     const sliderQ = document.getElementById('p4-mo-slider-q');
@@ -597,7 +609,7 @@ function p4_initMoModule() {
 
     sliderP.addEventListener('input', (e) => {
         const p = parseFloat(e.target.value);
-        const match = p4_monoTableData.find(d => Math.abs(d.p - p) < 3);
+        const match = p4_monoTableData.find(d => Math.abs(d.p - p) < 5);
         if (match) {
             sliderQ.value = match.q;
             p4_updateMoDashboard();
@@ -623,10 +635,11 @@ function p4_updateMoDashboard() {
     profitEl.className = profit >= 0 ? "text-2xl font-black font-mono text-emerald-400" : "text-2xl font-black font-mono text-rose-400";
 
     const verdict = q === 5 
-        ? `<b>Monopoly Optimum (MR = MC = \$${roundInt(70*activeMult)})!</b> Setting port tariff at \$${roundInt(110*activeMult)} maximizes profit (+\$${profit}) by restricting capacity to Q=5.` 
+        ? `<b>Monopoly Optimum (MR = MC = $${data.mc})!</b> Setting port tariff at $${data.p} maximizes profit (+$${profit}) by restricting capacity to Q=5.` 
         : (q < 5 ? "MR > MC — lowering tariff expands volume and profit." : "MC > MR — overcapacity reduces profit.");
     document.getElementById('p4-mo-val-verdict').innerHTML = verdict;
 }
+
 // ==========================================
 // 4. AUTOMATED SLIDER SCORING FOR PART 4
 // ==========================================
@@ -637,10 +650,12 @@ function p4_getSliderScore() {
     
     if (marketType === 0) {
         const q = parseInt(document.getElementById('p4-pc-slider-q')?.value || 0);
-        const baseP = Math.round(p4_pcCurrentPrice / activeMult);
-        if (Math.abs(baseP - 131) < 2) return q === 9 ? 10 : (Math.abs(q - 9) === 1 ? 5 : 0);
-        if (Math.abs(baseP - 81) < 2) return q === 6 ? 10 : (Math.abs(q - 6) === 1 ? 5 : 0);
-        return q === 0 ? 10 : 0; // Shutdown rule при кризисе
+        const mcQ9 = p4_pcTableData[9].mc;
+        const mcQ6 = p4_pcTableData[6].mc;
+
+        if (Math.abs(p4_pcCurrentPrice - (mcQ9 + 2)) < 3) return q === 9 ? 10 : (Math.abs(q - 9) === 1 ? 5 : 0);
+        if (Math.abs(p4_pcCurrentPrice - (mcQ6 + 1)) < 3) return q === 6 ? 10 : (Math.abs(q - 6) === 1 ? 5 : 0);
+        return q === 0 ? 10 : 0;
     } else if (marketType === 1) {
         const period = document.querySelector('input[name="p4-mc-period"]:checked')?.value || 'SR';
         const q = parseInt(document.getElementById('p4-mc-slider-q')?.value || 0);
