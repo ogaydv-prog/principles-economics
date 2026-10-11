@@ -627,3 +627,27 @@ function p4_updateMoDashboard() {
         : (q < 5 ? "MR > MC — lowering tariff expands volume and profit." : "MC > MR — overcapacity reduces profit.");
     document.getElementById('p4-mo-val-verdict').innerHTML = verdict;
 }
+// ==========================================
+// 4. AUTOMATED SLIDER SCORING FOR PART 4
+// ==========================================
+
+function p4_getSliderScore() {
+    if (typeof currentStudentIdx === 'undefined' || currentStudentIdx === -1) return 0;
+    const marketType = currentStudentIdx % 3;
+    
+    if (marketType === 0) {
+        const q = parseInt(document.getElementById('p4-pc-slider-q')?.value || 0);
+        const baseP = Math.round(p4_pcCurrentPrice / activeMult);
+        if (Math.abs(baseP - 131) < 2) return q === 9 ? 10 : (Math.abs(q - 9) === 1 ? 5 : 0);
+        if (Math.abs(baseP - 81) < 2) return q === 6 ? 10 : (Math.abs(q - 6) === 1 ? 5 : 0);
+        return q === 0 ? 10 : 0; // Shutdown rule при кризисе
+    } else if (marketType === 1) {
+        const period = document.querySelector('input[name="p4-mc-period"]:checked')?.value || 'SR';
+        const q = parseInt(document.getElementById('p4-mc-slider-q')?.value || 0);
+        if (period === 'SR') return q === 4 ? 10 : (Math.abs(q - 4) === 1 ? 5 : 0);
+        return q === 3 ? 10 : (Math.abs(q - 3) === 1 ? 5 : 0);
+    } else {
+        const q = parseInt(document.getElementById('p4-mo-slider-q')?.value || 0);
+        return q === 5 ? 10 : (Math.abs(q - 5) === 1 ? 5 : 0);
+    }
+}
