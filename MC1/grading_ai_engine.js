@@ -3,7 +3,7 @@
 // ХЕШ ПАРОЛЯ PE12092026 (Защищено от F12!)
 const MASTER_KEY_HASH = "48d5d4d3d8db191d92636a0ed5eb2ad1d0bcfaaa29f2736173d1e1f7f093a388"; 
 
-// URL Вашей Google Таблицы (уже вставлен):
+// URL Вашей Google Таблицы:
 const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyNhILEnu1_Le-i9AtRD1ZK9BZL3FGPgpXMHc3eJUB2plQGHO2VqkdK-iHPilmKAf9SsA/exec";
 
 // Функция хеширования SHA-256
@@ -62,10 +62,62 @@ function compileFinalToken() {
         return;
     }
 
-    // Расчет первичного балла
+    // ==========================================
+    // ДИНАМИЧЕСКИЙ РАСЧЕТ БАЛЛОВ (МАКСИМУМ 100)
+    // ==========================================
+    
+    // 1. Part 1 & Part 2: 10 вопросов × 5.0 = 50 баллов
     let scoreP1P2 = Object.keys(p1_p2_answers).length * 5;
-    let scoreP3 = Object.keys(p3_answers).length * 10;
-    let calculatedScore = Math.min(100, scoreP1P2 + scoreP3 + 20);
+
+    // 2. Part 3: Задачи 3.1, 3.2, 3.3 по 5 баллов + Задача 3.4 на 10 баллов = 25 баллов
+    let scoreP3 = 0;
+    
+    // Проверка Задачи 3.1 (TR)
+    const t1Input = document.getElementById('ans-t1');
+    if (t1Input && t1Input.value.trim() !== '') {
+        const val1 = parseFloat(t1Input.value);
+        const exp1 = parseFloat(t1Input.dataset.expected);
+        if (!isNaN(val1) && Math.abs(val1 - exp1) < 1) {
+            scoreP3 += 5;
+        }
+    }
+    
+    // Проверка Задачи 3.2 (ATC9)
+    const t2Input = document.getElementById('ans-t2');
+    if (t2Input && t2Input.value.trim() !== '') {
+        const val2 = parseFloat(t2Input.value);
+        const exp2 = parseFloat(t2Input.dataset.expected);
+        if (!isNaN(val2) && Math.abs(val2 - exp2) < 0.1) {
+            scoreP3 += 5;
+        }
+    }
+
+    // Проверка Задачи 3.3 (MC)
+    const t3Input = document.getElementById('ans-t3');
+    if (t3Input && t3Input.value.trim() !== '') {
+        const val3 = parseFloat(t3Input.value);
+        const exp3 = parseFloat(t3Input.dataset.expected);
+        if (!isNaN(val3) && Math.abs(val3 - exp3) < 0.1) {
+            scoreP3 += 5;
+        }
+    }
+
+    // Проверка Задачи 3.4 (Оптимальный Q* даёт 10 баллов за таблицу и график)
+    const t4qInput = document.getElementById('ans-t4-q');
+    if (t4qInput && t4qInput.value.trim() !== '') {
+        const val4 = parseInt(t4qInput.value);
+        const exp4 = parseInt(t4qInput.dataset.expected);
+        if (!isNaN(val4) && val4 === exp4) {
+            scoreP3 += 10;
+        }
+    }
+
+    // 3. Part 4 (Кейс): Точность графика MR=MC (10 баллов) + Эссе от 100 слов (15 баллов) = 25 баллов
+    let caseSliderScore = (typeof p4_getSliderScore === 'function') ? p4_getSliderScore() : 10;
+    let essayBonus = p4_words >= 100 ? 15 : 0;
+
+    // Итоговый балл (Макс 100)
+    let calculatedScore = Math.min(100, Math.round(scoreP1P2 + scoreP3 + caseSliderScore + essayBonus));
 
     const payload = {
         studentIdx: currentStudentIdx,
