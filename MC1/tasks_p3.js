@@ -2,7 +2,7 @@
 // MIDTERM CONTROL 1 • MODULE FOR PART 3
 // Computational Tasks & Cost Dynamics (10 Units)
 // AlmaU SDTE 2026 • International Business
-// Equal Difficulty Balanced Engine
+// Strict Dot-Decimal & Blank Initial Chart Engine
 // ==========================================
 
 let costChartInstance = null;
@@ -29,15 +29,19 @@ const p3_productCatalog = [
     { en: "fitness trackers", ru: "фитнес-браслетов" }
 ];
 
+function sanitizeDecimalInput(inputElement) {
+    if (!inputElement) return;
+    // Заменяем запятую на точку и убираем лишние символы
+    inputElement.value = inputElement.value.replace(',', '.').replace(/[^0-9.-]/g, '');
+}
+
 function renderTasksP3(seed, lang) {
     const container = document.getElementById('part3-container');
     if (!container) return;
 
     const k = seed + 1; // Вариантный множитель (1..19)
 
-    // ==========================================
-    // 1. ЗАДАЧА 3.1: Спрос, Предложение и Выручка (Одинаковая сложность)
-    // ==========================================
+    // 1. ЗАДАЧА 3.1: Спрос, Предложение и Выручка
     const prod = p3_productCatalog[seed % p3_productCatalog.length];
     const B_qd = 200 + (k % 5) * 50;  
     const D_qs = 500 + (k % 4) * 50;  
@@ -47,24 +51,18 @@ function renderTasksP3(seed, lang) {
     const Q_cap = 4000 + k * 200;     
     const expectedTR = Q_cap * P_target;
 
-    // ==========================================
-    // 2. ЗАДАЧА 3.2: Средние издержки (Строго 8 и 9 единиц у всех)
-    // ==========================================
+    // 2. ЗАДАЧА 3.2: Средние издержки (8 и 9 единиц)
     const atc8 = 100 + k * 2;
     const mc9 = 20 + k * 3;
     const expectedATC9 = Number(((atc8 * 8 + mc9) / 9).toFixed(2));
 
-    // ==========================================
-    // 3. ЗАДАЧА 3.3: Функция издержек TC = a*Q - 2*Q^2 (Строго один тип функции)
-    // ==========================================
+    // 3. ЗАДАЧА 3.3: Предельные издержки TC = a*Q - 2*Q^2
     const paramA = 95 + k * 2;
     const paramB = 2;
     const Q_val = 20 + k;
-    const expectedMC = paramA - 2 * paramB * Q_val; // MC = a - 4Q
+    const expectedMC = paramA - 2 * paramB * Q_val; 
 
-    // ==========================================
-    // 4. ЗАДАЧА 3.4: Таблица издержек на 10 единиц (Строго одинаковая структура)
-    // ==========================================
+    // 4. ЗАДАЧА 3.4: Таблица издержек на 10 единиц
     const FC = 60 + (k % 3) * 10;
     const vcArr = [
         0,
@@ -87,7 +85,6 @@ function renderTasksP3(seed, lang) {
         if (mc <= P_mkt) optQ = q;
     }
 
-    // Текстовое наполнение задач
     const t1Text = lang === 'en' ?
         `By the holiday season, the company responded to market demand for its <span class="font-bold text-indigo-400">${prod.en}</span> given by <span class="font-bold text-emerald-400">Qd = ${A_qd} - ${B_qd}P</span>. Short-run market supply is <span class="font-bold text-sky-400">Qs = ${C_qs} + ${D_qs}P</span>. Determine total revenue (TR) the company earns at equilibrium price if it produces and sells <span class="font-bold text-amber-400">${Q_cap} units</span>.` :
         `К праздничному сезону компания ответила на спрос на свои <span class="font-bold text-indigo-400">${prod.ru}</span>, заданный функцией <span class="font-bold text-emerald-400">Qd = ${A_qd} - ${B_qd}P</span>. Рыночное предложение составляет <span class="font-bold text-sky-400">Qs = ${C_qs} + ${D_qs}P</span>. Определите совокупную выручку (TR) при равновесной цене, если компания произведет и реализует <span class="font-bold text-amber-400">${Q_cap} единиц</span>.`;
@@ -109,7 +106,7 @@ function renderTasksP3(seed, lang) {
                 <p class="text-sm text-slate-200 leading-relaxed">${t1Text}</p>
                 <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2 text-sm">
                     <label class="block text-slate-400 font-medium">${lang === 'en' ? 'Total Revenue (TR):' : 'Совокупная выручка (TR):'}</label>
-                    <input type="number" id="ans-t1" data-expected="${expectedTR}" placeholder="TR ($)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
+                    <input type="text" id="ans-t1" data-expected="${expectedTR}" placeholder="TR ($)" oninput="sanitizeDecimalInput(this)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
                 </div>
             </div>
 
@@ -120,7 +117,7 @@ function renderTasksP3(seed, lang) {
                 <p class="text-sm text-slate-200 leading-relaxed">${t2Text}</p>
                 <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2 text-sm">
                     <label class="block text-slate-400 font-medium">${lang === 'en' ? 'ATC for 9 units:' : 'ATC для 9 единиц:'}</label>
-                    <input type="number" step="0.01" id="ans-t2" data-expected="${expectedATC9}" placeholder="ATC ($)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
+                    <input type="text" id="ans-t2" data-expected="${expectedATC9}" placeholder="ATC ($)" oninput="sanitizeDecimalInput(this)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
                 </div>
             </div>
 
@@ -131,7 +128,7 @@ function renderTasksP3(seed, lang) {
                 <p class="text-sm text-slate-200 leading-relaxed">${t3Text}</p>
                 <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-2 text-sm">
                     <label class="block text-slate-400 font-medium">${lang === 'en' ? 'Marginal Cost (MC):' : 'Предельные издержки (MC):'}</label>
-                    <input type="number" step="0.01" id="ans-t3" data-expected="${expectedMC}" placeholder="MC ($)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
+                    <input type="text" id="ans-t3" data-expected="${expectedMC}" placeholder="MC ($)" oninput="sanitizeDecimalInput(this)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
                 </div>
             </div>
         </div>
@@ -171,7 +168,7 @@ function renderTasksP3(seed, lang) {
                     </div>
                     <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2 text-sm">
                         <label class="block text-amber-400 font-bold text-sm md:text-base">${lang === 'en' ? 'Optimal Output Q* (where MR = MC):' : 'Оптимальный объем Q* (где MR = MC):'}</label>
-                        <input type="number" id="ans-t4-q" data-expected="${optQ}" placeholder="Q*" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
+                        <input type="text" id="ans-t4-q" data-expected="${optQ}" placeholder="Q*" oninput="sanitizeDecimalInput(this)" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-white font-mono text-base focus:border-indigo-500 outline-none">
                     </div>
                 </div>
 
@@ -190,10 +187,13 @@ function renderTasksP3(seed, lang) {
     `;
 
     document.querySelectorAll('.t4-input').forEach(input => {
-        input.addEventListener('input', () => updateCostChartFromTableInputs(FC, vcArr));
+        input.addEventListener('input', (e) => {
+            sanitizeDecimalInput(e.target);
+            updateCostChartFromTableInputs();
+        });
     });
 
-    setTimeout(() => init10UnitCostChart(FC, vcArr), 100);
+    setTimeout(() => init10UnitCostChart(), 100);
 }
 
 function generateTableRowsHTML(FC, vcArr) {
@@ -204,18 +204,19 @@ function generateTableRowsHTML(FC, vcArr) {
                 <td class="p-2 border border-slate-800 font-bold text-white">${q}</td>
                 <td class="p-2 border border-slate-800 text-slate-400">${FC}</td>
                 <td class="p-2 border border-slate-800 text-slate-400">${vcArr[q]}</td>
-                <td class="p-1.5 border border-slate-800"><input type="number" id="t4-tc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
-                <td class="p-1.5 border border-slate-800"><input type="number" step="0.1" id="t4-afc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
-                <td class="p-1.5 border border-slate-800"><input type="number" step="0.1" id="t4-avc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
-                <td class="p-1.5 border border-slate-800"><input type="number" step="0.1" id="t4-atc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
-                <td class="p-1.5 border border-slate-800"><input type="number" id="t4-mc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
+                <td class="p-1.5 border border-slate-800"><input type="text" id="t4-tc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
+                <td class="p-1.5 border border-slate-800"><input type="text" id="t4-afc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
+                <td class="p-1.5 border border-slate-800"><input type="text" id="t4-avc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
+                <td class="p-1.5 border border-slate-800"><input type="text" id="t4-atc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
+                <td class="p-1.5 border border-slate-800"><input type="text" id="t4-mc-${q}" class="t4-input w-14 bg-slate-900 border border-slate-700 text-center text-white font-bold rounded p-1.5 focus:border-indigo-500 outline-none"></td>
             </tr>
         `;
     }
     return html;
 }
 
-function init10UnitCostChart(FC, vcArr) {
+// Инициализация ПУСТОГО графика
+function init10UnitCostChart() {
     const cvs = document.getElementById('costChartCanvas');
     if (!cvs) return;
     const ctx = cvs.getContext('2d');
@@ -227,23 +228,15 @@ function init10UnitCostChart(FC, vcArr) {
 
     const labels = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10'];
 
-    let afcData = [], avcData = [], atcData = [], mcData = [];
-    for (let q = 1; q <= 10; q++) {
-        afcData.push(Number((FC / q).toFixed(1)));
-        avcData.push(Number((vcArr[q] / q).toFixed(1)));
-        atcData.push(Number(((FC + vcArr[q]) / q).toFixed(1)));
-        mcData.push(vcArr[q] - vcArr[q - 1]);
-    }
-
     costChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
             datasets: [
-                { label: 'AFC', data: afcData, borderColor: '#94a3b8', borderWidth: 2, borderDash: [3, 3], pointRadius: 4, tension: 0.3 },
-                { label: 'AVC', data: avcData, borderColor: '#f59e0b', borderWidth: 2.5, pointRadius: 4, tension: 0.3 },
-                { label: 'ATC', data: atcData, borderColor: '#38bdf8', borderWidth: 2.5, pointRadius: 4, tension: 0.3 },
-                { label: 'MC', data: mcData, borderColor: '#10b981', borderWidth: 3, pointRadius: 5, tension: 0.3 }
+                { label: 'AFC', data: Array(10).fill(null), borderColor: '#94a3b8', borderWidth: 2, borderDash: [3, 3], pointRadius: 5, tension: 0.3, spanGaps: true },
+                { label: 'AVC', data: Array(10).fill(null), borderColor: '#f59e0b', borderWidth: 2.5, pointRadius: 5, tension: 0.3, spanGaps: true },
+                { label: 'ATC', data: Array(10).fill(null), borderColor: '#38bdf8', borderWidth: 2.5, pointRadius: 5, tension: 0.3, spanGaps: true },
+                { label: 'MC', data: Array(10).fill(null), borderColor: '#10b981', borderWidth: 3, pointRadius: 6, tension: 0.3, spanGaps: true }
             ]
         },
         options: {
@@ -260,20 +253,21 @@ function init10UnitCostChart(FC, vcArr) {
     });
 }
 
-function updateCostChartFromTableInputs(FC, vcArr) {
+// Обновление графика СТРОГО из того, что ввел студент
+function updateCostChartFromTableInputs() {
     if (!costChartInstance) return;
     let newAFC = [], newAVC = [], newATC = [], newMC = [];
 
     for (let q = 1; q <= 10; q++) {
-        const valAFC = parseFloat(document.getElementById(`t4-afc-${q}`)?.value);
-        const valAVC = parseFloat(document.getElementById(`t4-avc-${q}`)?.value);
-        const valATC = parseFloat(document.getElementById(`t4-atc-${q}`)?.value);
-        const valMC = parseFloat(document.getElementById(`t4-mc-${q}`)?.value);
+        const valAFC = parseFloat(document.getElementById(`t4-afc-${q}`)?.value.replace(',', '.'));
+        const valAVC = parseFloat(document.getElementById(`t4-avc-${q}`)?.value.replace(',', '.'));
+        const valATC = parseFloat(document.getElementById(`t4-atc-${q}`)?.value.replace(',', '.'));
+        const valMC = parseFloat(document.getElementById(`t4-mc-${q}`)?.value.replace(',', '.'));
 
-        newAFC.push(!isNaN(valAFC) ? valAFC : Number((FC / q).toFixed(1)));
-        newAVC.push(!isNaN(valAVC) ? valAVC : Number((vcArr[q] / q).toFixed(1)));
-        newATC.push(!isNaN(valATC) ? valATC : Number(((FC + vcArr[q]) / q).toFixed(1)));
-        newMC.push(!isNaN(valMC) ? valMC : vcArr[q] - vcArr[q - 1]);
+        newAFC.push(!isNaN(valAFC) ? valAFC : null);
+        newAVC.push(!isNaN(valAVC) ? valAVC : null);
+        newATC.push(!isNaN(valATC) ? valATC : null);
+        newMC.push(!isNaN(valMC) ? valMC : null);
     }
 
     costChartInstance.data.datasets[0].data = newAFC;
