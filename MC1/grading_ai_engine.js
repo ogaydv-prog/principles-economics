@@ -41,8 +41,15 @@ function compileFinalToken() {
 
     // Сбор ответов Part 1 & Part 2
     const p1_p2_answers = {};
+    let scoreP1P2 = 0;
+
     document.querySelectorAll('#part1-container input:checked, #part2-container input:checked').forEach(input => {
         p1_p2_answers[input.name] = input.value;
+        
+        // ЧЕСТНАЯ ПРОВЕРКА: Проверяем, совпал ли выбранный вариант с правильным ключом data-ans
+        if (input.dataset.ans && input.value === input.dataset.ans) {
+            scoreP1P2 += 5; // 5 баллов только за ПРАВИЛЬНЫЙ ответ
+        }
     });
 
     // Сбор ответов Part 3
@@ -65,11 +72,8 @@ function compileFinalToken() {
     // ==========================================
     // ДИНАМИЧЕСКИЙ РАСЧЕТ БАЛЛОВ (МАКСИМУМ 100)
     // ==========================================
-    
-    // 1. Part 1 & Part 2: 10 вопросов × 5.0 = 50 баллов
-    let scoreP1P2 = Object.keys(p1_p2_answers).length * 5;
 
-    // 2. Part 3: Задачи 3.1, 3.2, 3.3 по 5 баллов + Задача 3.4 на 10 баллов = 25 баллов
+    // Part 3: Задачи 3.1, 3.2, 3.3 по 5 баллов + Задача 3.4 на 10 баллов = 25 баллов
     let scoreP3 = 0;
     
     // Проверка Задачи 3.1 (TR)
@@ -112,8 +116,8 @@ function compileFinalToken() {
         }
     }
 
-    // 3. Part 4 (Кейс): Точность графика MR=MC (10 баллов) + Эссе от 100 слов (15 баллов) = 25 баллов
-    let caseSliderScore = (typeof p4_getSliderScore === 'function') ? p4_getSliderScore() : 10;
+    // Part 4 (Кейс): Точность графика MR=MC (10 баллов) + Эссе от 100 слов (15 баллов) = 25 баллов
+    let caseSliderScore = (typeof p4_getSliderScore === 'function') ? p4_getSliderScore() : 0;
     let essayBonus = p4_words >= 100 ? 15 : 0;
 
     // Итоговый балл (Макс 100)
@@ -139,7 +143,7 @@ function compileFinalToken() {
 
     const tokenDisplay = document.getElementById('p-token');
     if (tokenDisplay) {
-        tokenDisplay.innerText = currentLang === 'en' ? "SUBMITTED TO PROFESSOR" : "ОТПРАВЛЕНО ПРЕПОДАВАТЕЛЮ";
+        tokenDisplay.innerText = internalToken;
     }
 
     document.getElementById('passport-block').classList.remove('hidden');
