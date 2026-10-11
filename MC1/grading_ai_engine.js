@@ -2,7 +2,9 @@
 
 // ХЕШ ПАРОЛЯ PE12092026 (Защищено от F12!)
 const MASTER_KEY_HASH = "48d5d4d3d8db191d92636a0ed5eb2ad1d0bcfaaa29f2736173d1e1f7f093a388"; 
-const GOOGLE_SHEET_WEBAPP_URL = ""; // Сюда вставляется URL вашей Google Таблицы
+
+// URL Вашей Google Таблицы (уже вставлен):
+const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyNhILEnu1_Le-i9AtRD1ZK9BZL3FGPgpXMHc3eJUB2plQGHO2VqkdK-iHPilmKAf9SsA/exec";
 
 // Функция хеширования SHA-256
 async function sha256(str) {
