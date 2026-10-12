@@ -403,7 +403,8 @@ function getStudentQuestions(studentIdx) {
 }
 
 function renderQuestionsP1P2(studentIdx, lang) {
-    const selected = getStudentQuestions(studentIdx);
+    studentIdx = (studentIdx + 1) % 19;
+
 
     // РЕНДЕРИНГ ЧАСТИ 1 (4 ВОПРОСА: 1.1 - 1.4)
     const container1 = document.getElementById('part1-container');
