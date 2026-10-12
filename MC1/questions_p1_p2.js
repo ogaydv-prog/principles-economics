@@ -333,24 +333,18 @@ const GRAPH_SCENARIOS = [
 
 // ВЫБОРКА УНИКАЛЬНЫХ И РАНДОМИЗИРОВАННЫХ ВОПРОСОВ ДЛЯ СТУДЕНТА
 function getStudentQuestions(studentIdx) {
-    // Вспомогательный генератор случайных чисел от имени студента
     const pseudoRandom = (seed) => {
         let x = Math.sin(seed++) * 10000;
         return x - Math.floor(x);
     };
 
-    // Функция перемешивания вариантов ответов A, B, C, D, E для вопроса
     const shuffleQuestionOptions = (qObj, seed) => {
         const letters = ["A", "B", "C", "D", "E"];
         const correctIndex = letters.indexOf(qObj.ans);
-        const correctTextEn = qObj.opts_en[correctIndex].replace(/^[A-E]\)\s*/, '');
-        const correctTextRu = qObj.opts_ru[correctIndex].replace(/^[A-E]\)\s*/, '');
 
-        // Очищаем варианты от букв A-E
         let itemsEn = qObj.opts_en.map(o => o.replace(/^[A-E]\)\s*/, ''));
         let itemsRu = qObj.opts_ru.map(o => o.replace(/^[A-E]\)\s*/, ''));
 
-        // Перемешивание методом Фишера-Йейтса
         let indices = [0, 1, 2, 3, 4];
         for (let i = indices.length - 1; i > 0; i--) {
             let j = Math.floor(pseudoRandom(seed + i * 13) * (i + 1));
@@ -387,7 +381,6 @@ function getStudentQuestions(studentIdx) {
             let idx = Math.floor(pseudoRandom(studentIdx * 17 + offset + i * 31) * pool.length);
             if (!usedIndexes.has(idx)) {
                 usedIndexes.add(idx);
-                // Применяем уникальную рандомизацию вариантов ответов
                 const shuffledQ = shuffleQuestionOptions(pool[idx], studentIdx * 100 + idx);
                 result.push(shuffledQ);
             }
@@ -403,8 +396,11 @@ function getStudentQuestions(studentIdx) {
 }
 
 function renderQuestionsP1P2(studentIdx, lang) {
+    // Применяем сдвиг вариантов на +1
     studentIdx = (studentIdx + 1) % 19;
 
+    // Генерируем набор вопросов с учетом сдвига
+    const selected = getStudentQuestions(studentIdx);
 
     // РЕНДЕРИНГ ЧАСТИ 1 (4 ВОПРОСА: 1.1 - 1.4)
     const container1 = document.getElementById('part1-container');
