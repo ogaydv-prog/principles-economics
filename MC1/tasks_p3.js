@@ -36,6 +36,11 @@ function sanitizeDecimalInput(inputElement) {
 }
 
 function renderTasksP3(seed, lang) {
+    // ==========================================
+    // СДВИГ ВАРИАНТОВ НА +1 (ПО КРУГУ ДЛЯ 19 СТУДЕНТОВ)
+    // ==========================================
+    seed = (seed + 1) % 19;
+
     const container = document.getElementById('part3-container');
     if (!container) return;
 
