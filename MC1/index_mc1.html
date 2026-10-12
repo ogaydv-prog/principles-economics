@@ -444,7 +444,7 @@
         }
 
         // ==========================================
-        // STRICT CONTROL SYSTEM (EXACTLY 6 TRIGGERS)
+        // SAFE ANTI-CHEATING SYSTEM (NO FALSE BLURS)
         // ==========================================
         let tabSwitchCount = 0;
         let isLockActive = false;
@@ -473,7 +473,6 @@
         }
 
         function handleViolation(reason) {
-            // Игнорируем, пока студент не выбран или пока окно блокировки открыто
             if (typeof currentStudentIdx === 'undefined' || currentStudentIdx === -1) return;
             if (isLockActive) return;
 
@@ -507,7 +506,7 @@
                         </span>
                         <h3 class="text-xl font-bold text-white">ДОСТУП ПРИОСТАНОВЛЕН</h3>
                         <p class="text-xs text-slate-300 leading-relaxed">
-                            Зафиксирована попытка несанкционированного действия:<br>
+                            Зафиксирована попытка ухода со страницы:<br>
                             <span class="text-amber-400 font-mono font-bold">${reason}</span>.
                         </p>
                     </div>
@@ -545,9 +544,7 @@
                 if (el) el.remove();
                 document.body.style.overflow = 'auto';
                 
-                // Таймаут 1 сек, чтобы при закрытии окна случайно не сработал повторный клик
                 setTimeout(() => { isLockActive = false; }, 1000);
-                
                 notify("Экзамен разблокирован преподавателем!");
             } else {
                 if (errMsg) errMsg.classList.remove('hidden');
@@ -598,10 +595,10 @@
         }
 
         // ==========================================
-        // НАСТРОЙКА ТРИГГЕРОВ НАРАВНЕ С ВАШИМИ ТРЕБОВАНИЯМИ
+        // НАДЁЖНЫЕ ТРИГГЕРЫ (БЕЗ ЛОЖНЫХ BLUR)
         // ==========================================
 
-        // 1. Выделение текста на странице (кроме полей ввода ответов)
+        // 1. Попытка выделить текст задания (работает только вне полей input/textarea)
         document.addEventListener('selectstart', (e) => {
             const tag = e.target.tagName.toLowerCase();
             if (tag !== 'input' && tag !== 'textarea') {
@@ -609,20 +606,11 @@
             }
         });
 
-        // 2, 3, 4. Переключение/открытие новой вкладки, сворачивание браузера
+        // 2. Реальный уход со страницы (переключение/открытие новой вкладки, сворачивание браузера, Alt+Tab)
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                handleViolation("Переключение/открытие вкладки или сворачивание браузера");
+                handleViolation("Смена вкладки, открытие нового окна или сворачивание браузера");
             }
-        });
-
-        // 5, 6. Переход в другое приложение или окно поверх браузера (Alt+Tab)
-        window.addEventListener('blur', (e) => {
-            // Проверяем, что клик не был внутри активного документа
-            if (document.activeElement && (document.activeElement.tagName === 'IFRAME' || document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
-                return; // Игнорируем фокус полей ввода
-            }
-            handleViolation("Переход в другое приложение или стороннее окно");
         });
     </script>
 </body>
