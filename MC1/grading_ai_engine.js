@@ -1,7 +1,7 @@
 /* grading_ai_engine.js — Secure AI Audit & Auto-Submit Engine for PE12092026 */
 
-// ХЕШ ПАРОЛЯ PE12092026 (Защищено от F12!)
-const MASTER_KEY_HASH = "48d5d4d3d8db191d92636a0ed5eb2ad1d0bcfaaa29f2736173d1e1f7f093a388"; 
+// ЧИСТЫЙ ХЕШ ПАРОЛЯ PE-12092026MC1 (Защищено от F12!)
+const MASTER_KEY_HASH = "8ac5c445a6c42a25df2000a9446fdf9a3411b69f63cf905eb2e4f0144fbbdb20"; 
 
 // URL Вашей Google Таблицы:
 const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyNhILEnu1_Le-i9AtRD1ZK9BZL3FGPgpXMHc3eJUB2plQGHO2VqkdK-iHPilmKAf9SsA/exec";
@@ -17,7 +17,8 @@ async function sha256(str) {
 // ==========================================
 
 async function verifyTeacherKey() {
-    const inputKey = document.getElementById('teacher-key').value.trim();
+    // Очистка от скрытых пробелов и перевод в верхний регистр
+    const inputKey = document.getElementById('teacher-key').value.replace(/\s+/g, '').toUpperCase();
     const inputHash = await sha256(inputKey);
 
     if (inputHash === MASTER_KEY_HASH) {
@@ -45,8 +46,6 @@ function compileFinalToken() {
 
     document.querySelectorAll('#part1-container input:checked, #part2-container input:checked').forEach(input => {
         p1_p2_answers[input.name] = input.value;
-        
-        // ЧЕСТНАЯ ПРОВЕРКА: Проверяем совпадение с ключом data-ans (по 3 балла)
         if (input.dataset.ans && input.value === input.dataset.ans) {
             scoreP1P2 += 3;
         }
@@ -111,15 +110,10 @@ function compileFinalToken() {
         return;
     }
 
-    // Оценка точности графика/слайдера MR=MC (до 10 баллов)
     let sliderAccuracy = (typeof p4_getSliderScore === 'function') ? p4_getSliderScore() : 0;
-    
-    // Оценка связного текста (35 баллов при выполнении лимита в 100 слов)
     let textScore = p4_words >= 100 ? 35 : 0;
-    
-    let scoreP4 = sliderAccuracy + textScore; // Суммарно за Part 4 до 45 баллов
+    let scoreP4 = sliderAccuracy + textScore;
 
-    // Итоговый балл (Максимум 100)
     let calculatedScore = Math.min(100, Math.round(scoreP1P2 + scoreP3 + scoreP4));
 
     const payload = {
@@ -132,7 +126,6 @@ function compileFinalToken() {
         score: calculatedScore
     };
 
-    // Формирование шифрованного токена
     const jsonStr = JSON.stringify(payload);
     const internalToken = "PE12092026-" + btoa(encodeURIComponent(jsonStr));
 
@@ -147,7 +140,6 @@ function compileFinalToken() {
 
     document.getElementById('passport-block').classList.remove('hidden');
 
-    // Отправка данных в Google Sheet WebApp
     sendDirectToGoogleSheet(payload, internalToken);
 }
 
@@ -197,7 +189,6 @@ function decryptAndScoreToken() {
         document.getElementById('dec-score').innerText = `${data.score} / 100`;
         document.getElementById('dec-brief').innerText = `"${data.p4}"`;
 
-        // Запуск детектора ИИ
         runAIAudit(data.p4);
 
         document.getElementById('grade-panel-output').classList.remove('hidden');
@@ -207,7 +198,6 @@ function decryptAndScoreToken() {
     }
 }
 
-// Детектор ИИ-генерации (Perplexity & Burstiness Analysis)
 function runAIAudit(text) {
     if (!text) return;
 
