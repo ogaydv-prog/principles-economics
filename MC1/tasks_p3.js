@@ -69,19 +69,17 @@ function renderTasksP3(seed, lang) {
 
     // 4. ЗАДАЧА 3.4: Таблица издержек на 10 единиц
     const FC = 60 + (k % 3) * 10;
-    const vcArr = [
-        0,
-        30 + k,
-        55 + k * 2,
-        75 + k * 3,
-        90 + k * 4,
-        110 + k * 5,
-        135 + k * 6,
-        165 + k * 7,
-        200 + k * 8,
-        245 + k * 9,
-        300 + k * 10
-    ];
+    
+    // Генерация U-образной кривой переменные издержек VC(Q) = a*Q + b*Q^2
+    const vcArr = [0];
+    const a_param = 20 + (k % 4);
+    const b_param = 2.5 + (k % 3) * 0.5;
+
+    for (let q = 1; q <= 10; q++) {
+        let vcVal = Math.round(a_param * q + b_param * Math.pow(q, 2));
+        vcArr.push(vcVal);
+    }
+
     const P_mkt = 45 + (k % 4) * 5;
 
     let optQ = 1;
