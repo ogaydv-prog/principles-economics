@@ -23,7 +23,6 @@
             position: relative;
         }
 
-        /* Шапка: Логотип и Кнопка */
         .top-left-logo {
             position: absolute;
             top: 25px;
@@ -54,11 +53,11 @@
         header {
             text-align: center;
             margin-top: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         h1 {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 700;
             color: #001e50;
             margin-bottom: 8px;
@@ -73,21 +72,22 @@
             margin: 0 auto;
         }
 
-        /* Сетка карточек: 1 ряд на десктопе, адаптивная сетка на мобильных */
+        /* Адаптивная сетка: ровно 7 карточек в 1 ряд на ПК */
         .grid-container {
             display: flex;
             flex-wrap: nowrap;
-            gap: 16px;
-            max-width: 1600px;
+            gap: 12px;
             width: 100%;
+            max-width: 1500px;
             justify-content: center;
-            align-items: center;
-            padding-bottom: 40px;
+            align-items: stretch;
+            padding-bottom: 30px;
         }
 
-        /* Карточка строго держит пропорцию обложки */
+        /* Карточка сжимается и подстраивается под экран */
         .card {
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
             text-decoration: none;
             background: #ffffff;
             border: 2px solid #e2e8f0;
@@ -95,29 +95,27 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 215px; 
-            height: 280px; 
-            position: relative;
-            flex-shrink: 0;
+            flex: 1 1 0px; /* Равномерно делят ширину экрана */
+            max-width: 200px;
+            min-width: 130px;
             cursor: pointer;
         }
 
+        /* Картинка сохраняет естественные пропорции без вытягивания */
         .card img {
             width: 100%;
-            height: 100%;
-            object-fit: fill; /* Заполняет рамку ровно без сжатия и обрезок */
+            height: auto;
+            object-fit: contain;
             display: block;
-            transition: transform 0.3s ease;
         }
 
-        /* Ховер-эффект подсвечивания и подъема */
         .card:hover {
-            transform: translateY(-8px) scale(1.03);
+            transform: translateY(-6px) scale(1.02);
             border-color: #001e50;
-            box-shadow: 0 16px 30px rgba(0, 30, 80, 0.18);
+            box-shadow: 0 12px 25px rgba(0, 30, 80, 0.18);
         }
 
-        /* 3D-Flip эффект для карточки с видеолекциями */
+        /* 3D-Flip карточка с видео */
         .flip-card {
             perspective: 1000px;
             background: transparent;
@@ -161,17 +159,16 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 16px 12px;
-            gap: 12px;
+            padding: 10px 8px;
+            gap: 8px;
             box-shadow: 0 8px 20px rgba(0, 30, 80, 0.3);
         }
 
         .flip-card-back h4 {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             color: #38bdf8;
-            margin-bottom: 2px;
             font-weight: 800;
         }
 
@@ -179,14 +176,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
             width: 100%;
-            padding: 10px 12px;
+            padding: 8px 6px;
             background: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 11.5px;
+            border-radius: 6px;
+            font-size: 10.5px;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.2s ease;
@@ -196,30 +192,34 @@
             background: #ef4444;
             border-color: #ef4444;
             color: #ffffff;
-            transform: scale(1.03);
         }
 
         footer {
             margin-top: auto;
-            font-size: 14px;
+            font-size: 13px;
             color: #718096;
-            padding-top: 30px;
-            padding-bottom: 20px;
+            padding-top: 20px;
+            padding-bottom: 15px;
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* Мобильная адаптивность (Smartphones & Tablets) */
-        @media (max-width: 1200px) {
+        /* Перенос в несколько рядов на планшетах и смартфонах */
+        @media (max-width: 1024px) {
             .grid-container {
                 flex-wrap: wrap;
-                gap: 16px;
+                gap: 12px;
+            }
+
+            .card {
+                flex: 0 0 calc(33.33% - 12px);
+                max-width: 180px;
             }
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 768px) {
             body {
-                padding: 10px 15px;
+                padding: 10px;
             }
 
             .top-left-logo {
@@ -236,37 +236,13 @@
                 font-size: 12px;
             }
 
-            header {
-                margin-top: 5px;
-                margin-bottom: 20px;
-            }
-
             h1 {
                 font-size: 22px;
-                margin-top: 5px;
-            }
-
-            .subtitle {
-                font-size: 13px;
             }
 
             .card {
-                width: 160px;
-                height: 210px;
-            }
-
-            .flip-card-back {
-                padding: 10px 8px;
-                gap: 8px;
-            }
-
-            .flip-card-back h4 {
-                font-size: 10px;
-            }
-
-            .video-btn {
-                padding: 7px 8px;
-                font-size: 9.5px;
+                flex: 0 0 calc(50% - 12px);
+                max-width: 160px;
             }
         }
     </style>
@@ -288,49 +264,49 @@
 
     <main class="grid-container">
         <!-- 1. Конспект лекции (gre.html) -->
-        <a href="gre.html" class="card" title="Lecture Notes: Public Goods & Externalities">
+        <a href="gre.html" class="card" title="Lecture Notes">
             <img src="pic-lecture7.png" alt="Lecture Notes">
         </a>
 
-        <!-- 2. Презентация (Google Slides) -->
+        <!-- 2. Презентация -->
         <a href="https://docs.google.com/presentation/d/1stX-mkcUYBy6hNQXsNonOZbKO6YZj51F/edit?usp=sharing&ouid=109725301150629205728&rtpof=true&sd=true" 
-           target="_blank" rel="noopener noreferrer" class="card" title="Presentation: Public Goods & Government Intervention">
+           target="_blank" rel="noopener noreferrer" class="card" title="Presentation">
             <img src="pic-preza7.png" alt="Presentation">
         </a>
 
-        <!-- 3. Симулятор государственного регулирования -->
-        <a href="sim-state-reg-7.html" class="card" title="State Regulation Simulator">
+        <!-- 3. Симулятор регулирования цен -->
+        <a href="sim-state-reg-7.html" class="card" title="Simulator: State Regulation of Prices">
             <img src="pic-sim-state-reg.png" alt="State Regulation Simulator">
         </a>
 
-        <!-- 4. Симулятор общественных благ и антитраста -->
-        <a href="sim-public.html" class="card" title="Public Goods & Antitrust Simulator">
-            <img src="pic-sim-antitrust.png" alt="Public Goods Simulator">
+        <!-- 4. Антимонопольный симулятор -->
+        <a href="sim-public.html" class="card" title="Antitrust Regulation">
+            <img src="pic-sim-antitrust.png" alt="Antitrust Simulator">
         </a>
 
-        <!-- 5. Симулятор предельных выгод и издержек (MC-MB) -->
-        <a href="sim-mc-mb.html" class="card" title="Marginal Cost vs Marginal Benefit Simulator">
+        <!-- 5. Симулятор MC = MB -->
+        <a href="sim-mc-mb.html" class="card" title="Simulator: MC = MB">
             <img src="pic-sim-mc-mb.png" alt="MC-MB Simulator">
         </a>
 
-        <!-- 6. Симулятор кривой Лоренца и неравенства -->
-        <a href="sim-lorenz7.html" class="card" title="Lorenz Curve & Inequality Simulator">
+        <!-- 6. Неравенство и бедность -->
+        <a href="sim-lorenz7.html" class="card" title="Unequality and Poverty">
             <img src="pic-lorenz.png" alt="Lorenz Curve Simulator">
         </a>
 
-        <!-- 7. Видеолекции (3D Flip Card с 2 видео) -->
-        <div class="card flip-card" title="Video Lectures: Public Goods and Externalities">
+        <!-- 7. Видеоматериалы -->
+        <div class="card flip-card" title="Video Materials">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <img src="pic-video7.png" alt="Video Lectures Preview">
+                    <img src="pic-video7.png" alt="Video Materials Preview">
                 </div>
                 <div class="flip-card-back">
                     <h4>🎬 Video Lectures</h4>
                     <a href="https://www.youtube.com/watch?v=nsWuzS_dEM8" target="_blank" rel="noopener noreferrer" class="video-btn">
-                        ▶ Lecture 1: Public Goods
+                        ▶ Public Goods
                     </a>
                     <a href="https://www.youtube.com/watch?v=2DYntAGD3wg" target="_blank" rel="noopener noreferrer" class="video-btn">
-                        ▶ Lecture 2: Externalities
+                        ▶ Externalities
                     </a>
                 </div>
             </div>
