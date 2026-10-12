@@ -31,14 +31,10 @@ const p3_productCatalog = [
 
 function sanitizeDecimalInput(inputElement) {
     if (!inputElement) return;
-    // Заменяем запятую на точку и убираем лишние символы
     inputElement.value = inputElement.value.replace(',', '.').replace(/[^0-9.-]/g, '');
 }
 
 function renderTasksP3(seed, lang) {
-    // ==========================================
-    // СДВИГ ВАРИАНТОВ НА +1 (ПО КРУГУ ДЛЯ 19 СТУДЕНТОВ)
-    // ==========================================
     seed = (seed + 1) % 19;
 
     const container = document.getElementById('part3-container');
@@ -67,16 +63,17 @@ function renderTasksP3(seed, lang) {
     const Q_val = 20 + k;
     const expectedMC = paramA - 2 * paramB * Q_val; 
 
-    // 4. ЗАДАЧА 3.4: Таблица издержек на 10 единиц
+    // 4. ЗАДАЧА 3.4: Таблица издержек на 10 единиц (Классическая U-образная динамика)
     const FC = 60 + (k % 3) * 10;
     
-    // Генерация U-образной кривой переменные издержек VC(Q) = a*Q + b*Q^2
-    const vcArr = [0];
-    const a_param = 20 + (k % 4);
-    const b_param = 2.5 + (k % 3) * 0.5;
+    // Кубическая функция VC(Q) = a*Q - b*Q^2 + c*Q^3 для получения U-образных AVC и ATC
+    const a = 35 + (k % 4) * 2; 
+    const b = 5 + (k % 3) * 0.5;
+    const c = 0.6 + (k % 3) * 0.1;
 
+    const vcArr = [0];
     for (let q = 1; q <= 10; q++) {
-        let vcVal = Math.round(a_param * q + b_param * Math.pow(q, 2));
+        let vcVal = Math.round(a * q - b * Math.pow(q, 2) + c * Math.pow(q, 3));
         vcArr.push(vcVal);
     }
 
