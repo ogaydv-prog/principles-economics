@@ -30,7 +30,7 @@ async function verifyTeacherKey() {
 }
 
 // ==========================================
-// 2. ОТПРАВКА СЕССИИ В GOOGLE ТАБЛИЦУ
+// 2. ОТПРАВКА СЕССИИ В GOOGLE ТАБЛИЦУ И СБОРКА ТОКЕНА
 // ==========================================
 
 function compileFinalToken() {
@@ -39,26 +39,68 @@ function compileFinalToken() {
         return;
     }
 
-    // Сбор ответов Part 1 & Part 2
+    // --- ЧАСТЬ 1 и ЧАСТЬ 2: ТЕСТЫ (10 вопросов x 3 балла = 30 баллов MAX) ---
     const p1_p2_answers = {};
     let scoreP1P2 = 0;
 
     document.querySelectorAll('#part1-container input:checked, #part2-container input:checked').forEach(input => {
         p1_p2_answers[input.name] = input.value;
         
-        // ЧЕСТНАЯ ПРОВЕРКА: Проверяем, совпал ли выбранный вариант с правильным ключом data-ans
+        // ЧЕСТНАЯ ПРОВЕРКА: Проверяем совпадение с ключом data-ans (по 3 балла)
         if (input.dataset.ans && input.value === input.dataset.ans) {
-            scoreP1P2 += 5; // 5 баллов только за ПРАВИЛЬНЫЙ ответ
+            scoreP1P2 += 3;
         }
     });
 
-    // Сбор ответов Part 3
+    // --- ЧАСТЬ 3: ЗАДАЧИ И ТАБЛИЦА (25 баллов MAX) ---
     const p3_answers = {};
     document.querySelectorAll('#part3-container input[type="number"], #part3-container input[type="text"]').forEach(input => {
         p3_answers[input.id] = input.value.trim();
     });
 
-    // Сбор эссе Part 4
+    let scoreP3 = 0;
+    
+    // Задача 3.1 (TR) — 5 баллов
+    const t1Input = document.getElementById('ans-t1');
+    if (t1Input && t1Input.value.trim() !== '') {
+        const val1 = parseFloat(t1Input.value.replace(',', '.'));
+        const exp1 = parseFloat(t1Input.dataset.expected);
+        if (!isNaN(val1) && Math.abs(val1 - exp1) < 1) {
+            scoreP3 += 5;
+        }
+    }
+    
+    // Задача 3.2 (ATC9) — 5 баллов
+    const t2Input = document.getElementById('ans-t2');
+    if (t2Input && t2Input.value.trim() !== '') {
+        const val2 = parseFloat(t2Input.value.replace(',', '.'));
+        const exp2 = parseFloat(t2Input.dataset.expected);
+        if (!isNaN(val2) && Math.abs(val2 - exp2) < 0.1) {
+            scoreP3 += 5;
+        }
+    }
+
+    // Задача 3.3 (MC) — 5 баллов
+    const t3Input = document.getElementById('ans-t3');
+    if (t3Input && t3Input.value.trim() !== '') {
+        const val3 = parseFloat(t3Input.value.replace(',', '.'));
+        const exp3 = parseFloat(t3Input.dataset.expected);
+        if (!isNaN(val3) && Math.abs(val3 - exp3) < 0.1) {
+            scoreP3 += 5;
+        }
+    }
+
+    // Задача 3.4 (Таблица + График + Q*) — 10 баллов
+    const t4qInput = document.getElementById('ans-t4-q');
+    if (t4qInput && t4qInput.value.trim() !== '') {
+        const val4 = parseInt(t4qInput.value);
+        const exp4 = parseInt(t4qInput.dataset.expected);
+        if (!isNaN(val4) && val4 === exp4) {
+            scoreP3 += 10;
+        }
+    }
+
+    // --- ЧАСТЬ 4: КЕЙС И ЭССЕ (45 баллов MAX) ---
     const p4_essay = document.getElementById('p4-essay-input') ? document.getElementById('p4-essay-input').value.trim() : "";
     const p4_words = p4_essay ? p4_essay.split(/\s+/).length : 0;
 
@@ -69,59 +111,16 @@ function compileFinalToken() {
         return;
     }
 
-    // ==========================================
-    // ДИНАМИЧЕСКИЙ РАСЧЕТ БАЛЛОВ (МАКСИМУМ 100)
-    // ==========================================
-
-    // Part 3: Задачи 3.1, 3.2, 3.3 по 5 баллов + Задача 3.4 на 10 баллов = 25 баллов
-    let scoreP3 = 0;
+    // Оценка точности графика/слайдера MR=MC (до 10 баллов)
+    let sliderAccuracy = (typeof p4_getSliderScore === 'function') ? p4_getSliderScore() : 0;
     
-    // Проверка Задачи 3.1 (TR)
-    const t1Input = document.getElementById('ans-t1');
-    if (t1Input && t1Input.value.trim() !== '') {
-        const val1 = parseFloat(t1Input.value);
-        const exp1 = parseFloat(t1Input.dataset.expected);
-        if (!isNaN(val1) && Math.abs(val1 - exp1) < 1) {
-            scoreP3 += 5;
-        }
-    }
+    // Оценка связного текста (35 баллов при выполнении лимита в 100 слов)
+    let textScore = p4_words >= 100 ? 35 : 0;
     
-    // Проверка Задачи 3.2 (ATC9)
-    const t2Input = document.getElementById('ans-t2');
-    if (t2Input && t2Input.value.trim() !== '') {
-        const val2 = parseFloat(t2Input.value);
-        const exp2 = parseFloat(t2Input.dataset.expected);
-        if (!isNaN(val2) && Math.abs(val2 - exp2) < 0.1) {
-            scoreP3 += 5;
-        }
-    }
+    let scoreP4 = sliderAccuracy + textScore; // Суммарно за Part 4 до 45 баллов
 
-    // Проверка Задачи 3.3 (MC)
-    const t3Input = document.getElementById('ans-t3');
-    if (t3Input && t3Input.value.trim() !== '') {
-        const val3 = parseFloat(t3Input.value);
-        const exp3 = parseFloat(t3Input.dataset.expected);
-        if (!isNaN(val3) && Math.abs(val3 - exp3) < 0.1) {
-            scoreP3 += 5;
-        }
-    }
-
-    // Проверка Задачи 3.4 (Оптимальный Q* даёт 10 баллов за таблицу и график)
-    const t4qInput = document.getElementById('ans-t4-q');
-    if (t4qInput && t4qInput.value.trim() !== '') {
-        const val4 = parseInt(t4qInput.value);
-        const exp4 = parseInt(t4qInput.dataset.expected);
-        if (!isNaN(val4) && val4 === exp4) {
-            scoreP3 += 10;
-        }
-    }
-
-    // Part 4 (Кейс): Точность графика MR=MC (10 баллов) + Эссе от 100 слов (15 баллов) = 25 баллов
-    let caseSliderScore = (typeof p4_getSliderScore === 'function') ? p4_getSliderScore() : 0;
-    let essayBonus = p4_words >= 100 ? 15 : 0;
-
-    // Итоговый балл (Макс 100)
-    let calculatedScore = Math.min(100, Math.round(scoreP1P2 + scoreP3 + caseSliderScore + essayBonus));
+    // Итоговый балл (Максимум 100)
+    let calculatedScore = Math.min(100, Math.round(scoreP1P2 + scoreP3 + scoreP4));
 
     const payload = {
         studentIdx: currentStudentIdx,
@@ -133,7 +132,7 @@ function compileFinalToken() {
         score: calculatedScore
     };
 
-    // Внутренний шифрованный заголовок для архива
+    // Формирование шифрованного токена
     const jsonStr = JSON.stringify(payload);
     const internalToken = "PE12092026-" + btoa(encodeURIComponent(jsonStr));
 
@@ -148,7 +147,7 @@ function compileFinalToken() {
 
     document.getElementById('passport-block').classList.remove('hidden');
 
-    // Отправка в Google Таблицу
+    // Отправка данных в Google Sheet WebApp
     sendDirectToGoogleSheet(payload, internalToken);
 }
 
@@ -178,7 +177,7 @@ function sendDirectToGoogleSheet(payload, token) {
 }
 
 // ==========================================
-// 3. РАСШИФРОВКА И ИИ-АУДИТ В ПАНЕЛИ
+// 3. РАСШИФРОВКА И ИИ-АУДИТ В ПАНЕЛИ ПРЕПОДАВАТЕЛЯ
 // ==========================================
 
 function decryptAndScoreToken() {
@@ -198,6 +197,7 @@ function decryptAndScoreToken() {
         document.getElementById('dec-score').innerText = `${data.score} / 100`;
         document.getElementById('dec-brief').innerText = `"${data.p4}"`;
 
+        // Запуск детектора ИИ
         runAIAudit(data.p4);
 
         document.getElementById('grade-panel-output').classList.remove('hidden');
@@ -207,7 +207,7 @@ function decryptAndScoreToken() {
     }
 }
 
-// Детектор ИИ-генерации (Perplexity & Burstiness)
+// Детектор ИИ-генерации (Perplexity & Burstiness Analysis)
 function runAIAudit(text) {
     if (!text) return;
 
@@ -241,21 +241,25 @@ function runAIAudit(text) {
     aiRisk = Math.min(99, Math.max(5, Math.round(aiRisk)));
 
     const badge = document.getElementById('ai-score-badge');
-    if (aiRisk <= 30) {
-        badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-        badge.innerText = `${aiRisk}% Risk (Human Text)`;
-    } else if (aiRisk <= 70) {
-        badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30";
-        badge.innerText = `${aiRisk}% Risk (Partial AI Assistance)`;
-    } else {
-        badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
-        badge.innerText = `${aiRisk}% Risk (High AI Likelihood)`;
+    if (badge) {
+        if (aiRisk <= 30) {
+            badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+            badge.innerText = `${aiRisk}% Risk (Human Text)`;
+        } else if (aiRisk <= 70) {
+            badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30";
+            badge.innerText = `${aiRisk}% Risk (Partial AI Assistance)`;
+        } else {
+            badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
+            badge.innerText = `${aiRisk}% Risk (High AI Likelihood)`;
+        }
     }
 
     const details = document.getElementById('ai-analysis-details');
-    details.innerHTML = `
-        <div>• <b>Security Status:</b> Verified via SHA-256 Hash</div>
-        <div>• <b>Avg Sentence Length:</b> ${avgLen.toFixed(1)} words | <b>Burstiness Variance:</b> ${variance.toFixed(1)}</div>
-        <div>• <b>Detected AI Clichés (${clichéCount}):</b> ${foundCliches.length ? foundCliches.join(', ') : 'None'}</div>
-    `;
+    if (details) {
+        details.innerHTML = `
+            <div>• <b>Security Status:</b> Verified via SHA-256 Hash</div>
+            <div>• <b>Avg Sentence Length:</b> ${avgLen.toFixed(1)} words | <b>Burstiness Variance:</b> ${variance.toFixed(1)}</div>
+            <div>• <b>Detected AI Clichés (${clichéCount}):</b> ${foundCliches.length ? foundCliches.join(', ') : 'None'}</div>
+        `;
+    }
 }
