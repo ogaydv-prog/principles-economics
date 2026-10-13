@@ -162,7 +162,7 @@ function sendDirectToGoogleSheet(payload, token) {
 }
 
 // ==========================================
-// 3. РАСШИФРОВКА И ИИ-АУДИТ В ПАНЕЛИ ПРЕПОДАВАТЕЛЯ
+// 3. РАСШИФРОВКА И УМНЫЙ ИИ-АУДИТ В ПАНЕЛИ
 // ==========================================
 
 function decryptAndScoreToken() {
@@ -199,9 +199,49 @@ function decryptAndScoreToken() {
     }
 }
 
+// ГИБРИДНЫЙ ДЕТЕКТОР (Симуляторные инструкции + OCR-артефакты + Слипшиеся слова + Клише)
 function runAIAudit(text) {
     if (!text) return;
 
+    const lowerText = text.toLowerCase();
+    let aiRisk = 10;
+    const detectedTriggers = [];
+
+    // 1. Паттерны описания действий в симуляторе (Промпт ChatGPT к интерфейсу)
+    const simulatorActions = [
+        "switched the model", "switched to the", "looked at the graph", "second graph", 
+        "first graph", "fist graph", "demand curve", "go up to", "tr line", "tc line",
+        "переключил модель", "посмотрел на график", "кривая спроса", "поднимаюсь к", "линия tr"
+    ];
+
+    let actionCount = 0;
+    simulatorActions.forEach(act => {
+        if (lowerText.includes(act)) {
+            actionCount++;
+            detectedTriggers.push(`Simulator Action: "${act}"`);
+        }
+    });
+    if (actionCount > 0) {
+        aiRisk += actionCount * 22; // По 22% за каждое действие с интерфейсом
+    }
+
+    // 2. Артефакты ручного набора с экрана (OCR / Typing Artifacts & Missing Spaces)
+    const typingArtifacts = ["fist graph", "short runtime", "etc.", "higher than etc", "p is higher than etc"];
+    typingArtifacts.forEach(art => {
+        if (lowerText.includes(art)) {
+            aiRisk += 25;
+            detectedTriggers.push(`Manual Copy Artifact: "${art}"`);
+        }
+    });
+
+    // Проверка на слипшиеся предложения без пробелов после точки (признак торопливого набора с экрана)
+    const missingSpaceMatches = text.match(/[a-zа-я]\.[A-ZА-Я]/g);
+    if (missingSpaceMatches && missingSpaceMatches.length > 0) {
+        aiRisk += missingSpaceMatches.length * 15;
+        detectedTriggers.push(`Missing Spaces after dots: ${missingSpaceMatches.length}`);
+    }
+
+    // 3. Стандартные академические клише ChatGPT
     const aiCliches = [
         "furthermore", "it is crucial to note", "in conclusion", "moreover", 
         "delve into", "testament to", "pivotal role", "vibrant ecosystem",
@@ -209,25 +249,27 @@ function runAIAudit(text) {
         "необходимо заметить", "резюмируя вышесказанное", "играет ключевую роль"
     ];
 
-    const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-
     let clichéCount = 0;
-    const foundCliches = [];
     aiCliches.forEach(cliche => {
-        if (text.toLowerCase().includes(cliche)) {
+        if (lowerText.includes(cliche)) {
             clichéCount++;
-            foundCliches.push(cliche);
+            detectedTriggers.push(`AI Cliché: "${cliche}"`);
         }
     });
+    if (clichéCount > 0) {
+        aiRisk += clichéCount * 15;
+    }
 
+    // 4. Дисперсия предложений (Burstiness)
+    const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
     const sentenceLengths = sentences.map(s => s.trim().split(/\s+/).length);
     const avgLen = sentenceLengths.reduce((a, b) => a + b, 0) / (sentenceLengths.length || 1);
     const variance = sentenceLengths.reduce((a, b) => a + Math.pow(b - avgLen, 2), 0) / (sentenceLengths.length || 1);
 
-    let aiRisk = 10;
-    if (clichéCount > 0) aiRisk += clichéCount * 18;
-    if (variance < 8) aiRisk += 25;
-    if (avgLen > 18) aiRisk += 15;
+    if (variance < 8 && sentences.length > 3) {
+        aiRisk += 15;
+        detectedTriggers.push(`Low Burstiness (Monotone rhythm)`);
+    }
 
     aiRisk = Math.min(99, Math.max(5, Math.round(aiRisk)));
 
@@ -236,21 +278,21 @@ function runAIAudit(text) {
         if (aiRisk <= 30) {
             badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
             badge.innerText = `${aiRisk}% Risk (Human Text)`;
-        } else if (aiRisk <= 70) {
+        } else if (aiRisk <= 65) {
             badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30";
             badge.innerText = `${aiRisk}% Risk (Partial AI Assistance)`;
         } else {
             badge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
-            badge.innerText = `${aiRisk}% Risk (High AI Likelihood)`;
+            badge.innerText = `${aiRisk}% Risk (High AI Likelihood & Copying)`;
         }
     }
 
     const details = document.getElementById('ai-analysis-details');
     if (details) {
         details.innerHTML = `
-            <div>• <b>Security Status:</b> Verified via Auto Engine</div>
+            <div>• <b>Security Status:</b> Verified via Smart Hybrid Engine</div>
             <div>• <b>Avg Sentence Length:</b> ${avgLen.toFixed(1)} words | <b>Burstiness Variance:</b> ${variance.toFixed(1)}</div>
-            <div>• <b>Detected AI Clichés (${clichéCount}):</b> ${foundCliches.length ? foundCliches.join(', ') : 'None'}</div>
+            <div>• <b>Detected Triggers (${detectedTriggers.length}):</b> ${detectedTriggers.length ? detectedTriggers.join(' | ') : 'None'}</div>
         `;
     }
 }
