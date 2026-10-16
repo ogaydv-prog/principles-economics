@@ -84,29 +84,29 @@
             padding-bottom: 40px;
         }
 
-        /* ТОЧНЫЙ РАЗМЕР РАМКИ ПОД ИЛЛЮСТРАЦИЮ (180x305px) С СИНИМ ОБРАМЛЕНИЕМ */
+        /* ТОЧНАЯ РАМКА ПОД ИСХОДНЫЕ PNG КАРТИНКИ (185x300px) */
         .card {
             display: block;
             text-decoration: none;
             background: #ffffff;
             border: 2px solid #001e50;
-            border-radius: 12px;
+            border-radius: 6px 6px 12px 12px; /* Прямые углы сверху, чтобы не срезать заголовок */
             overflow: hidden;
             box-shadow: 0 4px 14px rgba(0, 30, 80, 0.08);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 180px; 
-            height: 305px; 
+            width: 185px; 
+            height: 300px; 
             flex-shrink: 0;
             cursor: pointer;
             position: relative;
         }
 
-        /* Изображение входит строго встык без белых полей */
+        /* Картинка заполняет рамку 1 в 1 без сдвигов и обрезки */
         .card img {
             width: 100% !important;
             height: 100% !important;
             display: block !important;
-            object-fit: cover !important;
+            object-fit: fill !important;
             border: none !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -114,11 +114,11 @@
 
         .card:hover {
             transform: translateY(-8px) scale(1.03);
-            border-color: #38bdf8;
+            border-color: #0284c7;
             box-shadow: 0 18px 35px rgba(0, 30, 80, 0.25);
         }
 
-        /* 3D-Flip карточка под новые пропорции */
+        /* 3D-Flip карточка */
         .flip-card {
             perspective: 1000px;
             background: transparent;
@@ -145,7 +145,7 @@
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 12px;
+            border-radius: 6px 6px 12px 12px;
             overflow: hidden;
             border: 2px solid #001e50;
         }
@@ -210,7 +210,7 @@
             line-height: 1.6;
         }
 
-        /* Адаптивность для экранов мобильных телефонов и планшетов */
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 1250px) {
             .grid-container {
                 flex-wrap: wrap;
@@ -250,7 +250,7 @@
 
             .card {
                 width: 155px;
-                height: 263px;
+                height: 250px;
             }
 
             .video-btn {
