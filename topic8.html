@@ -72,7 +72,7 @@
             margin: 0 auto;
         }
 
-        /* Единый горизонтальный контейнер для карточек */
+        /* Единый горизонтальный контейнер для 6 высоких карточек */
         .grid-container {
             display: flex;
             flex-wrap: nowrap;
@@ -84,29 +84,30 @@
             padding-bottom: 40px;
         }
 
-        /* СТРОГО ЕДИНЫЙ РАЗМЕР РАМКИ (185x250px) */
+        /* УВЕЛИЧЕННАЯ РАМКА ПОД ВЫСОТУ КАРТИНКИ (200x310px) */
         .card {
             display: block;
             text-decoration: none;
             background: #ffffff;
             border: 2px solid #cbd5e1;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 185px; 
-            height: 250px; 
+            width: 200px; 
+            height: 310px; 
             flex-shrink: 0;
             cursor: pointer;
             position: relative;
         }
 
-        /* Картинка растягивается 1 в 1 по всей высоте и ширине рамки */
+        /* Изображение входит на 100% без обрезания верха и низа */
         .card img {
             width: 100% !important;
             height: 100% !important;
             display: block !important;
-            object-fit: cover !important;
+            object-fit: contain !important;
+            background-color: #ffffff;
             border: none !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -115,10 +116,10 @@
         .card:hover {
             transform: translateY(-8px) scale(1.03);
             border-color: #001e50;
-            box-shadow: 0 16px 30px rgba(0, 30, 80, 0.2);
+            box-shadow: 0 18px 35px rgba(0, 30, 80, 0.22);
         }
 
-        /* 3D-Flip карточка с идеальным подгоном */
+        /* 3D-Flip карточка под высоту 310px */
         .flip-card {
             perspective: 1000px;
             background: transparent;
@@ -145,7 +146,7 @@
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             border: 2px solid #cbd5e1;
         }
@@ -162,18 +163,18 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 12px 8px;
-            gap: 8px;
+            padding: 16px 10px;
+            gap: 12px;
             box-shadow: 0 8px 20px rgba(0, 30, 80, 0.3);
         }
 
         .flip-card-back h4 {
-            font-size: 11px;
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             color: #38bdf8;
             font-weight: 800;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .video-btn {
@@ -181,17 +182,17 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 8px 6px;
+            padding: 10px 8px;
             background: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 6px;
-            font-size: 10px;
+            border-radius: 8px;
+            font-size: 11px;
             font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             transition: all 0.2s ease;
             text-align: center;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         .video-btn:hover {
@@ -210,8 +211,8 @@
             line-height: 1.6;
         }
 
-        /* Адаптивность для мобильных экранов */
-        @media (max-width: 1200px) {
+        /* Адаптивность под планшеты и смартфоны */
+        @media (max-width: 1300px) {
             .grid-container {
                 flex-wrap: wrap;
                 gap: 16px;
@@ -249,13 +250,13 @@
             }
 
             .card {
-                width: 150px;
-                height: 205px;
+                width: 160px;
+                height: 248px;
             }
 
             .video-btn {
-                font-size: 9px;
-                padding: 6px 4px;
+                font-size: 10px;
+                padding: 7px 5px;
             }
         }
     </style>
