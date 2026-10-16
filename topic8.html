@@ -72,11 +72,11 @@
             margin: 0 auto;
         }
 
-        /* Единый фиксированный ряд для карточек */
+        /* Единый горизонтальный контейнер для карточек */
         .grid-container {
             display: flex;
             flex-wrap: nowrap;
-            gap: 14px;
+            gap: 16px;
             max-width: 1450px;
             width: 100%;
             justify-content: center;
@@ -84,37 +84,41 @@
             padding-bottom: 40px;
         }
 
-        /* СТРОГО ЕДИНЫЙ РАЗМЕР РАМКИ ДЛЯ ВСЕХ КАРТОЧЕК */
+        /* СТРОГО ЕДИНЫЙ РАЗМЕР РАМКИ (185x250px) */
         .card {
             display: block;
             text-decoration: none;
             background: #ffffff;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #cbd5e1;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 185px; 
-            height: 240px; 
+            height: 250px; 
             flex-shrink: 0;
             cursor: pointer;
+            position: relative;
         }
 
-        /* Картинка заполняет рамку 1 в 1 без смещений */
+        /* Картинка растягивается 1 в 1 по всей высоте и ширине рамки */
         .card img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
+            width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+            object-fit: cover !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
         .card:hover {
             transform: translateY(-8px) scale(1.03);
             border-color: #001e50;
-            box-shadow: 0 16px 30px rgba(0, 30, 80, 0.18);
+            box-shadow: 0 16px 30px rgba(0, 30, 80, 0.2);
         }
 
-        /* 3D-Flip карточка под те же жесткие 185x240px */
+        /* 3D-Flip карточка с идеальным подгоном */
         .flip-card {
             perspective: 1000px;
             background: transparent;
@@ -143,7 +147,7 @@
             backface-visibility: hidden;
             border-radius: 12px;
             overflow: hidden;
-            border: 2px solid #e2e8f0;
+            border: 2px solid #cbd5e1;
         }
 
         .flip-card-front {
@@ -177,7 +181,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 7px 6px;
+            padding: 8px 6px;
             background: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             text-decoration: none;
@@ -206,7 +210,7 @@
             line-height: 1.6;
         }
 
-        /* Адаптивность для мобильных устройств */
+        /* Адаптивность для мобильных экранов */
         @media (max-width: 1200px) {
             .grid-container {
                 flex-wrap: wrap;
@@ -221,14 +225,16 @@
 
             .top-left-logo {
                 position: static;
-                margin-bottom: 10px;
+                margin: 0 auto 10px auto;
+                display: block;
                 width: 48px;
                 height: 48px;
             }
 
             .back-button {
                 position: static;
-                margin-bottom: 15px;
+                display: inline-block;
+                margin: 0 auto 15px auto;
                 padding: 6px 12px;
                 font-size: 12px;
             }
@@ -244,12 +250,12 @@
 
             .card {
                 width: 150px;
-                height: 195px;
+                height: 205px;
             }
 
             .video-btn {
                 font-size: 9px;
-                padding: 5px 4px;
+                padding: 6px 4px;
             }
         }
     </style>
@@ -259,48 +265,48 @@
     <!-- Логотип AlmaU -->
     <img src="almau.jpg" alt="AlmaU Logo" class="top-left-logo">
     
-    <!-- Кнопка возврата к списку тем -->
+    <!-- Кнопка возврата -->
     <a href="topics.html" class="back-button">← Back to Topics</a>
 
     <header>
-        <h1>Topic 8: Macroeconomic Concepts & Measuring GDP</h1>
+        <h1>Topic 8: Macroeconomic Concepts & Measuring of GDP</h1>
         <p class="subtitle">
             Select a learning resource below: presentation, interactive macroeconomic simulators, lab task, or video lectures.
         </p>
     </header>
 
     <main class="grid-container">
-        <!-- 1. Конспект лекции -->
-        <a href="gdp-lecture-pro.html" class="card" title="Lecture Notes: Measuring GDP">
+        <!-- 1. Лекция -->
+        <a href="gdp-lecture-pro.html" class="card" title="Lecture Notes">
             <img src="pic-lecture8-pe.png" alt="Lecture Notes">
         </a>
 
-        <!-- 2. Презентация Canva -->
+        <!-- 2. Презентация -->
         <a href="https://canva.link/7zj9k5kvyhgntcb" 
-           target="_blank" rel="noopener noreferrer" class="card" title="Presentation: GDP & National Accounts">
+           target="_blank" rel="noopener noreferrer" class="card" title="Presentation">
             <img src="pic-preza8-pe.png" alt="Presentation">
         </a>
 
-        <!-- 3. Симулятор глобального ВВП -->
+        <!-- 3. Глобальный ВВП -->
         <a href="gdp-us-202518.html" class="card" title="Global GDP Simulator">
             <img src="pic-global-gdp-pe.png" alt="Global GDP Simulator">
         </a>
 
-        <!-- 4. Симулятор измерения ВВП и баланса СНС -->
-        <a href="sim-gdp-measure-mac-pro-g-bal.html" class="card" title="GDP Measurement & SNA Balance Simulator">
-            <img src="pic-sim-gdp-measure-pe.png" alt="GDP Measurement Simulator">
+        <!-- 4. Измерение ВВП -->
+        <a href="sim-gdp-measure-mac-pro-g-bal.html" class="card" title="Measuring GDP Simulator">
+            <img src="pic-sim-gdp-measure-pe.png" alt="Measuring GDP Simulator">
         </a>
 
-        <!-- 5. Практическое задание / Лабораторная работа ВВП -->
-        <a href="sim-gdp-task-pro.html" class="card" title="Lab Task: Macroeconomic GDP Balance">
-            <img src="pic-task-gdp-pe.png" alt="Lab Task GDP">
+        <!-- 5. Лабораторная работа -->
+        <a href="sim-gdp-task-pro.html" class="card" title="GDP Balance Lab Task">
+            <img src="pic-task-gdp-pe.png" alt="GDP Balance Lab Task">
         </a>
 
-        <!-- 6. Видеолекции (3D Flip Card с переворотом) -->
+        <!-- 6. Видеоматериалы (3D-Flip) -->
         <div class="card flip-card" title="Video Lectures">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <img src="pic-video8-pe.png" alt="Video Lectures Preview">
+                    <img src="pic-video8-pe.png" alt="Video Lectures">
                 </div>
                 <div class="flip-card-back">
                     <h4>🎬 Video Lectures</h4>
