@@ -72,7 +72,7 @@
             margin: 0 auto;
         }
 
-        /* Единый горизонтальный контейнер для 6 высоких карточек */
+        /* Контейнер карточек */
         .grid-container {
             display: flex;
             flex-wrap: nowrap;
@@ -84,30 +84,29 @@
             padding-bottom: 40px;
         }
 
-        /* УВЕЛИЧЕННАЯ РАМКА ПОД ВЫСОТУ КАРТИНКИ (200x310px) */
+        /* ТОЧНЫЙ РАЗМЕР РАМКИ ПОД ИЛЛЮСТРАЦИЮ (180x305px) С СИНИМ ОБРАМЛЕНИЕМ */
         .card {
             display: block;
             text-decoration: none;
             background: #ffffff;
-            border: 2px solid #cbd5e1;
-            border-radius: 14px;
+            border: 2px solid #001e50;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 14px rgba(0, 30, 80, 0.08);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 200px; 
-            height: 310px; 
+            width: 180px; 
+            height: 305px; 
             flex-shrink: 0;
             cursor: pointer;
             position: relative;
         }
 
-        /* Изображение входит на 100% без обрезания верха и низа */
+        /* Изображение входит строго встык без белых полей */
         .card img {
             width: 100% !important;
             height: 100% !important;
             display: block !important;
-            object-fit: contain !important;
-            background-color: #ffffff;
+            object-fit: cover !important;
             border: none !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -115,11 +114,11 @@
 
         .card:hover {
             transform: translateY(-8px) scale(1.03);
-            border-color: #001e50;
-            box-shadow: 0 18px 35px rgba(0, 30, 80, 0.22);
+            border-color: #38bdf8;
+            box-shadow: 0 18px 35px rgba(0, 30, 80, 0.25);
         }
 
-        /* 3D-Flip карточка под высоту 310px */
+        /* 3D-Flip карточка под новые пропорции */
         .flip-card {
             perspective: 1000px;
             background: transparent;
@@ -146,9 +145,9 @@
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
-            border: 2px solid #cbd5e1;
+            border: 2px solid #001e50;
         }
 
         .flip-card-front {
@@ -211,8 +210,8 @@
             line-height: 1.6;
         }
 
-        /* Адаптивность под планшеты и смартфоны */
-        @media (max-width: 1300px) {
+        /* Адаптивность для экранов мобильных телефонов и планшетов */
+        @media (max-width: 1250px) {
             .grid-container {
                 flex-wrap: wrap;
                 gap: 16px;
@@ -250,8 +249,8 @@
             }
 
             .card {
-                width: 160px;
-                height: 248px;
+                width: 155px;
+                height: 263px;
             }
 
             .video-btn {
