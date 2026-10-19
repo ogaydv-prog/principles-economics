@@ -1,6 +1,6 @@
 /* ==========================================
    MIDTERM CONTROL 1 • FULL QUESTION BANK
-   AlmaU SDTE 2026 • International Business
+   AlmaU SDTE 2026 • Principles of Economics
    Fully Checked, Randomized & Balanced
    ========================================== */
 
@@ -11,6 +11,7 @@ const STUDENTS_LIST = [
     "Адильхан Надия Берікқызы", 
     "Бахытов Алимжан Бахыткалиулы", 
     "Берикбаланова Адина Сериковна",
+    "Джұмағұл Әмірлан Мағауияұлы",
     "Жұмажан Осман Дарменұлы", 
     "Замотина Дарья Астемировна", 
     "Кабдрахманова Ажар Ниязовна",
@@ -396,8 +397,8 @@ function getStudentQuestions(studentIdx) {
 }
 
 function renderQuestionsP1P2(studentIdx, lang) {
-    // Применяем сдвиг вариантов на +1
-    studentIdx = (studentIdx + 1) % 19;
+    // Применяем сдвиг вариантов на +1 (для 20 студентов)
+    studentIdx = (studentIdx + 1) % 20;
 
     // Генерируем набор вопросов с учетом сдвига
     const selected = getStudentQuestions(studentIdx);
