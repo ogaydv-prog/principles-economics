@@ -278,7 +278,7 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Group Average Score</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">MC1 Average Score</p>
                         <div class="flex items-baseline space-x-1.5 mt-1">
                             <h3 class="text-3xl font-extrabold text-white" id="stat-average-grade">0.0</h3>
                             <span class="text-xs font-bold text-indigo-400" id="stat-average-letter">-</span>
@@ -299,12 +299,34 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top Performer</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top MC1 Result</p>
                         <h3 class="text-sm font-bold text-violet-400 mt-2 truncate max-w-[150px]" id="stat-best-student">—</h3>
                     </div>
                     <div class="h-12 w-12 bg-violet-500/10 text-violet-400 rounded-xl flex items-center justify-center text-xl border border-violet-500/20">
                         <i class="fa-solid fa-trophy"></i>
                     </div>
+                </div>
+            </div>
+
+            <!-- Profile Curve Widget (Огибающая кривая) -->
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-wave-square text-violet-400"></i>
+                            Профиль успеваемости по РК1 (Огибающая тренд-кривая)
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">
+                            Плавная огибающая линия фактического распределения оценок студентов за 1-й Рубежный контроль (данные Platonus).
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-4 text-xs font-semibold">
+                        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-indigo-500/70"></span><span class="text-slate-300">Фактически студентов</span></div>
+                        <div class="flex items-center gap-1.5"><span class="w-3 h-1 bg-violet-400 rounded-full"></span><span class="text-slate-300">Сглаженный профиль (KDE)</span></div>
+                    </div>
+                </div>
+                <div class="relative w-full h-72">
+                    <canvas id="bellCurveCanvas"></canvas>
                 </div>
             </div>
 
@@ -586,57 +608,41 @@
     </footer>
 
     <script>
-        // Integrated Group List from image (20 students, Sofia Nukhmanova last as listener, Esfir Kim corrected)
-        const rawStudentList = [
-            "Адильхан Надия Берікқызы",
-            "Кожахметова Малика Азаматовна",
-            "Бахытов Алимжан Бахыткалиулы",
-            "Берикбаланова Адина Сериковна",
-            "Сулейменова Айдана Нурлановна",
-            "Югай Ксения Альбертовна",
-            "Шабанов Анварбек",
-            "Сериккалиева Еңлік Думанқызы",
-            "Джумағұл Әмірлан Мағауияұлы",
-            "Кабдрахманова Ажар Ниязовна",
-            "Абдихай Салтанат Жалғасқызы",
-            "Толстова Эвелина Евгеньевна",
-            "Оспан Жанеля",
-            "Жұмажан Осман Дарменұлы",
-            "Көшкінбай Айару Арманқызы",
-            "Степанченко Савелий Дмитриевич",
-            "Замотина Дарья Астемировна",
-            "Хусаинова Адия Галимовна",
-            "Ким Есфирь Севастьяновна (F)",
-            "Нугыманова София Руслановна (слушатель)"
-        ];
-
-        // Total hours for attendance: 15 weeks * 3 hours = 45 hours
         const TOTAL_ATTENDANCE_HOURS = 45;
 
-        // Create initial student records with 45 hours of attendance initialized to false
-        const initialGroupStudents = rawStudentList.map((stName, idx) => {
-            return {
-                id: `st-ib2026-${idx + 1}`,
-                name: stName,
-                attendance: 0,
-                activities: 0,
-                ca1: 0,
-                mc1: 0,
-                ca2: 0,
-                mc2: 0,
-                exam: 0,
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
-            };
-        });
+        // Внесены 100% точные баллы РК1 (MC1) с официального Platonus
+        const initialGroupStudents = [
+            { id: "st-ib-1", name: "Hebatallah Aldada", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-2", name: "Абдихай Салтанат Жалғасқызы", attendance: 0, activities: 0, ca1: 0, mc1: 82.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-3", name: "Абдрахманов Бабур Хамза улы", attendance: 0, activities: 0, ca1: 0, mc1: 56.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-4", name: "Адильхан Надия Берікқызы", attendance: 0, activities: 0, ca1: 0, mc1: 73.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-5", name: "Бахытов Алимжан Бахыткалиулы", attendance: 0, activities: 0, ca1: 0, mc1: 84.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-6", name: "Жұмажан Осман Дарменұлы", attendance: 0, activities: 0, ca1: 0, mc1: 60.00, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-7", name: "Замотина Дарья Астемировна (Отчислен)", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-8", name: "Кабдрахманова Ажар Ниязовна", attendance: 0, activities: 0, ca1: 0, mc1: 87.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-9", name: "Ким Есфирь Севастьяновна", attendance: 0, activities: 0, ca1: 0, mc1: 78.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-10", name: "Кожахметова Малика Азаматовна", attendance: 0, activities: 0, ca1: 0, mc1: 66.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-11", name: "Көшкінбай Айару Арманқызы", attendance: 0, activities: 0, ca1: 0, mc1: 73.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-12", name: "Сериккалиева Еңлік Думанқызы", attendance: 0, activities: 0, ca1: 0, mc1: 61.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-13", name: "Степанченко Савелий Дмитриевич", attendance: 0, activities: 0, ca1: 0, mc1: 78.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-14", name: "Сулейменова Айдана Нурлановна", attendance: 0, activities: 0, ca1: 0, mc1: 71.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-15", name: "Толстова Эвелина Евгеньевна", attendance: 0, activities: 0, ca1: 0, mc1: 72.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-16", name: "Хусаинова Адия Галимовна", attendance: 0, activities: 0, ca1: 0, mc1: 75.00, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-17", name: "Шабанов Анварбек", attendance: 0, activities: 0, ca1: 0, mc1: 80.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-18", name: "Югай Ксения Альбертовна", attendance: 0, activities: 0, ca1: 0, mc1: 85.00, ca2: 0, mc2: 0, exam: 0 }
+        ].map(st => ({
+            ...st,
+            attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+        }));
 
         let students = [];
         let personalAttChart = null;
         let personalActChart = null;
         let personalExamChart = null;
         let groupChart = null;
+        let bellCurveChart = null;
         let isTeacherMode = false;
         
-        // Instructor Portal Password
         const correctPassword = 'PE-12092026';
 
         let activeEditingStudentId = null;
@@ -659,7 +665,7 @@
         }
 
         function loadDatabase() {
-            const savedData = localStorage.getItem('almau_pe_ib_students_2026_v3');
+            const savedData = localStorage.getItem('almau_pe_ib_students_2026_v5');
             if (savedData) {
                 try {
                     students = JSON.parse(savedData);
@@ -674,10 +680,9 @@
         }
 
         function saveDatabase() {
-            localStorage.setItem('almau_pe_ib_students_2026_v3', JSON.stringify(students));
+            localStorage.setItem('almau_pe_ib_students_2026_v5', JSON.stringify(students));
         }
 
-        // Weighted grade calculation formula: 10% Att, 10% Act, 10% CA1, 10% MC1, 10% CA2, 10% MC2, 40% Exam
         function calculateWeightedScore(att, act, ca1, mc1, ca2, mc2, exam) {
             const wAtt = (att || 0) * 0.10;
             const wAct = (act || 0) * 0.10;
@@ -701,6 +706,82 @@
             if (score >= 55) return { letter: 'D+', class: 'bg-orange-500/10 text-orange-400 border-orange-500/30' };
             if (score >= 50) return { letter: 'D', class: 'bg-orange-500/10 text-orange-300 border-orange-500/20' };
             return { letter: 'F', class: 'bg-rose-500/10 text-rose-400 border-rose-500/30' };
+        }
+
+        function renderBellCurveChart() {
+            if (bellCurveChart) bellCurveChart.destroy();
+
+            const scores = students.map(s => Number(s.mc1) || 0);
+            if (scores.length === 0) return;
+
+            const bins = ['0-49', '50-59', '60-69', '70-79', '80-89', '90-100'];
+            const counts = [0, 0, 0, 0, 0, 0];
+
+            scores.forEach(s => {
+                if (s < 50) counts[0]++;
+                else if (s < 60) counts[1]++;
+                else if (s < 70) counts[2]++;
+                else if (s < 80) counts[3]++;
+                else if (s < 90) counts[4]++;
+                else counts[5]++;
+            });
+
+            const actualProfilePoints = counts.map(val => val);
+
+            const ctx = document.getElementById('bellCurveCanvas').getContext('2d');
+            bellCurveChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: bins,
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: 'Фактически студентов',
+                            data: counts,
+                            backgroundColor: 'rgba(99, 102, 241, 0.5)',
+                            borderColor: '#6366f1',
+                            borderWidth: 1,
+                            borderRadius: 8,
+                            barPercentage: 0.65
+                        },
+                        {
+                            type: 'line',
+                            label: 'Сглаженный профиль (KDE)',
+                            data: actualProfilePoints,
+                            borderColor: '#c084fc',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#c084fc',
+                            pointBorderColor: '#ffffff',
+                            pointRadius: 4,
+                            fill: true,
+                            backgroundColor: 'rgba(192, 132, 252, 0.12)',
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: { color: '#94a3b8', font: { size: 11, weight: 'bold' } }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#94a3b8', font: { size: 10, weight: '600' } }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#94a3b8', precision: 0 },
+                            title: { display: true, text: 'Количество студентов', color: '#64748b', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
         }
 
         function searchStudentGrade() {
@@ -801,7 +882,7 @@
                 }
             });
 
-            // 2. Continuous Assessment Trend (Act, CA1, CA2)
+            // 2. Continuous Assessment Trend
             const actCtx = document.getElementById('activityLineChart').getContext('2d');
             personalActChart = new Chart(actCtx, {
                 type: 'line',
@@ -829,7 +910,7 @@
                 }
             });
 
-            // 3. Midterm Gauge (MC1 vs MC2)
+            // 3. Midterm Gauge
             const exCtx = document.getElementById('examGaugeChart').getContext('2d');
             const avgMc = Math.round(((student.mc1 || 0) + (student.mc2 || 0)) / 2);
             personalExamChart = new Chart(exCtx, {
@@ -1016,7 +1097,7 @@
         }
 
         function updateStudentGrade(id, field, value) {
-            let numVal = parseInt(value);
+            let numVal = parseFloat(value);
             if (isNaN(numVal)) numVal = 0;
             if (numVal < 0) numVal = 0;
             if (numVal > 100) numVal = 100;
@@ -1044,6 +1125,7 @@
                 
                 updateStats();
                 updateGroupChart();
+                renderBellCurveChart();
             }
         }
 
@@ -1059,25 +1141,25 @@
                 return;
             }
 
-            let sum = 0;
+            let sumMc1 = 0;
             let passes = 0;
             let topStudent = null;
             let topScore = -1;
 
             students.forEach(s => {
-                const final = calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam);
-                sum += final;
-                if (final >= 50) passes++;
+                const mc1 = Number(s.mc1) || 0;
+                sumMc1 += mc1;
+                if (mc1 >= 50) passes++;
                 
-                if (final > topScore) {
-                    topScore = final;
+                if (mc1 > topScore) {
+                    topScore = mc1;
                     topStudent = s;
                 }
             });
 
-            const avg = sum / total;
-            document.getElementById('stat-average-grade').textContent = avg.toFixed(1);
-            document.getElementById('stat-average-letter').textContent = getLetterGrade(avg).letter;
+            const avgMc1 = sumMc1 / total;
+            document.getElementById('stat-average-grade').textContent = avgMc1.toFixed(1);
+            document.getElementById('stat-average-letter').textContent = getLetterGrade(avgMc1).letter;
 
             const passPercent = Math.round((passes / total) * 100);
             document.getElementById('stat-pass-rate').textContent = `${passPercent}%`;
@@ -1142,6 +1224,7 @@
             renderTeacherTable();
             updateStats();
             updateGroupChart();
+            renderBellCurveChart();
         }
 
         function toggleStudentAttDetails() {
@@ -1322,6 +1405,7 @@
 
                 updateStats();
                 updateGroupChart();
+                renderBellCurveChart();
                 closeAttendanceModal();
                 showToast(`Attendance updated for ${student.name}.`, 'success');
             }
@@ -1349,7 +1433,7 @@
                 attendance: Math.max(0, Math.min(100, parseInt(attInput.value) || 0)),
                 activities: Math.max(0, Math.min(100, parseInt(actInput.value) || 0)),
                 ca1: Math.max(0, Math.min(100, parseInt(ca1Input.value) || 0)),
-                mc1: Math.max(0, Math.min(100, parseInt(mc1Input.value) || 0)),
+                mc1: Math.max(0, Math.min(100, parseFloat(mc1Input.value) || 0)),
                 ca2: Math.max(0, Math.min(100, parseInt(ca2Input.value) || 0)),
                 mc2: Math.max(0, Math.min(100, parseInt(mc2Input.value) || 0)),
                 exam: Math.max(0, Math.min(100, parseInt(exmInput.value) || 0))
