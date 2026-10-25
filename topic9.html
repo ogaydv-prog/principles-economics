@@ -22,33 +22,30 @@
             padding: 20px 30px;
         }
 
-        /* Верхняя панель: Логотип, Заголовки, Кнопка */
+        /* Верхняя панель: Логотип слева, Заголовок по центру, Кнопка справа */
         .top-bar {
             width: 100%;
             max-width: 1450px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
             position: relative;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            padding-top: 10px;
         }
 
         .top-left-logo {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
             width: 60px;
             height: 60px;
             object-fit: contain;
-            flex-shrink: 0;
         }
 
         .header-titles {
-            display: flex;
-            flex-direction: column;
+            text-align: center;
         }
 
         h1 {
@@ -56,7 +53,7 @@
             font-weight: 700;
             color: #001e50;
             line-height: 1.2;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .subtitle {
@@ -66,6 +63,10 @@
         }
 
         .back-button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
             text-decoration: none;
             background-color: #001e50;
             color: white;
@@ -75,14 +76,13 @@
             font-size: 14px;
             transition: background-color 0.3s ease;
             white-space: nowrap;
-            flex-shrink: 0;
         }
 
         .back-button:hover {
             background-color: #003380;
         }
 
-        /* Контейнер карточек */
+        /* Контейнер карточек — опускаем на середину экрана */
         .grid-container {
             display: flex;
             flex-wrap: nowrap;
@@ -91,10 +91,11 @@
             width: 100%;
             justify-content: center;
             align-items: center;
-            padding-bottom: 40px;
+            margin: auto 0; /* Опускает блок карточек строго по центру высоты страницы */
+            padding: 20px 0;
         }
 
-        /* ТОЧНАЯ РАМКА ПОД ИСХОДНЫЕ PNG КАРТИНКИ (185x300px) */
+        /* Карточка ресурсов (185x300px) */
         .card {
             display: block;
             text-decoration: none;
@@ -111,7 +112,6 @@
             position: relative;
         }
 
-        /* Картинка заполняет рамку 1 в 1 без сдвигов и обрезки */
         .card img {
             width: 100% !important;
             height: 100% !important;
@@ -138,7 +138,7 @@
             line-height: 1.6;
         }
 
-        /* Адаптивность для планшетов и мобильных устройств */
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 1250px) {
             .grid-container {
                 flex-wrap: wrap;
@@ -153,16 +153,14 @@
 
             .top-bar {
                 flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 15px;
-                margin-bottom: 25px;
+                justify-content: center;
+                gap: 12px;
+                margin-bottom: 20px;
             }
 
-            .header-left {
-                flex-direction: column;
-                align-items: center;
-                gap: 12px;
+            .top-left-logo, .back-button {
+                position: static;
+                transform: none;
             }
 
             .top-left-logo {
@@ -183,6 +181,10 @@
                 font-size: 13px;
             }
 
+            .grid-container {
+                margin: 10px 0;
+            }
+
             .card {
                 width: 155px;
                 height: 250px;
@@ -194,19 +196,17 @@
 
     <!-- Верхняя панель -->
     <div class="top-bar">
-        <div class="header-left">
-            <img src="almau.jpg" alt="AlmaU Logo" class="top-left-logo">
-            <div class="header-titles">
-                <h1>Topic 9: Measuring the Cost of Living</h1>
-                <p class="subtitle">
-                    Select a learning resource below: presentation, inflation simulators, lab task, or video lecture.
-                </p>
-            </div>
+        <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo" onerror="this.src='./almau.jpg'">
+        <div class="header-titles">
+            <h1>Topic 9: Measuring the Cost of Living</h1>
+            <p class="subtitle">
+                Select a learning resource below: presentation, inflation simulators, lab task, or video lecture.
+            </p>
         </div>
         <a href="topics.html" class="back-button">← Back to Topics</a>
     </div>
 
-    <!-- Основная сетка ресурсов -->
+    <!-- Основная сетка ресурсов (посередине) -->
     <main class="grid-container">
         <!-- 1. Лекция -->
         <a href="cpi-lecture9-pro-pe.html" class="card" title="Lecture Notes">
@@ -233,7 +233,7 @@
             <img src="pic-cpi-task-pe.png" alt="CPI Lab Task">
         </a>
 
-        <!-- 6. Видеолекция (Прямой клик без переворота) -->
+        <!-- 6. Видеолекция -->
         <a href="https://www.youtube.com/watch?v=JW7IQ45_up8&list=PL11ADD17785C9C9A4&index=6" target="_blank" rel="noopener noreferrer" class="card" title="Video Lecture">
             <img src="pic-video9-pe.png" alt="Video Lecture">
         </a>
