@@ -19,40 +19,49 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 15px 20px;
+            padding: 20px 30px;
             position: relative;
+        }
+
+        /* Шапка страницы с выравниванием логотипа */
+        header {
+            width: 100%;
+            max-width: 1150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 30px;
         }
 
         .top-left-logo {
             position: absolute;
-            top: 25px;
-            left: 30px;
-            width: 55px;
-            height: 55px;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
             object-fit: contain;
         }
 
-        header {
+        .header-title-group {
             text-align: center;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            width: 100%;
         }
 
         h1 {
             font-size: 32px;
             font-weight: 700;
             color: #001e50;
-            margin-bottom: 12px;
-            margin-top: 20px;
+            margin-bottom: 8px;
         }
 
         .subtitle {
-            font-size: 16px;
+            font-size: 15px;
             color: #555555;
             max-width: 650px;
             line-height: 1.5;
-            margin: 0 auto 10px auto;
+            margin: 0 auto;
         }
 
         .grid-container {
@@ -94,10 +103,6 @@
             box-shadow: 0 16px 30px rgba(0, 30, 80, 0.15);
         }
 
-        .card:hover img {
-            transform: scale(1.03);
-        }
-
         footer {
             margin-top: auto;
             font-size: 14px;
@@ -109,7 +114,7 @@
             width: 100%;
         }
 
-        /* Стили модального окна пароля */
+        /* Модальное окно */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -171,7 +176,6 @@
             margin-bottom: 15px;
             text-align: center;
             letter-spacing: 1px;
-            transition: border-color 0.2s;
         }
 
         .modal-card input:focus {
@@ -191,7 +195,6 @@
             font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
         .modal-btn-submit {
@@ -208,10 +211,6 @@
             color: #64748b;
         }
 
-        .modal-btn-cancel:hover {
-            background: #e2e8f0;
-        }
-
         .error-msg {
             color: #ef4444;
             font-size: 12px;
@@ -226,36 +225,30 @@
                 padding: 15px 10px;
             }
 
-            .top-left-logo {
-                position: static;
-                top: 0;
-                left: 0;
-                width: 55px;
-                height: 55px;
-                margin: 5px auto 10px auto;
-                display: block;
+            header {
+                flex-direction: column;
+                margin-bottom: 20px;
             }
 
-            header {
-                margin-top: 0;
-                margin-bottom: 20px;
-                padding: 0 10px;
+            .top-left-logo {
+                position: static;
+                transform: none;
+                margin: 0 auto 12px auto;
+                display: block;
+                width: 55px;
+                height: 55px;
             }
 
             h1 {
-                font-size: 24px !important;
-                margin-top: 5px !important;
-                word-wrap: break-word;
+                font-size: 24px;
             }
 
             .subtitle {
                 font-size: 13px;
-                line-height: 1.4;
             }
 
             .grid-container {
                 gap: 12px;
-                padding-bottom: 20px;
             }
 
             .card {
@@ -263,24 +256,20 @@
                 height: 195px;
                 border-radius: 16px;
             }
-
-            footer {
-                font-size: 12px;
-                padding-top: 30px;
-            }
         }
     </style>
 </head>
 <body>
 
-    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
-
     <header>
-        <h1>Principles of Economics</h1>
-        <p class="subtitle">
-            Interactive Learning Hub | International Business Team 2026 <br>
-            Almaty Management University 
-        </p>
+        <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo" onerror="this.src='./almau.jpg'">
+        <div class="header-title-group">
+            <h1>Principles of Economics</h1>
+            <p class="subtitle">
+                Interactive Learning Hub | International Business Team 2026 <br>
+                Almaty Management University 
+            </p>
+        </div>
     </header>
 
     <main class="grid-container">
@@ -338,8 +327,7 @@
         <p>© Almaty Management University | School of Digital Technologies & Economics</p>
     </footer>
 
- <script>
-        // Зашифрованный токен для проверки (PE-12102026MC1)
+    <script>
         const TARGET_TOKEN = "UEUtMTIxMDIwMjZNQzE=";
 
         function openPasswordModal() {
@@ -355,8 +343,6 @@
 
         function verifyAccessKey() {
             const inputVal = document.getElementById('mc1PwdInput').value.trim();
-            
-            // Кодируем введенный пароль в Base64 и сравниваем
             if (btoa(inputVal) === TARGET_TOKEN) {
                 window.location.href = "MC1/index_mc1.html";
             } else {
