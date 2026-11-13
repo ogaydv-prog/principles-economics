@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic 11 | Principles of Economics</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 30px;
+        }
+
+        /* Верхняя панель */
+        .top-bar {
+            width: 100%;
+            max-width: 1450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            position: relative;
+            padding-top: 10px;
+        }
+
+        .top-left-logo {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .header-titles {
+            text-align: center;
+            padding: 0 160px; /* Защита от наезда текста на логотип и кнопку */
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #001e50;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #555555;
+            line-height: 1.4;
+        }
+
+        .back-button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            text-decoration: none;
+            background-color: #001e50;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .back-button:hover {
+            background-color: #003380;
+        }
+
+        /* Контейнер карточек */
+        .grid-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 18px;
+            max-width: 1450px;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            margin: auto 0;
+            padding: 25px 0;
+        }
+
+        /* Плотная песчано-коричневая рамка для карточек 1-5 */
+        .card {
+            display: block;
+            text-decoration: none;
+            background: #78350f;
+            border: 3px solid #78350f;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(120, 53, 15, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 185px; 
+            height: 304px;
+            flex-shrink: 0;
+            cursor: pointer;
+            position: relative;
+            padding: 1px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card img {
+            width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+            object-fit: fill !important;
+            border-radius: 8px;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border: 3px solid #f59e0b;
+            box-shadow: 0 12px 30px rgba(245, 158, 11, 0.5), inset 0 0 12px rgba(245, 158, 11, 0.25);
+        }
+
+        /* ======================================================== */
+        /* 3D FLIP CARD (С КЛИКАБЕЛЬНОЙ СПИНОЙ И ТАП-АДАПТАЦИЕЙ)     */
+        /* ======================================================== */
+        .flip-card {
+            width: 185px;
+            height: 304px;
+            perspective: 1000px;
+            flex-shrink: 0;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            border: 3px solid #78350f;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(120, 53, 15, 0.2);
+            background: #001e50;
+        }
+
+        /* Переворот при наведении мыши ИЛИ при клике (класс .flipped) на смартфоне */
+        .flip-card:hover .flip-card-inner,
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+            border: 3px solid #f59e0b;
+            box-shadow: 0 12px 30px rgba(245, 158, 11, 0.5), inset 0 0 12px rgba(245, 158, 11, 0.25);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            -webkit-backface-visibility: hidden !important;
+            backface-visibility: hidden !important;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+
+        .flip-card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            display: block;
+        }
+
+        .flip-card-back {
+            background-color: #001e50;
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 12px;
+            gap: 14px;
+            z-index: 1;
+        }
+
+        .flip-card-back h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f59e0b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+            padding-bottom: 6px;
+            width: 100%;
+        }
+
+        .video-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 11px 8px;
+            background: #002d72;
+            color: #ffffff !important;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 6px;
+            border: 1px solid #f59e0b;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            line-height: 1.2;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
+
+        .video-btn:hover, .video-btn:active {
+            background: #f59e0b;
+            color: #001e50 !important;
+            font-weight: 700;
+            transform: scale(1.04);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.9);
+        }
+
+        footer {
+            margin-top: auto;
+            font-size: 14px;
+            color: #718096;
+            padding-top: 30px;
+            padding-bottom: 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Адаптивность для планшетов и небольших ноутбуков */
+        @media (max-width: 1250px) {
+            .grid-container {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+        }
+
+        /* Адаптивность для планшетов и смартфонов */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 12px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .top-left-logo, .back-button {
+                position: static;
+                transform: none;
+            }
+
+            .top-left-logo {
+                width: 52px;
+                height: 52px;
+            }
+
+            .header-titles {
+                padding: 0 5px;
+            }
+
+            h1 {
+                font-size: 21px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+
+            .back-button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .grid-container {
+                margin: 10px 0;
+                padding: 15px 0;
+                gap: 14px;
+            }
+
+            .card, .flip-card {
+                width: 160px;
+                height: 263px;
+            }
+
+            .flip-card-back h3 {
+                font-size: 11px;
+            }
+
+            .video-btn {
+                font-size: 10.5px;
+                padding: 10px 6px;
+            }
+
+            footer {
+                font-size: 12px;
+                padding-top: 20px;
+            }
+        }
+
+        /* Адаптивность для узких экранов смартфонов (строго 2 карточки в ряд) */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px 10px;
+            }
+
+            h1 {
+                font-size: 19px;
+            }
+
+            .grid-container {
+                gap: 12px;
+            }
+
+            .card, .flip-card {
+                width: calc(50% - 8px);
+                max-width: 175px;
+                height: auto;
+                aspect-ratio: 185 / 304; /* Сохраняет точные пропорции обложек */
+            }
+
+            .card:hover {
+                transform: translateY(-4px) scale(1.02);
+            }
+
+            .flip-card-back {
+                padding: 12px 8px;
+                gap: 10px;
+            }
+
+            .flip-card-back h3 {
+                font-size: 10px;
+            }
+
+            .video-btn {
+                font-size: 10px;
+                padding: 9px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Верхняя панель -->
+    <div class="top-bar">
+        <img src="https://ogaydv-prog.github.io/principles-economics/almau.png" alt="AlmaU Logo" class="top-left-logo" onerror="this.src='./almau.png'">
+        <div class="header-titles">
+            <h1>Topic 11: Macroeconomic Instability. Unemployment & Inflation</h1>
+            <p class="subtitle">
+                Select a learning resource below: presentation, macroeconomic simulators, reading materials, or video lectures.
+            </p>
+        </div>
+        <a href="topics.html" class="back-button">← Back to Topics</a>
+    </div>
+
+    <!-- Основная сетка ресурсов -->
+    <main class="grid-container">
+        <!-- 1. Лекция -->
+        <a href="lecture11.html" class="card" title="Lecture Notes Topic 11">
+            <img src="https://ogaydv-prog.github.io/principles-economics/pic-lecture11.png" alt="Lecture Notes" onerror="this.src='./pic-lecture11.png'">
+        </a>
+
+        <!-- 2. Презентация Piktochart -->
+        <a href="https://create.piktochart.com/output/d5c5361b731d-economics-principles-of-macroeconomics-2026-2027" target="_blank" rel="noopener noreferrer" class="card" title="Presentation Topic 11">
+            <img src="https://ogaydv-prog.github.io/principles-economics/pic-preza11.png" alt="Presentation" onerror="this.src='./pic-preza11.png'">
+        </a>
+
+        <!-- 3. Симулятор Безработицы -->
+        <a href="sim-unemp-pe-pro-g.html" class="card" title="Unemployment & Labor Market Simulator">
+            <img src="https://ogaydv-prog.github.io/principles-economics/pic-sim-unemp.png" alt="Unemployment Simulator" onerror="this.src='./pic-sim-unemp.png'">
+        </a>
+
+        <!-- 4. Симулятор Инфляции -->
+        <a href="sim-inflation.html" class="card" title="Global Inflation & Hyperinflation Simulator">
+            <img src="https://ogaydv-prog.github.io/principles-economics/pic-sim-inflation.png" alt="Inflation Simulator" onerror="this.src='./pic-sim-inflation.png'">
+        </a>
+
+        <!-- 5. Обязательное чтение (Google Docs) -->
+        <a href="https://docs.google.com/document/d/1yuqm0Kt1Ga7Pr90e4AJaMi5D8nLidKP3/edit?usp=sharing&ouid=109725301150629205728&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="card" title="Required Reading Topic 11">
+            <img src="https://ogaydv-prog.github.io/principles-economics/pic-reading11.png" alt="Required Reading" onerror="this.src='./pic-reading11.png'">
+        </a>
+
+        <!-- 6. Видеолекции (FLIP-КАРТОЧКА с поддержкой тапа на смартфоне) -->
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <!-- Лицевая сторона -->
+                <div class="flip-card-front">
+                    <img src="https://ogaydv-prog.github.io/principles-economics/pic-video11.png" alt="Video Lectures" onerror="this.src='./pic-video11.png'">
+                </div>
+                <!-- Обратная сторона с 2 YouTube кнопками -->
+                <div class="flip-card-back">
+                    <h3>Video Lectures</h3>
+                    <a href="https://www.youtube.com/watch?v=9i6vf5Wz6nY&t=23s" target="_blank" rel="noopener noreferrer" class="video-btn" onclick="event.stopPropagation()">
+                        ▶ Part 1: Unemployment
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=USj52Vlvd5M&t=4s" target="_blank" rel="noopener noreferrer" class="video-btn" onclick="event.stopPropagation()">
+                        ▶ Part 2: Inflation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>AlmaU 2026 | Course: Principles of Economics</p>
+        <p>© Almaty Management University | School of Digital Technologies & Economics</p>
+    </footer>
+
+</body>
+</html>
