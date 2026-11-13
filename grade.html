@@ -372,6 +372,10 @@
                                     class="w-full pl-9 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-600">
                             </div>
                             <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+                                <button onclick="exportBackupJSON()" class="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-md transition-colors flex items-center space-x-1.5" title="Download backup JSON">
+                                    <i class="fa-solid fa-download"></i>
+                                    <span>Backup</span>
+                                </button>
                                 <button onclick="exportToCSV()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-md transition-colors flex items-center space-x-2">
                                     <i class="fa-solid fa-file-excel"></i>
                                     <span>Export Excel</span>
@@ -609,9 +613,9 @@
 
     <script>
         const TOTAL_ATTENDANCE_HOURS = 45;
+        const STORAGE_KEY = 'almau_pe_ib_students_2026_v5';
 
-        // Внесены 100% точные баллы РК1 (MC1) с официального Platonus + новые студенты
-        const initialGroupStudents = [
+        const initialGroupStudentsData = [
             { id: "st-ib-1", name: "Hebatallah Aldada", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
             { id: "st-ib-2", name: "Абдихай Салтанат Жалғасқызы", attendance: 0, activities: 0, ca1: 0, mc1: 82.33, ca2: 0, mc2: 0, exam: 0 },
             { id: "st-ib-3", name: "Абдрахманов Бабур Хамза улы", attendance: 0, activities: 0, ca1: 0, mc1: 56.67, ca2: 0, mc2: 0, exam: 0 },
@@ -632,10 +636,14 @@
             { id: "st-ib-18", name: "Хусаинова Адия Галимовна", attendance: 0, activities: 0, ca1: 0, mc1: 75.00, ca2: 0, mc2: 0, exam: 0 },
             { id: "st-ib-19", name: "Шабанов Анварбек", attendance: 0, activities: 0, ca1: 0, mc1: 80.67, ca2: 0, mc2: 0, exam: 0 },
             { id: "st-ib-20", name: "Югай Ксения Альбертовна", attendance: 0, activities: 0, ca1: 0, mc1: 85.00, ca2: 0, mc2: 0, exam: 0 }
-        ].map(st => ({
-            ...st,
-            attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
-        }));
+        ];
+
+        function createFreshInitialList() {
+            return initialGroupStudentsData.map(st => ({
+                ...st,
+                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
+            }));
+        }
 
         let students = [];
         let personalAttChart = null;
@@ -661,51 +669,58 @@
         };
 
         function ensureAttendanceHours(student) {
-            if (!student.hasOwnProperty('attendanceHours') || !Array.isArray(student.attendanceHours) || student.attendanceHours.length !== TOTAL_ATTENDANCE_HOURS) {
-                student.attendanceHours = Array(TOTAL_ATTENDANCE_HOURS).fill(false);
+            if (!Array.isArray(student.attendanceHours) || student.attendanceHours.length !== TOTAL_ATTENDANCE_HOURS) {
+                // Если процент посещаемости уже был выставлен вручную без массива часов, восстанавливаем соответствующее число часов
+                const approxHours = Math.round(((Number(student.attendance) || 0) / 100) * TOTAL_ATTENDANCE_HOURS);
+                student.attendanceHours = Array.from({ length: TOTAL_ATTENDANCE_HOURS }, (_, idx) => idx < approxHours);
             }
         }
 
         function loadDatabase() {
-            const savedData = localStorage.getItem('almau_pe_ib_students_2026_v5');
+            const savedData = localStorage.getItem(STORAGE_KEY);
             if (savedData) {
                 try {
-                    students = JSON.parse(savedData);
-                    // Добавляем отсутствующих студентов из обновлённого списка группы, сохраняя существующие оценки
-                    let updated = false;
-                    initialGroupStudents.forEach(initSt => {
-                        const exists = students.some(s => s.name.toLowerCase() === initSt.name.toLowerCase());
-                        if (!exists) {
-                            students.push({ ...initSt });
-                            updated = true;
-                        }
-                    });
-                    if (updated) {
-                        students.sort((a, b) => a.name.localeCompare(b.name));
+                    const parsed = JSON.parse(savedData);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        students = parsed;
+                        // Гарантируем уникальность ID у всех загруженных записей
+                        const seenIds = new Set();
+                        students.forEach((st, idx) => {
+                            if (!st.id || seenIds.has(st.id)) {
+                                st.id = `st-ib-fixed-${idx}-${Date.now()}`;
+                            }
+                            seenIds.add(st.id);
+                            ensureAttendanceHours(st);
+                        });
                         saveDatabase();
+                        updateDashboardData();
+                        return;
                     }
                 } catch(e) {
-                    students = initialGroupStudents;
+                    console.error("Failed to parse saved student data:", e);
                 }
-            } else {
-                students = initialGroupStudents;
             }
-            students.forEach(student => ensureAttendanceHours(student));
+            students = createFreshInitialList();
+            saveDatabase();
             updateDashboardData();
         }
 
         function saveDatabase() {
-            localStorage.setItem('almau_pe_ib_students_2026_v5', JSON.stringify(students));
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
+            } catch (e) {
+                showToast('Error saving data to browser storage!', 'error');
+            }
         }
 
         function calculateWeightedScore(att, act, ca1, mc1, ca2, mc2, exam) {
-            const wAtt = (att || 0) * 0.10;
-            const wAct = (act || 0) * 0.10;
-            const wCa1 = (ca1 || 0) * 0.10;
-            const wMc1 = (mc1 || 0) * 0.10;
-            const wCa2 = (ca2 || 0) * 0.10;
-            const wMc2 = (mc2 || 0) * 0.10;
-            const wExam = (exam || 0) * 0.40;
+            const wAtt = (Number(att) || 0) * 0.10;
+            const wAct = (Number(act) || 0) * 0.10;
+            const wCa1 = (Number(ca1) || 0) * 0.10;
+            const wMc1 = (Number(mc1) || 0) * 0.10;
+            const wCa2 = (Number(ca2) || 0) * 0.10;
+            const wMc2 = (Number(mc2) || 0) * 0.10;
+            const wExam = (Number(exam) || 0) * 0.40;
             return parseFloat((wAtt + wAct + wCa1 + wMc1 + wCa2 + wMc2 + wExam).toFixed(1));
         }
 
@@ -724,6 +739,8 @@
         }
 
         function renderBellCurveChart() {
+            const canvas = document.getElementById('bellCurveCanvas');
+            if (!canvas) return;
             if (bellCurveChart) bellCurveChart.destroy();
 
             const scores = students.map(s => Number(s.mc1) || 0);
@@ -743,7 +760,7 @@
 
             const actualProfilePoints = counts.map(val => val);
 
-            const ctx = document.getElementById('bellCurveCanvas').getContext('2d');
+            const ctx = canvas.getContext('2d');
             bellCurveChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -1057,39 +1074,39 @@
                         <span class="block font-bold text-slate-200 truncate max-w-[240px]" title="${student.name}">${student.name}</span>
                     </td>
                     <td class="py-2.5 px-1">
-                        <button onclick="openAttendanceModal('${student.id}')" id="att-trigger-${student.id}"
+                        <button type="button" onclick="openAttendanceModal('${student.id}')" id="att-trigger-${student.id}"
                             class="px-1 py-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 focus:ring-1 focus:ring-indigo-500 rounded-lg text-emerald-400 text-xs font-bold w-full transition-all flex items-center justify-center gap-1" title="Hourly Attendance Checklist (45 hrs)">
                             <span>${student.attendance}%</span>
                             <i class="fa-solid fa-pencil text-[8px] text-slate-500"></i>
                         </button>
                     </td>
                     <td class="py-2.5 px-1">
-                        <input type="number" min="0" max="100" value="${student.activities || 0}" 
+                        <input type="number" min="0" max="100" step="0.01" value="${student.activities || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'activities', this.value)"
                             class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-teal-300 text-xs font-semibold transition-all">
                     </td>
                     <td class="py-2.5 px-1">
-                        <input type="number" min="0" max="100" value="${student.ca1 || 0}" 
+                        <input type="number" min="0" max="100" step="0.01" value="${student.ca1 || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'ca1', this.value)"
                             class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-slate-100 text-xs font-semibold transition-all">
                     </td>
                     <td class="py-2.5 px-1">
-                        <input type="number" min="0" max="100" value="${student.mc1 || 0}" 
+                        <input type="number" min="0" max="100" step="0.01" value="${student.mc1 || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'mc1', this.value)"
                             class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-amber-300 text-xs font-semibold transition-all">
                     </td>
                     <td class="py-2.5 px-1">
-                        <input type="number" min="0" max="100" value="${student.ca2 || 0}" 
+                        <input type="number" min="0" max="100" step="0.01" value="${student.ca2 || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'ca2', this.value)"
                             class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-slate-100 text-xs font-semibold transition-all">
                     </td>
                     <td class="py-2.5 px-1">
-                        <input type="number" min="0" max="100" value="${student.mc2 || 0}" 
+                        <input type="number" min="0" max="100" step="0.01" value="${student.mc2 || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'mc2', this.value)"
                             class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-orange-300 text-xs font-semibold transition-all">
                     </td>
                     <td class="py-2.5 px-1">
-                        <input type="number" min="0" max="100" value="${student.exam || 0}" 
+                        <input type="number" min="0" max="100" step="0.01" value="${student.exam || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'exam', this.value)"
                             class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-rose-300 text-xs font-semibold transition-all">
                     </td>
@@ -1102,7 +1119,7 @@
                         </span>
                     </td>
                     <td class="py-2.5 px-1 text-center">
-                        <button onclick="deleteStudent('${student.id}')" class="p-1 text-slate-500 hover:text-rose-400 rounded-lg hover:bg-rose-500/10 transition-colors" title="Delete">
+                        <button type="button" onclick="deleteStudent('${student.id}')" class="p-1 text-slate-500 hover:text-rose-400 rounded-lg hover:bg-rose-500/10 transition-colors" title="Delete">
                             <i class="fa-regular fa-trash-can text-xs"></i>
                         </button>
                     </td>
@@ -1131,12 +1148,15 @@
                     student.mc2, 
                     student.exam
                 );
-                document.getElementById(`final-score-${id}`).textContent = finalScore;
+                const scoreEl = document.getElementById(`final-score-${id}`);
+                if (scoreEl) scoreEl.textContent = finalScore;
                 
                 const gradeInfo = getLetterGrade(finalScore);
                 const letterBadge = document.getElementById(`letter-${id}`);
-                letterBadge.textContent = gradeInfo.letter;
-                letterBadge.className = `inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-bold rounded-lg border ${gradeInfo.class} w-10`;
+                if (letterBadge) {
+                    letterBadge.textContent = gradeInfo.letter;
+                    letterBadge.className = `inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-bold rounded-lg border ${gradeInfo.class} w-10`;
+                }
                 
                 updateStats();
                 updateGroupChart();
@@ -1236,7 +1256,8 @@
         }
 
         function updateDashboardData() {
-            renderTeacherTable();
+            const currentSearch = document.getElementById('teacher-search-input')?.value || '';
+            renderTeacherTable(currentSearch);
             updateStats();
             updateGroupChart();
             renderBellCurveChart();
@@ -1290,11 +1311,14 @@
 
         function openAttendanceModal(studentId) {
             const student = students.find(s => s.id === studentId);
-            if (!student) return;
+            if (!student) {
+                showToast('Student record not found!', 'error');
+                return;
+            }
 
-            activeEditingStudentId = studentId;
+            activeEditingStudentId = student.id;
             ensureAttendanceHours(student);
-            tempAttendanceHours = [...student.attendanceHours];
+            tempAttendanceHours = student.attendanceHours.slice();
 
             document.getElementById('att-modal-student-name').textContent = student.name;
             updateAttendanceModalStats();
@@ -1316,13 +1340,13 @@
                         Week ${week}
                     </span>
                     <div class="flex items-center space-x-1.5">
-                        <button onclick="toggleTempHour(${h1Idx})" id="temp-chk-${h1Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
+                        <button type="button" onclick="toggleTempHour(${h1Idx})" id="temp-chk-${h1Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
                             Lesson 1
                         </button>
-                        <button onclick="toggleTempHour(${h2Idx})" id="temp-chk-${h2Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
+                        <button type="button" onclick="toggleTempHour(${h2Idx})" id="temp-chk-${h2Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
                             Lesson 2
                         </button>
-                        <button onclick="toggleTempHour(${h3Idx})" id="temp-chk-${h3Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
+                        <button type="button" onclick="toggleTempHour(${h3Idx})" id="temp-chk-${h3Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
                             Lesson 3
                         </button>
                     </div>
@@ -1347,8 +1371,9 @@
             modal.querySelector('div').classList.add('scale-95');
             setTimeout(() => {
                 modal.classList.add('hidden');
+                activeEditingStudentId = null;
+                tempAttendanceHours = [];
             }, 200);
-            activeEditingStudentId = null;
         }
 
         function toggleTempHour(idx) {
@@ -1387,11 +1412,17 @@
         }
 
         function saveAttendanceDetails() {
-            if (!activeEditingStudentId) return;
+            if (!activeEditingStudentId) {
+                showToast('No active student selected!', 'error');
+                return;
+            }
 
-            const student = students.find(s => s.id === activeEditingStudentId);
-            if (student) {
-                student.attendanceHours = [...tempAttendanceHours];
+            const targetId = activeEditingStudentId;
+            const studentIndex = students.findIndex(s => s.id === targetId);
+            
+            if (studentIndex !== -1) {
+                const student = students[studentIndex];
+                student.attendanceHours = tempAttendanceHours.slice();
                 const checkedCount = student.attendanceHours.filter(Boolean).length;
                 student.attendance = Math.round((checkedCount / TOTAL_ATTENDANCE_HOURS) * 100);
 
@@ -1406,12 +1437,16 @@
                     student.mc2, 
                     student.exam
                 );
-                document.getElementById(`final-score-${student.id}`).textContent = finalScore;
+                
+                const scoreEl = document.getElementById(`final-score-${student.id}`);
+                if (scoreEl) scoreEl.textContent = finalScore;
                 
                 const gradeInfo = getLetterGrade(finalScore);
                 const letterBadge = document.getElementById(`letter-${student.id}`);
-                letterBadge.textContent = gradeInfo.letter;
-                letterBadge.className = `inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-bold rounded-lg border ${gradeInfo.class} w-10`;
+                if (letterBadge) {
+                    letterBadge.textContent = gradeInfo.letter;
+                    letterBadge.className = `inline-flex items-center justify-center px-2 py-0.5 text-[11px] font-bold rounded-lg border ${gradeInfo.class} w-10`;
+                }
                 
                 const attTriggerBtn = document.getElementById(`att-trigger-${student.id}`);
                 if (attTriggerBtn) {
@@ -1421,8 +1456,13 @@
                 updateStats();
                 updateGroupChart();
                 renderBellCurveChart();
+                
+                const savedName = student.name;
+                const savedPercent = student.attendance;
                 closeAttendanceModal();
-                showToast(`Attendance updated for ${student.name}.`, 'success');
+                showToast(`Saved: ${savedName} — ${savedPercent}%`, 'success');
+            } else {
+                showToast('Error: Student not found in list!', 'error');
             }
         }
 
@@ -1443,15 +1483,15 @@
             }
 
             const newStudent = {
-                id: 'st-' + Date.now(),
+                id: 'st-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
                 name,
                 attendance: Math.max(0, Math.min(100, parseInt(attInput.value) || 0)),
-                activities: Math.max(0, Math.min(100, parseInt(actInput.value) || 0)),
-                ca1: Math.max(0, Math.min(100, parseInt(ca1Input.value) || 0)),
+                activities: Math.max(0, Math.min(100, parseFloat(actInput.value) || 0)),
+                ca1: Math.max(0, Math.min(100, parseFloat(ca1Input.value) || 0)),
                 mc1: Math.max(0, Math.min(100, parseFloat(mc1Input.value) || 0)),
-                ca2: Math.max(0, Math.min(100, parseInt(ca2Input.value) || 0)),
-                mc2: Math.max(0, Math.min(100, parseInt(mc2Input.value) || 0)),
-                exam: Math.max(0, Math.min(100, parseInt(exmInput.value) || 0))
+                ca2: Math.max(0, Math.min(100, parseFloat(ca2Input.value) || 0)),
+                mc2: Math.max(0, Math.min(100, parseFloat(mc2Input.value) || 0)),
+                exam: Math.max(0, Math.min(100, parseFloat(exmInput.value) || 0))
             };
 
             ensureAttendanceHours(newStudent);
@@ -1483,11 +1523,11 @@
             const lines = text.split('\n');
             let counter = 0;
 
-            lines.forEach(line => {
+            lines.forEach((line, idx) => {
                 const cleanName = line.trim();
                 if (cleanName) {
                     const newSt = {
-                        id: 'st-' + Date.now() + Math.random().toString(36).substr(2, 4),
+                        id: 'st-' + Date.now() + '-' + idx + '-' + Math.random().toString(36).substr(2, 4),
                         name: cleanName,
                         attendance: 0,
                         activities: 0,
@@ -1543,12 +1583,24 @@
         }
 
         function resetAllData() {
-            students = initialGroupStudents;
-            students.forEach(student => ensureAttendanceHours(student));
+            students = createFreshInitialList();
             saveDatabase();
             updateDashboardData();
             closeConfirmModal();
             showToast('Gradebook reset to initial student list.', 'info');
+        }
+
+        function exportBackupJSON() {
+            const dataStr = JSON.stringify(students, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `ALMAU_PE_Backup_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast('Full JSON backup downloaded!', 'success');
         }
 
         function exportToCSV() {
