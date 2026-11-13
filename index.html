@@ -23,30 +23,31 @@
             position: relative;
         }
 
-        /* Шапка страницы с выравниванием логотипа */
+        /* Логотип в левом верхнем углу окна */
+        .top-left-logo {
+            position: absolute;
+            left: 30px;
+            top: 20px;
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            z-index: 10;
+        }
+
+        /* Шапка страницы */
         header {
             width: 100%;
             max-width: 1150px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
             margin-top: 10px;
             margin-bottom: 30px;
         }
 
-        .top-left-logo {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-        }
-
         .header-title-group {
             text-align: center;
+            padding: 0 80px;
         }
 
         h1 {
@@ -225,18 +226,22 @@
                 padding: 15px 10px;
             }
 
-            header {
-                flex-direction: column;
-                margin-bottom: 20px;
-            }
-
             .top-left-logo {
                 position: static;
-                transform: none;
                 margin: 0 auto 12px auto;
                 display: block;
                 width: 55px;
                 height: 55px;
+            }
+
+            header {
+                flex-direction: column;
+                margin-top: 0;
+                margin-bottom: 20px;
+            }
+
+            .header-title-group {
+                padding: 0 10px;
             }
 
             h1 {
@@ -261,8 +266,9 @@
 </head>
 <body>
 
+    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo" onerror="this.src='./almau.jpg'">
+
     <header>
-        <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo" onerror="this.src='./almau.jpg'">
         <div class="header-title-group">
             <h1>Principles of Economics</h1>
             <p class="subtitle">
