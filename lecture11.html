@@ -117,7 +117,7 @@
                 </div>
             </div>
 
-            <!-- Main Tabs Bar (Растянуто во всю ширину / Full Width Block Buttons) -->
+            <!-- Main Tabs Bar -->
             <nav class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-6 border-b border-cardborder/50 pb-2">
                 <button onclick="switchTab('unemployment')" id="tab-btn-unemployment" class="tab-btn flex items-center justify-center gap-2 px-4 py-3 rounded-xl border font-bold text-sm transition-all border-neoncyan text-neoncyan bg-neoncyan/10">
                     <i data-lucide="users" class="w-4 h-4"></i>
@@ -382,7 +382,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    <!-- Sliders instead of manual input -->
+                    <!-- Sliders -->
                     <div class="space-y-5 bg-darkbg p-5 rounded-xl border border-cardborder">
                         <div>
                             <div class="flex justify-between text-xs font-semibold mb-1">
@@ -417,10 +417,10 @@
                                 <span id="okun-timeline-val" class="text-neonred font-bold">93.0% от Потенциала</span>
                             </div>
                             <div class="h-7 w-full bg-darkbg border border-cardborder rounded-lg overflow-hidden flex">
-                                <div id="okun-bar-actual" class="bg-neonemerald h-full transition-all duration-300 flex items-center justify-center text-[11px] text-black font-bold" style="width: 93%;">
+                                <div id="okun-bar-actual" class="bg-neonemerald h-full transition-all duration-300 flex items-center justify-center text-[11px] text-black font-bold px-1 truncate" style="width: 93%;">
                                     Фактический ВВП
                                 </div>
-                                <div id="okun-bar-loss" class="bg-neonred h-full transition-all duration-300 flex items-center justify-center text-[11px] text-white font-bold" style="width: 7%;">
+                                <div id="okun-bar-loss" class="bg-neonred h-full transition-all duration-300 flex items-center justify-center text-[11px] text-white font-bold px-1 truncate leading-tight text-center" style="width: 7%;">
                                     Потеря ВВП
                                 </div>
                             </div>
@@ -539,9 +539,9 @@
                         </div>
                     </div>
 
-                    <!-- 3D Flip Cards for Inflation Types (Corrected threshold to 10%) -->
+                    <!-- 3D Flip Cards for Inflation Types -->
                     <div class="grid grid-cols-3 gap-3 h-24">
-                        <div class="flip-card perspective cursor-pointer">
+                        <div class="flip-card perspective cursor-pointer" onclick="this.classList.toggle('flipped')">
                             <div class="flip-card-inner">
                                 <div class="flip-card-front bg-darkbg border border-neonemerald/40 p-2 flex flex-col justify-center items-center rounded-xl shadow">
                                     <span class="text-xs font-bold text-neonemerald" id="flip-mod-title">Умеренная</span>
@@ -554,7 +554,7 @@
                             </div>
                         </div>
 
-                        <div class="flip-card perspective cursor-pointer">
+                        <div class="flip-card perspective cursor-pointer" onclick="this.classList.toggle('flipped')">
                             <div class="flip-card-inner">
                                 <div class="flip-card-front bg-darkbg border border-neonamber/40 p-2 flex flex-col justify-center items-center rounded-xl shadow">
                                     <span class="text-xs font-bold text-neonamber" id="flip-gal-title">Галопирующая</span>
@@ -567,7 +567,7 @@
                             </div>
                         </div>
 
-                        <div class="flip-card perspective cursor-pointer">
+                        <div class="flip-card perspective cursor-pointer" onclick="this.classList.toggle('flipped')">
                             <div class="flip-card-inner">
                                 <div class="flip-card-front bg-darkbg border border-neonred/40 p-2 flex flex-col justify-center items-center rounded-xl shadow">
                                     <span class="text-xs font-bold text-neonred" id="flip-hyp-title">Гиперинфляция</span>
@@ -798,7 +798,7 @@
 
     </main>
 
-    <!-- FOOTER (Removed 'Department' per request) -->
+    <!-- FOOTER -->
     <footer class="border-t border-cardborder bg-cardbg/50 py-4 text-center text-xs text-slate-400 font-semibold">
         <div class="max-w-7xl mx-auto px-4" id="footer-text">
             AlmaU • School of Digital Technologies and Economics • Macroeconomics © 2026
@@ -827,17 +827,16 @@
                 histNatural: [5.8, 5.6, 5.1, 5.0, 5.0, 5.0, 4.8, 4.5, 4.4, 4.4]
             },
             kz: {
-                // Official Bureau of National Statistics (stat.gov.kz) data
-                totalPop: 20.2, // ~20.2 млн чел. (2026)
-                pop15: 15.6,   // Население 15 лет и старше
-                emp: 9.2,      // Занятое население (~9.2 млн)
-                unemp: 0.45,   // Безработные (~450 тыс., 4.7%)
-                nilf: 5.95,    // Не входящие в рабочую силу (~5.95 млн)
-                outside: 4.6,  // Дети до 15 лет (~4.6 млн)
+                totalPop: 20.2,
+                pop15: 15.6,
+                emp: 9.2,
+                unemp: 0.45,
+                nilf: 5.95,
+                outside: 4.6,
                 laborForce: 9.65,
                 nairu: 4.7,
                 histYears: ['1991', '1995', '1999', '2004', '2008', '2012', '2016', '2020', '2023', '2026'],
-                histActual: [0.1, 5.4, 13.5, 8.4, 6.6, 5.3, 4.9, 4.9, 4.7, 4.7], // От 90-х до устойчивых 4.7-4.9%
+                histActual: [0.1, 5.4, 13.5, 8.4, 6.6, 5.3, 4.9, 4.9, 4.7, 4.7],
                 histNatural: [5.0, 5.2, 5.5, 5.2, 5.0, 4.8, 4.8, 4.7, 4.7, 4.7]
             }
         };
@@ -892,6 +891,9 @@
                     sub: "Артур Оукен: Каждый 1% превышения естественной нормы безработицы создает отставание ВВП на 2%",
                     actLbl: "Фактическая безработица (u):", natLbl: "Естественная норма (u_n):", gdpLbl: "Потенциальный ВВП ($ млрд):",
                     compareLbl: "Фактический ВВП vs Потенциальный ВВП",
+                    barActual: "Фактический ВВП",
+                    barLoss: "Потеря ВВП",
+                    ofPotential: "% от Потенциала",
                     resGap: "Отставание ВВП (%):", resLoss: "Абсолютные потери ($ млрд):"
                 },
                 infSim: {
@@ -936,8 +938,14 @@
                     sub: "Связь короткосрочного выбора (SRPC) и долгосрочной вертикальной кривой (LRPC)",
                     theoryHead: "Теоретические основы (Краткосрочный vs Долгосрочный период):",
                     theoryBody: "В краткосрочном периоде (SRPC) между инфляцией и безработицей существует обратная связь: стимулирование совокупного спроса (AD) снижает безработицу, но подталкивает инфляцию. В долгосрочном периоде (LRPC) кривая становится вертикальной на уровне естественной нормы безработицы (u_n), так как экономические агенты полностью адаптируют свои инфляционные ожидания.",
-                    adLbl: "Совокупный спрос (AD):", pieLbl: "Ожидаемая инфляция (π^e):",
-                    uLbl: "Безработица (u):", piLbl: "Фактическая инфляция (π):"
+                    adLbl: "Совокупный спрос (AD):",
+                    adHigh: "Высокий AD",
+                    adLow: "Низкий AD",
+                    adExplain: "Рост AD сдвигает экономику вдоль SRPC: инфляция растет, безработица падает.",
+                    pieLbl: "Ожидаемая инфляция (π^e):",
+                    pieExplain: "При адаптации ожиданий кривая SRPC сдвигается вверх. В долгосрочном периоде экономика возвращается к u_n (LRPC).",
+                    uLbl: "Безработица (u):", piLbl: "Фактическая инфляция (π):",
+                    currPoint: "Текущее состояние"
                 },
                 assign: {
                     headTitle: "Практикум и решение задач",
@@ -945,6 +953,7 @@
                     t1Desc: "В текущем году M = $500, Номинальный ВВП = $10,000, Реальный ВВП = $5,000.",
                     t1qa: "a. Уровень цен (P) и Скорость обращения (V):",
                     t1qb: "b. При V=const и росте Y на 5%, Nom GDP = ? ($):",
+                    t1PhNomGdp: "Номинальный ВВП = ?",
                     t1qc: "c. M для стабильного уровня цен P=const ($):",
                     t1qd: "d. M для инфляции 10% ($):",
                     t1ChartLbl: "Визуализатор равенства M × V = P × Y:",
@@ -952,6 +961,7 @@
                     t2Desc: "Население = 3412, Вне рабочей силы = 1579, Безработные = 237. Потенциальный ВВП = $830 млрд при u_n = 5%.",
                     t2qa: "a. Рабочая сила L и Уровень безработицы u (%):",
                     t2qb: "b. При u = 12% и u_n = 5%, потеря ВВП по Оукену ($ млрд):",
+                    t2PhLoss: "Потеря ВВП = ?",
                     checkBtn: "Проверить"
                 },
                 footer: "AlmaU • School of Digital Technologies and Economics • Macroeconomics © 2026"
@@ -1005,6 +1015,9 @@
                     sub: "Arthur Okun: Every 1% excess unemployment creates a 2% GDP gap",
                     actLbl: "Actual Unemployment (u):", natLbl: "Natural Rate (u_n):", gdpLbl: "Potential GDP ($B):",
                     compareLbl: "Actual GDP vs Potential GDP",
+                    barActual: "Actual GDP",
+                    barLoss: "GDP Loss",
+                    ofPotential: "% of Potential",
                     resGap: "GDP Gap (%):", resLoss: "Absolute Loss ($B):"
                 },
                 infSim: {
@@ -1049,8 +1062,14 @@
                     sub: "Trade-off in the short run (SRPC) vs vertical long run (LRPC)",
                     theoryHead: "Theoretical Foundations (Short-Run vs Long-Run):",
                     theoryBody: "In the short run (SRPC), there is a trade-off between inflation and unemployment: stimulating AD lowers unemployment but increases inflation. In the long run (LRPC), the curve is vertical at natural rate (u_n) as economic agents fully adapt inflation expectations.",
-                    adLbl: "Aggregate Demand (AD):", pieLbl: "Expected Inflation (π^e):",
-                    uLbl: "Unemployment (u):", piLbl: "Actual Inflation (π):"
+                    adLbl: "Aggregate Demand (AD):",
+                    adHigh: "High AD",
+                    adLow: "Low AD",
+                    adExplain: "Rising AD shifts the economy along SRPC: inflation rises, unemployment falls.",
+                    pieLbl: "Expected Inflation (π^e):",
+                    pieExplain: "As expectations adapt, the SRPC shifts upward. In the long run, the economy returns to u_n (LRPC).",
+                    uLbl: "Unemployment (u):", piLbl: "Actual Inflation (π):",
+                    currPoint: "Current Point"
                 },
                 assign: {
                     headTitle: "Assignments & Practice Workshop",
@@ -1058,6 +1077,7 @@
                     t1Desc: "In the current year M = $500, Nominal GDP = $10,000, Real GDP = $5,000.",
                     t1qa: "a. Price Level (P) and Velocity (V):",
                     t1qb: "b. With V=const and Y up 5%, Nom GDP = ? ($):",
+                    t1PhNomGdp: "Nominal GDP = ?",
                     t1qc: "c. M required for stable price level P=const ($):",
                     t1qd: "d. M required for 10% inflation ($):",
                     t1ChartLbl: "M × V = P × Y Identity Visualizer:",
@@ -1065,6 +1085,7 @@
                     t2Desc: "Population = 3412, Not in Labor Force = 1579, Unemployed = 237. Potential GDP = $830B at u_n = 5%.",
                     t2qa: "a. Labor Force L and Unemployment Rate u (%):",
                     t2qb: "b. At u = 12% and u_n = 5%, GDP loss under Okun ($B):",
+                    t2PhLoss: "GDP Loss = ?",
                     checkBtn: "Check Answer"
                 },
                 footer: "AlmaU • School of Digital Technologies and Economics • Macroeconomics © 2026"
@@ -1098,6 +1119,7 @@
             document.getElementById('bls-total-label').innerText = t.bls.totalLbl;
             document.getElementById('bls-note-head').innerText = t.bls.noteHead;
 
+            document.getElementById('sim-unemp-label').innerText = t.sim.unempLbl;
             document.getElementById('formula-u-label').innerText = t.sim.uLbl;
             document.getElementById('formula-lfpr-label').innerText = t.sim.lfprLbl;
             document.getElementById('btn-reset-sim').innerText = t.sim.resetBtn;
@@ -1118,15 +1140,20 @@
             document.getElementById('eff-3-t').innerText = t.types.eff3t; document.getElementById('eff-3-d').innerText = t.types.eff3d;
             document.getElementById('eff-4-t').innerText = t.types.eff4t; document.getElementById('eff-4-d').innerText = t.types.eff4d;
 
+            // Okun's Law Section
             document.getElementById('okun-title').childNodes[2].nodeValue = " " + t.okun.title;
             document.getElementById('okun-sub').innerText = t.okun.sub;
             document.getElementById('okun-actual-lbl').innerText = t.okun.actLbl;
             document.getElementById('okun-nat-lbl').innerText = t.okun.natLbl;
             document.getElementById('okun-gdp-lbl').innerText = t.okun.gdpLbl;
             document.getElementById('okun-compare-lbl').innerText = t.okun.compareLbl;
+            document.getElementById('okun-bar-actual').innerText = t.okun.barActual;
+            document.getElementById('okun-bar-loss').innerText = t.okun.barLoss;
             document.getElementById('okun-res-gap-lbl').innerText = t.okun.resGap;
             document.getElementById('okun-res-loss-lbl').innerText = t.okun.resLoss;
+            calculateOkun();
 
+            // Inflation Section
             document.getElementById('inf-sim-title').childNodes[2].nodeValue = " " + t.infSim.title;
             document.getElementById('inf-sim-sub').innerText = t.infSim.sub;
             document.getElementById('ms-slider-lbl').innerText = t.infSim.msLbl;
@@ -1164,20 +1191,26 @@
             document.getElementById('oz-4').innerText = t.oz.oz4; document.getElementById('oz-4').nextElementSibling.innerText = t.oz.oz4v;
             document.getElementById('oz-5').innerText = t.oz.oz5; document.getElementById('oz-5').nextElementSibling.innerText = t.oz.oz5v;
 
+            // Phillips Curve Section
             document.getElementById('phil-head-title').childNodes[2].nodeValue = " " + t.phil.title;
             document.getElementById('phil-head-sub').innerText = t.phil.sub;
             document.getElementById('phil-theory-head').innerText = t.phil.theoryHead;
             document.getElementById('phil-theory-body').innerText = t.phil.theoryBody;
             document.getElementById('ad-slider-lbl').innerText = t.phil.adLbl;
+            document.getElementById('ad-explain').innerText = t.phil.adExplain;
             document.getElementById('pie-slider-lbl').innerText = t.phil.pieLbl;
+            document.getElementById('pie-explain').innerText = t.phil.pieExplain;
             document.getElementById('phil-u-lbl').innerText = t.phil.uLbl;
             document.getElementById('phil-pi-lbl').innerText = t.phil.piLbl;
+            updatePhillipsChart();
 
+            // Assignments Section
             document.getElementById('assign-head-title').childNodes[2].nodeValue = " " + t.assign.headTitle;
             document.getElementById('task1-title').innerText = t.assign.t1Title;
             document.getElementById('task1-desc').innerText = t.assign.t1Desc;
             document.getElementById('t1-qa').innerText = t.assign.t1qa;
             document.getElementById('t1-qb').innerText = t.assign.t1qb;
+            document.getElementById('ans-t1-nomgdp').placeholder = t.assign.t1PhNomGdp;
             document.getElementById('t1-qc').innerText = t.assign.t1qc;
             document.getElementById('t1-qd').innerText = t.assign.t1qd;
             document.getElementById('t1-chart-lbl').innerText = t.assign.t1ChartLbl;
@@ -1186,11 +1219,14 @@
             document.getElementById('task2-desc').innerText = t.assign.t2Desc;
             document.getElementById('t2-qa').innerText = t.assign.t2qa;
             document.getElementById('t2-qb').innerText = t.assign.t2qb;
+            document.getElementById('ans-t2-loss').placeholder = t.assign.t2PhLoss;
             document.getElementById('btn-check-t1').innerText = t.assign.checkBtn;
             document.getElementById('btn-check-t2').innerText = t.assign.checkBtn;
 
             document.getElementById('footer-text').innerText = t.footer;
 
+            initMoneySupplyChart();
+            updateInflationChart();
             updateRegionUI();
         }
 
@@ -1210,12 +1246,10 @@
             const data = regionData[currentRegion];
             const t = i18n[currentLang];
 
-            // Header titles
             document.getElementById('bls-head-txt').innerText = currentRegion === 'us' ? t.bls.headUS : t.bls.headKZ;
             document.getElementById('bls-head-sub').innerText = currentRegion === 'us' ? t.bls.subUS : t.bls.subKZ;
             document.getElementById('bls-total-val').innerText = `~${data.totalPop} M`;
 
-            // Stacked Bar ratios
             const pTotal = data.totalPop;
             const empPct = ((data.emp / pTotal) * 100).toFixed(1);
             const unempPct = ((data.unemp / pTotal) * 100).toFixed(1);
@@ -1239,7 +1273,6 @@
 
             document.getElementById('bls-note-body').innerText = currentRegion === 'us' ? t.bls.noteBodyUS : t.bls.noteBodyKZ;
 
-            // Simulator
             document.getElementById('sim-title').childNodes[2].nodeValue = " " + (currentRegion === 'us' ? t.sim.titleUS : t.sim.titleKZ);
             document.getElementById('sim-desc').innerText = currentRegion === 'us' ? t.sim.descUS : t.sim.descKZ;
             
@@ -1254,7 +1287,6 @@
                 <span>${(data.unemp * 2.5).toFixed(1)} M</span>
             `;
 
-            // Chart Titles
             document.getElementById('hist-chart-title').innerText = currentRegion === 'us' ? t.hist.titleUS : t.hist.titleKZ;
 
             updateLaborSimulator();
@@ -1312,6 +1344,7 @@
             const u = parseFloat(document.getElementById('okun-u-slider').value);
             const un = parseFloat(document.getElementById('okun-un-slider').value);
             const gdp = parseFloat(document.getElementById('okun-gdp-slider').value);
+            const t = i18n[currentLang];
 
             document.getElementById('okun-u-disp').innerText = u.toFixed(1) + "%";
             document.getElementById('okun-un-disp').innerText = un.toFixed(1) + "%";
@@ -1326,7 +1359,7 @@
 
             document.getElementById('okun-bar-actual').style.width = Math.min(100, actualGdpPct).toFixed(1) + "%";
             document.getElementById('okun-bar-loss').style.width = Math.abs(gapPct).toFixed(1) + "%";
-            document.getElementById('okun-timeline-val').innerText = actualGdpPct.toFixed(1) + (currentLang === 'ru' ? "% от Потенциала" : "% of Potential");
+            document.getElementById('okun-timeline-val').innerText = actualGdpPct.toFixed(1) + t.okun.ofPotential;
         }
 
         function initHistoricalChart() {
@@ -1442,11 +1475,12 @@
         function updatePhillipsChart() {
             const adLevel = parseInt(document.getElementById('ad-slider').value);
             const pieVal = parseFloat(document.getElementById('pie-slider').value);
+            const t = i18n[currentLang];
 
             const uVal = 7.0 - (adLevel * 0.8);
             const piVal = pieVal + (12.0 / uVal - 2.4);
 
-            document.getElementById('ad-state-disp').innerText = adLevel > 3 ? (currentLang === 'ru'?'Высокий AD':'High AD') : (currentLang === 'ru'?'Низкий AD':'Low AD');
+            document.getElementById('ad-state-disp').innerText = adLevel > 3 ? t.phil.adHigh : t.phil.adLow;
             document.getElementById('pie-val-disp').innerText = pieVal.toFixed(1) + "%";
             document.getElementById('phil-u-val').innerText = uVal.toFixed(1) + "%";
             document.getElementById('phil-pi-val').innerText = piVal.toFixed(1) + "%";
@@ -1461,6 +1495,7 @@
             if (philChart) {
                 philChart.data.datasets[0].data = srpcPoints;
                 philChart.data.datasets[2].data = [{x: uVal, y: piVal}];
+                philChart.data.datasets[2].label = t.phil.currPoint;
                 philChart.update('none');
             } else {
                 philChart = new Chart(ctx, {
@@ -1486,7 +1521,7 @@
                                 pointRadius: 0
                             },
                             {
-                                label: currentLang === 'ru' ? 'Текущее состояние' : 'Current Point',
+                                label: t.phil.currPoint,
                                 data: [{x: uVal, y: piVal}],
                                 backgroundColor: '#ff007f',
                                 borderColor: '#ffffff',
