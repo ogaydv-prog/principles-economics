@@ -610,7 +610,7 @@
     <script>
         const TOTAL_ATTENDANCE_HOURS = 45;
 
-        // Внесены 100% точные баллы РК1 (MC1) с официального Platonus
+        // Внесены 100% точные баллы РК1 (MC1) с официального Platonus + новые студенты
         const initialGroupStudents = [
             { id: "st-ib-1", name: "Hebatallah Aldada", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
             { id: "st-ib-2", name: "Абдихай Салтанат Жалғасқызы", attendance: 0, activities: 0, ca1: 0, mc1: 82.33, ca2: 0, mc2: 0, exam: 0 },
@@ -623,13 +623,15 @@
             { id: "st-ib-9", name: "Ким Есфирь Севастьяновна", attendance: 0, activities: 0, ca1: 0, mc1: 78.33, ca2: 0, mc2: 0, exam: 0 },
             { id: "st-ib-10", name: "Кожахметова Малика Азаматовна", attendance: 0, activities: 0, ca1: 0, mc1: 66.67, ca2: 0, mc2: 0, exam: 0 },
             { id: "st-ib-11", name: "Көшкінбай Айару Арманқызы", attendance: 0, activities: 0, ca1: 0, mc1: 73.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-12", name: "Сериккалиева Еңлік Думанқызы", attendance: 0, activities: 0, ca1: 0, mc1: 61.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-13", name: "Степанченко Савелий Дмитриевич", attendance: 0, activities: 0, ca1: 0, mc1: 78.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-14", name: "Сулейменова Айдана Нурлановна", attendance: 0, activities: 0, ca1: 0, mc1: 71.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-15", name: "Толстова Эвелина Евгеньевна", attendance: 0, activities: 0, ca1: 0, mc1: 72.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-16", name: "Хусаинова Адия Галимовна", attendance: 0, activities: 0, ca1: 0, mc1: 75.00, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-17", name: "Шабанов Анварбек", attendance: 0, activities: 0, ca1: 0, mc1: 80.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-18", name: "Югай Ксения Альбертовна", attendance: 0, activities: 0, ca1: 0, mc1: 85.00, ca2: 0, mc2: 0, exam: 0 }
+            { id: "st-ib-12", name: "Нигус Дамте", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-13", name: "Сериккалиева Еңлік Думанқызы", attendance: 0, activities: 0, ca1: 0, mc1: 61.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-14", name: "Степанченко Савелий Дмитриевич", attendance: 0, activities: 0, ca1: 0, mc1: 78.33, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-15", name: "Сулейменова Айдана Нурлановна", attendance: 0, activities: 0, ca1: 0, mc1: 71.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-16", name: "Толстова Эвелина Евгеньевна", attendance: 0, activities: 0, ca1: 0, mc1: 72.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-17", name: "Хирана Касита Путри", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-18", name: "Хусаинова Адия Галимовна", attendance: 0, activities: 0, ca1: 0, mc1: 75.00, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-19", name: "Шабанов Анварбек", attendance: 0, activities: 0, ca1: 0, mc1: 80.67, ca2: 0, mc2: 0, exam: 0 },
+            { id: "st-ib-20", name: "Югай Ксения Альбертовна", attendance: 0, activities: 0, ca1: 0, mc1: 85.00, ca2: 0, mc2: 0, exam: 0 }
         ].map(st => ({
             ...st,
             attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
@@ -669,6 +671,19 @@
             if (savedData) {
                 try {
                     students = JSON.parse(savedData);
+                    // Добавляем отсутствующих студентов из обновлённого списка группы, сохраняя существующие оценки
+                    let updated = false;
+                    initialGroupStudents.forEach(initSt => {
+                        const exists = students.some(s => s.name.toLowerCase() === initSt.name.toLowerCase());
+                        if (!exists) {
+                            students.push({ ...initSt });
+                            updated = true;
+                        }
+                    });
+                    if (updated) {
+                        students.sort((a, b) => a.name.localeCompare(b.name));
+                        saveDatabase();
+                    }
                 } catch(e) {
                     students = initialGroupStudents;
                 }
@@ -1598,7 +1613,7 @@
                     toast.remove();
                 }, 300);
             }, 3500);
-        }
+        } 
     </script>
 </body>
 </html>
