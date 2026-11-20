@@ -1,362 +1,1065 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demand for Money • AlmaU</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demand for Money • AlmaU</title>
 <style>
-:root{--bg:#080a0f;--panel:#11151d;--panel2:#171c26;--line:#293142;--text:#edf2f7;--muted:#9aa7b8;--blue:#38bdf8;--red:#ff4d5e;--green:#34d399;--yellow:#fbbf24;--violet:#a78bfa;--orange:#fb923c}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#17203a 0,#090b11 38%,#06070a 100%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}.wrap{max-width:1280px;margin:auto;padding:24px}.top{text-align:center;position:relative;padding:8px 0 20px}.top h1{margin:0;color:#60a5fa;font-size:42px;letter-spacing:2px}.course{color:#ff5a68;font-size:13px;margin-top:8px}.lang{position:absolute;right:0;top:8px;display:flex;gap:6px}.lang button,.tab{border:1px solid #334155;background:#111827;color:#cbd5e1;border-radius:9px;padding:9px 14px;font-weight:800;cursor:pointer}.lang button.on,.tab.on{border-color:#60a5fa;color:white;box-shadow:0 0 18px #3b82f644}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:10px 0 18px}.section{display:none}.section.on{display:block}.hero{display:grid;grid-template-columns:180px 1fr;gap:22px;background:linear-gradient(145deg,#151a24,#0d1017);border:1px solid #2c3444;border-radius:18px;padding:20px;box-shadow:0 16px 50px #0007}.portrait{width:180px;height:210px;object-fit:contain;background:#e8edf3;border-radius:14px;padding:6px}.hero h2{margin:4px 0;color:#fff;font-size:25px}.hero p{color:#b9c4d2;line-height:1.6;margin:7px 0}.grid2{display:grid;grid-template-columns:1fr 1.25fr;gap:16px;margin-top:16px}.panel{background:linear-gradient(145deg,#121720,#0b0e14);border:1px solid #293142;border-radius:16px;padding:18px;box-shadow:0 10px 28px #0005}.panel h3{margin:0 0 12px;color:#7dd3fc}.formula-card{height:175px;perspective:1100px;cursor:pointer;margin-top:14px}.formula-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}.formula-card.flip .formula-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:15px;border:1px solid #3a4559;background:linear-gradient(145deg,#111827,#07090d);display:flex;align-items:center;justify-content:center;padding:18px;box-shadow:inset 0 1px #ffffff10,0 8px 20px #0006}.back{transform:rotateY(180deg);align-items:flex-start;justify-content:flex-start;overflow:auto;color:#d6deea;line-height:1.5;font-size:13px}.eq{font-family:Georgia,serif;font-size:38px;font-weight:800;letter-spacing:3px}.hint{text-align:center;color:#718096;font-size:11px;margin-top:7px}.controls{display:grid;gap:14px}.control label{display:flex;justify-content:space-between;font-size:12px;color:#cbd5e1;margin-bottom:6px}.vintage{--c:#60a5fa;-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:3px;background:linear-gradient(to bottom,#07090d 0 35%,var(--c) 42% 58%,#07090d 65% 100%);border:1px solid #475569;box-shadow:inset 0 2px 4px #000;cursor:grab}.vintage:active{cursor:grabbing}.vintage::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:32px;border-radius:3px;background:linear-gradient(90deg,#4b5563,#d1d5db 35%,#fff 50%,#9ca3af 65%,#374151);border:1px solid #020617;box-shadow:0 3px 8px #000,0 0 9px color-mix(in srgb,var(--c) 65%,transparent)}.vintage::-moz-range-thumb{width:18px;height:30px;border-radius:3px;background:#d1d5db;border:1px solid #020617}.result{padding:12px;border:1px dashed #475569;background:#080b10;border-radius:10px;font-size:13px;line-height:1.65;margin-top:12px}.result b{font-size:18px;color:#34d399}.canvasbox{background:#070a0f;border:1px solid #273244;border-radius:14px;padding:10px;min-height:350px}canvas{width:100%;height:auto;display:block}.explain{margin-top:10px;padding:12px;border-left:4px solid #38bdf8;background:#0c111a;border-radius:8px;color:#c5d0de;font-size:13px;line-height:1.55}.people{display:flex;gap:14px;justify-content:center}.person{text-align:center}.person img{width:145px;height:170px;object-fit:contain;background:#eef2f7;border-radius:12px;padding:5px}.person b{display:block;margin-top:6px}
+:root{
+  --bg:#07090e;
+  --panel:#101520;
+  --panel2:#0b0f17;
+  --line:#263042;
+  --text:#edf2f7;
+  --muted:#94a3b8;
+  --blue:#38bdf8;
+  --red:#ff4d5e;
+  --green:#34d399;
+  --yellow:#fbbf24;
+  --violet:#a78bfa;
+  --orange:#fb923c;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at 50% -10%,#17223b 0,#090c13 42%,#05070b 100%);
+  color:var(--text);
+  font-family:Inter,'Segoe UI',Arial,sans-serif;
+}
+.wrap{max-width:1380px;margin:0 auto;padding:18px 20px 32px}
 
-/* КРАСИВЫЕ КАРТОЧКИ ЦЕНТРОБАНКОВ */
-.banks{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px;align-items:stretch}
+/* HEADER */
+.top{text-align:center;position:relative;padding:4px 0 14px}
+.top h1{margin:0;color:#60a5fa;font-size:36px;letter-spacing:2px;font-weight:900}
+.course{color:#ff5a68;font-size:12.5px;margin-top:5px;letter-spacing:.3px}
+.lang{position:absolute;right:0;top:6px;display:flex;gap:6px}
+.lang button,.tab{
+  border:1px solid #334155;
+  background:#111827;
+  color:#cbd5e1;
+  border-radius:9px;
+  padding:8px 14px;
+  font-weight:800;
+  font-size:13px;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.lang button:hover,.tab:hover{border-color:#60a5fa;color:#fff}
+.lang button.on,.tab.on{
+  border-color:#60a5fa;
+  background:#162238;
+  color:#fff;
+  box-shadow:0 0 18px #3b82f644;
+}
+
+/* TABS */
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:8px 0 16px}
+.section{display:none}
+.section.on{display:block}
+
+/* COMPACT HERO */
+.hero{
+  display:grid;
+  grid-template-columns:138px 1fr;
+  gap:18px;
+  align-items:center;
+  background:linear-gradient(145deg,#141a26,#0c1018);
+  border:1px solid #2b3548;
+  border-radius:16px;
+  padding:14px 18px;
+  box-shadow:0 12px 36px #0007;
+}
+.portrait{
+  width:138px;
+  height:162px;
+  object-fit:contain;
+  background:#e8edf3;
+  border-radius:12px;
+  padding:5px;
+  display:block;
+}
+.hero h2{margin:0 0 5px;color:#fff;font-size:21px;line-height:1.25}
+.hero p{color:#b9c4d2;line-height:1.5;margin:0 0 10px;font-size:13.5px}
+
+/* COMPACT CLICKABLE FORMULA CARD */
+.formula-card{
+  cursor:pointer;
+  border-radius:12px;
+  border:1px solid #384459;
+  background:linear-gradient(145deg,#0f1624,#070a10);
+  padding:12px 16px;
+  box-shadow:inset 0 1px #ffffff10,0 6px 16px #0005;
+  transition:border-color .18s ease,filter .18s ease;
+}
+.formula-card:hover{border-color:#60a5fa;filter:brightness(1.06)}
+.f-front{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.eq{font-family:Georgia,serif;font-size:26px;font-weight:800;letter-spacing:1px}
+.hint{
+  color:#8fa0b5;
+  font-size:11.5px;
+  border:1px solid #2d384b;
+  background:#111827;
+  padding:4px 10px;
+  border-radius:999px;
+  white-space:nowrap;
+}
+.f-back{display:none;color:#d6deea;line-height:1.55;font-size:13px}
+.formula-card.flip .f-front{display:none}
+.formula-card.flip .f-back{display:block}
+
+/* MAIN 2-COLUMN WORKSPACE */
+.grid2{
+  display:grid;
+  grid-template-columns:minmax(320px,395px) minmax(0,1fr);
+  gap:16px;
+  margin-top:14px;
+  align-items:stretch;
+}
+.panel{
+  background:linear-gradient(145deg,#121722,#0a0e15);
+  border:1px solid #283244;
+  border-radius:15px;
+  padding:16px;
+  box-shadow:0 10px 28px #0005;
+  display:flex;
+  flex-direction:column;
+}
+.panel h3{margin:0 0 12px;color:#7dd3fc;font-size:16px;font-weight:800}
+
+/* SLIDERS */
+.controls{display:grid;gap:12px}
+.control label{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#cbd5e1;margin-bottom:5px}
+.control label b{font-size:13.5px;color:#fff}
+.vintage{
+  --c:#60a5fa;
+  -webkit-appearance:none;
+  appearance:none;
+  width:100%;
+  height:11px;
+  border-radius:3px;
+  background:linear-gradient(to bottom,#07090d 0 35%,var(--c) 42% 58%,#07090d 65% 100%);
+  border:1px solid #475569;
+  box-shadow:inset 0 2px 4px #000;
+  cursor:grab;
+  touch-action:none;
+}
+.vintage:active{cursor:grabbing}
+.vintage::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:17px;
+  height:28px;
+  border-radius:3px;
+  background:linear-gradient(90deg,#4b5563,#d1d5db 35%,#fff 50%,#9ca3af 65%,#374151);
+  border:1px solid #020617;
+  box-shadow:0 3px 8px #000,0 0 9px color-mix(in srgb,var(--c) 65%,transparent);
+}
+.vintage::-moz-range-thumb{
+  width:17px;
+  height:26px;
+  border-radius:3px;
+  background:#d1d5db;
+  border:1px solid #020617;
+}
+
+/* RESULT & EXPLAIN BOXES */
+.result{
+  padding:11px 13px;
+  border:1px dashed #475569;
+  background:#070a10;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.68;
+  margin-top:12px;
+}
+.result b{font-size:16.5px;color:#34d399}
+.explain{
+  margin-top:10px;
+  padding:11px 13px;
+  border-left:4px solid #38bdf8;
+  background:#0c121c;
+  border-radius:8px;
+  color:#c5d0de;
+  font-size:12.8px;
+  line-height:1.55;
+}
+
+/* CANVAS */
+.canvasbox{
+  background:#06090f;
+  border:1px solid #263144;
+  border-radius:13px;
+  padding:8px;
+  width:100%;
+  height:350px;
+  position:relative;
+}
+.canvasbox canvas{width:100%;height:100%;display:block}
+.saw-labels{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;margin-top:10px}
+.pill{border:1px solid #334155;border-radius:999px;padding:4px 10px;background:#0b1018;color:#cbd5e1}
+
+/* BAUMOL PORTRAITS */
+.people{display:flex;gap:12px;justify-content:center}
+.person{text-align:center}
+.person img{
+  width:115px;
+  height:138px;
+  object-fit:contain;
+  background:#eef2f7;
+  border-radius:10px;
+  padding:4px;
+  display:block;
+}
+.person b{display:block;margin-top:5px;font-size:12px;color:#e2e8f0}
+
+/* CENTRAL BANKS GRID */
+.banks{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;align-items:stretch}
 .bank{cursor:pointer;display:flex}
-.bankin{width:100%;display:flex}
 .bface{
-  width:100%;min-height:152px;border-radius:14px;
+  width:100%;
+  min-height:142px;
+  border-radius:14px;
   border:1px solid color-mix(in srgb,var(--bc,#3b82f6) 55%,#1e293b);
   background:linear-gradient(160deg,#131b29 0%,#0b1018 100%);
-  padding:16px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  text-align:center;box-shadow:0 8px 20px #0006;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,filter .18s ease;
+  padding:14px 12px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  text-align:center;
+  box-shadow:0 8px 20px #0006;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,filter .18s ease;
 }
 .bank:hover .bface{filter:brightness(1.12);transform:translateY(-3px);border-color:var(--bc)}
 .bank.active .bface{
   box-shadow:0 0 24px color-mix(in srgb,var(--bc) 55%,transparent),inset 0 0 18px color-mix(in srgb,var(--bc) 18%,transparent);
-  border-width:2px;border-color:var(--bc);
+  border-width:2px;
+  border-color:var(--bc);
 }
 .b-head{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:800;letter-spacing:.5px;color:#e2e8f0}
 .b-code{
-  font-size:10px;font-weight:800;letter-spacing:.8px;padding:2px 6px;border-radius:5px;
-  background:color-mix(in srgb,var(--bc) 20%,#0f172a);color:var(--bc);border:1px solid color-mix(in srgb,var(--bc) 45%,transparent);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.8px;
+  padding:2px 6px;
+  border-radius:5px;
+  background:color-mix(in srgb,var(--bc) 20%,#0f172a);
+  color:var(--bc);
+  border:1px solid color-mix(in srgb,var(--bc) 45%,transparent);
 }
-.rate{font-size:28px;font-weight:900;line-height:1.1;color:var(--bc);margin:2px 0;text-shadow:0 0 18px color-mix(in srgb,var(--bc) 35%,transparent)}
+.rate{font-size:27px;font-weight:900;line-height:1.1;color:var(--bc);margin:2px 0}
 .b-sub{font-size:11px;color:#8fa0b5;line-height:1.3}
 .b-sub.new{color:#34d399;font-weight:600}
-.bback{display:none;align-items:flex-start;justify-content:center;text-align:left;font-size:12px;line-height:1.5;color:#d6deea;padding:14px}
+.bback{display:none;align-items:flex-start;justify-content:center;text-align:left;font-size:12px;line-height:1.48;color:#d6deea;padding:13px}
 .bank.flip .bface:not(.bback){display:none}
 .bank.flip .bback{display:flex}
 
-.assets{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.asset{padding:12px 7px;background:#0c1119;border:1px solid #334155;border-radius:11px;text-align:center}.asset strong{display:block;color:#e2e8f0}.asset small{color:#8fa0b5}.note{font-size:11px;color:#7f8ea3}.saw-labels{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;margin-top:10px}.pill{border:1px solid #334155;border-radius:999px;padding:5px 9px;background:#0b1018}@media(max-width:850px){.tabs,.banks{grid-template-columns:1fr 1fr}.grid2,.hero{grid-template-columns:1fr}.portrait{margin:auto}.lang{position:static;justify-content:center;margin-top:10px}.assets{grid-template-columns:1fr 1fr}.top h1{font-size:31px}}
-
-/* STABILITY PATCH: no GPU mirror-flip + responsive canvases */
-.formula-card{perspective:none!important}
-.formula-inner{transform:none!important;transform-style:flat!important;transition:none!important}
-.face{backface-visibility:visible!important;-webkit-backface-visibility:visible!important;transition:opacity .18s ease,transform .18s ease,filter .18s ease!important}
-.formula-card .back{transform:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}
-.formula-card.flip .face:not(.back){opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:scale(.985)!important}
-.formula-card.flip .back{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:scale(1)!important}
-.canvasbox{height:clamp(310px,34vw,410px)!important;min-height:310px!important;max-height:410px!important}
-.canvasbox canvas{width:100%!important;height:100%!important;display:block!important}
-#baumol .grid2{align-items:stretch}
-#baumol .panel{min-width:0}
-#baumol .people{flex-wrap:wrap}
-#friedman .fried-chart-wrap{margin-top:16px}
-@media(min-width:1100px){#baumol .grid2{grid-template-columns:minmax(330px,.85fr) minmax(520px,1.45fr)}#baumol .canvasbox{height:380px!important}}
-</style>
-<style id="final-layout-fix">
-.formula-card{
-  height:auto!important; min-height:220px!important; perspective:none!important;
-  overflow:visible!important; cursor:pointer;
+/* FRIEDMAN ASSETS & BOTTOM KPI BAR */
+.assets{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
+.asset{padding:10px 8px;background:#0c1119;border:1px solid #334155;border-radius:11px;text-align:center}
+.asset strong{display:block;color:#e2e8f0;font-size:13.5px}
+.asset small{color:#8fa0b5;font-size:11.5px}
+.note{font-size:11px;color:#7f8ea3;margin-top:6px}
+.kpi-bar{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:230px 210px 1fr;
+  gap:16px;
+  align-items:center;
+  background:linear-gradient(145deg,#121722,#0a0e15);
+  border:1px solid #283244;
+  border-radius:15px;
+  padding:16px 20px;
 }
-.formula-inner{
-  display:grid!important; grid-template-areas:"stack"!important;
-  width:100%!important; height:auto!important; min-height:220px!important;
-  transform:none!important; transform-style:flat!important; transition:none!important;
+.kpi-box{
+  text-align:center;
+  padding:10px;
+  background:#070a10;
+  border:1px solid #263144;
+  border-radius:12px;
 }
-.formula-card .face{
-  grid-area:stack!important; position:relative!important; inset:auto!important;
-  width:100%!important; min-height:220px!important; height:auto!important;
-  overflow:visible!important; transform:none!important; backface-visibility:visible!important;
-  -webkit-backface-visibility:visible!important;
-  transition:opacity .16s ease, visibility .16s ease, filter .16s ease, transform .16s ease!important;
+.kpi-label{font-size:11.5px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.kpi-val{font-size:44px;font-weight:900;line-height:1.05;color:#34d399}
+
+@media(max-width:960px){
+  .grid2{grid-template-columns:1fr}
+  .banks{grid-template-columns:repeat(2,1fr)}
+  .kpi-bar{grid-template-columns:1fr 1fr}
+  .kpi-bar .explain{grid-column:1/-1;margin-top:0}
 }
-.formula-card .face:not(.back){opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:2!important}
-.formula-card .back{opacity:0!important;visibility:hidden!important;pointer-events:none!important;z-index:1!important}
-.formula-card.flip .face:not(.back){opacity:0!important;visibility:hidden!important;pointer-events:none!important;z-index:1!important;transform:scale(.99)!important}
-.formula-card.flip .back{opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:2!important;transform:scale(1)!important}
-.formula-card:hover .face{filter:brightness(1.06)}
-
-.back,.bback,.explain,.hero-text,.card p,.card li{overflow-wrap:anywhere;word-break:normal}
-
-.wrap{width:min(1500px,calc(100% - 28px))!important;max-width:1500px!important;margin-inline:auto!important}
-.grid2,.simgrid{grid-template-columns:minmax(300px,390px) minmax(0,1fr)!important;align-items:stretch!important}
-.people{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-.canvasbox{
-  width:100%!important; height:auto!important; min-height:0!important; max-height:none!important;
-  aspect-ratio:16/9!important; overflow:hidden!important; padding:10px!important;
-}
-.canvasbox canvas{display:block!important;width:100%!important;height:100%!important}
-#sawcanvas,#costcanvas,#friedcanvas,#mdcanvas,#eqcanvas{max-width:100%!important}
-
-#baumol .hero,#baumol .people{max-width:100%!important}
-#baumol .person{min-width:0!important;align-items:center!important}
-#baumol .person img{object-fit:contain!important;object-position:center!important;background:#080b11!important}
-#baumol .person h3,#baumol .person b{white-space:normal!important}
-
-@media (max-width:1000px){
- .grid2,.simgrid{grid-template-columns:1fr!important}
- .canvasbox{aspect-ratio:16/10!important}
- .banks{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-}
-@media (max-width:620px){
- .wrap{width:min(100% - 16px,1500px)!important}
- .banks,.people{grid-template-columns:1fr!important}
- .formula-card,.formula-inner,.formula-card .face{min-height:260px!important}
- .canvasbox{aspect-ratio:4/3!important}
+@media(max-width:680px){
+  .tabs,.banks,.assets{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr;text-align:center}
+  .portrait{margin:0 auto}
+  .lang{position:static;justify-content:center;margin-top:10px}
+  .top h1{font-size:28px}
+  .kpi-bar{grid-template-columns:1fr}
+  .canvasbox{height:290px}
 }
 </style>
-
-<style id="definitive-card-fix">
-.formula-card{height:auto!important;min-height:0!important;overflow:visible!important;perspective:none!important}
-.formula-inner{display:block!important;height:auto!important;min-height:0!important;transform:none!important}
-.formula-card .face{position:relative!important;inset:auto!important;display:flex!important;width:100%!important;height:auto!important;min-height:220px!important;overflow:visible!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
-.formula-card .back{display:none!important;min-height:220px!important;white-space:normal!important;line-height:1.62!important;font-size:14px!important}
-.formula-card.flip .face:not(.back){display:none!important}
-.formula-card.flip .back{display:flex!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
-@media(max-width:620px){.formula-card .face,.formula-card .back{min-height:250px!important}}
-</style>
-</head><body><div class="wrap"><header class="top"><h1 data-en="DEMAND FOR MONEY" data-ru="СПРОС НА ДЕНЬГИ">DEMAND FOR MONEY</h1><div class="course">Principles of Economics | Economics | AlmaU | School of Digital Technologies and Economics</div><div class="lang"><button class="on" onclick="setLang('en',this)">EN</button><button onclick="setLang('ru',this)">RU</button></div></header>
-<div class="tabs"><button class="tab on" onclick="showTab('fisher',this)" data-en="Irving Fisher" data-ru="Ирвинг Фишер">Irving Fisher</button><button class="tab" onclick="showTab('keynes',this)" data-en="John Maynard Keynes" data-ru="Джон Мейнард Кейнс">John Maynard Keynes</button><button class="tab" onclick="showTab('baumol',this)" data-en="Baumol & Tobin" data-ru="Баумоль и Тобин">Baumol & Tobin</button><button class="tab" onclick="showTab('friedman',this)" data-en="Milton Friedman" data-ru="Милтон Фридман">Milton Friedman</button></div>
-
-<section id="fisher" class="section on"><div class="hero"><img class="portrait" src="fisher.jpg" alt="Irving Fisher"><div><h2 data-en="Irving Fisher — Quantity Theory of Money Demand" data-ru="Ирвинг Фишер — количественная теория спроса на деньги">Irving Fisher — Quantity Theory of Money Demand</h2><p data-en="Fisher links desired nominal money balances to the scale of nominal transactions. In the classical transactions version, the interest rate does not enter money demand directly." data-ru="Фишер связывает желаемые номинальные денежные остатки с масштабом номинальных сделок. В классической транзакционной версии процентная ставка непосредственно в функцию спроса на деньги не входит.">Fisher links desired nominal money balances to the scale of nominal transactions.</p><div class="formula-card" onclick="this.classList.toggle('flip')"><div class="formula-inner"><div class="face"><div><div class="eq"><span style="color:#fbbf24">M</span><span style="color:#38bdf8">V</span> = <span style="color:#ff4d5e">P</span><span style="color:#34d399">Y</span></div><div class="hint" data-en="Click to explain the equation" data-ru="Нажмите для расшифровки формулы">Click to explain the equation</div></div></div><div class="face back"><div data-en="M — nominal money stock; V — velocity, nominal spending per unit of money; P — price level; Y — real output. At money-market equilibrium Ms = Md. Therefore Md = PY/V = kPY, where k = 1/V is the desired fraction of nominal income held as money. Fisher treated V as relatively stable in the short run because payment institutions and habits normally change slowly — not because of a proven '30 calm years' rule." data-ru="M — номинальное предложение денег; V — скорость обращения, то есть номинальные расходы на единицу денег; P — уровень цен; Y — реальный выпуск. При равновесии денежного рынка Ms = Md. Поэтому Md = PY/V = kPY, где k = 1/V — желаемая доля номинального дохода, хранимая в деньгах. Фишер считал V относительно стабильной в краткосрочном периоде из-за медленного изменения платежных институтов и привычек, а не из-за доказанного правила «30 спокойных лет». ">M — nominal money stock...</div></div></div></div></div></div>
-<div class="grid2"><div class="panel"><h3 data-en="Classical transactions simulator" data-ru="Симулятор транзакционного спроса">Classical transactions simulator</h3><div class="controls"><div class="control"><label><span>Money stock M</span><b id="fmv">2000</b></label><input id="fm" class="vintage" style="--c:#fbbf24" type="range" min="1000" max="5000" step="100" value="2000" oninput="fisherCalc()"></div><div class="control"><label><span>Velocity V</span><b id="fvv">5.0</b></label><input id="fv" class="vintage" style="--c:#38bdf8" type="range" min="1" max="10" step="0.5" value="5" oninput="fisherCalc()"></div><div class="control"><label><span>Price level P</span><b id="fpv">1.00</b></label><input id="fp" class="vintage" style="--c:#ff4d5e" type="range" min="0.5" max="3" step="0.05" value="1" oninput="fisherCalc('p')"></div><div class="control"><label><span>Real output Y</span><b id="fyv">10000</b></label><input id="fy" class="vintage" style="--c:#34d399" type="range" min="5000" max="20000" step="500" value="10000" oninput="fisherCalc()"></div></div></div><div class="panel"><h3 data-en="From exchange equation to money demand" data-ru="От уравнения обмена к спросу на деньги">From exchange equation to money demand</h3><div class="eq" style="font-size:27px;line-height:1.9"><span style="color:#fbbf24">MV</span>=<span style="color:#ff4d5e">PY</span><br>M = PY/V<br>M<sup>s</sup> = M<sup>d</sup><br><span style="color:#a78bfa">M<sup>d</sup> = (1/V)PY = kPY</span></div><div class="result">k = <b id="fk">0.200</b> &nbsp; | &nbsp; M<sup>d</sup> = <b id="fmd">2000</b></div><div class="explain" data-en="A higher P or Y raises nominal money demand for a given k. k is not irrelevant: it summarizes how much of nominal income people wish to hold as money. The pure Fisher transactions formulation contains no direct interest-rate term." data-ru="Более высокий P или Y повышает номинальный спрос на деньги при данном k. Коэффициент k не является бессмысленным: он показывает, какую долю номинального дохода люди хотят держать в деньгах. В чистой транзакционной версии Фишера прямого аргумента процентной ставки нет.">A higher P or Y raises nominal money demand...</div></div></div></section>
-
-<section id="keynes" class="section"><div class="hero"><img class="portrait" src="keynes.jpg" alt="John Maynard Keynes"><div><h2 data-en="John Maynard Keynes — Liquidity Preference Theory" data-ru="Джон Мейнард Кейнс — теория предпочтения ликвидности">John Maynard Keynes — Liquidity Preference Theory</h2><p data-en="Money demand reflects transactions, precaution and portfolio choice. The opportunity cost of holding money rises when the return on alternatives rises." data-ru="Спрос на деньги отражает транзакционный, предосторожностный и портфельный мотивы. Альтернативные издержки хранения денег растут, когда увеличивается доходность альтернативных активов.">Money demand reflects transactions, precaution and portfolio choice.</p><div class="formula-card" onclick="this.classList.toggle('flip')"><div class="formula-inner"><div class="face"><div><div class="eq" style="color:#34d399">M<sup>d</sup>/P = f(i,Y)</div><div class="hint" data-en="Click for variables and intuition" data-ru="Нажмите для объяснения переменных">Click for variables and intuition</div></div></div><div class="face back"><div data-en="Md/P — desired real money balances; i — return on alternative interest-bearing assets and therefore the opportunity cost of liquidity; Y — real income and transaction scale. fi < 0: a higher i reduces desired balances. fY > 0: higher real income raises desired balances. Modern interpretation uses the spread between the return on alternatives and the return paid on money." data-ru="Md/P — желаемые реальные денежные остатки; i — доходность альтернативных процентных активов и, следовательно, альтернативная стоимость ликвидности; Y — реальный доход и масштаб транзакций. fi < 0: рост i снижает желаемые остатки. fY > 0: рост реального дохода повышает их. В современной интерпретации важен спред между доходностью альтернатив и доходностью самих денег.">Md/P — desired real money balances...</div></div></div></div></div></div>
-<div class="grid2"><div class="panel"><h3 data-en="Interest rate → movement along Md" data-ru="Процентная ставка → движение вдоль Md">Interest rate → movement along Md</h3><div class="control"><label><span data-en="Interest rate" data-ru="Процентная ставка">Interest rate</span><b id="kir">15.0%</b></label><input id="ki" class="vintage" style="--c:#ff4d5e" type="range" min="2" max="18" step="0.1" value="15" oninput="drawMdOnly()"></div><div class="result" id="rlevel"></div><div class="explain" id="kexplain"></div></div><div class="canvasbox"><canvas id="mdcanvas" width="650" height="390"></canvas></div></div>
-<div class="panel" style="margin-top:16px"><h3 data-en="Money-market equilibrium and current central-bank reference rates" data-ru="Равновесие денежного рынка и текущие ориентиры центральных банков">Money-market equilibrium and current central-bank reference rates</h3><div class="grid2"><div><div class="control"><label><span data-en="Shift money supply Ms" data-ru="Сдвиг предложения денег Ms">Shift money supply Ms</span><b id="kmsv">250</b></label><input id="kms" class="vintage" style="--c:#ff1744" type="range" min="100" max="480" step="1" value="250" oninput="drawEquilibrium()"></div><div class="result"><span data-en="Equilibrium rate i*" data-ru="Равновесная ставка i*">Equilibrium rate i*</span>: <b id="keq">12.5%</b></div><div class="explain" data-en="Drag the red vertical Ms line. Its intersection with the green Md curve determines i*. When i* approaches a current central-bank reference rate, that bank card lights up. These policy rates are not the same instrument across countries; click each card for the definition." data-ru="Двигайте красную вертикальную линию Ms. Её пересечение с зелёной Md определяет i*. Когда i* приближается к текущему ориентиру центрального банка, соответствующая карточка подсвечивается. Эти ставки являются разными инструментами в разных странах; нажмите карточку для пояснения.">Drag the red vertical Ms line...</div></div><div class="canvasbox"><canvas id="eqcanvas" width="650" height="390"></canvas></div></div><div class="banks" id="banks"></div></div></section>
-
-<section id="baumol" class="section">
-  <div class="hero">
-    <div class="people">
-      <div class="person"><img src="wiliam-baumol.jpg" alt="William Baumol"><b>William Baumol</b></div>
-      <div class="person"><img src="James_Tobin.png" alt="James Tobin"><b>James Tobin</b></div>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 data-en="DEMAND FOR MONEY" data-ru="СПРОС НА ДЕНЬГИ">DEMAND FOR MONEY</h1>
+    <div class="course">Principles of Economics | Economics | AlmaU | School of Digital Technologies and Economics</div>
+    <div class="lang">
+      <button class="on" onclick="setLang('en',this)">EN</button>
+      <button class="ru-btn" onclick="setLang('ru',this)">RU</button>
     </div>
-    <div>
-      <h2 data-en="William Baumol & James Tobin — Transactions Demand as Inventory Management" data-ru="Уильям Баумоль и Джеймс Тобин — транзакционный спрос как управление денежными запасами">William Baumol & James Tobin — Transactions Demand as Inventory Management</h2>
-      <p data-en="People trade off the interest forgone on cash against the fixed cost of converting interest-bearing assets into money. Higher interest rates make people withdraw smaller amounts more frequently (from 12 to 24 times a year), doubling velocity V from 24 to 48." data-ru="Люди сопоставляют потерянный процентный доход от хранения денег с фиксированными издержками конвертации активов в деньги. При росте ставки от 10% до 24% люди снимают деньги мельче и чаще (с 12 до 24 раз в год), удваивая скорость обращения денег V с 24 до 48.">People trade off forgone interest against conversion costs.</p>
-      <div class="formula-card" onclick="this.classList.toggle('flip')">
-        <div class="formula-inner">
-          <div class="face">
-            <div>
-              <div class="eq" style="color:#a78bfa">M̄* = √(bT / 2i) &nbsp;|&nbsp; V = 2n</div>
-              <div class="hint" data-en="Click to explain" data-ru="Нажмите для объяснения">Click to explain</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab on" onclick="showTab('fisher',this)" data-en="Irving Fisher" data-ru="Ирвинг Фишер">Irving Fisher</button>
+    <button class="tab" onclick="showTab('keynes',this)" data-en="John Maynard Keynes" data-ru="Джон Мейнард Кейнс">John Maynard Keynes</button>
+    <button class="tab" onclick="showTab('baumol',this)" data-en="Baumol & Tobin" data-ru="Баумоль и Тобин">Baumol &amp; Tobin</button>
+    <button class="tab" onclick="showTab('friedman',this)" data-en="Milton Friedman" data-ru="Милтон Фридман">Milton Friedman</button>
+  </div>
+
+  <!-- 1. IRVING FISHER -->
+  <section id="fisher" class="section on">
+    <div class="hero">
+      <img class="portrait" src="fisher.jpg" alt="Irving Fisher">
+      <div>
+        <h2 data-en="Irving Fisher — Quantity Theory of Money Demand" data-ru="Ирвинг Фишер — количественная теория спроса на деньги">Irving Fisher — Quantity Theory of Money Demand</h2>
+        <p data-en="When the price level P rises, nominal money demand Md increases proportionally because the same basket of real goods Y becomes more expensive to buy. Interest rates do not enter this pure transactions equation." data-ru="Когда уровень цен P выше, номинальный спрос на деньги Md растёт пропорционально: не потому, что товаров Y стало больше, а потому что они теперь дороже стоят и для выкупа номинального ВВП нужно больше денег.">When the price level P rises, nominal money demand Md increases proportionally because the same basket of real goods Y becomes more expensive to buy.</p>
+        <div class="formula-card" onclick="this.classList.toggle('flip')">
+          <div class="f-front">
+            <div class="eq" style="font-size:21px;line-height:1.45">
+              <span style="color:#fbbf24">MV</span> = <span style="color:#ff4d5e">PY</span>
+              &nbsp;⇒&nbsp; M = PY/V
+              &nbsp;⇒&nbsp; M<sup>s</sup> = M<sup>d</sup>
+              &nbsp;⇒&nbsp; <span style="color:#a78bfa">M<sup>d</sup> = (1/V)PY = kPY</span>
             </div>
+            <span class="hint" data-en="Click to explain derivation" data-ru="Нажмите для расшифровки вывода">Click to explain derivation</span>
           </div>
-          <div class="face back">
-            <div data-en="M̄* — optimal average money balance; T — annual payments (e.g. $12,000 = $1,000/mo); n — number of withdrawals per year (12 to 24); C = T/n — withdrawal size; M̄ = C/2 = T/(2n) — average cash balance. Velocity V = T / M̄ = 2n: at n = 12 ($1,000 once a month, avg $500), V = 24; at n = 24 ($500 twice a month, avg $250), V = 48." data-ru="M̄* — оптимальный средний денежный остаток; T — годовой объём платежей (например, $12 000 = $1 000/мес); n — число снятий в год («зубчиков», от 12 до 24); C = T/n — размер одного снятия; M̄ = C/2 = T/(2n) — средний остаток на руках. Скорость обращения V = T / M̄ = 2n: при n = 12 (по $1 000 раз в месяц, средний остаток $500) V = 24; при n = 24 (по $500 дважды в месяц, средний остаток $250) V = 48.">M̄* — optimal average money balance...</div>
+          <div class="f-back" data-en="1) Exchange identity: MV = PY. 2) Divide by velocity V: M = PY/V. 3) Money-market equilibrium condition: Ms = Md. 4) Substitute k = 1/V: Md = (1/V)PY = kPY, where k is the desired fraction of nominal income held as money. Higher prices P raise Md proportionally even when real output Y is constant." data-ru="1) Уравнение обмена: MV = PY. 2) Выражаем денежную массу: M = PY/V. 3) Условие равновесия денежного рынка: Ms = Md. 4) Подставляем k = 1/V: Md = (1/V)PY = kPY, где k — желаемая доля номинального дохода, хранимая в деньгах. Рост цен P повышает номинальный спрос на деньги Md даже при неизменном физическом объёме товаров Y."></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3 data-en="Transactions demand simulator" data-ru="Симулятор транзакционного спроса">Transactions demand simulator</h3>
+        <div class="controls">
+          <div class="control">
+            <label><span data-en="Price level P (higher prices → higher Md)" data-ru="Уровень цен P (выше цены → выше Md)">Price level P (higher prices → higher Md)</span><b id="fpv" style="color:#ff4d5e">1.00</b></label>
+            <input id="fp" class="vintage" style="--c:#ff4d5e" type="range" min="0.5" max="3.0" step="0.05" value="1.0" oninput="fisherCalc('p')">
+          </div>
+          <div class="control">
+            <label><span data-en="Real output Y (physical goods)" data-ru="Реальный выпуск Y (объём товаров)">Real output Y (physical goods)</span><b id="fyv" style="color:#34d399">10000</b></label>
+            <input id="fy" class="vintage" style="--c:#34d399" type="range" min="5000" max="20000" step="500" value="10000" oninput="fisherCalc('y')">
+          </div>
+          <div class="control">
+            <label><span data-en="Velocity V (payment habits)" data-ru="Скорость обращения V">Velocity V (payment habits)</span><b id="fvv" style="color:#38bdf8">5.0</b></label>
+            <input id="fv" class="vintage" style="--c:#38bdf8" type="range" min="2" max="10" step="0.5" value="5" oninput="fisherCalc('v')">
+          </div>
+          <div class="control">
+            <label><span data-en="Money supply Ms" data-ru="Предложение денег Ms">Money supply Ms</span><b id="fmv" style="color:#fbbf24">2000</b></label>
+            <input id="fm" class="vintage" style="--c:#fbbf24" type="range" min="500" max="12000" step="100" value="2000" oninput="fisherCalc('m')">
+          </div>
+        </div>
+        <div class="result">
+          <span data-en="Nominal GDP (P × Y)" data-ru="Номинальный ВВП (P × Y)">Nominal GDP (P × Y)</span>: <b id="fpy" style="color:#fff">10 000</b><br>
+          <span data-en="Cambridge coefficient k = 1/V" data-ru="Коэффициент k = 1/V">Cambridge coefficient k = 1/V</span>: <b id="fk" style="color:#38bdf8">0.200</b><br>
+          <span data-en="Nominal Money Demand Md = kPY" data-ru="Номинальный спрос на деньги Md = kPY">Nominal Money Demand Md = kPY</span>: <b id="fmd">2000</b>
+        </div>
+        <div class="explain" data-en="Move the red Price level P slider up: real output Y stays unchanged, yet Md climbs along the ray because buyers need more nominal money to clear a more expensive nominal GDP." data-ru="Поднимите красный ползунок уровня цен P: физический выпуск Y не меняется, но спрос на деньги Md растёт вдоль луча, так как для оплаты подорожавшего номинального ВВП нужно больше денег."></div>
+      </div>
+
+      <div class="panel">
+        <h3 data-en="Proportional money demand: Md = k · (P × Y)" data-ru="Пропорциональный спрос на деньги: Md = k · (P × Y)">Proportional money demand: Md = k · (P × Y)</h3>
+        <div class="canvasbox"><canvas id="fishercanvas"></canvas></div>
+        <div class="explain" data-en="The slope of the ray is k = 1/V. Changes in P or Y move the economy along the ray; institutional changes in velocity V rotate the ray itself." data-ru="Наклон луча равен k = 1/V. Изменение цен P или выпуска Y двигает точку вдоль луча, а изменение скорости обращения V поворачивает сам луч."></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. JOHN MAYNARD KEYNES -->
+  <section id="keynes" class="section">
+    <div class="hero">
+      <img class="portrait" src="keynes.jpg" alt="John Maynard Keynes">
+      <div>
+        <h2 data-en="John Maynard Keynes — Liquidity Preference Theory" data-ru="Джон Мейнард Кейнс — теория предпочтения ликвидности">John Maynard Keynes — Liquidity Preference Theory</h2>
+        <p data-en="Money demand reflects transactions, precautionary and speculative motives. A higher interest rate i raises the opportunity cost of holding cash and reduces desired real balances Md/P." data-ru="Спрос на деньги определяется транзакционным, предосторожностным и спекулятивным мотивами. Рост процентной ставки i увеличивает альтернативные издержки хранения денег и снижает желаемые реальные остатки Md/P.">Money demand reflects transactions, precautionary and speculative motives.</p>
+        <div class="formula-card" onclick="this.classList.toggle('flip')">
+          <div class="f-front">
+            <div class="eq" style="color:#34d399">M<sup>d</sup>/P = f(i, Y)</div>
+            <span class="hint" data-en="Click for variables and intuition" data-ru="Нажмите для объяснения переменных">Click for variables and intuition</span>
+          </div>
+          <div class="f-back" data-en="Md/P — desired real money balances; i — nominal interest rate on bonds (opportunity cost of holding money); Y — real income. Partial derivatives: fi < 0 (higher i reduces money demand) and fY > 0 (higher income raises transaction demand)." data-ru="Md/P — желаемые реальные денежные остатки; i — номинальная процентная ставка по облигациям (альтернативная стоимость хранения наличных); Y — реальный доход. Частные производные: fi < 0 (рост i снижает спрос на деньги) и fY > 0 (рост дохода повышает транзакционный спрос)."></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3 data-en="1. Interest rate → movement along Md" data-ru="1. Процентная ставка → движение вдоль Md">1. Interest rate → movement along Md</h3>
+        <div class="control">
+          <label><span data-en="Interest rate i" data-ru="Процентная ставка i">Interest rate i</span><b id="kir" style="color:#ff4d5e">15.0%</b></label>
+          <input id="ki" class="vintage" style="--c:#ff4d5e" type="range" min="2" max="18" step="0.1" value="15" oninput="drawMdOnly()">
+        </div>
+        <div class="result" id="rlevel"></div>
+        <div class="explain" id="kexplain"></div>
+      </div>
+      <div class="panel">
+        <h3 data-en="Liquidity preference curve Md/P" data-ru="Кривая предпочтения ликвидности Md/P">Liquidity preference curve Md/P</h3>
+        <div class="canvasbox"><canvas id="mdcanvas"></canvas></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <h3 data-en="2. Money-market equilibrium and central-bank reference rates" data-ru="2. Равновесие денежного рынка и ориентиры центральных банков">2. Money-market equilibrium and central-bank reference rates</h3>
+      <div class="grid2" style="margin-top:0">
+        <div>
+          <div class="control">
+            <label><span data-en="Real money supply Ms/P" data-ru="Реальное предложение денег Ms/P">Real money supply Ms/P</span><b id="kmsv" style="color:#ff4d5e">250</b></label>
+            <input id="kms" class="vintage" style="--c:#ff1744" type="range" min="100" max="480" step="1" value="250" oninput="drawEquilibrium()">
+          </div>
+          <div class="result"><span data-en="Equilibrium rate i*" data-ru="Равновесная ставка i*">Equilibrium rate i*</span>: <b id="keq">12.50%</b></div>
+          <div class="explain" data-en="Drag the red vertical Ms line. Its intersection with green Md determines equilibrium rate i*. When i* approaches a central-bank reference rate below, that card lights up. Click any card for instrument details." data-ru="Двигайте красную вертикальную линию Ms. Её пересечение с зелёной кривой Md определяет равновесную ставку i*. Когда i* приближается к ориентиру центрального банка ниже, соответствующая карточка подсвечивается. Нажмите на карточку для пояснения."></div>
+        </div>
+        <div class="canvasbox"><canvas id="eqcanvas"></canvas></div>
+      </div>
+      <div class="banks" id="banks"></div>
+    </div>
+  </section>
+
+  <!-- 3. BAUMOL & TOBIN -->
+  <section id="baumol" class="section">
+    <div class="hero">
+      <div class="people">
+        <div class="person"><img src="wiliam-baumol.jpg" alt="William Baumol"><b>William Baumol</b></div>
+        <div class="person"><img src="James_Tobin.png" alt="James Tobin"><b>James Tobin</b></div>
+      </div>
+      <div>
+        <h2 data-en="William Baumol & James Tobin — Inventory Model of Cash" data-ru="Уильям Баумоль и Джеймс Тобин — модель управления денежными запасами">William Baumol &amp; James Tobin — Inventory Model of Cash</h2>
+        <p data-en="When the savings interest rate rises, a rational consumer holds funds in an interest-bearing deposit and withdraws cash twice a month (every 1/2 month, n = 24) instead of once a month (every 1 month, n = 12), doubling velocity V from 24 to 48." data-ru="При высокой процентной ставке потребитель держит деньги на сберегательном счёте и переходит от снятия раз в месяц (шаг 1 мес., n = 12) к снятию дважды в месяц (шаг 1/2 мес., n = 24), за счёт чего средний остаток на руках падает вдвое, а скорость обращения V удваивается с 24 до 48.">When the savings interest rate rises, a rational consumer holds funds in an interest-bearing deposit and withdraws cash twice a month instead of once a month.</p>
+        <div class="formula-card" onclick="this.classList.toggle('flip')">
+          <div class="f-front">
+            <div class="eq" style="color:#a78bfa">M̄* = √(bT / 2i) &nbsp;|&nbsp; V = 2n</div>
+            <span class="hint" data-en="Click to explain" data-ru="Нажмите для объяснения">Click to explain</span>
+          </div>
+          <div class="f-back" data-en="T — annual spending ($12,000 = $1,000/mo); n — number of withdrawals per year (from 12 = once per 1 month, to 24 = once per 1/2 month); C = T/n — withdrawal size; M̄ = C/2 = T/(2n) — average cash balance. Velocity V = T / M̄ = 2n: at n = 12 (every 1 month, avg $500), V = 24; at n = 24 (every 1/2 month, avg $250), V = 48." data-ru="T — годовые траты ($12 000 = $1 000/мес); n — число снятий со счёта в год (от 12 — раз в 1 месяц, до 24 — раз в 1/2 месяца); C = T/n — сумма одного снятия; M̄ = C/2 = T/(2n) — средний остаток на руках. Скорость обращения V = T / M̄ = 2n: при снятии раз в 1 мес. (n=12, средний остаток $500) V = 24; при снятии раз в 1/2 мес. (n=24, средний остаток $250) V = 48."></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 1: T & n sliders + Cash balance cycle chart -->
+    <div class="grid2">
+      <div class="panel">
+        <h3 data-en="1. Monthly withdrawal frequency n & Velocity V" data-ru="1. Частота снятий n по месяцам и скорость V">1. Monthly withdrawal frequency n &amp; Velocity V</h3>
+        <div class="controls">
+          <div class="control">
+            <label><span data-en="Annual spending T ($)" data-ru="Годовые расходы T ($)">Annual spending T ($)</span><b id="btv" style="color:#38bdf8">12000</b></label>
+            <input id="bt" class="vintage" style="--c:#38bdf8" type="range" min="6000" max="24000" step="1000" value="12000" oninput="baumolCalc()">
+          </div>
+          <div class="control">
+            <label><span data-en="Withdrawals per year n (12 = 1/mo, 24 = 2/mo)" data-ru="Снятий в год n (12 = 1 раз/мес, 24 = 2 раза/мес)">Withdrawals per year n (12 = 1/mo, 24 = 2/mo)</span><b id="bnv" style="color:#34d399">12</b></label>
+            <input id="bn" class="vintage" style="--c:#34d399" type="range" min="12" max="24" step="1" value="12" oninput="baumolCalc()">
+          </div>
+        </div>
+        <div class="result">
+          <span data-en="Withdrawal interval" data-ru="Интервал между снятиями">Withdrawal interval</span>: <b id="bstep" style="color:#fbbf24">1 мес. (12/год)</b><br>
+          <span data-en="Withdrawal size C = T/n" data-ru="Сумма одного снятия C = T/n">Withdrawal size C = T/n</span>: <b id="bcsize" style="color:#38bdf8">$1000</b><br>
+          <span data-en="Average cash balance M̄ = T/(2n)" data-ru="Средний остаток на руках M̄ = T/(2n)">Average cash balance M̄ = T/(2n)</span>: <b id="bavg">$500.0</b><br>
+          <span data-en="Velocity V = T/M̄ = 2n" data-ru="Скорость обращения V = T/M̄ = 2n">Velocity V = T/M̄ = 2n</span>: <b id="bvel" style="color:#fbbf24">24</b>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3 data-en="Cash-balance dynamics across 12 months" data-ru="Динамика денежных остатков по месяцам (12 месяцев)">Cash-balance dynamics across 12 months</h3>
+        <div class="canvasbox"><canvas id="sawcanvas"></canvas></div>
+        <div class="saw-labels">
+          <span class="pill" data-en="n = 12 → 1 withdrawal per month (1 mo.)" data-ru="n = 12 → 1 снятие в месяц (шаг 1 мес.)">n = 12 → 1 withdrawal per month (1 mo.)</span>
+          <span class="pill" data-en="n = 24 → 2 withdrawals per month (1/2 mo.)" data-ru="n = 24 → 2 снятия в месяц (шаг 1/2 мес.)">n = 24 → 2 withdrawals per month (1/2 mo.)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: i & b sliders + Cost trade-off chart -->
+    <div class="grid2">
+      <div class="panel">
+        <h3 data-en="2. Savings rate i & Conversion cost b" data-ru="2. Ставка по вкладу i и издержки снятия b">2. Savings rate i &amp; Conversion cost b</h3>
+        <div class="controls">
+          <div class="control">
+            <label><span data-en="Interest rate i (10–24% → n: 12→24)" data-ru="Ставка i (10–24% → снятия n: 12→24)">Interest rate i (10–24% → n: 12→24)</span><b id="biv" style="color:#fb923c">10%</b></label>
+            <input id="bi" class="vintage" style="--c:#fb923c" type="range" min="2" max="24" step="1" value="10" oninput="baumolRateChange()">
+          </div>
+          <div class="control">
+            <label><span data-en="Conversion cost b ($ per trip)" data-ru="Издержки снятия b ($ за операцию)">Conversion cost b ($ per trip)</span><b id="bbv" style="color:#a78bfa">50</b></label>
+            <input id="bb" class="vintage" style="--c:#a78bfa" type="range" min="10" max="150" step="5" value="50" oninput="baumolCalc()">
+          </div>
+        </div>
+        <div class="result">
+          <span data-en="Optimal average balance M̄*" data-ru="Оптимальный средний остаток M̄*">Optimal average balance M̄*</span>: <b id="bopt">$173.2</b><br>
+          <span data-en="Optimal withdrawal C* = 2M̄*" data-ru="Оптимальное снятие C* = 2M̄*">Optimal withdrawal C* = 2M̄*</span>: <b id="bcopt" style="color:#ff4d5e">$346.4</b><br>
+          <span data-en="Minimum total cost TC*" data-ru="Минимальные общие издержки TC*">Minimum total cost TC*</span>: <b id="btcopt" style="color:#a78bfa">$346.4</b>
+        </div>
+        <div class="explain" data-en="Raising interest rate i from 10% to 24% increases the reward of keeping money in the bank: withdrawal frequency rises from once a month (1 mo.) to twice a month (1/2 mo.), and velocity V doubles from 24 to 48." data-ru="Рост ставки i с 10% до 24% делает выгодным хранение денег на вкладе: потребитель переходит со снятия 1 раз в месяц (шаг 1 мес.) на 2 раза в месяц (шаг 1/2 мес.), а скорость обращения V удваивается с 24 до 48."></div>
+      </div>
+
+      <div class="panel">
+        <h3 data-en="The cost trade-off and optimum C*" data-ru="Компромисс издержек и оптимум C*">The cost trade-off and optimum C*</h3>
+        <div class="canvasbox"><canvas id="costcanvas"></canvas></div>
+        <div class="explain" data-en="Total cost = Opportunity cost (i·C/2) + Conversion cost (b·T/C). The red dot C* moves along the fixed scale as i, b or T change." data-ru="Совокупные издержки = Упущенный процент (i·C/2) + Издержки снятий (b·T/C). Красная точка C* плавно перемещается при изменении ставки i, издержек b или расходов T."></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. MILTON FRIEDMAN -->
+  <section id="friedman" class="section">
+    <div class="hero">
+      <img class="portrait" src="friedman.jpg" alt="Milton Friedman">
+      <div>
+        <h2 data-en="Milton Friedman — Modern Quantity Theory of Money" data-ru="Милтон Фридман — современная количественная теория денег">Milton Friedman — Modern Quantity Theory of Money</h2>
+        <p data-en="Money is one asset in a broader wealth portfolio. Desired real balances depend on permanent income and the return spreads of bonds, equities and goods relative to money." data-ru="Деньги — один из активов широкого портфеля богатства. Желаемые реальные остатки зависят от постоянного дохода и спредов доходности облигаций, акций и товаров относительно доходности денег.">Money is one asset in a broader wealth portfolio.</p>
+        <div class="formula-card" onclick="this.classList.toggle('flip')">
+          <div class="f-front">
+            <div class="eq" style="font-size:23px;color:#fbbf24">M<sup>d</sup>/P = f(Y<sub>p</sub>, r<sub>b</sub>−r<sub>m</sub>, r<sub>e</sub>−r<sub>m</sub>, π<sup>e</sup>−r<sub>m</sub>)</div>
+            <span class="hint" data-en="Click for variables" data-ru="Нажмите для объяснения переменных">Click for variables</span>
+          </div>
+          <div class="f-back" data-en="Yp — permanent income (long-run expected resources); rb — expected bond return; re — expected equity return; rm — return on money; πe — expected inflation (nominal return on real goods). Higher return spreads on alternative assets reduce money demand and raise implied velocity V." data-ru="Yp — постоянный доход (долгосрочные ресурсы); rb — ожидаемая доходность облигаций; re — ожидаемая доходность акций; rm — доходность самих денег; πe — ожидаемая инфляция (номинальная доходность реальных товаров). Рост доходности альтернативных активов относительно rm снижает спрос на деньги и повышает скорость обращения V."></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="assets">
+      <div class="asset"><strong>💵 Money</strong><small data-en="liquidity + rm" data-ru="ликвидность + rm">liquidity + rₘ</small></div>
+      <div class="asset"><strong>📜 Bonds</strong><small data-en="return rb" data-ru="доходность rb">rᵦ</small></div>
+      <div class="asset"><strong>📈 Equities</strong><small data-en="return re" data-ru="доходность re">rₑ</small></div>
+      <div class="asset"><strong>🏠 Real assets</strong><small data-en="goods / property" data-ru="товары / недвижимость">goods / property</small></div>
+      <div class="asset"><strong>🪙 Gold / FX / crypto*</strong><small data-en="modern hedges" data-ru="современные активы">modern hedges</small></div>
+    </div>
+    <div class="note" data-en="* Gold and foreign currency are classic portfolio alternatives; crypto is a modern extension." data-ru="* Золото и иностранная валюта — классические портфельные альтернативы; криптоактивы — современное расширение."></div>
+
+    <!-- SIMULATOR LEFT + CHART RIGHT -->
+    <div class="grid2">
+      <div class="panel">
+        <h3 data-en="Portfolio-return simulator" data-ru="Симулятор портфельной доходности">Portfolio-return simulator</h3>
+        <div class="controls">
+          <div class="control">
+            <label><span data-en="Permanent income Yp" data-ru="Постоянный доход Yp">Permanent income Yp</span><b id="frypv" style="color:#34d399">100</b></label>
+            <input id="fryp" class="vintage" style="--c:#34d399" type="range" min="60" max="160" value="100" oninput="friedmanCalc()">
+          </div>
+          <div class="control">
+            <label><span data-en="Bond return rb" data-ru="Доходность облигаций rb">Bond return rᵦ</span><b id="fbrv" style="color:#38bdf8">6.0%</b></label>
+            <input id="fbr" class="vintage" style="--c:#38bdf8" type="range" min="0" max="15" step="0.5" value="6" oninput="friedmanCalc()">
+          </div>
+          <div class="control">
+            <label><span data-en="Equity return re" data-ru="Доходность акций re">Equity return rₑ</span><b id="ferv" style="color:#a78bfa">8.0%</b></label>
+            <input id="fer" class="vintage" style="--c:#a78bfa" type="range" min="0" max="20" step="0.5" value="8" oninput="friedmanCalc()">
+          </div>
+          <div class="control">
+            <label><span data-en="Expected inflation πe" data-ru="Ожидаемая инфляция πe">Expected inflation πe</span><b id="fpiv" style="color:#fb923c">4.0%</b></label>
+            <input id="fpi" class="vintage" style="--c:#fb923c" type="range" min="0" max="15" step="0.5" value="4" oninput="friedmanCalc()">
+          </div>
+          <div class="control">
+            <label><span data-en="Return on money rm" data-ru="Доходность денег rm">Return on money rₘ</span><b id="frmv" style="color:#fbbf24">2.0%</b></label>
+            <input id="frm" class="vintage" style="--c:#fbbf24" type="range" min="0" max="10" step="0.5" value="2" oninput="friedmanCalc()">
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- ВЕРХНИЙ БЛОК: 2 слайдера (T, n) + верхний график (пила) -->
-  <div class="grid2">
-    <div class="panel">
-      <h3 data-en="1. Saw-tooth & Velocity controls (T, n)" data-ru="1. Управление зубцами и скоростью V (T, n)">1. Saw-tooth & Velocity controls (T, n)</h3>
-      <div class="controls">
-        <div class="control">
-          <label><span data-en="Annual payments T ($)" data-ru="Годовые платежи T ($)">Annual payments T ($)</span><b id="btv">12000</b></label>
-          <input id="bt" class="vintage" style="--c:#38bdf8" type="range" min="6000" max="24000" step="1000" value="12000" oninput="baumolCalc()">
-        </div>
-        <div class="control">
-          <label><span data-en="Withdrawals / teeth n (12–24)" data-ru="Число снятий / зубчиков n (12–24)">Withdrawals / teeth n (12–24)</span><b id="bnv">12</b></label>
-          <input id="bn" class="vintage" style="--c:#34d399" type="range" min="12" max="24" step="1" value="12" oninput="baumolCalc()">
-        </div>
-      </div>
-      <div class="result">
-        <span data-en="Withdrawal size C = T/n" data-ru="Размер снятия C = T/n">Withdrawal size C = T/n</span>: <b id="bcsize" style="color:#38bdf8">1000</b><br>
-        <span data-en="Average balance M̄ = T/(2n)" data-ru="Средний остаток M̄ = T/(2n)">Average balance M̄ = T/(2n)</span>: <b id="bavg">500</b><br>
-        <span data-en="Velocity V = T/M̄ = 2n" data-ru="Скорость обращения V = T/M̄ = 2n">Velocity V = T/M̄ = 2n</span>: <b id="bvel" style="color:#fbbf24">24</b>
+      <div class="panel">
+        <h3 data-en="Portfolio response: Md/P and implied velocity V" data-ru="Реакция портфеля: спрос Md/P и скорость V">Portfolio response: Md/P and implied velocity V</h3>
+        <div class="canvasbox"><canvas id="friedcanvas"></canvas></div>
+        <div class="note" data-en="Illustrative simulation varying expected inflation πe while holding other slider values fixed." data-ru="Учебная симуляция: кривые показывают реакцию на ожидаемую инфляцию πe при текущих значениях остальных ползунков."></div>
       </div>
     </div>
-    <div class="panel">
-      <h3 data-en="Cash-balance saw-tooth (12 to 24 cycles)" data-ru="«Пила» денежных остатков (от 12 до 24 циклов)">Cash-balance saw-tooth (12 to 24 cycles)</h3>
-      <div class="canvasbox"><canvas id="sawcanvas" width="650" height="380"></canvas></div>
-      <div class="saw-labels">
-        <span class="pill" data-en="Vertical jump = withdrawal C = T/n" data-ru="Вертикальный скачок = снятие C = T/n">Vertical jump = withdrawal C = T/n</span>
-        <span class="pill" data-en="Dashed green = average balance M̄" data-ru="Зелёный пунктир = средний остаток M̄">Dashed green = average balance M̄</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- НИЖНИЙ БЛОК: 2 слайдера (i, b) + нижний график на такой же плоскости -->
-  <div class="grid2">
-    <div class="panel">
-      <h3 data-en="2. Interest & Cost controls (i, b)" data-ru="2. Ставка i и издержки конвертации b">2. Interest & Cost controls (i, b)</h3>
-      <div class="controls">
-        <div class="control">
-          <label><span data-en="Interest rate i (10–24% → n: 12→24)" data-ru="Ставка i (10–24% → зубцы n: 12→24)">Interest rate i (10–24% → n: 12→24)</span><b id="biv">10%</b></label>
-          <input id="bi" class="vintage" style="--c:#fb923c" type="range" min="2" max="24" step="1" value="10" oninput="baumolRateChange()">
-        </div>
-        <div class="control">
-          <label><span data-en="Conversion cost b ($)" data-ru="Издержки конвертации b ($)">Conversion cost b ($)</span><b id="bbv">50</b></label>
-          <input id="bb" class="vintage" style="--c:#a78bfa" type="range" min="10" max="150" step="5" value="50" oninput="baumolCalc()">
-        </div>
+    <!-- SEPARATE BOTTOM KPI BLOCK -->
+    <div class="kpi-bar">
+      <div class="kpi-box">
+        <div class="kpi-label" data-en="Money-Demand Index" data-ru="Индекс спроса на деньги">Money-Demand Index</div>
+        <div class="kpi-val" id="fridx">100</div>
       </div>
-      <div class="result">
-        <span data-en="Optimal average balance M̄*" data-ru="Оптимальный средний остаток M̄*">Optimal average balance M̄*</span>: <b id="bopt">173.2</b><br>
-        <span data-en="Optimal withdrawal C* = 2M̄*" data-ru="Оптимальное снятие C* = 2M̄*">Optimal withdrawal C* = 2M̄*</span>: <b id="bcopt" style="color:#a78bfa">346.4</b>
+      <div class="kpi-box">
+        <div class="kpi-label" data-en="Implied Velocity V" data-ru="Расчётная скорость V">Implied Velocity V</div>
+        <div class="kpi-val" id="frvel" style="color:#fbbf24">2.00×</div>
       </div>
-      <div class="explain" data-en="When interest rate i rises from 10% to 24%, the opportunity cost of holding cash surges, automatically increasing withdrawal frequency n from 12 to 24 and velocity V from 24 to 48." data-ru="При росте процентной ставки i с 10% до 24% альтернативные издержки хранения наличных растут, автоматически увеличивая частоту снятий n с 12 до 24, а скорость обращения V — с 24 до 48.">When interest rate i rises from 10% to 24%...</div>
+      <div class="explain" style="margin-top:0" data-en="100 is the baseline scenario. Higher permanent income Yp raises desired real money balances; higher returns on bonds (rb), equities (re) or expected inflation (πe) relative to rm increase the opportunity cost of holding cash, reducing Md/P and raising implied velocity V." data-ru="100 — базовый сценарий. Рост постоянного дохода Yp повышает спрос на реальные денежные остатки; рост доходности облигаций (rb), акций (re) или ожидаемой инфляции (πe) относительно доходности денег rm делает хранение наличных невыгодным, снижая Md/P и повышая скорость обращения V."></div>
     </div>
-    <div class="panel">
-      <h3 data-en="The cost trade-off and optimum C*" data-ru="Компромисс издержек и оптимум C*">The cost trade-off and optimum C*</h3>
-      <div class="canvasbox"><canvas id="costcanvas" width="650" height="380"></canvas></div>
-      <div class="explain" data-en="Total cost = Opportunity cost (i·C/2) + Conversion cost (b·T/C). C* minimizes their sum." data-ru="Совокупные издержки = Альтернативные издержки (i·C/2) + Издержки конвертации (b·T/C). Точка C* минимизирует их сумму.">Total cost = Opportunity cost...</div>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<section id="friedman" class="section"><div class="hero"><img class="portrait" src="friedman.jpg" alt="Milton Friedman"><div><h2 data-en="Milton Friedman — Modern Quantity Theory of Money" data-ru="Милтон Фридман — современная количественная теория денег">Milton Friedman — Modern Quantity Theory of Money</h2><p data-en="Money is one asset in a broader portfolio. Desired real balances depend on permanent income and the returns on alternatives relative to the return on money." data-ru="Деньги — один из активов более широкого портфеля. Желаемые реальные остатки зависят от постоянного дохода и доходности альтернативных активов относительно доходности денег.">Money is one asset in a broader portfolio.</p><div class="formula-card" onclick="this.classList.toggle('flip')"><div class="formula-inner"><div class="face"><div><div class="eq" style="font-size:25px;color:#fbbf24">M<sup>d</sup>/P = f(Y<sub>p</sub>, r<sub>b</sub>−r<sub>m</sub>, r<sub>e</sub>−r<sub>m</sub>, π<sup>e</sup>−r<sub>m</sub>)</div><div class="hint" data-en="Click for variables" data-ru="Нажмите для объяснения переменных">Click for variables</div></div></div><div class="face back"><div data-en="Yp — permanent income, a smoother measure of long-run resources; rb — expected return on bonds; re — expected return on equities; rm — return and services supplied by money; πe — expected inflation, representing the nominal return on goods/real assets. A higher alternative return relative to rm lowers money demand. Friedman therefore allows substitution among many assets, not only money versus one bond." data-ru="Yp — постоянный доход, более сглаженная оценка долгосрочных ресурсов; rb — ожидаемая доходность облигаций; re — ожидаемая доходность акций; rm — доходность и услуги, предоставляемые деньгами; πe — ожидаемая инфляция, представляющая номинальную доходность товаров/реальных активов. Рост доходности альтернатив относительно rm снижает спрос на деньги. Поэтому у Фридмана выбор происходит между множеством активов, а не только между деньгами и одной облигацией.">Yp — permanent income...</div></div></div></div></div></div>
-<div class="panel" style="margin-top:16px"><div class="assets"><div class="asset"><strong>💵 Money</strong><small>liquidity + rₘ</small></div><div class="asset"><strong>📜 Bonds</strong><small>rᵦ</small></div><div class="asset"><strong>📈 Equities</strong><small>rₑ</small></div><div class="asset"><strong>🏠 Real assets</strong><small>goods / property</small></div><div class="asset"><strong>🪙 Gold / FX / crypto*</strong><small>modern examples</small></div></div><div class="note" data-en="* Gold and foreign currency are useful modern portfolio examples. Crypto is a modern extension, not an asset named in Friedman's original formulation." data-ru="* Золото и иностранная валюта — удобные современные примеры портфельных альтернатив. Криптоактивы — современное расширение, а не актив из оригинальной формулировки Фридмана.">* Gold and foreign currency...</div></div>
-<div class="grid2"><div class="panel"><h3 data-en="Portfolio-return simulator" data-ru="Симулятор относительной доходности портфеля">Portfolio-return simulator</h3><div class="controls"><div class="control"><label><span>Permanent income Yp</span><b id="frypv">100</b></label><input id="fryp" class="vintage" style="--c:#34d399" type="range" min="60" max="160" value="100" oninput="friedmanCalc()"></div><div class="control"><label><span>Bond return rᵦ</span><b id="fbrv">6%</b></label><input id="fbr" class="vintage" style="--c:#38bdf8" type="range" min="0" max="15" step="0.5" value="6" oninput="friedmanCalc()"></div><div class="control"><label><span>Equity return rₑ</span><b id="ferv">8%</b></label><input id="fer" class="vintage" style="--c:#a78bfa" type="range" min="0" max="20" step="0.5" value="8" oninput="friedmanCalc()"></div><div class="control"><label><span>Expected inflation πe</span><b id="fpiv">4%</b></label><input id="fpi" class="vintage" style="--c:#fb923c" type="range" min="0" max="15" step="0.5" value="4" oninput="friedmanCalc()"></div><div class="control"><label><span>Return on money rₘ</span><b id="frmv">2%</b></label><input id="frm" class="vintage" style="--c:#fbbf24" type="range" min="0" max="10" step="0.5" value="2" oninput="friedmanCalc()"></div></div></div><div class="panel"><h3 data-en="Normalized money-demand index" data-ru="Нормированный индекс спроса на деньги">Normalized money-demand index</h3><div style="font-size:58px;font-weight:900;color:#34d399;text-align:center;margin:28px" id="fridx">100</div><div class="explain" data-en="This is a teaching index created for this simulator, not an official statistic and not a coefficient estimated by Friedman. 100 is the baseline scenario. Higher permanent income raises the index; larger return spreads in favor of bonds, equities or goods lower it; a higher return on money raises it." data-ru="Это учебный индекс, созданный только для данного симулятора. Он не является официальной статистикой и не является коэффициентом, оценённым Фридманом. 100 — базовый сценарий. Более высокий постоянный доход повышает индекс; увеличение преимуществ доходности облигаций, акций или товаров снижает его; рост доходности самих денег повышает индекс.">This is a teaching index...</div></div></div>
-<div class="panel fried-chart-wrap"><h3 data-en="Portfolio response: money demand and implied velocity" data-ru="Реакция портфеля: спрос на деньги и расчётная скорость обращения">Portfolio response: money demand and implied velocity</h3>
-<div class="note" data-en="Illustrative model simulation — not an empirical time series. The chart varies expected inflation while holding the other current slider settings fixed." data-ru="Учебная симуляция модели — не эмпирический временной ряд. График изменяет ожидаемую инфляцию при фиксированных текущих значениях остальных ползунков.">Illustrative model simulation — not an empirical time series.</div>
-<div class="canvasbox" style="margin-top:10px"><canvas id="friedcanvas" width="950" height="390"></canvas></div>
-<div class="explain" id="friedgraphnote" data-en="As expected inflation or other alternative returns rise relative to the return on money, holding money becomes more costly: desired real balances fall and implied velocity rises. Friedman’s key point is a stable portfolio-demand function, not literally constant velocity." data-ru="Когда ожидаемая инфляция или доходность альтернатив растут относительно доходности денег, хранить деньги становится дороже: желаемые реальные остатки сокращаются, а расчётная скорость обращения растёт. Ключевая идея Фридмана — стабильная функция портфельного спроса, а не буквально постоянная скорость обращения.">As expected inflation or other alternative returns rise relative to the return on money, desired real balances fall and implied velocity rises.</div></div></section>
-</div><script>
-let LANG='en';function setLang(l,b){LANG=l;document.querySelectorAll('.lang button').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.querySelectorAll('[data-en]').forEach(x=>x.textContent=x.dataset[l]);drawMdOnly();drawEquilibrium();baumolCalc();friedmanCalc()}function showTab(id,b){document.querySelectorAll('.section').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');setTimeout(()=>{if(id==='keynes'){drawMdOnly();drawEquilibrium()}if(id==='baumol')baumolCalc();if(id==='friedman')friedmanCalc()},40)}
-function fisherCalc(src){let M=+fm.value,V=+fv.value,P=+fp.value,Y=+fy.value;if(src==='p'){M=P*Y/V;fm.value=Math.max(+fm.min,Math.min(+fm.max,M))}else{P=M*V/Y;fp.value=Math.max(+fp.min,Math.min(+fp.max,P))}fmv.textContent=(+fm.value).toFixed(0);fvv.textContent=V.toFixed(1);fpv.textContent=(+fp.value).toFixed(2);fyv.textContent=Y.toFixed(0);fk.textContent=(1/V).toFixed(3);fmd.textContent=((+fp.value)*Y/V).toFixed(0)}
-function ctxBase(c){let box=c.parentElement;let w=Math.max(320,Math.floor(box.clientWidth||650));let h=Math.max(300,Math.min(410,Math.floor(box.clientHeight||380)));if(c.width!==w)c.width=w;if(c.height!==h)c.height=h;let x=c.getContext('2d');x.clearRect(0,0,w,h);x.strokeStyle='#536176';x.fillStyle='#aab7c8';x.lineWidth=1.5;x.font='12px Arial';return x}function axes(x,w,h,p){x.beginPath();x.moveTo(p,18);x.lineTo(p,h-p);x.lineTo(w-18,h-p);x.stroke()}
-function mdQty(rate){return 500-20*rate}function drawMdOnly(){let rate=+ki.value;kir.textContent=rate.toFixed(1)+'%';let c=mdcanvas,x=ctxBase(c),w=c.width,h=c.height,p=55;axes(x,w,h,p);let X=q=>p+(q/500)*(w-p-30),Y=r=>(h-p)-(r/20)*(h-p-30);x.fillText('i (%)',18,25);x.fillText('Real balances Mᵈ/P',w-145,h-15);x.strokeStyle='#34d399';x.lineWidth=4;x.beginPath();for(let r=2;r<=18;r+=.2){let q=mdQty(r),xx=X(q),yy=Y(r);if(r===2)x.moveTo(xx,yy);else x.lineTo(xx,yy)}x.stroke();x.fillStyle='#34d399';x.fillText('Mᵈ',X(mdQty(3))+8,Y(3));let q=mdQty(rate),xx=X(q),yy=Y(rate);x.setLineDash([6,5]);x.strokeStyle='#64748b';x.beginPath();x.moveTo(p,yy);x.lineTo(xx,yy);x.lineTo(xx,h-p);x.stroke();x.setLineDash([]);let level=rate>=12.5?'R3':rate>=7.5?'R2':'R1';let col=level==='R3'?'#ff4d5e':level==='R2'?'#fbbf24':'#38bdf8';x.fillStyle=col;x.beginPath();x.arc(xx,yy,8,0,Math.PI*2);x.fill();x.font='bold 14px Arial';x.fillText(level,p+8,yy-7);x.fillText('Mᵈ='+q.toFixed(0),xx-25,h-p+22);rlevel.innerHTML='<b style="color:'+col+'">'+level+'</b> · '+rate.toFixed(1)+'% · Mᵈ/P = '+q.toFixed(0);let en=level==='R3'?'High rate: interest-bearing alternatives are relatively attractive, so the opportunity cost of liquidity is high and desired money balances are small.':level==='R2'?'Middle rate: the opportunity cost of liquidity is moderate, so desired money balances are intermediate.':'Low rate: the opportunity cost of holding liquidity is low, so desired money balances are larger.';let ru=level==='R3'?'Высокая ставка: процентные альтернативы относительно привлекательны, поэтому альтернативная стоимость ликвидности высока, а желаемые денежные остатки малы.':level==='R2'?'Средняя ставка: альтернативная стоимость ликвидности умеренна, поэтому желаемые денежные остатки находятся на промежуточном уровне.':'Низкая ставка: альтернативная стоимость хранения ликвидности мала, поэтому желаемые денежные остатки больше.';kexplain.textContent=LANG==='ru'?ru:en}
+<script>
+let LANG='en';
+
+function setLang(l,b){
+  LANG=l;
+  document.querySelectorAll('.lang button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  document.querySelectorAll('[data-en]').forEach(x=>{
+    if(x.dataset[l]!==undefined) x.innerHTML=x.dataset[l];
+  });
+  redrawAll();
+}
+
+function showTab(id,b){
+  document.querySelectorAll('.section').forEach(x=>x.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  redrawAll();
+}
+
+function redrawAll(){
+  fisherDraw();
+  drawMdOnly();
+  drawEquilibrium();
+  baumolCalc();
+  friedmanCalc();
+}
+
+function ctxBase(c){
+  const box=c.parentElement;
+  const w=Math.max(320,Math.floor(box.clientWidth-16));
+  const h=Math.max(260,Math.floor(box.clientHeight-16));
+  if(Math.abs(c.width-w)>2) c.width=w;
+  if(Math.abs(c.height-h)>2) c.height=h;
+  const x=c.getContext('2d');
+  x.clearRect(0,0,c.width,c.height);
+  x.strokeStyle='#475569';
+  x.fillStyle='#94a3b8';
+  x.lineWidth=1.5;
+  x.font='12px Inter, Arial, sans-serif';
+  return x;
+}
+
+function axes(x,w,h,p){
+  x.beginPath();
+  x.moveTo(p,22);
+  x.lineTo(p,h-p);
+  x.lineTo(w-20,h-p);
+  x.stroke();
+}
+
+/* 1. FISHER */
+function fisherCalc(src){
+  let M=+fm.value, V=+fv.value, P=+fp.value, Y=+fy.value;
+  if(src==='m'){
+    P=Math.max(+fp.min,Math.min(+fp.max,(M*V)/Y));
+    fp.value=P.toFixed(2);
+  } else {
+    M=Math.max(+fm.min,Math.min(+fm.max,(P*Y)/V));
+    fm.value=Math.round(M/100)*100;
+  }
+  P=+fp.value; Y=+fy.value; V=+fv.value;
+  const PY=P*Y;
+  const k=1/V;
+  const Md=k*PY;
+  fpv.textContent=P.toFixed(2);
+  fyv.textContent=Y.toFixed(0);
+  fvv.textContent=V.toFixed(1);
+  fmv.textContent=Math.round(Md);
+  fpy.textContent=PY.toLocaleString('en-US',{maximumFractionDigits:0});
+  fk.textContent=k.toFixed(3);
+  fmd.textContent=Md.toFixed(0);
+  fisherDraw();
+}
+
+function fisherDraw(){
+  const c=document.getElementById('fishercanvas');
+  if(!c || !document.getElementById('fisher').classList.contains('on')) return;
+  const x=ctxBase(c), w=c.width, h=c.height, p=58;
+  axes(x,w,h,p);
+  const P=+fp.value, Y=+fy.value, V=+fv.value;
+  const PY=P*Y, k=1/V, Md=k*PY;
+  const maxPY=60000, maxMd=15000;
+  const X=v=>p+(Math.min(maxPY,v)/maxPY)*(w-p-30);
+  const Yc=v=>(h-p)-(Math.min(maxMd,v)/maxMd)*(h-p-34);
+
+  x.fillStyle='#94a3b8';
+  x.fillText(LANG==='ru'?'Спрос на деньги Md':'Money demand Md',14,16);
+  x.fillText(LANG==='ru'?'Номинальный ВВП (P × Y)':'Nominal GDP (P × Y)',w-165,h-14);
+
+  x.strokeStyle='#a78bfa';
+  x.lineWidth=3.5;
+  x.beginPath();
+  x.moveTo(X(0),Yc(0));
+  const endPY=Math.min(maxPY,maxMd/k);
+  x.lineTo(X(endPY),Yc(endPY*k));
+  x.stroke();
+
+  const xx=X(PY), yy=Yc(Md);
+  x.setLineDash([5,5]);
+  x.strokeStyle='#64748b';
+  x.beginPath();
+  x.moveTo(p,yy); x.lineTo(xx,yy); x.lineTo(xx,h-p);
+  x.stroke();
+  x.setLineDash([]);
+
+  x.fillStyle='#ff4d5e';
+  x.beginPath();
+  x.arc(xx,yy,7.5,0,Math.PI*2);
+  x.fill();
+
+  x.fillStyle='#fff';
+  x.font='bold 12px Inter, Arial, sans-serif';
+  x.fillText('Md = '+Md.toFixed(0),Math.min(w-120,xx+10),Math.max(28,yy-10));
+  x.fillStyle='#fbbf24';
+  x.fillText('P='+P.toFixed(2)+' · Y='+Y,Math.min(w-150,xx+10),Math.max(44,yy+8));
+}
+
+/* 2. KEYNES */
+function mdQty(rate){return 500-20*rate}
+
+function drawMdOnly(){
+  const c=document.getElementById('mdcanvas');
+  const rate=+ki.value;
+  kir.textContent=rate.toFixed(1)+'%';
+  if(!c || !document.getElementById('keynes').classList.contains('on')) return;
+  const x=ctxBase(c), w=c.width, h=c.height, p=54;
+  axes(x,w,h,p);
+  const X=q=>p+(q/500)*(w-p-30), Y=r=>(h-p)-(r/20)*(h-p-30);
+  x.fillText('i (%)',18,18);
+  x.fillText(LANG==='ru'?'Реальные остатки Md/P':'Real balances Md/P',w-155,h-14);
+
+  x.strokeStyle='#34d399'; x.lineWidth=4; x.beginPath();
+  for(let r=2;r<=18;r+=.2){
+    const q=mdQty(r), xx=X(q), yy=Y(r);
+    if(r===2) x.moveTo(xx,yy); else x.lineTo(xx,yy);
+  }
+  x.stroke();
+  x.fillStyle='#34d399'; x.font='bold 12px Arial';
+  x.fillText('Md',X(mdQty(2.6))+8,Y(2.6));
+
+  const q=mdQty(rate), xx=X(q), yy=Y(rate);
+  x.setLineDash([6,5]); x.strokeStyle='#64748b'; x.beginPath();
+  x.moveTo(p,yy); x.lineTo(xx,yy); x.lineTo(xx,h-p); x.stroke(); x.setLineDash([]);
+
+  const level=rate>=12.5?'R3':rate>=7.5?'R2':'R1';
+  const col=level==='R3'?'#ff4d5e':level==='R2'?'#fbbf24':'#38bdf8';
+  x.fillStyle=col; x.beginPath(); x.arc(xx,yy,7.5,0,Math.PI*2); x.fill();
+  x.font='bold 13px Arial';
+  x.fillText(level+' ('+rate.toFixed(1)+'%)',p+8,yy-8);
+  x.fillText('Md/P='+q.toFixed(0),xx-28,h-p+20);
+
+  rlevel.innerHTML='<b style="color:'+col+'">'+level+'</b> · '+rate.toFixed(1)+'% · M<sup>d</sup>/P = '+q.toFixed(0);
+  const en=level==='R3'?'High interest rate: bonds are attractive, opportunity cost of holding cash is high, so desired money balances are low.':level==='R2'?'Moderate interest rate: intermediate opportunity cost and money balances.':'Low interest rate: low opportunity cost of holding liquidity, so desired money balances are large.';
+  const ru=level==='R3'?'Высокая ставка: облигации привлекательны, альтернативная стоимость наличных высока, поэтому желаемые денежные остатки малы.':level==='R2'?'Средняя ставка: умеренная альтернативная стоимость ликвидности и средний спрос на деньги.':'Низкая ставка: альтернативные издержки хранения ликвидности малы, поэтому спрос на реальные остатки высок.';
+  kexplain.textContent=LANG==='ru'?ru:en;
+}
+
 const BANKS=[
-  {id:'nbk',code:'KZ',name:'NBK',rate:15.75,c:'#ef4444',en:'Base rate: the main monetary-policy rate of the National Bank of Kazakhstan. The corridor around it guides short-term money-market rates.',ru:'Базовая ставка: основной ориентир денежно-кредитной политики Национального Банка Казахстана. Коридор вокруг неё направляет краткосрочные ставки денежного рынка.'},
-  {id:'fed',code:'US',name:'Fed',rate:3.88,c:'#3b82f6',en:'3.88% is the effective federal funds rate used here as a point reference; the FOMC target range is 3.75–4.00%. It is the overnight rate on unsecured reserve lending between eligible institutions.',ru:'3,88% здесь используется как точечный ориентир effective federal funds rate; целевой диапазон FOMC — 3,75–4,00%. Это overnight-ставка необеспеченного межбанковского кредитования резервов.'},
-  {id:'ecb',code:'EU',name:'ECB',rate:2.50,c:'#8b5cf6',en:'Deposit facility rate: the rate banks receive for overnight deposits with the Eurosystem and the key steering rate in the ECB operating framework.',ru:'Ставка депозитной facility: ставка, которую банки получают за overnight-депозиты в Евросистеме; ключевой ориентир текущей операционной системы ЕЦБ.'},
-  {id:'boj',code:'JP',name:'BoJ',rate:1.25,c:'#f59e0b',en:'Target for the uncollateralized overnight call rate: Japan’s short-term interbank policy-rate target.',ru:'Цель по uncollateralized overnight call rate: краткосрочный межбанковский ориентир денежно-кредитной политики Японии.'},
-  {id:'pboc',code:'CN',name:'PBoC',rate:1.25,c:'#22c55e',en:'Overnight reverse-repo policy anchor used in this 2026 teaching snapshot. A reverse repo supplies short-term central-bank liquidity against securities; the overnight focus makes the price of one-day liquidity the immediate signal. This differs institutionally from Japan even though both reference rates are 1.25%.',ru:'Overnight reverse repo — новый краткосрочный ориентир, используемый в этом учебном срезе 2026 года. Reverse repo предоставляет банкам краткосрочную ликвидность центрального банка под ценные бумаги; overnight-фокус делает цену однодневной ликвидности непосредственным сигналом. Инструмент институционально отличается от японского, хотя обе ставки равны 1,25%.'}
+  {id:'nbk',code:'KZ',name:'NBK',rate:15.75,c:'#ef4444',en:'Base rate: main monetary-policy rate of the National Bank of Kazakhstan guiding short-term money-market rates.',ru:'Базовая ставка: основной ориентир денежно-кредитной политики Национального Банка Казахстана.'},
+  {id:'fed',code:'US',name:'Fed',rate:3.88,c:'#3b82f6',en:'3.88% effective federal funds rate (FOMC target range 3.75–4.00%): overnight unsecured interbank reserve lending rate.',ru:'3,88% — эффективная ставка по федеральным фондам (диапазон ФРС 3,75–4,00%): ставка межбанковского рынка резервов overnight.'},
+  {id:'ecb',code:'EU',name:'ECB',rate:2.50,c:'#8b5cf6',en:'Deposit facility rate: interest rate banks receive for overnight deposits with the Eurosystem.',ru:'Ставка депозитной facility: ставка по однодневным депозитам банков в Евросистеме, ключевой ориентир ЕЦБ.'},
+  {id:'boj',code:'JP',name:'BoJ',rate:1.25,c:'#f59e0b',en:'Uncollateralized overnight call rate target: Bank of Japan short-term interbank policy rate.',ru:'Целевая ставка uncollateralized overnight call rate: краткосрочный межбанковский ориентир Банка Японии.'},
+  {id:'pboc',code:'CN',name:'PBoC',rate:1.25,c:'#22c55e',en:'Overnight reverse-repo anchor: short-term liquidity operation rate signaling daily money-market conditions.',ru:'Overnight reverse repo: краткосрочный ориентир Народного банка Китая, задающий цену однодневной ликвидности.'}
 ];
+
 function buildBanks(){
   banks.innerHTML=BANKS.map(b=>`
     <div class="bank" id="bank-${b.id}" style="--bc:${b.c}" onclick="this.classList.toggle('flip')">
-      <div class="bankin">
-        <div class="bface">
-          <div class="b-head"><span class="b-code">${b.code}</span><span>${b.name}</span></div>
-          <div class="rate">${b.rate.toFixed(2)}%</div>
-          <div class="b-sub ${b.id==='pboc'?'new':''}" data-en="${b.id==='pboc'?'NEW • overnight reverse repo':'click to explain'}" data-ru="${b.id==='pboc'?'НОВЫЙ • overnight reverse repo':'нажмите для пояснения'}">${b.id==='pboc'?'NEW • overnight reverse repo':'click to explain'}</div>
-        </div>
-        <div class="bface bback" data-en="${b.en}" data-ru="${b.ru}">${b.en}</div>
+      <div class="bface">
+        <div class="b-head"><span class="b-code">${b.code}</span><span>${b.name}</span></div>
+        <div class="rate">${b.rate.toFixed(2)}%</div>
+        <div class="b-sub ${b.id==='pboc'?'new':''}" data-en="${b.id==='pboc'?'NEW • overnight reverse repo':'click to explain'}" data-ru="${b.id==='pboc'?'НОВЫЙ • overnight reverse repo':'нажмите для пояснения'}">${b.id==='pboc'?'NEW • overnight reverse repo':'click to explain'}</div>
       </div>
+      <div class="bface bback" data-en="${b.en}" data-ru="${b.ru}">${b.en}</div>
     </div>`).join('');
 }
+
 function drawEquilibrium(){
-  let ms=+kms.value;
+  const ms=+kms.value;
   kmsv.textContent=ms.toFixed(0);
-  let rate=(500-ms)/20;
-  rate=Math.max(0,Math.min(20,rate));
+  const rate=Math.max(0,Math.min(20,(500-ms)/20));
   keq.textContent=rate.toFixed(2)+'%';
-  let c=eqcanvas,x=ctxBase(c),w=c.width,h=c.height,p=62;
+  const c=document.getElementById('eqcanvas');
+  if(!c || !document.getElementById('keynes').classList.contains('on')) return;
+  const x=ctxBase(c), w=c.width, h=c.height, p=58;
   axes(x,w,h,p);
-  let X=q=>p+(q/500)*(w-p-36), Y=r=>(h-p)-(r/20)*(h-p-34);
-  x.font='11px Arial'; x.fillStyle='#94a3b8';
-  x.fillText('i (%)',18,25); x.fillText('Real balances M/P',w-135,h-15);
+  const X=q=>p+(q/500)*(w-p-36), Y=r=>(h-p)-(r/20)*(h-p-32);
+  x.fillText('i (%)',18,18);
+  x.fillText(LANG==='ru'?'Реальные остатки M/P':'Real balances M/P',w-145,h-14);
+
   x.strokeStyle='#34d399'; x.lineWidth=4; x.beginPath();
-  for(let r=0;r<=20;r+=.2){let q=mdQty(r),xx=X(q),yy=Y(r);if(r===0)x.moveTo(xx,yy);else x.lineTo(xx,yy)} x.stroke();
-  x.fillStyle='#34d399'; x.font='bold 12px Arial'; x.fillText('Mᵈ',X(mdQty(2.2))+8,Y(2.2)-8);
-  x.strokeStyle='#ff1744'; x.lineWidth=4; x.beginPath();x.moveTo(X(ms),Y(0));x.lineTo(X(ms),Y(20));x.stroke();
-  x.fillStyle='#ff1744';x.fillText('Mˢ',X(ms)+7,Y(19));
-  let xx=X(ms),yy=Y(rate);x.fillStyle='#fff';x.beginPath();x.arc(xx,yy,7,0,Math.PI*2);x.fill();
-  x.setLineDash([5,5]);x.strokeStyle='#64748b';x.beginPath();x.moveTo(p,yy);x.lineTo(xx,yy);x.stroke();x.beginPath();x.moveTo(xx,yy);x.lineTo(xx,Y(0));x.stroke();x.setLineDash([]);
-  x.fillStyle='#fff';x.font='bold 11px Arial';x.fillText('i* '+rate.toFixed(2)+'%',p+6,yy-8);
-  BANKS.forEach((b,j)=>{
+  for(let r=0;r<=20;r+=.2){
+    const q=mdQty(r), xx=X(q), yy=Y(r);
+    if(r===0) x.moveTo(xx,yy); else x.lineTo(xx,yy);
+  }
+  x.stroke();
+  x.fillStyle='#34d399'; x.font='bold 12px Arial';
+  x.fillText('Md',X(mdQty(2.2))+8,Y(2.2)-6);
+
+  x.strokeStyle='#ff1744'; x.lineWidth=3.5; x.beginPath();
+  x.moveTo(X(ms),Y(0)); x.lineTo(X(ms),Y(20)); x.stroke();
+  x.fillStyle='#ff1744'; x.fillText('Ms',X(ms)+7,Y(19));
+
+  const xx=X(ms), yy=Y(rate);
+  x.fillStyle='#fff'; x.beginPath(); x.arc(xx,yy,6.5,0,Math.PI*2); x.fill();
+  x.setLineDash([5,5]); x.strokeStyle='#64748b'; x.beginPath();
+  x.moveTo(p,yy); x.lineTo(xx,yy); x.lineTo(xx,Y(0)); x.stroke(); x.setLineDash([]);
+  x.fillStyle='#fff'; x.font='bold 11px Arial';
+  x.fillText('i* '+rate.toFixed(2)+'%',p+6,yy-8);
+
+  BANKS.forEach(b=>{
     const q=mdQty(b.rate), bx=X(q), by=Y(b.rate);
-    x.fillStyle=b.c; x.beginPath(); x.arc(bx,by,5.5,0,Math.PI*2); x.fill();
-    x.save(); x.globalAlpha=.38; x.setLineDash([3,4]); x.strokeStyle=b.c; x.lineWidth=1;
+    x.fillStyle=b.c; x.beginPath(); x.arc(bx,by,5,0,Math.PI*2); x.fill();
+    x.save(); x.globalAlpha=.35; x.setLineDash([3,4]); x.strokeStyle=b.c; x.lineWidth=1;
     x.beginPath(); x.moveTo(p,by); x.lineTo(bx,by); x.stroke(); x.restore(); x.setLineDash([]);
-    let dx=8,dy=-7;
-    if(b.id==='boj'){dx=8;dy=-12}
+    let dx=8, dy=-6;
+    if(b.id==='boj'){dx=8;dy=-11}
     if(b.id==='pboc'){dx=8;dy=13}
-    if(b.id==='ecb'){dx=8;dy=-8}
-    x.fillStyle=b.c; x.font='bold 10px Arial'; x.fillText(b.code+' '+b.name+' '+b.rate.toFixed(2)+'%',bx+dx,by+dy);
-    let el=document.getElementById('bank-'+b.id); if(el)el.classList.toggle('active',Math.abs(rate-b.rate)<=.35);
+    x.fillStyle=b.c; x.font='bold 10px Arial';
+    x.fillText(b.code+' '+b.name+' '+b.rate.toFixed(2)+'%',bx+dx,by+dy);
+    const el=document.getElementById('bank-'+b.id);
+    if(el) el.classList.toggle('active',Math.abs(rate-b.rate)<=.35);
   });
 }
 
+/* 3. BAUMOL & TOBIN */
 function baumolRateChange(){
-  let ratePct=+bi.value;
-  if(ratePct<=10){
-    bn.value=12;
-  } else {
-    bn.value=Math.round(12+((ratePct-10)/14)*12);
-  }
+  const ratePct=+bi.value;
+  if(ratePct<=10) bn.value=12;
+  else bn.value=Math.round(12+((ratePct-10)/14)*12);
   baumolCalc();
 }
 
 function baumolCalc(){
-  let T=+bt.value, n=+bn.value, i=+bi.value/100, b=+bb.value;
+  const T=+bt.value, n=+bn.value, i=+bi.value/100, b=+bb.value;
   btv.textContent=T;
   bnv.textContent=n;
   biv.textContent=(i*100).toFixed(0)+'%';
   bbv.textContent=b;
-  let C=T/n;
-  let avg=T/(2*n);
-  let V=2*n;
-  bcsize.textContent=C.toFixed(0);
-  bavg.textContent=avg.toFixed(1);
+
+  const monthsPerStep=12/n;
+  if(n===12){
+    bstep.textContent=LANG==='ru'?'1 мес. (12 раз/год)':'1 month (12/yr)';
+  } else if(n===24){
+    bstep.textContent=LANG==='ru'?'1/2 мес. (24 раза/год)':'1/2 month (24/yr)';
+  } else {
+    bstep.textContent=LANG==='ru'?(monthsPerStep.toFixed(2)+' мес. ('+n+' раз/год)'):(monthsPerStep.toFixed(2)+' mo. ('+n+'/yr)');
+  }
+
+  const C=T/n, avg=T/(2*n), V=2*n;
+  bcsize.textContent='$'+C.toFixed(0);
+  bavg.textContent='$'+avg.toFixed(1);
   bvel.textContent=V.toFixed(0);
-  let opt=Math.sqrt(b*T/(2*i));
-  bopt.textContent=opt.toFixed(1);
-  bcopt.textContent=(2*opt).toFixed(1);
+
+  const optM=Math.sqrt((b*T)/(2*i));
+  const optC=2*optM;
+  const minTC=(optC/2)*i+(T/optC)*b;
+  bopt.textContent='$'+optM.toFixed(1);
+  bcopt.textContent='$'+optC.toFixed(1);
+  btcopt.textContent='$'+minTC.toFixed(1);
+
   drawSaw(T,n);
-  drawCost(T,b,i,2*opt);
+  drawCost(T,b,i,optC,minTC);
 }
 
 function drawSaw(T,n){
-  let c=sawcanvas,x=ctxBase(c),w=c.width,h=c.height,p=54;
+  const c=document.getElementById('sawcanvas');
+  if(!c || !document.getElementById('baumol').classList.contains('on')) return;
+  const x=ctxBase(c), w=c.width, h=c.height, p=52;
   axes(x,w,h,p);
-  x.fillText('Money balance ($)',10,20);
-  x.fillText('Time (12 months)',w-115,h-15);
-  let max=T/n;
-  let X=t=>p+t*(w-p-25), Y=v=>(h-p)-(v/max)*(h-p-35);
-  x.strokeStyle='#38bdf8'; x.lineWidth=2.5; x.beginPath();
+  const max=T/n;
+  const plotW=w-p-24;
+  const X=t=>p+t*plotW, Y=v=>(h-p)-(v/max)*(h-p-42);
+
+  x.fillStyle='#94a3b8';
+  x.fillText(LANG==='ru'?'Остаток ($)':'Balance ($)',12,16);
+
+  // Month ticks 1..12 along X-axis
+  x.textAlign='center';
+  x.font='11px Inter, Arial, sans-serif';
+  for(let m=1;m<=12;m++){
+    const mx=X(m/12);
+    x.strokeStyle='#334155';
+    x.beginPath(); x.moveTo(mx,h-p); x.lineTo(mx,h-p+5); x.stroke();
+    x.fillStyle='#94a3b8';
+    x.fillText(m+(LANG==='ru'?' м.':'m'),mx,h-p+18);
+  }
+  x.textAlign='left';
+
+  // Top badge without overlapping axis label
+  const stepLabel=n===12?(LANG==='ru'?'шаг: 1 мес.':'step: 1 mo.'):n===24?(LANG==='ru'?'шаг: 1/2 мес.':'step: 1/2 mo.'):('12/'+n+(LANG==='ru'?' мес.':' mo.'));
+  x.fillStyle='#38bdf8'; x.font='bold 12px Inter, Arial, sans-serif';
+  x.fillText('C = $'+max.toFixed(0)+' ('+n+'× · '+stepLabel+')',p+12,18);
+
+  x.strokeStyle='#38bdf8'; x.lineWidth=2.3; x.beginPath();
   for(let j=0;j<n;j++){
-    let a=j/n, d=(j+1)/n;
-    if(j===0)x.moveTo(X(a),Y(max));
-    else x.lineTo(X(a),Y(max));
+    const a=j/n, d=(j+1)/n;
+    if(j===0) x.moveTo(X(a),Y(max)); else x.lineTo(X(a),Y(max));
     x.lineTo(X(d),Y(0));
-    if(j<n-1)x.lineTo(X(d),Y(max));
+    if(j<n-1) x.lineTo(X(d),Y(max));
   }
   x.stroke();
+
   x.strokeStyle='#34d399'; x.setLineDash([6,5]); x.beginPath();
-  x.moveTo(p,Y(max/2)); x.lineTo(w-25,Y(max/2)); x.stroke();
-  x.setLineDash([]);
-  x.fillStyle='#34d399'; x.font='bold 12px Arial';
-  x.fillText('Avg M̄ = '+(max/2).toFixed(0)+' | V = '+(2*n),p+10,Y(max/2)-8);
-  x.fillStyle='#38bdf8';
-  x.fillText('C = '+max.toFixed(0)+' (n='+n+')',p+10,28);
+  x.moveTo(p,Y(max/2)); x.lineTo(w-24,Y(max/2)); x.stroke(); x.setLineDash([]);
+  x.fillStyle='#34d399'; x.font='bold 12px Inter, Arial, sans-serif';
+  x.fillText('Avg M̄ = $'+(max/2).toFixed(0)+'  |  V = '+(2*n),p+12,Y(max/2)-8);
 }
 
-function drawCost(T,b,i,optC){
-  let c=costcanvas,x=ctxBase(c),w=c.width,h=c.height,p=60;
+function drawCost(T,b,i,optC,minTC){
+  const c=document.getElementById('costcanvas');
+  if(!c || !document.getElementById('baumol').classList.contains('on')) return;
+  const x=ctxBase(c), w=c.width, h=c.height, p=58;
   axes(x,w,h,p);
-  x.fillText('Annual Cost ($)',14,25);
-  x.fillText('Withdrawal size C ($)',w-150,h-15);
-  let maxC=Math.max(1500,optC*2.5),vals=[];
-  for(let C=60;C<=maxC;C+=maxC/180){
-    let oc=(C/2)*i, tc=(T/C)*b, total=oc+tc;
+
+  // FIXED SCALES so red dot C* visibly moves in 2D space!
+  const minC=150, maxC=4500, maxCost=1800;
+  const X=C=>p+((Math.min(maxC,Math.max(minC,C))-minC)/(maxC-minC))*(w-p-28);
+  const Y=v=>(h-p)-(Math.min(maxCost,v)/maxCost)*(h-p-34);
+
+  x.fillStyle='#94a3b8';
+  x.fillText(LANG==='ru'?'Издержки ($)':'Cost ($)',14,16);
+  x.fillText(LANG==='ru'?'Размер снятия C ($)':'Withdrawal size C ($)',w-145,h-14);
+
+  // X-axis reference ticks ($500, $1500, $2500, $3500, $4500)
+  x.textAlign='center'; x.font='10.5px Inter, Arial, sans-serif';
+  [500,1500,2500,3500,4500].forEach(val=>{
+    const tx=X(val);
+    x.strokeStyle='#334155'; x.beginPath(); x.moveTo(tx,h-p); x.lineTo(tx,h-p+4); x.stroke();
+    x.fillStyle='#64748b'; x.fillText('$'+val,tx,h-p+16);
+  });
+  x.textAlign='left';
+
+  const vals=[];
+  for(let C=minC;C<=maxC;C+=(maxC-minC)/200){
+    const oc=(C/2)*i;
+    const tc=(T/C)*b;
+    const total=oc+tc;
     vals.push([C,oc,tc,total]);
   }
-  let maxCost=Math.max(...vals.map(v=>v[3]))*1.12;
-  let X=C=>p+(C/maxC)*(w-p-30), Y=v=>(h-p)-(v/maxCost)*(h-p-35);
+
   function line(idx,col,lw){
     x.strokeStyle=col; x.lineWidth=lw; x.beginPath();
-    vals.forEach((v,j)=>{let xx=X(v[0]),yy=Y(v[idx]);j?x.lineTo(xx,yy):x.moveTo(xx,yy)});
+    let started=false;
+    vals.forEach(v=>{
+      if(v[idx]<=maxCost*1.05){
+        const xx=X(v[0]), yy=Y(v[idx]);
+        if(!started){x.moveTo(xx,yy);started=true;} else x.lineTo(xx,yy);
+      }
+    });
     x.stroke();
   }
-  line(1,'#fb923c',2.5);
-  line(2,'#34d399',2.5);
-  line(3,'#a78bfa',4);
-  let ov=(optC/2)*i+(T/optC)*b, xx=X(optC), yy=Y(ov);
-  x.fillStyle='#ff4d5e'; x.beginPath(); x.arc(xx,yy,7,0,Math.PI*2); x.fill();
-  x.fillStyle='#fff'; x.font='bold 12px Arial'; x.fillText('C* = '+optC.toFixed(0),xx+9,yy-7);
-  x.fillStyle='#fb923c'; x.fillText('Opportunity cost ↑',w-165,Y(vals[vals.length-1][1])-8);
-  x.fillStyle='#34d399'; x.fillText('Conversion cost ↓',p+20,Y(vals[10][2])-8);
-  x.fillStyle='#a78bfa'; x.fillText('Total cost',X(maxC*.68),Y(vals[Math.floor(vals.length*.68)][3])-8);
+  line(1,'#fb923c',2.4);
+  line(2,'#34d399',2.4);
+  line(3,'#a78bfa',3.8);
+
+  const xx=X(optC), yy=Y(minTC);
+  x.setLineDash([4,4]); x.strokeStyle='#94a3b8'; x.beginPath();
+  x.moveTo(xx,yy); x.lineTo(xx,h-p); x.moveTo(p,yy); x.lineTo(xx,yy); x.stroke(); x.setLineDash([]);
+
+  x.fillStyle='#ff4d5e'; x.beginPath(); x.arc(xx,yy,7.5,0,Math.PI*2); x.fill();
+  x.strokeStyle='#fff'; x.lineWidth=1.5; x.stroke();
+
+  x.fillStyle='#fff'; x.font='bold 12px Inter, Arial, sans-serif';
+  const lblX=xx>w-150?xx-105:xx+10;
+  x.fillText('C* = $'+optC.toFixed(0),lblX,Math.max(28,yy-10));
+
+  x.font='bold 11px Inter, Arial, sans-serif';
+  x.fillStyle='#fb923c'; x.fillText(LANG==='ru'?'Упущенный % ↑':'Opportunity cost ↑',w-150,Math.max(30,Y((maxC/2)*i)-8));
+  x.fillStyle='#34d399'; x.fillText(LANG==='ru'?'Издержки снятий ↓':'Conversion cost ↓',p+14,34);
+  x.fillStyle='#a78bfa'; x.fillText(LANG==='ru'?'Общие издержки TC':'Total cost TC',w-145,Math.max(52,Y(Math.min(maxCost,(maxC/2)*i+(T/maxC)*b))-12));
 }
 
-function friedIndex(yp,br,er,pi,rm){return Math.max(25,Math.min(220,100*(yp/100)*Math.exp(-.025*((br-rm-4)+(er-rm-6)+(pi-rm-2)))))}
-function friedmanCalc(){let yp=+fryp.value,br=+fbr.value,er=+fer.value,pi=+fpi.value,rm=+frm.value;frypv.textContent=yp;fbrv.textContent=br+'%';ferv.textContent=er+'%';fpiv.textContent=pi+'%';frmv.textContent=rm+'%';let idx=friedIndex(yp,br,er,pi,rm);fridx.textContent=idx.toFixed(0);drawFriedmanGraph()}
-function drawFriedmanGraph(){let c=document.getElementById('friedcanvas');if(!c||!document.getElementById('friedman').classList.contains('on'))return;let x=ctxBase(c),w=c.width,h=c.height,p={l:58,r:58,t:28,b:48};let pw=w-p.l-p.r,ph=h-p.t-p.b;let yp=+fryp.value,br=+fbr.value,er=+fer.value,curPi=+fpi.value,rm=+frm.value;let X=v=>p.l+v/15*pw,Ym=v=>p.t+ph-(v/220)*ph,Yv=v=>p.t+ph-((v-0.4)/(4.4-0.4))*ph;x.strokeStyle='#334155';x.lineWidth=1;x.beginPath();x.moveTo(p.l,p.t);x.lineTo(p.l,p.t+ph);x.lineTo(p.l+pw,p.t+ph);x.stroke();x.font='11px Arial';x.fillStyle='#94a3b8';x.textAlign='center';for(let k=0;k<=5;k++){let v=k*3;x.fillText(v+'%',X(v),p.t+ph+20)}x.textAlign='right';for(let k=0;k<=4;k++){let v=k*55;x.fillText(v,p.l-8,Ym(v)+4)}x.textAlign='left';x.fillStyle='#fbbf24';for(let k=0;k<=4;k++){let v=.4+k;x.fillText(v.toFixed(1)+'×',p.l+pw+8,Yv(v)+4)}x.fillStyle='#94a3b8';x.textAlign='center';x.fillText(LANG==='ru'?'Ожидаемая инфляция πᵉ (%)':'Expected inflation πᵉ (%)',p.l+pw/2,h-10);x.save();x.translate(15,p.t+ph/2);x.rotate(-Math.PI/2);x.fillText(LANG==='ru'?'Нормированный спрос Mᵈ/P':'Normalized money demand Mᵈ/P',0,0);x.restore();let pts=[];for(let pi=0;pi<=15;pi+=.25){let md=friedIndex(yp,br,er,pi,rm);let vel=Math.max(.4,Math.min(4.4,100/md*2));pts.push([pi,md,vel])}function line(idx,col,lw,yfun){x.strokeStyle=col;x.lineWidth=lw;x.beginPath();pts.forEach((a,j)=>{let xx=X(a[0]),yy=yfun(a[idx]);j?x.lineTo(xx,yy):x.moveTo(xx,yy)});x.stroke()}line(1,'#34d399',3,Ym);line(2,'#fbbf24',3,Yv);let md=friedIndex(yp,br,er,curPi,rm),vel=Math.max(.4,Math.min(4.4,100/md*2)),xx=X(curPi);x.setLineDash([5,5]);x.strokeStyle='#64748b';x.beginPath();x.moveTo(xx,p.t);x.lineTo(xx,p.t+ph);x.stroke();x.setLineDash([]);x.fillStyle='#38bdf8';x.beginPath();x.arc(xx,Ym(md),7,0,Math.PI*2);x.fill();x.beginPath();x.arc(xx,Yv(vel),6,0,Math.PI*2);x.fill();x.font='bold 12px Arial';x.fillStyle='#34d399';x.fillText('Mᵈ/P',p.l+8,p.t+15);x.fillStyle='#fbbf24';x.fillText('V',p.l+pw-12,p.t+15);x.fillStyle='#38bdf8';x.fillText((LANG==='ru'?'текущая πᵉ ':'current πᵉ ')+curPi.toFixed(1)+'%',Math.min(w-130,xx+8),p.t+34)}
+/* 4. FRIEDMAN */
+function friedIndex(yp,br,er,pi,rm){
+  return Math.max(30,Math.min(210,100*(yp/100)*Math.exp(-0.025*((br-rm-4)+(er-rm-6)+(pi-rm-2)))));
+}
 
-let resizeTimer=null;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(document.getElementById('keynes').classList.contains('on')){drawMdOnly();drawEquilibrium()}if(document.getElementById('baumol').classList.contains('on'))baumolCalc();if(document.getElementById('friedman').classList.contains('on'))friedmanCalc()},100)});
-if('ResizeObserver' in window){const ro=new ResizeObserver(()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(document.getElementById('keynes').classList.contains('on')){drawMdOnly();drawEquilibrium()}if(document.getElementById('baumol').classList.contains('on'))baumolCalc();if(document.getElementById('friedman').classList.contains('on'))friedmanCalc()},80)});document.querySelectorAll('.canvasbox').forEach(el=>ro.observe(el));}
+function friedmanCalc(){
+  const yp=+fryp.value, br=+fbr.value, er=+fer.value, pi=+fpi.value, rm=+frm.value;
+  frypv.textContent=yp;
+  fbrv.textContent=br.toFixed(1)+'%';
+  ferv.textContent=er.toFixed(1)+'%';
+  fpiv.textContent=pi.toFixed(1)+'%';
+  frmv.textContent=rm.toFixed(1)+'%';
+  const idx=friedIndex(yp,br,er,pi,rm);
+  const vel=200/idx;
+  fridx.textContent=idx.toFixed(0);
+  frvel.textContent=vel.toFixed(2)+'×';
+  drawFriedmanGraph();
+}
+
+function drawFriedmanGraph(){
+  const c=document.getElementById('friedcanvas');
+  if(!c || !document.getElementById('friedman').classList.contains('on')) return;
+  const x=ctxBase(c), w=c.width, h=c.height;
+  const p={l:56,r:56,t:28,b:44};
+  const pw=w-p.l-p.r, ph=h-p.t-p.b;
+  const yp=+fryp.value, br=+fbr.value, er=+fer.value, curPi=+fpi.value, rm=+frm.value;
+
+  const maxMd=240, minV=0.5, maxV=6.5;
+  const X=v=>p.l+(v/15)*pw;
+  const Ym=v=>p.t+ph-(v/maxMd)*ph;
+  const Yv=v=>p.t+ph-((v-minV)/(maxV-minV))*ph;
+
+  x.strokeStyle='#334155'; x.lineWidth=1.5; x.beginPath();
+  x.moveTo(p.l,p.t); x.lineTo(p.l,p.t+ph); x.lineTo(p.l+pw,p.t+ph); x.stroke();
+
+  x.font='11px Arial'; x.fillStyle='#94a3b8'; x.textAlign='center';
+  for(let k=0;k<=5;k++){
+    const v=k*3;
+    x.fillText(v+'%',X(v),p.t+ph+18);
+  }
+  x.textAlign='right';
+  for(let k=0;k<=4;k++){
+    const v=k*60;
+    x.fillText(v,p.l-8,Ym(v)+4);
+  }
+  x.textAlign='left'; x.fillStyle='#fbbf24';
+  for(let k=0;k<=4;k++){
+    const v=minV+k*((maxV-minV)/4);
+    x.fillText(v.toFixed(1)+'×',p.l+pw+8,Yv(v)+4);
+  }
+  x.fillStyle='#94a3b8'; x.textAlign='center';
+  x.fillText(LANG==='ru'?'Ожидаемая инфляция πᵉ (%)':'Expected inflation πᵉ (%)',p.l+pw/2,h-8);
+
+  const pts=[];
+  for(let pi=0;pi<=15;pi+=0.25){
+    const md=friedIndex(yp,br,er,pi,rm);
+    const vel=Math.max(minV,Math.min(maxV,200/md));
+    pts.push([pi,md,vel]);
+  }
+  function line(idx,col,lw,yfun){
+    x.strokeStyle=col; x.lineWidth=lw; x.beginPath();
+    pts.forEach((a,j)=>{
+      const xx=X(a[0]), yy=yfun(a[idx]);
+      j?x.lineTo(xx,yy):x.moveTo(xx,yy);
+    });
+    x.stroke();
+  }
+  line(1,'#34d399',3.2,Ym);
+  line(2,'#fbbf24',3.2,Yv);
+
+  const md=friedIndex(yp,br,er,curPi,rm);
+  const vel=Math.max(minV,Math.min(maxV,200/md));
+  const xx=X(curPi);
+
+  x.setLineDash([5,5]); x.strokeStyle='#64748b'; x.beginPath();
+  x.moveTo(xx,p.t); x.lineTo(xx,p.t+ph); x.stroke(); x.setLineDash([]);
+
+  x.fillStyle='#34d399'; x.beginPath(); x.arc(xx,Ym(md),6.5,0,Math.PI*2); x.fill();
+  x.fillStyle='#fbbf24'; x.beginPath(); x.arc(xx,Yv(vel),6.5,0,Math.PI*2); x.fill();
+
+  x.font='bold 12px Arial'; x.textAlign='left';
+  x.fillStyle='#34d399'; x.fillText('Md/P',p.l+10,p.t+14);
+  x.fillStyle='#fbbf24'; x.fillText('V',p.l+pw-20,p.t+14);
+  x.fillStyle='#38bdf8';
+  x.fillText('πᵉ = '+curPi.toFixed(1)+'%',Math.min(p.l+pw-65,xx+8),p.t+14);
+}
+
+let resizeTimer=null;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(redrawAll,120);
+});
+
 buildBanks();
-document.querySelectorAll('[data-en]').forEach(el=>{ if(el.dataset.en!==undefined) el.innerHTML=el.dataset.en; });
-fisherCalc();drawMdOnly();drawEquilibrium();baumolCalc();friedmanCalc();
-</script></body></html>
+document.querySelectorAll('[data-en]').forEach(el=>{
+  if(el.dataset.en!==undefined) el.innerHTML=el.dataset.en;
+});
+fisherCalc('p');
+drawMdOnly();
+drawEquilibrium();
+baumolCalc();
+friedmanCalc();
+</script>
+</body>
+</html>
