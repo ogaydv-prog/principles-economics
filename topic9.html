@@ -20,6 +20,16 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px 30px;
+            position: relative;
+        }
+
+        .top-left-logo {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
         }
 
         /* Верхняя панель */
@@ -32,16 +42,6 @@
             margin-bottom: 20px;
             position: relative;
             padding-top: 10px;
-        }
-
-        .top-left-logo {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
         }
 
         .header-titles {
@@ -152,6 +152,14 @@
                 padding: 15px;
             }
 
+            .top-left-logo {
+                position: static;
+                margin: 0 auto 10px auto;
+                display: block;
+                width: 52px;
+                height: 52px;
+            }
+
             .top-bar {
                 flex-direction: column;
                 justify-content: center;
@@ -159,14 +167,9 @@
                 margin-bottom: 20px;
             }
 
-            .top-left-logo, .back-button {
+            .back-button {
                 position: static;
                 transform: none;
-            }
-
-            .top-left-logo {
-                width: 52px;
-                height: 52px;
             }
 
             h1 {
@@ -195,9 +198,11 @@
 </head>
 <body>
 
+    <!-- Логотип AlmaU в левом верхнем углу экрана -->
+    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo" onerror="this.src='./almau.jpg'">
+
     <!-- Верхняя панель -->
     <div class="top-bar">
-        <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo" onerror="this.src='./almau.jpg'">
         <div class="header-titles">
             <h1>Topic 9: Measuring the Cost of Living</h1>
             <p class="subtitle">
