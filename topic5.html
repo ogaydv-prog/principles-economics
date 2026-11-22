@@ -23,17 +23,10 @@
             position: relative;
         }
 
-        /* Навигационная панель для логотипа и кнопки "Назад" */
-        .nav-header {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
         .top-left-logo {
+            position: absolute;
+            top: 25px;
+            left: 30px;
             width: 55px;
             height: 55px;
             object-fit: contain;
@@ -41,6 +34,9 @@
 
         /* Кнопка "Назад" к списку тем */
         .back-button {
+            position: absolute;
+            top: 35px;
+            right: 30px;
             text-decoration: none;
             background-color: #001e50;
             color: white;
@@ -58,7 +54,7 @@
 
         header {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
             margin-bottom: 30px;
             padding: 0 10px;
         }
@@ -68,6 +64,7 @@
             font-weight: 700;
             color: #001e50;
             margin-bottom: 8px;
+            margin-top: 15px;
             line-height: 1.25;
         }
 
@@ -208,24 +205,35 @@
         }
 
         /* АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ И ЭКРАНОВ С МАЛОЙ ШИРИНОЙ */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             body {
-                padding: 12px 12px;
+                padding: 10px 15px;
             }
 
             .top-left-logo {
-                width: 45px;
-                height: 45px;
+                position: static;
+                margin: 0 auto 10px auto;
+                display: block;
+                width: 48px;
+                height: 48px;
             }
 
             .back-button {
+                position: static;
+                display: inline-block;
+                margin: 0 auto 15px auto;
                 padding: 6px 12px;
                 font-size: 12px;
             }
 
+            header {
+                margin-top: 5px;
+                margin-bottom: 20px;
+            }
+
             h1 {
                 font-size: 22px;
-                margin-top: 10px;
+                margin-top: 0;
             }
 
             .subtitle {
@@ -246,11 +254,11 @@
 </head>
 <body>
 
-    <!-- Навигационный блок: Логотип AlmaU и Кнопка возврата -->
-    <div class="nav-header">
-        <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo">
-        <a href="topics.html" class="back-button">← Back to Topics</a>
-    </div>
+    <!-- Логотип AlmaU в верхнем левом углу -->
+    <img src="https://ogaydv-prog.github.io/principles-economics/almau.jpg" alt="AlmaU Logo" class="top-left-logo" onerror="this.onerror=null; this.src='./almau.jpg';">
+    
+    <!-- Кнопка возврата в верхнем правом углу -->
+    <a href="topics.html" class="back-button">← Back to Topics</a>
 
     <header>
         <h1>Topic 5: The Theory of Production and Costs</h1>
