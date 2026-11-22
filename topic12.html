@@ -20,6 +20,16 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px 30px;
+            position: relative;
+        }
+
+        .top-left-logo {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
         }
 
         /* Верхняя панель */
@@ -32,16 +42,6 @@
             margin-bottom: 25px;
             position: relative;
             padding-top: 10px;
-        }
-
-        .top-left-logo {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 64px;
-            height: 64px;
-            object-fit: contain;
         }
 
         .header-titles {
@@ -272,6 +272,14 @@
                 padding: 14px 12px;
             }
 
+            .top-left-logo {
+                position: static;
+                margin: 0 auto 10px auto;
+                display: block;
+                width: 48px;
+                height: 48px;
+            }
+
             .top-bar {
                 flex-direction: column;
                 justify-content: center;
@@ -280,15 +288,9 @@
                 padding-top: 0;
             }
 
-            .top-left-logo,
             .back-button {
                 position: static;
                 transform: none;
-            }
-
-            .top-left-logo {
-                width: 48px;
-                height: 48px;
             }
 
             .header-titles {
@@ -348,12 +350,14 @@
 </head>
 <body>
 
+    <!-- Логотип AlmaU в левом верхнем углу экрана -->
+    <img src="https://ogaydv-prog.github.io/principles-of-economics/almau.jpg"
+         alt="AlmaU Logo"
+         class="top-left-logo"
+         onerror="this.onerror=null; this.src='./almau.jpg';">
+
     <!-- Верхняя панель -->
     <div class="top-bar">
-        <img src="https://ogaydv-prog.github.io/principles-of-economics/almau.jpg"
-             alt="AlmaU Logo"
-             class="top-left-logo"
-             onerror="this.onerror=null; this.src='./almau.jpg';">
         <div class="header-titles">
             <h1>Topic 12: Money Market — Demand for Money &amp; Monetary Aggregates</h1>
             <p class="subtitle">
