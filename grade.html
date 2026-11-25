@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,15 +57,25 @@
                     <i class="fa-solid fa-graduation-cap text-2xl"></i>
                 </div>
                 <div>
-                    <span class="text-xs font-bold tracking-widest text-indigo-400 uppercase">Principles of Economics — International Business - 2026</span>
+                    <span id="hdr-subtitle" class="text-xs font-bold tracking-widest text-indigo-400 uppercase">Principles of Economics — International Business - 2026</span>
                     <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">ALMAU</h1>
                 </div>
             </div>
             
-            <div class="flex items-center space-x-3">
+            <div class="flex flex-wrap items-center justify-center sm:justify-end gap-2.5">
+                <!-- Переключатель языка RU / EN -->
+                <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800" role="group" aria-label="Language switcher">
+                    <button type="button" onclick="setLanguage('ru')" id="lang-btn-ru" class="px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all bg-indigo-600 text-white">
+                        RU
+                    </button>
+                    <button type="button" onclick="setLanguage('en')" id="lang-btn-en" class="px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all text-slate-400 hover:text-white">
+                        EN
+                    </button>
+                </div>
+
                 <div id="mode-badge" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center space-x-1.5">
                     <span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                    <span>Панель преподавателя</span>
+                    <span id="mode-badge-text">Панель преподавателя</span>
                 </div>
                 
                 <button id="auth-action-btn" onclick="toggleTeacherMode()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-700 hover:border-slate-600 flex items-center space-x-2">
@@ -82,11 +92,11 @@
         <!-- ================= STUDENT VIEW ================= -->
         <div id="student-view" class="space-y-8 hidden">
             <div class="max-w-2xl mx-auto text-center space-y-4 py-6">
-                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-slate-400 bg-clip-text text-transparent">
-                    Student Performance Dashboard
+                <h2 id="sv-title" class="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-slate-400 bg-clip-text text-transparent">
+                    Панель успеваемости студента
                 </h2>
-                <p class="text-sm sm:text-base text-slate-400">
-                    Enter your Full Name to view detailed grades and visual progress analytics.
+                <p id="sv-subtitle" class="text-sm sm:text-base text-slate-400">
+                    Введите ФИО (на русском или английском языке), чтобы посмотреть свои баллы и аналитику посещаемости.
                 </p>
             </div>
 
@@ -95,15 +105,18 @@
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-indigo-500"></div>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Student Full Name</label>
+                        <label id="sv-input-label" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">ФИО студента / Student Full Name</label>
                         <div class="relative">
                             <i class="fa-solid fa-user absolute left-4 top-3.5 text-slate-500"></i>
-                            <input type="text" id="student-search-input" onkeydown="handleSearchKeyDown(event)" placeholder="e.g. Кожахметова Малика" 
+                            <input type="text" id="student-search-input" onkeydown="handleSearchKeyDown(event)" placeholder="Например: Кожахметова Малика или Aldada Hebatalla" 
                                 class="w-full pl-11 pr-24 py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
-                            <button onclick="searchStudentGrade()" class="absolute right-2 top-2 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm">
-                                Search
+                            <button id="sv-search-btn" onclick="searchStudentGrade()" class="absolute right-2 top-2 px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-colors shadow-sm">
+                                Найти
                             </button>
                         </div>
+                        <p id="sv-quick-hint" class="text-[11px] text-slate-500 mt-2">
+                            Поиск работает по кириллице и латинице (например: <span class="text-slate-300 font-medium">Belachew Nigus</span>, <span class="text-slate-300 font-medium">Hirana Kasita</span>, <span class="text-slate-300 font-medium">Aldada Hebatalla</span>).
+                        </p>
                     </div>
                 </div>
             </div>
@@ -112,11 +125,12 @@
             <div id="student-result-card" class="max-w-4xl mx-auto bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden hidden">
                 <div class="bg-gradient-to-r from-indigo-950/40 to-slate-900 px-6 py-5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <span class="text-[10px] font-bold bg-indigo-900/50 text-indigo-300 px-2.5 py-1 rounded-full border border-indigo-800/30 uppercase tracking-wider">International Business Team Student</span>
+                        <span id="sr-badge" class="text-[10px] font-bold bg-indigo-900/50 text-indigo-300 px-2.5 py-1 rounded-full border border-indigo-800/30 uppercase tracking-wider">Студент группы International Business</span>
                         <h3 id="sr-name" class="text-xl font-extrabold text-white mt-1.5">Student Full Name</h3>
+                        <p id="sr-subname" class="text-xs text-slate-400 mt-0.5"></p>
                     </div>
                     <div class="text-right">
-                        <span class="text-xs text-slate-400 block font-medium">Final Score</span>
+                        <span id="sr-final-label" class="text-xs text-slate-400 block font-medium">Текущий рейтинг</span>
                         <div class="flex items-center justify-end space-x-2.5 mt-1">
                             <span id="sr-letter" class="text-2xl font-black bg-indigo-600 px-3 py-1 rounded-xl text-white shadow-md">-</span>
                             <span id="sr-total-score" class="text-3xl font-extrabold text-slate-100">0.0</span>
@@ -126,16 +140,16 @@
 
                 <!-- Dashboard Graphs Grid -->
                 <div class="p-6 border-b border-slate-800 bg-slate-950/30">
-                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                    <h4 id="sr-breakdown-title" class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-chart-line text-indigo-400"></i>
-                        Interactive Performance Breakdown
+                        Интерактивная разбивка успеваемости
                     </h4>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         <!-- Widget 1: Attendance -->
                         <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center">
-                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                <i class="fa-solid fa-calendar-check"></i> Attendance (10%)
+                            <span id="w1-title" class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-calendar-check"></i> Посещаемость (10%)
                             </span>
                             <div class="relative w-full h-28 flex items-center justify-center">
                                 <canvas id="attendanceBarChart"></canvas>
@@ -145,8 +159,8 @@
 
                         <!-- Widget 2: Continuous Assessment -->
                         <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center">
-                            <span class="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                <i class="fa-solid fa-bolt"></i> Assessment (30%)
+                            <span id="w2-title" class="text-[10px] font-bold text-blue-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-bolt"></i> Текущий контроль (30%)
                             </span>
                             <div class="relative w-full h-28 flex items-center justify-center">
                                 <canvas id="activityLineChart"></canvas>
@@ -156,8 +170,8 @@
 
                         <!-- Widget 3: Midterm Controls -->
                         <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center">
-                            <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                <i class="fa-solid fa-pen-ruler"></i> Midterms (20%)
+                            <span id="w3-title" class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <i class="fa-solid fa-pen-ruler"></i> Рубежный контроль (20%)
                             </span>
                             <div class="relative w-full h-28 flex items-center justify-center">
                                 <canvas id="examGaugeChart"></canvas>
@@ -167,8 +181,8 @@
 
                         <!-- Widget 4: Final Progress -->
                         <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 flex flex-col items-center justify-center relative overflow-hidden">
-                            <span class="text-[10px] font-bold text-violet-400 uppercase tracking-wider mb-3 flex items-center gap-1">
-                                <i class="fa-solid fa-circle-nodes"></i> Total Score
+                            <span id="w4-title" class="text-[10px] font-bold text-violet-400 uppercase tracking-wider mb-3 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-nodes"></i> Итоговый балл
                             </span>
                             <div class="relative w-24 h-24 flex items-center justify-center">
                                 <svg class="w-full h-full transform -rotate-90">
@@ -180,7 +194,7 @@
                                     <span class="text-[10px] text-slate-400 font-semibold" id="finalCircleScore">0.0</span>
                                 </div>
                             </div>
-                            <div class="text-[9px] text-violet-300 font-semibold uppercase mt-3 tracking-widest">Max: 100</div>
+                            <div id="w4-max" class="text-[9px] text-violet-300 font-semibold uppercase mt-3 tracking-widest">Макс: 100</div>
                         </div>
                     </div>
                 </div>
@@ -188,50 +202,50 @@
                 <!-- 7 Grade breakdown columns -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 divide-y sm:divide-y-0 divide-x divide-slate-800 border-b border-slate-800 bg-slate-900/20">
                     <div class="p-3 text-center space-y-1">
-                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Attendance</h4>
-                        <div class="text-base font-bold text-emerald-400" id="sr-val-attendance">0 / 100</div>
-                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-emerald-400">10%</strong></p>
+                        <h4 id="col-lbl-att" class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Посещ.</h4>
+                        <div class="text-base font-bold text-emerald-400" id="sr-val-attendance">0%</div>
+                        <p class="text-[8px] text-slate-500"><span class="weight-lbl">Вес:</span> <strong class="text-emerald-400">10%</strong></p>
                     </div>
                     <div class="p-3 text-center space-y-1">
-                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Activities</h4>
-                        <div class="text-base font-bold text-teal-400" id="sr-val-activities">0 / 100</div>
-                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-teal-400">10%</strong></p>
+                        <h4 id="col-lbl-act" class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Активность</h4>
+                        <div class="text-base font-bold text-teal-400" id="sr-val-activities">0</div>
+                        <p class="text-[8px] text-slate-500"><span class="weight-lbl">Вес:</span> <strong class="text-teal-400">10%</strong></p>
                     </div>
                     <div class="p-3 text-center space-y-1">
-                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">CA 1</h4>
-                        <div class="text-base font-bold text-blue-400" id="sr-val-ca1">0 / 100</div>
-                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-blue-400">10%</strong></p>
+                        <h4 id="col-lbl-ca1" class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">СР 1 (CA1)</h4>
+                        <div class="text-base font-bold text-blue-400" id="sr-val-ca1">0</div>
+                        <p class="text-[8px] text-slate-500"><span class="weight-lbl">Вес:</span> <strong class="text-blue-400">10%</strong></p>
                     </div>
                     <div class="p-3 text-center space-y-1">
-                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">MC 1</h4>
-                        <div class="text-base font-bold text-amber-400" id="sr-val-mc1">0 / 100</div>
-                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-amber-400">10%</strong></p>
+                        <h4 id="col-lbl-mc1" class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">РК 1 (MC1)</h4>
+                        <div class="text-base font-bold text-amber-400" id="sr-val-mc1">0</div>
+                        <p class="text-[8px] text-slate-500"><span class="weight-lbl">Вес:</span> <strong class="text-amber-400">10%</strong></p>
                     </div>
                     <div class="p-3 text-center space-y-1">
-                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">CA 2</h4>
-                        <div class="text-base font-bold text-indigo-400" id="sr-val-ca2">0 / 100</div>
-                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-indigo-400">10%</strong></p>
+                        <h4 id="col-lbl-ca2" class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">СР 2 (CA2)</h4>
+                        <div class="text-base font-bold text-indigo-400" id="sr-val-ca2">0</div>
+                        <p class="text-[8px] text-slate-500"><span class="weight-lbl">Вес:</span> <strong class="text-indigo-400">10%</strong></p>
                     </div>
                     <div class="p-3 text-center space-y-1">
-                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">MC 2</h4>
-                        <div class="text-base font-bold text-orange-400" id="sr-val-mc2">0 / 100</div>
-                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-orange-400">10%</strong></p>
+                        <h4 id="col-lbl-mc2" class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">РК 2 (MC2)</h4>
+                        <div class="text-base font-bold text-orange-400" id="sr-val-mc2">0</div>
+                        <p class="text-[8px] text-slate-500"><span class="weight-lbl">Вес:</span> <strong class="text-orange-400">10%</strong></p>
                     </div>
                     <div class="p-3 text-center space-y-1">
-                        <h4 class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Final Exam</h4>
-                        <div class="text-base font-bold text-rose-400" id="sr-val-exam">0 / 100</div>
-                        <p class="text-[8px] text-slate-500">Weight: <strong class="text-rose-400">40%</strong></p>
+                        <h4 id="col-lbl-exam" class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Экзамен</h4>
+                        <div class="text-base font-bold text-rose-400" id="sr-val-exam">0</div>
+                        <p class="text-[8px] text-slate-500"><span class="weight-lbl">Вес:</span> <strong class="text-rose-400">40%</strong></p>
                     </div>
                 </div>
 
                 <!-- Expanded detailed attendance table -->
                 <div class="p-6 border-b border-slate-800 bg-slate-950/20">
                     <button onclick="toggleStudentAttDetails()" class="w-full flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider hover:text-slate-200 transition-colors">
-                        <span class="flex items-center gap-2">
+                        <span id="sr-att-details-btn-lbl" class="flex items-center gap-2">
                             <i class="fa-solid fa-list-check text-emerald-400"></i>
-                            Attendance Session Details (15 Weeks × 3 Hours = 45 Hours; Conducted: 30 Hours / 10 Weeks)
+                            Детализация посещаемости по неделям (15 недель × 3 часа = 45 часов)
                         </span>
-                        <span id="student-att-toggle-icon" class="text-[10px] bg-slate-800 px-2.5 py-1 rounded border border-slate-700 transition-all">Expand ▾</span>
+                        <span id="student-att-toggle-icon" class="text-[10px] bg-slate-800 px-2.5 py-1 rounded border border-slate-700 transition-all">Развернуть ▾</span>
                     </button>
                     <div id="student-att-details" class="hidden mt-4 pt-4 border-t border-slate-800/60">
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="student-att-list-grid">
@@ -244,9 +258,9 @@
                 <div class="bg-indigo-950/20 px-6 py-4 flex items-start space-x-3">
                     <i class="fa-solid fa-circle-info text-indigo-400 text-lg mt-0.5"></i>
                     <div>
-                        <h5 class="text-xs font-bold text-slate-300">Grading Policy</h5>
-                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
-                            Final grade formula: Attendance (10%) + Activities (10%) + CA1 (10%) + MC1 (10%) + CA2 (10%) + MC2 (10%) + Final Exam (40%). Passing threshold: 50 points (Grade D).
+                        <h5 id="sr-policy-title" class="text-xs font-bold text-slate-300">Формула расчёта оценки</h5>
+                        <p id="sr-policy-desc" class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                            Итоговая оценка: Посещаемость (10%) + Активность (10%) + СР 1 (10%) + РК 1 (10%) + СР 2 (10%) + РК 2 (10%) + Экзамен (40%). Проходной порог: 50 баллов (оценка D).
                         </p>
                     </div>
                 </div>
@@ -255,21 +269,21 @@
             <!-- Student Not Found State -->
             <div id="student-not-found" class="max-w-xl mx-auto bg-rose-950/10 border border-rose-900/30 p-5 rounded-2xl text-center hidden">
                 <i class="fa-solid fa-user-slash text-rose-500 text-2xl mb-2.5"></i>
-                <h4 class="text-sm font-bold text-rose-400">Student Not Found</h4>
-                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                    Please check spelling (e.g. search for <strong class="text-slate-300">Кожахметова Малика</strong>).
+                <h4 id="snf-title" class="text-sm font-bold text-rose-400">Студент не найден</h4>
+                <p id="snf-desc" class="text-xs text-slate-400 mt-1 leading-relaxed">
+                    Проверьте написание фамилии или имени (например: <strong class="text-slate-300">Кожахметова Малика</strong> или <strong class="text-slate-300">Belachew Nigus</strong>).
                 </p>
             </div>
         </div>
 
-        <!-- ================= INSTRUCTOR WORKSPACE VIEW (ОТКРЫТ ПО УМОЛЧАНИЮ БЕЗ ПАРОЛЯ) ================= -->
+        <!-- ================= INSTRUCTOR WORKSPACE VIEW ================= -->
         <div id="teacher-view" class="space-y-8 block">
             
             <!-- Statistics Overview Widgets -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Активных студентов</p>
+                        <p id="kpi-1-lbl" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Студентов в списке (Platonus)</p>
                         <h3 class="text-3xl font-extrabold text-white mt-1" id="stat-total-students">0</h3>
                     </div>
                     <div class="h-12 w-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center text-xl border border-indigo-500/20">
@@ -278,7 +292,7 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Средний балл РК1 (MC1)</p>
+                        <p id="kpi-2-lbl" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Средний балл РК1 (MC1)</p>
                         <div class="flex items-baseline space-x-1.5 mt-1">
                             <h3 class="text-3xl font-extrabold text-white" id="stat-average-grade">0.0</h3>
                             <span class="text-xs font-bold text-indigo-400" id="stat-average-letter">-</span>
@@ -290,7 +304,7 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Успеваемость РК1 (≥50)</p>
+                        <p id="kpi-3-lbl" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Успеваемость РК1 (≥50)</p>
                         <h3 class="text-3xl font-extrabold text-white mt-1" id="stat-pass-rate">0%</h3>
                     </div>
                     <div class="h-12 w-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-xl border border-blue-500/20">
@@ -299,8 +313,8 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Лучший результат РК1</p>
-                        <h3 class="text-sm font-bold text-violet-400 mt-2 truncate max-w-[150px]" id="stat-best-student">—</h3>
+                        <p id="kpi-4-lbl" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Лучший результат РК1</p>
+                        <h3 class="text-sm font-bold text-violet-400 mt-2 truncate max-w-[160px]" id="stat-best-student">—</h3>
                     </div>
                     <div class="h-12 w-12 bg-violet-500/10 text-violet-400 rounded-xl flex items-center justify-center text-xl border border-violet-500/20">
                         <i class="fa-solid fa-trophy"></i>
@@ -312,29 +326,35 @@
             <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl space-y-4">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div>
-                        <h3 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-bell text-violet-400"></i>
-                            Кривая распределения оценок (Bell Curve — п. 8 Положения)
+                        <h3 id="bell-title" class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bell text-amber-400"></i>
+                            <span>Кривая распределения оценок (Bell Curve — п. 8 Положения ALMAU)</span>
                         </h3>
-                        <p class="text-xs text-slate-400 mt-1">
-                            Анализ качества оценивания и сопоставление с нормальным распределением Гаусса (п. 8.1–8.4: «отлично» A/A- и «неуд» F/FX не более 15% каждого, суммарно ≤ 30%, допустимое отклонение ≤ 5%).
+                        <p id="bell-subtitle" class="text-xs text-slate-400 mt-1">
+                            Анализ качества оценивания по всем 20 студентам ведомости Platonus и сопоставление с нормальным распределением Гаусса (п. 8.1–8.4: «отлично» A/A- и «неуд» F/FX не более 15% каждого, суммарно ≤ 30%, допустимое отклонение ≤ 5%).
                         </p>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
                         <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
-                            <button onclick="switchBellMetric('mc1')" id="btn-bell-mc1" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white">
+                            <button onclick="switchBellMetric('ca1')" id="btn-bell-ca1" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+                                СР 1 (CA1)
+                            </button>
+                            <button onclick="switchBellMetric('mc1')" id="btn-bell-mc1" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white">
                                 РК 1 (MC1)
                             </button>
-                            <button onclick="switchBellMetric('ca2')" id="btn-bell-ca2" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
-                                СРСП 2 (CA2)
+                            <button onclick="switchBellMetric('ca2')" id="btn-bell-ca2" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+                                СР 2 (CA2)
                             </button>
-                            <button onclick="switchBellMetric('total')" id="btn-bell-total" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
-                                Итоговый балл
+                            <button onclick="switchBellMetric('act')" id="btn-bell-act" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+                                Активность
+                            </button>
+                            <button onclick="switchBellMetric('total')" id="btn-bell-total" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+                                Рейтинг
                             </button>
                         </div>
                         <div class="flex items-center space-x-3 text-xs bg-slate-950 px-3.5 py-1.5 rounded-xl border border-slate-800 font-mono">
-                            <span class="text-indigo-400 font-bold">μ (Среднее): <span id="bell-mean-val" class="text-white">0.0</span></span>
-                            <span class="text-violet-400 font-bold">σ (Отклонение): <span id="bell-std-val" class="text-white">0.0</span></span>
+                            <span class="text-indigo-400 font-bold"><span id="bell-mean-lbl">μ (Среднее):</span> <span id="bell-mean-val" class="text-white">0.0</span></span>
+                            <span class="text-amber-400 font-bold"><span id="bell-std-lbl">σ (Отклонение):</span> <span id="bell-std-val" class="text-white">0.0</span></span>
                         </div>
                     </div>
                 </div>
@@ -348,12 +368,12 @@
             <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                     <div>
-                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <h3 id="grp-chart-title" class="text-base font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-chart-column text-indigo-400"></i>
-                            Group Performance Graphic Overview
+                            <span>Обзор успеваемости группы (20 студентов)</span>
                         </h3>
-                        <p class="text-xs text-slate-400 mt-1">
-                            Interactive comparison across Attendance, Activities, CA, Midterms, Exam, and Final Scores.
+                        <p id="grp-chart-subtitle" class="text-xs text-slate-400 mt-1">
+                            Сравнение посещаемости, активности, СР1, РК1, СР2, РК2, экзамена и итогового рейтинга.
                         </p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 text-[11px] font-semibold">
@@ -382,31 +402,32 @@
                         <div class="p-5 border-b border-slate-800 bg-slate-900/50 flex flex-col sm:flex-row justify-between items-center gap-4">
                             <div class="relative w-full sm:w-72">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-500"></i>
-                                <input type="text" id="teacher-search-input" placeholder="Search students..." 
+                                <input type="text" id="teacher-search-input" placeholder="Поиск студента (RU / EN)..." 
                                     class="w-full pl-9 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-600">
                             </div>
                             <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
                                 <button onclick="exportBackupJSON()" class="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-md transition-colors flex items-center space-x-1.5" title="Download backup JSON">
                                     <i class="fa-solid fa-download"></i>
-                                    <span>Backup</span>
+                                    <span id="btn-backup-txt">Резервная копия</span>
                                 </button>
                                 <button onclick="exportToCSV()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-md transition-colors flex items-center space-x-2">
                                     <i class="fa-solid fa-file-excel"></i>
-                                    <span>Export Excel</span>
+                                    <span id="btn-excel-txt">Экспорт Excel</span>
                                 </button>
                                 <button onclick="confirmReset()" class="px-4 py-2.5 bg-rose-950/40 text-rose-400 hover:bg-rose-900/40 rounded-xl text-xs font-semibold transition-colors flex items-center space-x-2 border border-rose-900/40">
                                     <i class="fa-solid fa-trash-can"></i>
-                                    <span>Reset All</span>
+                                    <span id="btn-reset-txt">Сбросить</span>
                                 </button>
                             </div>
                         </div>
 
                         <!-- Main Grid Table -->
                         <div class="overflow-x-auto custom-scrollbar">
-                            <table class="w-full text-left border-collapse min-w-[780px]">
+                            <table class="w-full text-left border-collapse min-w-[840px]">
                                 <thead>
                                     <tr class="border-b border-slate-800 bg-slate-900/40 text-slate-400 text-[9px] font-bold uppercase tracking-wider">
-                                        <th class="py-3.5 px-3">Student (International Business Team)</th>
+                                        <th class="py-3.5 px-2 text-center w-9">№</th>
+                                        <th id="th-student" class="py-3.5 px-3">Студент (International Business)</th>
                                         <th class="py-3.5 px-1.5 text-center w-16">Att (10%)</th>
                                         <th class="py-3.5 px-1.5 text-center w-14">Act (10%)</th>
                                         <th class="py-3.5 px-1.5 text-center w-14">CA1 (10%)</th>
@@ -414,8 +435,8 @@
                                         <th class="py-3.5 px-1.5 text-center w-14">CA2 (10%)</th>
                                         <th class="py-3.5 px-1.5 text-center w-14">MC2 (10%)</th>
                                         <th class="py-3.5 px-1.5 text-center w-14">Exam (40%)</th>
-                                        <th class="py-3.5 px-2 text-right w-14 bg-indigo-950/20">Final</th>
-                                        <th class="py-3.5 px-2 text-center w-12">Grade</th>
+                                        <th id="th-final" class="py-3.5 px-2 text-right w-14 bg-indigo-950/20">Рейтинг</th>
+                                        <th id="th-grade" class="py-3.5 px-2 text-center w-12">Оценка</th>
                                         <th class="py-3.5 px-1.5 text-center w-8"></th>
                                     </tr>
                                 </thead>
@@ -430,14 +451,14 @@
                             <div class="p-4 bg-slate-950 rounded-full text-slate-500 mb-3 text-3xl">
                                 <i class="fa-solid fa-user-slash"></i>
                             </div>
-                            <h4 class="text-sm font-semibold text-slate-300">Gradebook is empty</h4>
-                            <p class="text-xs text-slate-500 mt-1">Add students manually or use bulk import.</p>
+                            <h4 id="empty-title" class="text-sm font-semibold text-slate-300">Ведомость пуста</h4>
+                            <p id="empty-desc" class="text-xs text-slate-500 mt-1">Добавьте студентов вручную или через массовый импорт.</p>
                         </div>
                         
                         <!-- Real-time editing tips -->
                         <div class="bg-indigo-950/10 p-4 border-t border-slate-800/80 text-xs text-indigo-300 flex items-center space-x-3.5">
                             <i class="fa-solid fa-circle-info text-indigo-400 text-lg"></i>
-                            <p><strong>Посещаемость:</strong> Нажмите на процент в колонке «Att», чтобы открыть чек-лист на 15 недель (45 часов). Недели 1–10 (30 часов) заполнены по журналу Platonus.</p>
+                            <p id="table-tip-text"><strong>Посещаемость и оценки:</strong> Нажмите на процент в колонке «Att», чтобы открыть чек-лист на 15 недель (45 часов). Недели 1–3 (31 авг — 14 сен, 9 часов) отмечены без пропусков у всех 20 студентов; недели 4–13 (21 сен — 23 ноя, 30 часов), СР 1 (CA1), РК 1 (MC1) и СР 2 (CA2) заполнены по журналу Platonus.</p>
                         </div>
                     </div>
                 </div>
@@ -447,32 +468,37 @@
                     
                     <!-- Mass Import widget -->
                     <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 shadow-2xl">
-                        <h3 class="text-sm font-bold text-white mb-3.5 flex items-center space-x-2">
+                        <h3 id="bulk-title" class="text-sm font-bold text-white mb-3.5 flex items-center space-x-2">
                             <i class="fa-solid fa-file-import text-indigo-400"></i>
-                            <span>Bulk Import Students</span>
+                            <span>Массовый импорт студентов</span>
                         </h3>
-                        <p class="text-[11px] text-slate-400 mb-3 leading-relaxed">
-                            Each line will be imported as a student name. Initial grades default to 0.
+                        <p id="bulk-desc" class="text-[11px] text-slate-400 mb-3 leading-relaxed">
+                            Каждая строка будет добавлена как ФИО нового студента (начальные оценки: 0).
                         </p>
                         <textarea id="bulk-import-area" rows="4" placeholder="Иванов Иван&#10;Петров Пётр" 
                             class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-700 font-mono"></textarea>
                         
                         <button onclick="runBulkImport()" class="w-full mt-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition-colors flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/15">
                             <i class="fa-solid fa-users-medical"></i>
-                            <span>Import List into System</span>
+                            <span id="bulk-btn-txt">Импортировать список</span>
                         </button>
                     </div>
 
                     <!-- Single Student Insert Form -->
                     <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 shadow-2xl">
-                        <h3 class="text-sm font-bold text-white mb-3.5 flex items-center space-x-2">
+                        <h3 id="single-title" class="text-sm font-bold text-white mb-3.5 flex items-center space-x-2">
                             <i class="fa-solid fa-user-plus text-blue-400"></i>
-                            <span>Add Single Student</span>
+                            <span>Добавить студента</span>
                         </h3>
                         <div class="space-y-3">
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-400 mb-1">Student Full Name</label>
-                                <input type="text" id="add-student-name" placeholder="Enter Full Name" 
+                                <label id="single-name-lbl" class="block text-[10px] font-bold text-slate-400 mb-1">ФИО студента (RU)</label>
+                                <input type="text" id="add-student-name" placeholder="Введите ФИО" 
+                                    class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-700">
+                            </div>
+                            <div>
+                                <label id="single-name-en-lbl" class="block text-[10px] font-bold text-slate-400 mb-1">Full Name (EN, optional)</label>
+                                <input type="text" id="add-student-name-en" placeholder="Enter English Name" 
                                     class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-700">
                             </div>
                             <div class="grid grid-cols-4 gap-2">
@@ -514,7 +540,7 @@
                             </div>
                             <button onclick="addSingleStudent()" class="w-full mt-2 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl text-xs transition-colors flex items-center justify-center space-x-2 border border-slate-700">
                                 <i class="fa-solid fa-plus"></i>
-                                <span>Save to Register</span>
+                                <span id="single-btn-txt">Сохранить в ведомость</span>
                             </button>
                         </div>
                     </div>
@@ -533,11 +559,11 @@
             <div class="h-12 w-12 bg-rose-500/10 text-rose-500 rounded-full flex items-center justify-center text-xl mb-4 border border-rose-500/20">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-lg font-bold text-white">Are you sure?</h3>
-            <p class="text-slate-400 text-xs mt-2">This action will reset all student data back to the initial Platonus register. This cannot be undone.</p>
+            <h3 id="cm-title" class="text-lg font-bold text-white">Вы уверены?</h3>
+            <p id="cm-desc" class="text-slate-400 text-xs mt-2">Это действие вернёт все оценки и посещаемость к исходным данным ведомости Platonus. Действие необратимо.</p>
             <div class="mt-6 flex justify-end space-x-3">
-                <button onclick="closeConfirmModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs transition-colors">Cancel</button>
-                <button onclick="resetAllData()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-xl text-xs transition-colors shadow-lg shadow-rose-600/30">Reset Database</button>
+                <button id="cm-cancel-btn" onclick="closeConfirmModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs transition-colors">Отмена</button>
+                <button id="cm-confirm-btn" onclick="resetAllData()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-xl text-xs transition-colors shadow-lg shadow-rose-600/30">Сбросить базу</button>
             </div>
         </div>
     </div>
@@ -551,8 +577,8 @@
                         <i class="fa-solid fa-calendar-days"></i>
                     </div>
                     <div>
-                        <h3 class="text-sm font-extrabold text-white" id="att-modal-student-name">Attendance Details</h3>
-                        <p class="text-[10px] text-slate-400">15 Weeks × 3 Hours/Week (45 Total Academic Hours; Conducted: 30 Hours)</p>
+                        <h3 class="text-sm font-extrabold text-white" id="att-modal-student-name">Посещаемость</h3>
+                        <p id="att-modal-sub" class="text-[10px] text-slate-400">15 недель × 3 часа/нед. (всего 45 академ. часов; проведено 39 часов / 13 недель)</p>
                     </div>
                 </div>
                 <button onclick="closeAttendanceModal()" class="text-slate-400 hover:text-white transition-colors">
@@ -563,10 +589,10 @@
             <!-- List content -->
             <div class="flex-grow overflow-y-auto custom-scrollbar my-4 pr-1">
                 <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 mb-4 flex justify-between items-center">
-                    <span class="text-xs text-slate-400 font-semibold">Total Attendance Rate (out of 45 hrs):</span>
+                    <span id="att-modal-rate-lbl" class="text-xs text-slate-400 font-semibold">Итоговая посещаемость (из 45 ч):</span>
                     <div class="flex items-center space-x-2">
                         <span id="att-modal-percent" class="text-emerald-400 font-extrabold text-sm">0%</span>
-                        <span id="att-modal-hours" class="text-slate-500 text-xs font-medium">(0 of 45 hrs)</span>
+                        <span id="att-modal-hours" class="text-slate-500 text-xs font-medium">(0 из 45 ч)</span>
                     </div>
                 </div>
                 
@@ -578,16 +604,16 @@
             <!-- Bottom action drawer -->
             <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
                 <div class="flex space-x-1.5">
-                    <button onclick="toggleAllAttendance(true)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-[10px] transition-all border border-slate-700">
-                        Select All
+                    <button id="att-sel-all-btn" onclick="toggleAllAttendance(true)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-[10px] transition-all border border-slate-700">
+                        Выбрать все
                     </button>
-                    <button onclick="toggleAllAttendance(false)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-[10px] transition-all border border-slate-700">
-                        Clear All
+                    <button id="att-clr-all-btn" onclick="toggleAllAttendance(false)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-[10px] transition-all border border-slate-700">
+                        Снять все
                     </button>
                 </div>
                 <button onclick="saveAttendanceDetails()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-xs transition-colors shadow-lg shadow-emerald-600/30 flex items-center space-x-1.5">
                     <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Save Attendance</span>
+                    <span id="att-save-btn-txt">Сохранить посещаемость</span>
                 </button>
             </div>
         </div>
@@ -606,57 +632,284 @@
 
     <script>
         const TOTAL_ATTENDANCE_HOURS = 45;
-        const CONDUCTED_HOURS = 30; // 10 недель × 3 часа (21 сен — 23 ноя) по журналу Platonus
-        const STORAGE_KEY = 'almau_pe_ib_students_2026_v6';
+        const INITIAL_FULL_WEEKS = 3; // Недели 1–3: 31 авг, 7 сен, 14 сен (9 часов — без пропусков у всех 20 студентов)
+        const INITIAL_FULL_HOURS = INITIAL_FULL_WEEKS * 3; // 9 часов (индексы 0..8)
+        const PLATONUS_LOGGED_HOURS = 30; // Недели 4–13: 21 сен — 23 ноя (30 часов, индексы 9..38) по журналу Platonus
+        const STORAGE_KEY = 'almau_pe_ib_students_2026_v8';
+        const LANG_STORAGE_KEY = 'almau_pe_ib_lang_2026';
 
-        const weekLabels = [
-            "Week 1 (21 сен)",
-            "Week 2 (28 сен)",
-            "Week 3 (5 окт)",
-            "Week 4 (12 окт)",
-            "Week 5 (19 окт)",
-            "Week 6 (26 окт)",
-            "Week 7 (2 ноя)",
-            "Week 8 (9 ноя)",
-            "Week 9 (16 ноя)",
-            "Week 10 (23 ноя)",
-            "Week 11 (30 ноя)",
-            "Week 12 (7 дек)",
-            "Week 13 (14 дек)",
-            "Week 14 (21 дек)",
-            "Week 15 (28 дек)"
+        let currentLang = 'ru';
+        let currentMatchedStudentId = null;
+
+        const weekLabelsRu = [
+            "Неделя 1 (31 авг)",
+            "Неделя 2 (7 сен)",
+            "Неделя 3 (14 сен)",
+            "Неделя 4 (21 сен)",
+            "Неделя 5 (28 сен)",
+            "Неделя 6 (5 окт)",
+            "Неделя 7 (12 окт)",
+            "Неделя 8 (19 окт)",
+            "Неделя 9 (26 окт)",
+            "Неделя 10 (2 ноя)",
+            "Неделя 11 (9 ноя)",
+            "Неделя 12 (16 ноя)",
+            "Неделя 13 (23 ноя)",
+            "Неделя 14 (30 ноя)",
+            "Неделя 15 (7 дек)"
         ];
 
-        // Индексы часов с отметкой «н» (0..29 — проведённые 30 часов за 10 недель) по скриншотам Platonus,
-        // а также оценка за 9 ноября (ca2):
+        const weekLabelsEn = [
+            "Week 1 (Aug 31)",
+            "Week 2 (Sep 7)",
+            "Week 3 (Sep 14)",
+            "Week 4 (Sep 21)",
+            "Week 5 (Sep 28)",
+            "Week 6 (Oct 5)",
+            "Week 7 (Oct 12)",
+            "Week 8 (Oct 19)",
+            "Week 9 (Oct 26)",
+            "Week 10 (Nov 2)",
+            "Week 11 (Nov 9)",
+            "Week 12 (Nov 16)",
+            "Week 13 (Nov 23)",
+            "Week 14 (Nov 30)",
+            "Week 15 (Dec 7)"
+        ];
+
+        const i18n = {
+            ru: {
+                instructorBadge: "Панель преподавателя",
+                studentBadge: "Режим студента",
+                toStudentBtn: "Режим студента",
+                toInstructorBtn: "Панель преподавателя",
+                svTitle: "Панель успеваемости студента",
+                svSubtitle: "Введите ФИО (на русском или английском языке), чтобы посмотреть свои баллы и аналитику посещаемости.",
+                svInputLabel: "ФИО студента / Student Full Name",
+                svPlaceholder: "Например: Кожахметова Малика или Aldada Hebatalla",
+                svSearchBtn: "Найти",
+                svQuickHint: 'Поиск работает по кириллице и латинице (например: <span class="text-slate-300 font-medium">Belachew Nigus</span>, <span class="text-slate-300 font-medium">Hirana Kasita</span>, <span class="text-slate-300 font-medium">Aldada Hebatalla</span>).',
+                srBadge: "Студент группы International Business",
+                srFinalLabel: "Текущий рейтинг",
+                srBreakdownTitle: "Интерактивная разбивка успеваемости",
+                w1Title: "Посещаемость (10%)",
+                w2Title: "Текущий контроль (30%)",
+                w3Title: "Рубежный контроль (20%)",
+                w4Title: "Итоговый балл",
+                w4Max: "Макс: 100",
+                colAtt: "Посещ.",
+                colAct: "Активность",
+                colCa1: "СР 1 (CA1)",
+                colMc1: "РК 1 (MC1)",
+                colCa2: "СР 2 (CA2)",
+                colMc2: "РК 2 (MC2)",
+                colExam: "Экзамен",
+                weightLbl: "Вес:",
+                srAttBtnLbl: "Детализация посещаемости по неделям (15 недель × 3 часа = 45 часов)",
+                expandTxt: "Развернуть ▾",
+                collapseTxt: "Свернуть ▴",
+                srPolicyTitle: "Формула расчёта оценки",
+                srPolicyDesc: "Итоговая оценка: Посещаемость (10%) + Активность (10%) + СР 1 (10%) + РК 1 (10%) + СР 2 (10%) + РК 2 (10%) + Экзамен (40%). Проходной порог: 50 баллов (оценка D).",
+                snfTitle: "Студент не найден",
+                snfDesc: 'Проверьте написание фамилии или имени (например: <strong class="text-slate-300">Кожахметова Малика</strong> или <strong class="text-slate-300">Belachew Nigus</strong>).',
+                kpi1: "Студентов в списке (Platonus)",
+                kpi2: "Средний балл РК1 (MC1)",
+                kpi3: "Успеваемость РК1 (≥50)",
+                kpi4: "Лучший результат РК1",
+                bellTitle: "Кривая распределения оценок (Bell Curve — п. 8 Положения ALMAU)",
+                bellSubtitle: "Анализ качества оценивания по всем 20 студентам ведомости Platonus и сопоставление с нормальным распределением Гаусса (п. 8.1–8.4: «отлично» A/A- и «неуд» F/FX не более 15% каждого, суммарно ≤ 30%, допустимое отклонение ≤ 5%).",
+                bellMeanLbl: "μ (Среднее):",
+                bellStdLbl: "σ (Отклонение):",
+                btnBellCa1: "СР 1 (CA1)",
+                btnBellMc1: "РК 1 (MC1)",
+                btnBellCa2: "СР 2 (CA2)",
+                btnBellAct: "Активность",
+                btnBellTotal: "Рейтинг",
+                bellBarActual: "Фактически студентов",
+                bellBarEnv: "Фактический профиль (Огибающая)",
+                bellBarGauss: "Эталон Гаусса (п. 8.2: A/A- ≤ 15%, F/FX ≤ 15%)",
+                bellYAxis: "Количество студентов",
+                quotaExcTitle: "Доля «Отлично» (A, A- / 90–100)",
+                quotaExcNorm: "Норма п. 8.2: ≤ 15% (допуск +5%, т.е. ≤ 20%)",
+                quotaFailTitle: "Доля «Неуд» (F, FX / < 50)",
+                quotaFailNorm: "Норма п. 8.2: ≤ 15% (допуск +5%, т.е. ≤ 20%)",
+                quotaSumTitle: "Суммарно края (A/A- + F/FX)",
+                quotaSumNorm: "Норма п. 8.2: ≤ 30% (допуск +5%, т.е. ≤ 35%)",
+                ofWord: "из",
+                grpTitle: "Обзор успеваемости группы (20 студентов)",
+                grpSubtitle: "Сравнение посещаемости, активности, СР1, РК1, СР2, РК2, экзамена и итогового рейтинга.",
+                teacherSearchPlaceholder: "Поиск студента (RU / EN)...",
+                btnBackup: "Резервная копия",
+                btnExcel: "Экспорт Excel",
+                btnReset: "Сбросить",
+                thStudent: "Студент (International Business)",
+                thFinal: "Рейтинг",
+                thGrade: "Оценка",
+                emptyTitle: "Ведомость пуста",
+                emptyDesc: "Добавьте студентов вручную или через массовый импорт.",
+                tableTip: "<strong>Посещаемость и оценки:</strong> Нажмите на процент в колонке «Att», чтобы открыть чек-лист на 15 недель (45 часов). Недели 1–3 (31 авг — 14 сен, 9 часов) отмечены без пропусков у всех 20 студентов; недели 4–13 (21 сен — 23 ноя, 30 часов), СР 1 (CA1), РК 1 (MC1) и СР 2 (CA2) заполнены по журналу Platonus.",
+                bulkTitle: "Массовый импорт студентов",
+                bulkDesc: "Каждая строка будет добавлена как ФИО нового студента (начальные оценки: 0).",
+                bulkPlaceholder: "Иванов Иван
+Петров Пётр",
+                bulkBtn: "Импортировать список",
+                singleTitle: "Добавить студента",
+                singleNameLbl: "ФИО студента (RU)",
+                singleNamePlaceholder: "Введите ФИО",
+                singleNameEnLbl: "Full Name (EN, необязательно)",
+                singleNameEnPlaceholder: "Введите имя на английском",
+                singleBtn: "Сохранить в ведомость",
+                cmTitle: "Вы уверены?",
+                cmDesc: "Это действие вернёт все оценки и посещаемость к исходным данным ведомости Platonus. Действие необратимо.",
+                cmCancel: "Отмена",
+                cmConfirm: "Сбросить базу",
+                attModalSub: "15 недель × 3 часа/нед. (всего 45 академ. часов; проведено 39 часов / 13 недель)",
+                attModalRateLbl: "Итоговая посещаемость (из 45 ч):",
+                attSelAll: "Выбрать все",
+                attClrAll: "Снять все",
+                attSaveBtn: "Сохранить посещаемость",
+                lessonWord: "Занятие",
+                hoursOf: "из 45 ч",
+                goalLbl: "Цель",
+                actualLbl: "Факт",
+                midtermAvgLbl: "Среднее РК"
+            },
+            en: {
+                instructorBadge: "Instructor Workspace",
+                studentBadge: "Student Portal",
+                toStudentBtn: "Student View",
+                toInstructorBtn: "Instructor View",
+                svTitle: "Student Performance Dashboard",
+                svSubtitle: "Enter your Full Name (in English or Russian) to view detailed grades and attendance breakdown.",
+                svInputLabel: "Student Full Name / ФИО студента",
+                svPlaceholder: "e.g. Aldada Hebatalla, Belachew Nigus, or Hirana Kasita",
+                svSearchBtn: "Search",
+                svQuickHint: 'Search supports both English and Russian names (e.g. <span class="text-slate-300 font-medium">Belachew Nigus</span>, <span class="text-slate-300 font-medium">Hirana Kasita</span>, <span class="text-slate-300 font-medium">Aldada Hebatalla</span>).',
+                srBadge: "International Business Team Student",
+                srFinalLabel: "Current Rating",
+                srBreakdownTitle: "Interactive Performance Breakdown",
+                w1Title: "Attendance (10%)",
+                w2Title: "Continuous Assessment (30%)",
+                w3Title: "Midterm Controls (20%)",
+                w4Title: "Total Score",
+                w4Max: "Max: 100",
+                colAtt: "Attendance",
+                colAct: "Activities",
+                colCa1: "CA 1",
+                colMc1: "MC 1",
+                colCa2: "CA 2",
+                colMc2: "MC 2",
+                colExam: "Final Exam",
+                weightLbl: "Weight:",
+                srAttBtnLbl: "Weekly Attendance Details (15 Weeks × 3 Hours = 45 Hours)",
+                expandTxt: "Expand ▾",
+                collapseTxt: "Collapse ▴",
+                srPolicyTitle: "Grading Policy",
+                srPolicyDesc: "Final grade formula: Attendance (10%) + Activities (10%) + CA1 (10%) + MC1 (10%) + CA2 (10%) + MC2 (10%) + Final Exam (40%). Passing threshold: 50 points (Grade D).",
+                snfTitle: "Student Not Found",
+                snfDesc: 'Please check spelling (e.g. <strong class="text-slate-300">Aldada Hebatalla</strong>, <strong class="text-slate-300">Belachew Nigus</strong>, or <strong class="text-slate-300">Hirana Kasita</strong>).',
+                kpi1: "Students in Register (Platonus)",
+                kpi2: "Average MC1 Score",
+                kpi3: "MC1 Pass Rate (≥50)",
+                kpi4: "Top MC1 Result",
+                bellTitle: "Grade Distribution Bell Curve (ALMAU Regulation §8)",
+                bellSubtitle: "Assessment quality analysis across all 20 Platonus students compared against the Gaussian normal distribution (§8.1–8.4: Excellent A/A- ≤ 15%, Fail F/FX ≤ 15%, combined ≤ 30%, tolerance ≤ 5%).",
+                bellMeanLbl: "μ (Mean):",
+                bellStdLbl: "σ (Std Dev):",
+                btnBellCa1: "CA 1",
+                btnBellMc1: "MC 1",
+                btnBellCa2: "CA 2",
+                btnBellAct: "Activities",
+                btnBellTotal: "Total Rating",
+                bellBarActual: "Actual Students",
+                bellBarEnv: "Actual Profile (Envelope)",
+                bellBarGauss: "Gaussian Benchmark (§8.2: A/A- ≤ 15%, F/FX ≤ 15%)",
+                bellYAxis: "Number of Students",
+                quotaExcTitle: "Excellent Share (A, A- / 90–100)",
+                quotaExcNorm: "§8.2 Norm: ≤ 15% (+5% tolerance, i.e. ≤ 20%)",
+                quotaFailTitle: "Fail Share (F, FX / < 50)",
+                quotaFailNorm: "§8.2 Norm: ≤ 15% (+5% tolerance, i.e. ≤ 20%)",
+                quotaSumTitle: "Combined Extremes (A/A- + F/FX)",
+                quotaSumNorm: "§8.2 Norm: ≤ 30% (+5% tolerance, i.e. ≤ 35%)",
+                ofWord: "of",
+                grpTitle: "Group Performance Overview (20 Students)",
+                grpSubtitle: "Interactive comparison across Attendance, Activities, CA1, MC1, CA2, MC2, Exam, and Final Rating.",
+                teacherSearchPlaceholder: "Search students (EN / RU)...",
+                btnBackup: "Backup",
+                btnExcel: "Export Excel",
+                btnReset: "Reset All",
+                thStudent: "Student (International Business)",
+                thFinal: "Rating",
+                thGrade: "Grade",
+                emptyTitle: "Gradebook is empty",
+                emptyDesc: "Add students manually or use bulk import.",
+                tableTip: "<strong>Attendance & Grades:</strong> Click any percentage in the 'Att' column to open the 15-week (45-hour) checklist. Weeks 1–3 (Aug 31 – Sep 14, 9 hrs) are marked 100% present for all 20 students; Weeks 4–13 (Sep 21 – Nov 23, 30 hrs), CA1, MC1, and CA2 match Platonus records.",
+                bulkTitle: "Bulk Import Students",
+                bulkDesc: "Each line will be imported as a student name. Initial grades default to 0.",
+                bulkPlaceholder: "John Doe
+Jane Smith",
+                bulkBtn: "Import List into System",
+                singleTitle: "Add Single Student",
+                singleNameLbl: "Student Full Name (RU)",
+                singleNamePlaceholder: "Enter Cyrillic Name",
+                singleNameEnLbl: "Full Name (EN)",
+                singleNameEnPlaceholder: "Enter English Name",
+                singleBtn: "Save to Register",
+                cmTitle: "Are you sure?",
+                cmDesc: "This action will reset all grades and attendance back to the initial Platonus register. This cannot be undone.",
+                cmCancel: "Cancel",
+                cmConfirm: "Reset Database",
+                attModalSub: "15 Weeks × 3 Hours/Week (45 Total Academic Hours; Conducted: 39 Hours / 13 Weeks)",
+                attModalRateLbl: "Total Attendance Rate (out of 45 hrs):",
+                attSelAll: "Select All",
+                attClrAll: "Clear All",
+                attSaveBtn: "Save Attendance",
+                lessonWord: "Lesson",
+                hoursOf: "of 45 hrs",
+                goalLbl: "Goal",
+                actualLbl: "Actual",
+                midtermAvgLbl: "Midterm Avg"
+            }
+        };
+
+        // Все 20 студентов по ведомости Platonus (нумерация 1..20):
+        // - Первые 9 часов (31 авг — 14 сен) отмечены как 100% посещение без пропусков;
+        // - Недели 4–13 (21 сен — 23 ноя, 30 часов) заполнены по журналу Platonus;
+        // - CA1 = СР 1 (из 3-го скриншота Platonus);
+        // - MC1 = РК 1 (из 3-го скриншота Platonus);
+        // - CA2 = СР 2 (из 3-го скриншота Platonus);
+        // - activities = зафиксированные баллы активности.
         const initialGroupStudentsData = [
-            { id: "st-ib-1",  name: "Абдихай Салтанат Жалғасқызы",           activities: 0, ca1: 0, mc1: 82.33, ca2: 20, mc2: 0, exam: 0, absences: [12, 21] },
-            { id: "st-ib-2",  name: "Абдрахманов Бабур Хамза улы",            activities: 0, ca1: 0, mc1: 56.67, ca2: 20, mc2: 0, exam: 0, absences: [0, 1, 2, 3, 5, 15, 16, 17, 21, 24, 25, 26] },
-            { id: "st-ib-3",  name: "Адильхан Надия Берікқызы",               activities: 0, ca1: 0, mc1: 73.33, ca2: 20, mc2: 0, exam: 0, absences: [7, 8, 27, 28] },
-            { id: "st-ib-4",  name: "Альдада Хебаталла с.м.",                  activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [3, 5, 6, 7, 8, 9, 12, 14, 15, 18, 19, 20, 21, 28] },
-            { id: "st-ib-5",  name: "Бахытов Алимжан Бахыткалиулы",           activities: 0, ca1: 0, mc1: 84.33, ca2: 90, mc2: 0, exam: 0, absences: [] },
-            { id: "st-ib-6",  name: "Белачев Нигус Дамте",                     activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [15, 16, 17, 21, 25, 26, 27, 28] },
-            { id: "st-ib-7",  name: "Жұмажан Осман Дарменұлы",                 activities: 0, ca1: 0, mc1: 60.00, ca2: 20, mc2: 0, exam: 0, absences: [3, 18, 20, 21] },
-            { id: "st-ib-8",  name: "Замотина Дарья Астемировна (Отчислен)",   activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, expelled: true, absences: Array.from({ length: CONDUCTED_HOURS }, (_, i) => i) },
-            { id: "st-ib-9",  name: "Кабдрахманова Ажар Ниязовна",            activities: 0, ca1: 0, mc1: 87.33, ca2: 90, mc2: 0, exam: 0, absences: [] },
-            { id: "st-ib-10", name: "Ким Есфирь Севастьяновна",               activities: 0, ca1: 0, mc1: 78.33, ca2: 85, mc2: 0, exam: 0, absences: [15, 16, 17, 24, 25, 26] },
-            { id: "st-ib-11", name: "Кожахметова Малика Азаматовна",          activities: 0, ca1: 0, mc1: 66.67, ca2: 20, mc2: 0, exam: 0, absences: [3, 5, 12, 14, 15, 18, 19, 20] },
-            { id: "st-ib-12", name: "Көшкінбай Айару Арманқызы",              activities: 0, ca1: 0, mc1: 73.33, ca2: 85, mc2: 0, exam: 0, absences: [] },
-            { id: "st-ib-13", name: "Сериккалиева Еңлік Думанқызы",           activities: 0, ca1: 0, mc1: 61.67, ca2: 75, mc2: 0, exam: 0, absences: [3, 5, 21] },
-            { id: "st-ib-14", name: "Степанченко Савелий Дмитриевич",         activities: 0, ca1: 0, mc1: 78.33, ca2: 0,  mc2: 0, exam: 0, absences: [] },
-            { id: "st-ib-15", name: "Сулейменова Айдана Нурлановна",          activities: 0, ca1: 0, mc1: 71.67, ca2: 20, mc2: 0, exam: 0, absences: [12, 14, 15] },
-            { id: "st-ib-16", name: "Толстова Эвелина Евгеньевна",            activities: 0, ca1: 0, mc1: 72.67, ca2: 80, mc2: 0, exam: 0, absences: [5, 21] },
-            { id: "st-ib-17", name: "Хирана Касита Путри",                     activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [21] },
-            { id: "st-ib-18", name: "Хусаинова Адия Галимовна",               activities: 0, ca1: 0, mc1: 75.00, ca2: 75, mc2: 0, exam: 0, absences: [21] },
-            { id: "st-ib-19", name: "Шабанов Анварбек",                        activities: 0, ca1: 0, mc1: 80.67, ca2: 75, mc2: 0, exam: 0, absences: [] },
-            { id: "st-ib-20", name: "Югай Ксения Альбертовна",                activities: 0, ca1: 0, mc1: 85.00, ca2: 90, mc2: 0, exam: 0, absences: [15, 16, 17, 24, 25, 26] }
+            { id: "st-ib-1",  name: "Абдихай Салтанат Жалғасқызы",           nameEn: "Abdikhai Saltanat Zhalgaskyzy",         activities: 15, ca1: 82.33, mc1: 82.33, ca2: 20, mc2: 0, exam: 0, absences: [12, 21] },
+            { id: "st-ib-2",  name: "Абдрахманов Бабур Хамза улы",            nameEn: "Abdrakhmanov Babur Khamza uly",         activities: 70, ca1: 56.67, mc1: 56.67, ca2: 20, mc2: 0, exam: 0, absences: [0, 1, 2, 3, 5, 15, 16, 17, 21, 24, 25, 26] },
+            { id: "st-ib-3",  name: "Адильхан Надия Берікқызы",               nameEn: "Adilkhan Nadiya Berikkyzy",             activities: 50, ca1: 73.33, mc1: 73.33, ca2: 20, mc2: 0, exam: 0, absences: [7, 8, 27, 28] },
+            { id: "st-ib-4",  name: "Альдада Хебаталла с.м.",                  nameEn: "Aldada Hebatalla S.M.",                 activities: 80, ca1: 0,     mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [3, 5, 6, 7, 8, 9, 12, 14, 15, 18, 19, 20, 21, 28] },
+            { id: "st-ib-5",  name: "Бахытов Алимжан Бахыткалиулы",           nameEn: "Bakhytov Alimzhan Bakhytkaliuly",       activities: 90, ca1: 84.33, mc1: 84.33, ca2: 90, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-6",  name: "Белачев Нигус Дамте",                     nameEn: "Belachew Nigus Damte",                  activities: 0,  ca1: 0,     mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [15, 16, 17, 21, 25, 26, 27, 28] },
+            { id: "st-ib-7",  name: "Жұмажан Осман Дарменұлы",                 nameEn: "Zhumazhan Osman Darmenuly",             activities: 30, ca1: 60.00, mc1: 60.00, ca2: 20, mc2: 0, exam: 0, absences: [3, 18, 20, 21] },
+            { id: "st-ib-8",  name: "Замотина Дарья Астемировна (Отчислен)",   nameEn: "Zamotina Darya Astemirovna (Expelled)", activities: 0,  ca1: 0,     mc1: 0,     ca2: 0,  mc2: 0, exam: 0, expelled: true, absences: Array.from({ length: PLATONUS_LOGGED_HOURS }, (_, i) => i) },
+            { id: "st-ib-9",  name: "Кабдрахманова Ажар Ниязовна",            nameEn: "Kabdrakhmanova Azhar Niyazovna",        activities: 30, ca1: 87.33, mc1: 87.33, ca2: 90, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-10", name: "Ким Есфирь Севастьяновна",               nameEn: "Kim Esfir Sevastyanovna",               activities: 30, ca1: 78.33, mc1: 78.33, ca2: 85, mc2: 0, exam: 0, absences: [15, 16, 17, 24, 25, 26] },
+            { id: "st-ib-11", name: "Кожахметова Малика Азаматовна",          nameEn: "Kozhakhmetova Malika Azamatovna",       activities: 80, ca1: 66.67, mc1: 66.67, ca2: 20, mc2: 0, exam: 0, absences: [3, 5, 12, 14, 15, 18, 19, 20] },
+            { id: "st-ib-12", name: "Көшкінбай Айару Арманқызы",              nameEn: "Koshkinbay Aiaru Armankyzy",            activities: 50, ca1: 73.33, mc1: 73.33, ca2: 85, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-13", name: "Сериккалиева Еңлік Думанқызы",           nameEn: "Serikkaliyeva Enlik Dumankyzy",         activities: 20, ca1: 61.67, mc1: 61.67, ca2: 75, mc2: 0, exam: 0, absences: [3, 5, 21] },
+            { id: "st-ib-14", name: "Степанченко Савелий Дмитриевич",         nameEn: "Stepanchenko Saveliy Dmitriyevich",     activities: 85, ca1: 78.33, mc1: 78.33, ca2: 0,  mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-15", name: "Сулейменова Айдана Нурлановна",          nameEn: "Suleimenova Aidana Nurlanovna",         activities: 30, ca1: 71.67, mc1: 71.67, ca2: 20, mc2: 0, exam: 0, absences: [12, 14, 15] },
+            { id: "st-ib-16", name: "Толстова Эвелина Евгеньевна",            nameEn: "Tolstova Evelina Evgenyevna",           activities: 30, ca1: 72.67, mc1: 72.67, ca2: 80, mc2: 0, exam: 0, absences: [5, 21] },
+            { id: "st-ib-17", name: "Хирана Касита Путри",                     nameEn: "Hirana Kasita Putri",                   activities: 0,  ca1: 0,     mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [21] },
+            { id: "st-ib-18", name: "Хусаинова Адия Галимовна",               nameEn: "Khusainova Adiya Galimovna",            activities: 85, ca1: 75.00, mc1: 75.00, ca2: 75, mc2: 0, exam: 0, absences: [21] },
+            { id: "st-ib-19", name: "Шабанов Анварбек",                        nameEn: "Shabanov Anvarbek",                     activities: 30, ca1: 80.67, mc1: 80.67, ca2: 75, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-20", name: "Югай Ксения Альбертовна",                nameEn: "Yugai Kseniya Albertovna",              activities: 90, ca1: 85.00, mc1: 85.00, ca2: 90, mc2: 0, exam: 0, absences: [15, 16, 17, 24, 25, 26] }
         ];
 
-        function buildAttendanceHoursFromAbsences(absences) {
-            const absSet = new Set(absences || []);
+        function buildAttendanceHoursFromAbsences(platonusAbsences) {
+            const absSet = new Set(platonusAbsences || []);
             const hours = Array(TOTAL_ATTENDANCE_HOURS).fill(false);
-            for (let i = 0; i < CONDUCTED_HOURS; i++) {
-                hours[i] = !absSet.has(i);
+            for (let i = 0; i < INITIAL_FULL_HOURS; i++) {
+                hours[i] = true;
+            }
+            for (let j = 0; j < PLATONUS_LOGGED_HOURS; j++) {
+                hours[INITIAL_FULL_HOURS + j] = !absSet.has(j);
             }
             return hours;
         }
@@ -681,20 +934,150 @@
         let groupChart = null;
         let bellCurveChart = null;
         let currentBellMetric = 'mc1';
-        let isTeacherMode = true; // Панель преподавателя открыта сразу без пароля
+        let isTeacherMode = true;
 
         let activeEditingStudentId = null;
         let tempAttendanceHours = [];
 
         window.onload = function() {
+            const savedLang = localStorage.getItem(LANG_STORAGE_KEY);
+            if (savedLang === 'en' || savedLang === 'ru') {
+                currentLang = savedLang;
+            }
             loadDatabase();
             initGroupChart();
+            applyLanguageUI();
             updateViewMode();
             
             document.getElementById('teacher-search-input').addEventListener('input', function(e) {
                 renderTeacherTable(e.target.value);
             });
         };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem(LANG_STORAGE_KEY, lang);
+            applyLanguageUI();
+            updateViewMode();
+            if (currentMatchedStudentId) {
+                const st = students.find(s => s.id === currentMatchedStudentId);
+                if (st) renderMatchedStudentCard(st);
+            }
+        }
+
+        function getDisplayName(student) {
+            if (currentLang === 'en') {
+                return student.nameEn || student.name;
+            }
+            return student.name;
+        }
+
+        function getSecondaryName(student) {
+            if (currentLang === 'en') {
+                return student.nameEn ? student.name : '';
+            }
+            return student.nameEn || '';
+        }
+
+        function applyLanguageUI() {
+            const t = i18n[currentLang];
+            document.documentElement.lang = currentLang;
+
+            const btnRu = document.getElementById('lang-btn-ru');
+            const btnEn = document.getElementById('lang-btn-en');
+            if (currentLang === 'ru') {
+                btnRu.className = "px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all bg-indigo-600 text-white";
+                btnEn.className = "px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all text-slate-400 hover:text-white";
+            } else {
+                btnEn.className = "px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all bg-indigo-600 text-white";
+                btnRu.className = "px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all text-slate-400 hover:text-white";
+            }
+
+            document.getElementById('sv-title').textContent = t.svTitle;
+            document.getElementById('sv-subtitle').textContent = t.svSubtitle;
+            document.getElementById('sv-input-label').textContent = t.svInputLabel;
+            document.getElementById('student-search-input').placeholder = t.svPlaceholder;
+            document.getElementById('sv-search-btn').textContent = t.svSearchBtn;
+            document.getElementById('sv-quick-hint').innerHTML = t.svQuickHint;
+
+            document.getElementById('sr-badge').textContent = t.srBadge;
+            document.getElementById('sr-final-label').textContent = t.srFinalLabel;
+            document.getElementById('sr-breakdown-title').innerHTML = `<i class="fa-solid fa-chart-line text-indigo-400"></i> ${t.srBreakdownTitle}`;
+            document.getElementById('w1-title').innerHTML = `<i class="fa-solid fa-calendar-check"></i> ${t.w1Title}`;
+            document.getElementById('w2-title').innerHTML = `<i class="fa-solid fa-bolt"></i> ${t.w2Title}`;
+            document.getElementById('w3-title').innerHTML = `<i class="fa-solid fa-pen-ruler"></i> ${t.w3Title}`;
+            document.getElementById('w4-title').innerHTML = `<i class="fa-solid fa-circle-nodes"></i> ${t.w4Title}`;
+            document.getElementById('w4-max').textContent = t.w4Max;
+
+            document.getElementById('col-lbl-att').textContent = t.colAtt;
+            document.getElementById('col-lbl-act').textContent = t.colAct;
+            document.getElementById('col-lbl-ca1').textContent = t.colCa1;
+            document.getElementById('col-lbl-mc1').textContent = t.colMc1;
+            document.getElementById('col-lbl-ca2').textContent = t.colCa2;
+            document.getElementById('col-lbl-mc2').textContent = t.colMc2;
+            document.getElementById('col-lbl-exam').textContent = t.colExam;
+            document.querySelectorAll('.weight-lbl').forEach(el => el.textContent = t.weightLbl);
+
+            document.getElementById('sr-att-details-btn-lbl').innerHTML = `<i class="fa-solid fa-list-check text-emerald-400"></i> ${t.srAttBtnLbl}`;
+            const attDetailsEl = document.getElementById('student-att-details');
+            document.getElementById('student-att-toggle-icon').textContent = attDetailsEl.classList.contains('hidden') ? t.expandTxt : t.collapseTxt;
+            document.getElementById('sr-policy-title').textContent = t.srPolicyTitle;
+            document.getElementById('sr-policy-desc').textContent = t.srPolicyDesc;
+            document.getElementById('snf-title').textContent = t.snfTitle;
+            document.getElementById('snf-desc').innerHTML = t.snfDesc;
+
+            document.getElementById('kpi-1-lbl').textContent = t.kpi1;
+            document.getElementById('kpi-2-lbl').textContent = t.kpi2;
+            document.getElementById('kpi-3-lbl').textContent = t.kpi3;
+            document.getElementById('kpi-4-lbl').textContent = t.kpi4;
+
+            document.getElementById('bell-title').innerHTML = `<i class="fa-solid fa-bell text-amber-400"></i><span>${t.bellTitle}</span>`;
+            document.getElementById('bell-subtitle').textContent = t.bellSubtitle;
+            document.getElementById('bell-mean-lbl').textContent = t.bellMeanLbl;
+            document.getElementById('bell-std-lbl').textContent = t.bellStdLbl;
+            document.getElementById('btn-bell-ca1').textContent = t.btnBellCa1;
+            document.getElementById('btn-bell-mc1').textContent = t.btnBellMc1;
+            document.getElementById('btn-bell-ca2').textContent = t.btnBellCa2;
+            document.getElementById('btn-bell-act').textContent = t.btnBellAct;
+            document.getElementById('btn-bell-total').textContent = t.btnBellTotal;
+
+            document.getElementById('grp-chart-title').innerHTML = `<i class="fa-solid fa-chart-column text-indigo-400"></i><span>${t.grpTitle}</span>`;
+            document.getElementById('grp-chart-subtitle').textContent = t.grpSubtitle;
+
+            document.getElementById('teacher-search-input').placeholder = t.teacherSearchPlaceholder;
+            document.getElementById('btn-backup-txt').textContent = t.btnBackup;
+            document.getElementById('btn-excel-txt').textContent = t.btnExcel;
+            document.getElementById('btn-reset-txt').textContent = t.btnReset;
+            document.getElementById('th-student').textContent = t.thStudent;
+            document.getElementById('th-final').textContent = t.thFinal;
+            document.getElementById('th-grade').textContent = t.thGrade;
+            document.getElementById('empty-title').textContent = t.emptyTitle;
+            document.getElementById('empty-desc').textContent = t.emptyDesc;
+            document.getElementById('table-tip-text').innerHTML = t.tableTip;
+
+            document.getElementById('bulk-title').innerHTML = `<i class="fa-solid fa-file-import text-indigo-400"></i><span>${t.bulkTitle}</span>`;
+            document.getElementById('bulk-desc').textContent = t.bulkDesc;
+            document.getElementById('bulk-import-area').placeholder = t.bulkPlaceholder;
+            document.getElementById('bulk-btn-txt').textContent = t.bulkBtn;
+
+            document.getElementById('single-title').innerHTML = `<i class="fa-solid fa-user-plus text-blue-400"></i><span>${t.singleTitle}</span>`;
+            document.getElementById('single-name-lbl').textContent = t.singleNameLbl;
+            document.getElementById('add-student-name').placeholder = t.singleNamePlaceholder;
+            document.getElementById('single-name-en-lbl').textContent = t.singleNameEnLbl;
+            document.getElementById('add-student-name-en').placeholder = t.singleNameEnPlaceholder;
+            document.getElementById('single-btn-txt').textContent = t.singleBtn;
+
+            document.getElementById('cm-title').textContent = t.cmTitle;
+            document.getElementById('cm-desc').textContent = t.cmDesc;
+            document.getElementById('cm-cancel-btn').textContent = t.cmCancel;
+            document.getElementById('cm-confirm-btn').textContent = t.cmConfirm;
+
+            document.getElementById('att-modal-sub').textContent = t.attModalSub;
+            document.getElementById('att-modal-rate-lbl').textContent = t.attModalRateLbl;
+            document.getElementById('att-sel-all-btn').textContent = t.attSelAll;
+            document.getElementById('att-clr-all-btn').textContent = t.attClrAll;
+            document.getElementById('att-save-btn-txt').textContent = t.attSaveBtn;
+        }
 
         function ensureAttendanceHours(student) {
             if (!Array.isArray(student.attendanceHours) || student.attendanceHours.length !== TOTAL_ATTENDANCE_HOURS) {
@@ -733,7 +1116,7 @@
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
             } catch (e) {
-                showToast('Error saving data to browser storage!', 'error');
+                showToast(currentLang === 'en' ? 'Error saving data to browser storage!' : 'Ошибка сохранения в локальное хранилище!', 'error');
             }
         }
 
@@ -764,21 +1147,23 @@
 
         function switchBellMetric(metric) {
             currentBellMetric = metric;
-            ['mc1', 'ca2', 'total'].forEach(m => {
+            ['ca1', 'mc1', 'ca2', 'act', 'total'].forEach(m => {
                 const btn = document.getElementById(`btn-bell-${m}`);
                 if (!btn) return;
                 if (m === metric) {
-                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white";
+                    btn.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white";
                 } else {
-                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+                    btn.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
                 }
             });
             renderBellCurveChart();
         }
 
         function getMetricValue(student, metric) {
+            if (metric === 'ca1') return Number(student.ca1) || 0;
             if (metric === 'mc1') return Number(student.mc1) || 0;
             if (metric === 'ca2') return Number(student.ca2) || 0;
+            if (metric === 'act') return Number(student.activities) || 0;
             return calculateWeightedScore(
                 student.attendance,
                 student.activities,
@@ -791,9 +1176,12 @@
         }
 
         function getMetricTitle(metric) {
-            if (metric === 'mc1') return 'РК 1 (MC1)';
-            if (metric === 'ca2') return 'СРСП 2 (CA2)';
-            return 'Итоговый балл';
+            const t = i18n[currentLang];
+            if (metric === 'ca1') return t.btnBellCa1;
+            if (metric === 'mc1') return t.btnBellMc1;
+            if (metric === 'ca2') return t.btnBellCa2;
+            if (metric === 'act') return t.btnBellAct;
+            return t.btnBellTotal;
         }
 
         function renderBellCurveChart() {
@@ -801,8 +1189,9 @@
             if (!canvas) return;
             if (bellCurveChart) bellCurveChart.destroy();
 
-            const activeStudents = students.filter(s => !s.expelled && !s.name.toLowerCase().includes('отчислен'));
-            const scores = activeStudents.map(s => getMetricValue(s, currentBellMetric));
+            const t = i18n[currentLang];
+            const cohortStudents = students;
+            const scores = cohortStudents.map(s => getMetricValue(s, currentBellMetric));
             const metricLabel = getMetricTitle(currentBellMetric);
 
             if (scores.length === 0) return;
@@ -839,48 +1228,35 @@
                 quotaBar.innerHTML = `
                     <div class="bg-slate-950/90 border ${excOk ? 'border-emerald-900/40' : 'border-rose-900/50'} rounded-xl px-3.5 py-2.5 flex items-center justify-between">
                         <div>
-                            <span class="text-slate-400 block text-[10px] uppercase font-bold">Доля «Отлично» (A, A- / 90–100)</span>
-                            <span class="text-[10px] text-slate-500">Норма п. 8.2: ≤ 15% (допуск +5%)</span>
+                            <span class="text-slate-400 block text-[10px] uppercase font-bold">${t.quotaExcTitle}</span>
+                            <span class="text-[10px] text-slate-500">${t.quotaExcNorm}</span>
                         </div>
-                        <span class="font-mono font-extrabold text-sm ${excOk ? 'text-emerald-400' : 'text-rose-400'}">${excPct.toFixed(1)}% (${counts[5]} чел.)</span>
+                        <span class="font-mono font-extrabold text-sm ${excOk ? 'text-emerald-400' : 'text-rose-400'}">${excPct.toFixed(1)}% (${counts[5]} ${t.ofWord} ${n})</span>
                     </div>
                     <div class="bg-slate-950/90 border ${failOk ? 'border-emerald-900/40' : 'border-rose-900/50'} rounded-xl px-3.5 py-2.5 flex items-center justify-between">
                         <div>
-                            <span class="text-slate-400 block text-[10px] uppercase font-bold">Доля «Неуд» (F, FX / &lt; 50)</span>
-                            <span class="text-[10px] text-slate-500">Норма п. 8.2: ≤ 15% (допуск +5%)</span>
+                            <span class="text-slate-400 block text-[10px] uppercase font-bold">${t.quotaFailTitle}</span>
+                            <span class="text-[10px] text-slate-500">${t.quotaFailNorm}</span>
                         </div>
-                        <span class="font-mono font-extrabold text-sm ${failOk ? 'text-emerald-400' : 'text-rose-400'}">${failPct.toFixed(1)}% (${counts[0]} чел.)</span>
+                        <span class="font-mono font-extrabold text-sm ${failOk ? 'text-emerald-400' : 'text-rose-400'}">${failPct.toFixed(1)}% (${counts[0]} ${t.ofWord} ${n})</span>
                     </div>
                     <div class="bg-slate-950/90 border ${sumOk ? 'border-indigo-900/40' : 'border-amber-900/50'} rounded-xl px-3.5 py-2.5 flex items-center justify-between">
                         <div>
-                            <span class="text-slate-400 block text-[10px] uppercase font-bold">Суммарно края (A/A- + F/FX)</span>
-                            <span class="text-[10px] text-slate-500">Норма п. 8.2: ≤ 30% (допуск +5%)</span>
+                            <span class="text-slate-400 block text-[10px] uppercase font-bold">${t.quotaSumTitle}</span>
+                            <span class="text-[10px] text-slate-500">${t.quotaSumNorm}</span>
                         </div>
-                        <span class="font-mono font-extrabold text-sm ${sumOk ? 'text-indigo-400' : 'text-amber-400'}">${sumExtremesPct.toFixed(1)}% (${counts[0] + counts[5]} чел.)</span>
+                        <span class="font-mono font-extrabold text-sm ${sumOk ? 'text-indigo-400' : 'text-amber-400'}">${sumExtremesPct.toFixed(1)}% (${counts[0] + counts[5]} ${t.ofWord} ${n})</span>
                     </div>
                 `;
             }
 
             const actualProfilePoints = counts.map(val => val);
 
-            const idealMu = 70.0;
-            const idealSigma = 14.5;
-            function gaussianPDF(x, mu, sigma) {
-                return (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
-            }
+            // Эталонное нормальное распределение Гаусса для N студентов (п. 8.2: края <= 15% каждый, середина 70%)
+            const idealShares = [0.15, 0.14, 0.21, 0.21, 0.14, 0.15];
+            const idealGaussianPoints = idealShares.map(share => parseFloat((share * n).toFixed(2)));
 
-            const binCenters = [42, 54.5, 64.5, 74.5, 84.5, 95];
-            const binWidths = [15, 10, 10, 10, 10, 10];
-
-            const rawTheoretical = binCenters.map((center, idx) => {
-                return gaussianPDF(center, idealMu, idealSigma) * binWidths[idx] * n;
-            });
-
-            const peakTheoretical = Math.max(...rawTheoretical, 0.001);
             const maxActual = Math.max(...counts, 1);
-            const scaleFactor = maxActual / peakTheoretical;
-
-            const idealGaussianPoints = rawTheoretical.map(val => parseFloat((val * scaleFactor).toFixed(2)));
             const yAxisCeiling = Math.max(8, Math.ceil(Math.max(maxActual, ...idealGaussianPoints)) + 2);
 
             const ctx = canvas.getContext('2d');
@@ -891,7 +1267,7 @@
                     datasets: [
                         {
                             type: 'bar',
-                            label: `Фактически студентов (${metricLabel})`,
+                            label: `${t.bellBarActual} (${metricLabel}, N=${n})`,
                             data: counts,
                             backgroundColor: 'rgba(99, 102, 241, 0.45)',
                             borderColor: '#6366f1',
@@ -901,7 +1277,7 @@
                         },
                         {
                             type: 'line',
-                            label: 'Фактический профиль (Огибающая)',
+                            label: t.bellBarEnv,
                             data: actualProfilePoints,
                             borderColor: '#c084fc',
                             borderWidth: 3,
@@ -913,15 +1289,16 @@
                         },
                         {
                             type: 'line',
-                            label: 'Эталон Гаусса (п. 8.2: A/A- ≤ 15%, F/FX ≤ 15%)',
+                            label: t.bellBarGauss,
                             data: idealGaussianPoints,
-                            borderColor: '#34d399',
-                            borderWidth: 2.5,
+                            borderColor: '#f59e0b',
+                            borderWidth: 3,
                             borderDash: [6, 4],
-                            pointBackgroundColor: '#34d399',
-                            pointRadius: 3,
+                            pointBackgroundColor: '#fbbf24',
+                            pointBorderColor: '#78350f',
+                            pointRadius: 4,
                             fill: true,
-                            backgroundColor: 'rgba(52, 211, 153, 0.08)',
+                            backgroundColor: 'rgba(245, 158, 11, 0.14)',
                             tension: 0.4
                         }
                     ]
@@ -945,11 +1322,43 @@
                             suggestedMax: yAxisCeiling,
                             grid: { color: '#1e293b' },
                             ticks: { color: '#94a3b8', precision: 0 },
-                            title: { display: true, text: 'Количество студентов', color: '#64748b', font: { size: 10 } }
+                            title: { display: true, text: t.bellYAxis, color: '#64748b', font: { size: 10 } }
                         }
                     }
                 }
             });
+        }
+
+        function renderMatchedStudentCard(matchedStudent) {
+            const finalScore = calculateWeightedScore(
+                matchedStudent.attendance, 
+                matchedStudent.activities,
+                matchedStudent.ca1, 
+                matchedStudent.mc1, 
+                matchedStudent.ca2, 
+                matchedStudent.mc2, 
+                matchedStudent.exam
+            );
+            const gradeInfo = getLetterGrade(finalScore);
+
+            document.getElementById('sr-name').textContent = getDisplayName(matchedStudent);
+            document.getElementById('sr-subname').textContent = getSecondaryName(matchedStudent);
+            
+            const letterBadge = document.getElementById('sr-letter');
+            letterBadge.textContent = gradeInfo.letter;
+            letterBadge.className = `text-2xl font-black px-3.5 py-1 rounded-xl text-white shadow-md bg-indigo-600`;
+
+            document.getElementById('sr-total-score').textContent = finalScore;
+            document.getElementById('sr-val-attendance').textContent = `${matchedStudent.attendance || 0}%`;
+            document.getElementById('sr-val-activities').textContent = `${matchedStudent.activities || 0}`;
+            document.getElementById('sr-val-ca1').textContent = `${matchedStudent.ca1 || 0}`;
+            document.getElementById('sr-val-mc1').textContent = `${matchedStudent.mc1 || 0}`;
+            document.getElementById('sr-val-ca2').textContent = `${matchedStudent.ca2 || 0}`;
+            document.getElementById('sr-val-mc2').textContent = `${matchedStudent.mc2 || 0}`;
+            document.getElementById('sr-val-exam').textContent = `${matchedStudent.exam || 0}`;
+
+            renderStudentAttendanceDetails(matchedStudent);
+            renderPersonalCharts(matchedStudent, finalScore, gradeInfo.letter);
         }
 
         function searchStudentGrade() {
@@ -958,47 +1367,20 @@
             const notFoundCard = document.getElementById('student-not-found');
 
             if (!searchInput) {
-                showToast('Please enter your full name!', 'error');
+                showToast(currentLang === 'en' ? 'Please enter your full name!' : 'Введите фамилию или имя!', 'error');
                 return;
             }
 
             const queryWords = searchInput.split(/\s+/);
             const matchedStudent = students.find(s => {
-                const normalizedName = s.name.toLowerCase();
-                return queryWords.every(word => normalizedName.includes(word));
+                const combinedSearchable = `${s.name} ${s.nameEn || ''}`.toLowerCase();
+                return queryWords.every(word => combinedSearchable.includes(word));
             });
 
             if (matchedStudent) {
+                currentMatchedStudentId = matchedStudent.id;
                 notFoundCard.classList.add('hidden');
-                
-                const finalScore = calculateWeightedScore(
-                    matchedStudent.attendance, 
-                    matchedStudent.activities,
-                    matchedStudent.ca1, 
-                    matchedStudent.mc1, 
-                    matchedStudent.ca2, 
-                    matchedStudent.mc2, 
-                    matchedStudent.exam
-                );
-                const gradeInfo = getLetterGrade(finalScore);
-
-                document.getElementById('sr-name').textContent = matchedStudent.name;
-                
-                const letterBadge = document.getElementById('sr-letter');
-                letterBadge.textContent = gradeInfo.letter;
-                letterBadge.className = `text-2xl font-black px-3.5 py-1 rounded-xl text-white shadow-md bg-indigo-600`;
-
-                document.getElementById('sr-total-score').textContent = finalScore;
-                document.getElementById('sr-val-attendance').textContent = `${matchedStudent.attendance || 0}%`;
-                document.getElementById('sr-val-activities').textContent = `${matchedStudent.activities || 0}`;
-                document.getElementById('sr-val-ca1').textContent = `${matchedStudent.ca1 || 0}`;
-                document.getElementById('sr-val-mc1').textContent = `${matchedStudent.mc1 || 0}`;
-                document.getElementById('sr-val-ca2').textContent = `${matchedStudent.ca2 || 0}`;
-                document.getElementById('sr-val-mc2').textContent = `${matchedStudent.mc2 || 0}`;
-                document.getElementById('sr-val-exam').textContent = `${matchedStudent.exam || 0}`;
-
-                renderStudentAttendanceDetails(matchedStudent);
-                renderPersonalCharts(matchedStudent, finalScore, gradeInfo.letter);
+                renderMatchedStudentCard(matchedStudent);
 
                 resultCard.classList.remove('hidden');
                 resultCard.classList.add('fade-enter');
@@ -1006,11 +1388,12 @@
                     resultCard.classList.add('fade-enter-active');
                 }, 10);
 
-                showToast(`Loaded results for: ${matchedStudent.name}`, 'success');
+                showToast(`${currentLang === 'en' ? 'Loaded results for' : 'Загружены данные'}: ${getDisplayName(matchedStudent)}`, 'success');
             } else {
+                currentMatchedStudentId = null;
                 resultCard.classList.add('hidden');
                 notFoundCard.classList.remove('hidden');
-                showToast('Student not found in register', 'error');
+                showToast(currentLang === 'en' ? 'Student not found in register' : 'Студент не найден в ведомости', 'error');
             }
         }
 
@@ -1021,6 +1404,7 @@
         }
 
         function renderPersonalCharts(student, total, letter) {
+            const t = i18n[currentLang];
             if (personalAttChart) personalAttChart.destroy();
             if (personalActChart) personalActChart.destroy();
             if (personalExamChart) personalExamChart.destroy();
@@ -1030,7 +1414,7 @@
             personalAttChart = new Chart(attCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Actual', 'Goal'],
+                    labels: [t.actualLbl, t.goalLbl],
                     datasets: [{
                         data: [student.attendance, 100],
                         backgroundColor: ['rgba(16, 185, 129, 0.85)', 'rgba(16, 185, 129, 0.15)'],
@@ -1081,7 +1465,7 @@
             personalExamChart = new Chart(exCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Midterm Avg', 'Remaining'],
+                    labels: [t.midtermAvgLbl, 'Remaining'],
                     datasets: [{
                         data: [avgMc, 100 - avgMc],
                         backgroundColor: ['rgba(245, 158, 11, 0.9)', 'rgba(30, 41, 59, 0.6)'],
@@ -1109,14 +1493,12 @@
         function toggleTeacherMode() {
             isTeacherMode = !isTeacherMode;
             updateViewMode();
-            if (isTeacherMode) {
-                showToast('Панель преподавателя открыта.', 'success');
-            } else {
-                showToast('Режим студента открыт.', 'info');
-            }
+            const t = i18n[currentLang];
+            showToast(isTeacherMode ? t.instructorBadge : t.studentBadge, isTeacherMode ? 'success' : 'info');
         }
 
         function updateViewMode() {
+            const t = i18n[currentLang];
             const studentView = document.getElementById('student-view');
             const teacherView = document.getElementById('teacher-view');
             const badge = document.getElementById('mode-badge');
@@ -1125,16 +1507,16 @@
             if (isTeacherMode) {
                 studentView.classList.add('hidden');
                 teacherView.classList.remove('hidden');
-                badge.innerHTML = `<span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span><span>Панель преподавателя</span>`;
+                badge.innerHTML = `<span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span><span>${t.instructorBadge}</span>`;
                 badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center space-x-1.5";
-                authBtnText.textContent = "Режим студента";
+                authBtnText.textContent = t.toStudentBtn;
                 updateDashboardData();
             } else {
                 studentView.classList.remove('hidden');
                 teacherView.classList.add('hidden');
-                badge.innerHTML = `<span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span><span>Режим студента</span>`;
+                badge.innerHTML = `<span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span><span>${t.studentBadge}</span>`;
                 badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center space-x-1.5";
-                authBtnText.textContent = "Панель преподавателя";
+                authBtnText.textContent = t.toInstructorBtn;
             }
         }
 
@@ -1144,7 +1526,7 @@
             tbody.innerHTML = '';
 
             const query = filterQuery.toLowerCase().trim();
-            const filtered = students.filter(s => s.name.toLowerCase().includes(query));
+            const filtered = students.filter(s => `${s.name} ${s.nameEn || ''}`.toLowerCase().includes(query));
 
             if (filtered.length === 0) {
                 emptyState.classList.remove('hidden');
@@ -1153,6 +1535,7 @@
             }
 
             filtered.forEach(student => {
+                const overallIndex = students.findIndex(item => item.id === student.id) + 1;
                 const finalScore = calculateWeightedScore(
                     student.attendance, 
                     student.activities,
@@ -1163,16 +1546,22 @@
                     student.exam
                 );
                 const gradeInfo = getLetterGrade(finalScore);
+                const primaryName = getDisplayName(student);
+                const subName = getSecondaryName(student);
 
                 const row = document.createElement('tr');
                 row.className = "hover:bg-slate-900/60 transition-colors border-b border-slate-800/40";
                 row.innerHTML = `
+                    <td class="py-2.5 px-2 text-center text-xs font-mono font-bold text-slate-500">
+                        ${overallIndex}
+                    </td>
                     <td class="py-2.5 px-3 font-medium text-slate-100">
-                        <span class="block font-bold text-slate-200 truncate max-w-[240px]" title="${student.name}">${student.name}</span>
+                        <span class="block font-bold text-slate-200 truncate max-w-[235px]" title="${primaryName}">${primaryName}</span>
+                        ${subName ? `<span class="block text-[10px] text-slate-500 truncate max-w-[235px]">${subName}</span>` : ''}
                     </td>
                     <td class="py-2.5 px-1">
                         <button type="button" onclick="openAttendanceModal('${student.id}')" id="att-trigger-${student.id}"
-                            class="px-1 py-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 focus:ring-1 focus:ring-indigo-500 rounded-lg text-emerald-400 text-xs font-bold w-full transition-all flex items-center justify-center gap-1" title="Hourly Attendance Checklist (45 hrs)">
+                            class="px-1 py-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 focus:ring-1 focus:ring-indigo-500 rounded-lg text-emerald-400 text-xs font-bold w-full transition-all flex items-center justify-center gap-1" title="Attendance Checklist (45 hrs)">
                             <span>${student.attendance}%</span>
                             <i class="fa-solid fa-pencil text-[8px] text-slate-500"></i>
                         </button>
@@ -1185,7 +1574,7 @@
                     <td class="py-2.5 px-1">
                         <input type="number" min="0" max="100" step="0.01" value="${student.ca1 || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'ca1', this.value)"
-                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-slate-100 text-xs font-semibold transition-all">
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-blue-300 text-xs font-semibold transition-all">
                     </td>
                     <td class="py-2.5 px-1">
                         <input type="number" min="0" max="100" step="0.01" value="${student.mc1 || 0}" 
@@ -1195,7 +1584,7 @@
                     <td class="py-2.5 px-1">
                         <input type="number" min="0" max="100" step="0.01" value="${student.ca2 || 0}" 
                             onchange="updateStudentGrade('${student.id}', 'ca2', this.value)"
-                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-slate-100 text-xs font-semibold transition-all">
+                            class="w-full text-center py-1 bg-slate-950 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 rounded-lg text-indigo-300 text-xs font-semibold transition-all">
                     </td>
                     <td class="py-2.5 px-1">
                         <input type="number" min="0" max="100" step="0.01" value="${student.mc2 || 0}" 
@@ -1262,8 +1651,8 @@
         }
 
         function updateStats() {
-            const activeStudents = students.filter(s => !s.expelled && !s.name.toLowerCase().includes('отчислен'));
-            const total = activeStudents.length;
+            const cohortStudents = students;
+            const total = cohortStudents.length;
             document.getElementById('stat-total-students').textContent = total;
 
             if (total === 0) {
@@ -1279,7 +1668,7 @@
             let topStudent = null;
             let topScore = -1;
 
-            activeStudents.forEach(s => {
+            cohortStudents.forEach(s => {
                 const mc1 = Number(s.mc1) || 0;
                 sumMc1 += mc1;
                 if (mc1 >= 50) passes++;
@@ -1298,7 +1687,7 @@
             document.getElementById('stat-pass-rate').textContent = `${passPercent}%`;
 
             if (topStudent) {
-                document.getElementById('stat-best-student').textContent = `${topStudent.name} (${topScore})`;
+                document.getElementById('stat-best-student').textContent = `${getDisplayName(topStudent)} (${topScore})`;
             }
         }
 
@@ -1334,21 +1723,21 @@
         function updateGroupChart() {
             if (!groupChart) return;
 
-            const sorted = [...students].sort((a, b) => a.name.localeCompare(b.name));
-            const names = sorted.map(s => {
-                const parts = s.name.split(' ');
-                return parts[0] || s.name;
+            const labels = students.map((s, idx) => {
+                const disp = getDisplayName(s);
+                const surname = disp.split(' ')[0] || disp;
+                return `${idx + 1}. ${surname}`;
             });
 
-            groupChart.data.labels = names;
-            groupChart.data.datasets[0].data = sorted.map(s => s.attendance);
-            groupChart.data.datasets[1].data = sorted.map(s => s.activities || 0);
-            groupChart.data.datasets[2].data = sorted.map(s => s.ca1 || 0);
-            groupChart.data.datasets[3].data = sorted.map(s => s.mc1 || 0);
-            groupChart.data.datasets[4].data = sorted.map(s => s.ca2 || 0);
-            groupChart.data.datasets[5].data = sorted.map(s => s.mc2 || 0);
-            groupChart.data.datasets[6].data = sorted.map(s => s.exam || 0);
-            groupChart.data.datasets[7].data = sorted.map(s => calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam));
+            groupChart.data.labels = labels;
+            groupChart.data.datasets[0].data = students.map(s => s.attendance);
+            groupChart.data.datasets[1].data = students.map(s => s.activities || 0);
+            groupChart.data.datasets[2].data = students.map(s => s.ca1 || 0);
+            groupChart.data.datasets[3].data = students.map(s => s.mc1 || 0);
+            groupChart.data.datasets[4].data = students.map(s => s.ca2 || 0);
+            groupChart.data.datasets[5].data = students.map(s => s.mc2 || 0);
+            groupChart.data.datasets[6].data = students.map(s => s.exam || 0);
+            groupChart.data.datasets[7].data = students.map(s => calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam));
 
             groupChart.update();
         }
@@ -1362,20 +1751,22 @@
         }
 
         function toggleStudentAttDetails() {
+            const t = i18n[currentLang];
             const container = document.getElementById('student-att-details');
             const toggleIcon = document.getElementById('student-att-toggle-icon');
             if (container.classList.contains('hidden')) {
                 container.classList.remove('hidden');
-                toggleIcon.textContent = "Collapse ▴";
+                toggleIcon.textContent = t.collapseTxt;
             } else {
                 container.classList.add('hidden');
-                toggleIcon.textContent = "Expand ▾";
+                toggleIcon.textContent = t.expandTxt;
             }
         }
 
         function renderStudentAttendanceDetails(student) {
             ensureAttendanceHours(student);
             const grid = document.getElementById('student-att-list-grid');
+            const labels = currentLang === 'en' ? weekLabelsEn : weekLabelsRu;
             grid.innerHTML = '';
 
             for (let week = 1; week <= 15; week++) {
@@ -1389,7 +1780,7 @@
                 dateRow.innerHTML = `
                     <span class="font-bold text-slate-300 flex items-center gap-1.5">
                         <i class="fa-solid fa-calendar-week text-indigo-400 text-[11px]"></i>
-                        ${weekLabels[week - 1] || ('Week ' + week)}
+                        ${labels[week - 1] || ('Week ' + week)}
                     </span>
                     <div class="flex items-center justify-between space-x-1">
                         <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h1 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
@@ -1410,15 +1801,17 @@
         function openAttendanceModal(studentId) {
             const student = students.find(s => s.id === studentId);
             if (!student) {
-                showToast('Student record not found!', 'error');
+                showToast(currentLang === 'en' ? 'Student record not found!' : 'Запись студента не найдена!', 'error');
                 return;
             }
 
+            const t = i18n[currentLang];
+            const labels = currentLang === 'en' ? weekLabelsEn : weekLabelsRu;
             activeEditingStudentId = student.id;
             ensureAttendanceHours(student);
             tempAttendanceHours = student.attendanceHours.slice();
 
-            document.getElementById('att-modal-student-name').textContent = student.name;
+            document.getElementById('att-modal-student-name').textContent = getDisplayName(student);
             updateAttendanceModalStats();
 
             const grid = document.getElementById('attendance-dates-grid');
@@ -1435,17 +1828,17 @@
                 row.innerHTML = `
                     <span class="text-xs font-bold text-slate-300 flex items-center gap-2">
                         <span class="h-5 w-5 rounded bg-slate-950 flex items-center justify-center text-[10px] text-indigo-400 border border-indigo-900/30">W${week}</span>
-                        ${weekLabels[week - 1] || ('Week ' + week)}
+                        ${labels[week - 1] || ('Week ' + week)}
                     </span>
                     <div class="flex items-center space-x-1.5">
                         <button type="button" onclick="toggleTempHour(${h1Idx})" id="temp-chk-${h1Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
-                            Lesson 1
+                            ${t.lessonWord} 1
                         </button>
                         <button type="button" onclick="toggleTempHour(${h2Idx})" id="temp-chk-${h2Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
-                            Lesson 2
+                            ${t.lessonWord} 2
                         </button>
                         <button type="button" onclick="toggleTempHour(${h3Idx})" id="temp-chk-${h3Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
-                            Lesson 3
+                            ${t.lessonWord} 3
                         </button>
                     </div>
                 `;
@@ -1503,15 +1896,16 @@
         }
 
         function updateAttendanceModalStats() {
+            const t = i18n[currentLang];
             const checkedCount = tempAttendanceHours.filter(Boolean).length;
             const percent = Math.round((checkedCount / TOTAL_ATTENDANCE_HOURS) * 100);
             document.getElementById('att-modal-percent').textContent = `${percent}%`;
-            document.getElementById('att-modal-hours').textContent = `(${checkedCount} of ${TOTAL_ATTENDANCE_HOURS} hrs)`;
+            document.getElementById('att-modal-hours').textContent = `(${checkedCount} ${t.hoursOf})`;
         }
 
         function saveAttendanceDetails() {
             if (!activeEditingStudentId) {
-                showToast('No active student selected!', 'error');
+                showToast(currentLang === 'en' ? 'No active student selected!' : 'Студент не выбран!', 'error');
                 return;
             }
 
@@ -1555,17 +1949,18 @@
                 updateGroupChart();
                 renderBellCurveChart();
                 
-                const savedName = student.name;
+                const savedName = getDisplayName(student);
                 const savedPercent = student.attendance;
                 closeAttendanceModal();
-                showToast(`Saved: ${savedName} — ${savedPercent}%`, 'success');
+                showToast(`${currentLang === 'en' ? 'Saved' : 'Сохранено'}: ${savedName} — ${savedPercent}%`, 'success');
             } else {
-                showToast('Error: Student not found in list!', 'error');
+                showToast(currentLang === 'en' ? 'Error: Student not found!' : 'Ошибка: студент не найден!', 'error');
             }
         }
 
         function addSingleStudent() {
             const nameInput = document.getElementById('add-student-name');
+            const nameEnInput = document.getElementById('add-student-name-en');
             const attInput = document.getElementById('add-student-attendance');
             const actInput = document.getElementById('add-student-activities');
             const ca1Input = document.getElementById('add-student-ca1');
@@ -1575,14 +1970,16 @@
             const exmInput = document.getElementById('add-student-exam');
 
             const name = nameInput.value.trim();
-            if (!name) {
-                showToast('Please specify student Full Name!', 'error');
+            const nameEn = nameEnInput.value.trim();
+            if (!name && !nameEn) {
+                showToast(currentLang === 'en' ? 'Please specify student name!' : 'Укажите ФИО студента!', 'error');
                 return;
             }
 
             const newStudent = {
                 id: 'st-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
-                name,
+                name: name || nameEn,
+                nameEn: nameEn || name,
                 attendance: Math.max(0, Math.min(100, parseInt(attInput.value) || 0)),
                 activities: Math.max(0, Math.min(100, parseFloat(actInput.value) || 0)),
                 ca1: Math.max(0, Math.min(100, parseFloat(ca1Input.value) || 0)),
@@ -1593,11 +1990,12 @@
             };
 
             ensureAttendanceHours(newStudent);
-            students.unshift(newStudent);
+            students.push(newStudent);
             saveDatabase();
             updateDashboardData();
 
             nameInput.value = '';
+            nameEnInput.value = '';
             attInput.value = '';
             actInput.value = '';
             ca1Input.value = '';
@@ -1606,7 +2004,7 @@
             mc2Input.value = '';
             exmInput.value = '';
 
-            showToast(`Student ${name} added!`, 'success');
+            showToast(`${currentLang === 'en' ? 'Added' : 'Добавлен'}: ${getDisplayName(newStudent)}`, 'success');
         }
 
         function runBulkImport() {
@@ -1614,11 +2012,12 @@
             const text = textarea.value.trim();
 
             if (!text) {
-                showToast('Enter student names (one per line)!', 'error');
+                showToast(currentLang === 'en' ? 'Enter student names (one per line)!' : 'Введите список студентов (по одному в строке)!', 'error');
                 return;
             }
 
-            const lines = text.split('\n');
+            const lines = text.split('
+');
             let counter = 0;
 
             lines.forEach((line, idx) => {
@@ -1627,6 +2026,7 @@
                     const newSt = {
                         id: 'st-' + Date.now() + '-' + idx + '-' + Math.random().toString(36).substr(2, 4),
                         name: cleanName,
+                        nameEn: cleanName,
                         attendance: 0,
                         activities: 0,
                         ca1: 0,
@@ -1645,20 +2045,20 @@
                 saveDatabase();
                 updateDashboardData();
                 textarea.value = '';
-                showToast(`Successfully imported: ${counter} students`, 'success');
+                showToast(`${currentLang === 'en' ? 'Imported' : 'Импортировано'}: ${counter}`, 'success');
             } else {
-                showToast('No valid lines found for import', 'error');
+                showToast(currentLang === 'en' ? 'No valid lines found' : 'Нет корректных строк', 'error');
             }
         }
 
         function deleteStudent(id) {
             const index = students.findIndex(s => s.id === id);
             if (index !== -1) {
-                const name = students[index].name;
+                const name = getDisplayName(students[index]);
                 students.splice(index, 1);
                 saveDatabase();
                 updateDashboardData();
-                showToast(`Student ${name} removed from register.`, 'info');
+                showToast(`${currentLang === 'en' ? 'Removed' : 'Удалён'}: ${name}`, 'info');
             }
         }
 
@@ -1685,7 +2085,7 @@
             saveDatabase();
             updateDashboardData();
             closeConfirmModal();
-            showToast('Gradebook reset to Platonus register.', 'info');
+            showToast(currentLang === 'en' ? 'Reset to Platonus register.' : 'Ведомость сброшена к данным Platonus.', 'info');
         }
 
         function exportBackupJSON() {
@@ -1698,22 +2098,24 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showToast('Full JSON backup downloaded!', 'success');
+            showToast(currentLang === 'en' ? 'JSON backup downloaded!' : 'Резервная копия JSON скачана!', 'success');
         }
 
         function exportToCSV() {
             if (students.length === 0) {
-                showToast('Gradebook is empty!', 'error');
+                showToast(currentLang === 'en' ? 'Gradebook is empty!' : 'Ведомость пуста!', 'error');
                 return;
             }
 
-            let csvContent = "\uFEFF";
-            csvContent += "Student Name;Attendance (10%);Activities (10%);CA1 (10%);MC1 (10%);CA2 (10%);MC2 (10%);Exam (40%);Total Score;Grade\n";
+            let csvContent = "﻿";
+            csvContent += "No;Student Name (RU);Student Name (EN);Attendance (10%);Activities (10%);CA1 (10%);MC1 (10%);CA2 (10%);MC2 (10%);Exam (40%);Rating;Grade
+";
 
-            students.forEach(s => {
+            students.forEach((s, idx) => {
                 const final = calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam);
                 const letter = getLetterGrade(final).letter;
-                csvContent += `"${s.name.replace(/"/g, '""')}";${s.attendance};${s.activities || 0};${s.ca1 || 0};${s.mc1 || 0};${s.ca2 || 0};${s.mc2 || 0};${s.exam || 0};${final};${letter}\n`;
+                csvContent += `${idx + 1};"${s.name.replace(/"/g, '""')}";"${(s.nameEn || '').replace(/"/g, '""')}";${s.attendance};${s.activities || 0};${s.ca1 || 0};${s.mc1 || 0};${s.ca2 || 0};${s.mc2 || 0};${s.exam || 0};${final};${letter}
+`;
             });
 
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -1724,7 +2126,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showToast('Export to Excel completed!', 'success');
+            showToast(currentLang === 'en' ? 'Export to Excel completed!' : 'Экспорт в Excel выполнен!', 'success');
         }
 
         function showToast(message, type = 'info') {
