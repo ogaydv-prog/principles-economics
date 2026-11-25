@@ -63,14 +63,14 @@
             </div>
             
             <div class="flex items-center space-x-3">
-                <div id="mode-badge" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center space-x-1.5">
-                    <span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span>
-                    <span>Student Mode</span>
+                <div id="mode-badge" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center space-x-1.5">
+                    <span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                    <span>Панель преподавателя</span>
                 </div>
                 
                 <button id="auth-action-btn" onclick="toggleTeacherMode()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-700 hover:border-slate-600 flex items-center space-x-2">
-                    <i class="fa-solid fa-user-tie text-indigo-400"></i>
-                    <span id="auth-btn-text">Панель преподавателя</span>
+                    <i class="fa-solid fa-user-graduate text-indigo-400"></i>
+                    <span id="auth-btn-text">Режим студента</span>
                 </button>
             </div>
         </div>
@@ -80,7 +80,7 @@
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         <!-- ================= STUDENT VIEW ================= -->
-        <div id="student-view" class="space-y-8 block">
+        <div id="student-view" class="space-y-8 hidden">
             <div class="max-w-2xl mx-auto text-center space-y-4 py-6">
                 <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-slate-400 bg-clip-text text-transparent">
                     Student Performance Dashboard
@@ -262,14 +262,14 @@
             </div>
         </div>
 
-        <!-- ================= INSTRUCTOR WORKSPACE VIEW ================= -->
-        <div id="teacher-view" class="space-y-8 hidden">
+        <!-- ================= INSTRUCTOR WORKSPACE VIEW (ОТКРЫТ ПО УМОЛЧАНИЮ БЕЗ ПАРОЛЯ) ================= -->
+        <div id="teacher-view" class="space-y-8 block">
             
             <!-- Statistics Overview Widgets -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Students</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Активных студентов</p>
                         <h3 class="text-3xl font-extrabold text-white mt-1" id="stat-total-students">0</h3>
                     </div>
                     <div class="h-12 w-12 bg-indigo-500/10 text-indigo-400 rounded-xl flex items-center justify-center text-xl border border-indigo-500/20">
@@ -278,7 +278,7 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">MC1 Average Score</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Средний балл РК1 (MC1)</p>
                         <div class="flex items-baseline space-x-1.5 mt-1">
                             <h3 class="text-3xl font-extrabold text-white" id="stat-average-grade">0.0</h3>
                             <span class="text-xs font-bold text-indigo-400" id="stat-average-letter">-</span>
@@ -290,7 +290,7 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">MC1 Pass Rate (≥50)</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Успеваемость РК1 (≥50)</p>
                         <h3 class="text-3xl font-extrabold text-white mt-1" id="stat-pass-rate">0%</h3>
                     </div>
                     <div class="h-12 w-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-xl border border-blue-500/20">
@@ -299,7 +299,7 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Top MC1 Result</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Лучший результат РК1</p>
                         <h3 class="text-sm font-bold text-violet-400 mt-2 truncate max-w-[150px]" id="stat-best-student">—</h3>
                     </div>
                     <div class="h-12 w-12 bg-violet-500/10 text-violet-400 rounded-xl flex items-center justify-center text-xl border border-violet-500/20">
@@ -437,7 +437,7 @@
                         <!-- Real-time editing tips -->
                         <div class="bg-indigo-950/10 p-4 border-t border-slate-800/80 text-xs text-indigo-300 flex items-center space-x-3.5">
                             <i class="fa-solid fa-circle-info text-indigo-400 text-lg"></i>
-                            <p><strong>Attendance tracking:</strong> Click percentage in the "Att" column to open the 15-week (45-hour) attendance checklist! Weeks 1–10 (30 hours) pre-filled from Platonus.</p>
+                            <p><strong>Посещаемость:</strong> Нажмите на процент в колонке «Att», чтобы открыть чек-лист на 15 недель (45 часов). Недели 1–10 (30 часов) заполнены по журналу Platonus.</p>
                         </div>
                     </div>
                 </div>
@@ -655,7 +655,6 @@
         function buildAttendanceHoursFromAbsences(absences) {
             const absSet = new Set(absences || []);
             const hours = Array(TOTAL_ATTENDANCE_HOURS).fill(false);
-            // Для проведённых 30 часов (недели 1-10): все белые ячейки = присутствовал (true), ячейки с «н» = пропуск (false)
             for (let i = 0; i < CONDUCTED_HOURS; i++) {
                 hours[i] = !absSet.has(i);
             }
@@ -682,7 +681,7 @@
         let groupChart = null;
         let bellCurveChart = null;
         let currentBellMetric = 'mc1';
-        let isTeacherMode = false;
+        let isTeacherMode = true; // Панель преподавателя открыта сразу без пароля
 
         let activeEditingStudentId = null;
         let tempAttendanceHours = [];
@@ -690,7 +689,7 @@
         window.onload = function() {
             loadDatabase();
             initGroupChart();
-            updateDashboardData();
+            updateViewMode();
             
             document.getElementById('teacher-search-input').addEventListener('input', function(e) {
                 renderTeacherTable(e.target.value);
@@ -720,7 +719,6 @@
                             ensureAttendanceHours(st);
                         });
                         saveDatabase();
-                        updateDashboardData();
                         return;
                     }
                 } catch(e) {
@@ -729,7 +727,6 @@
             }
             students = createFreshInitialList();
             saveDatabase();
-            updateDashboardData();
         }
 
         function saveDatabase() {
@@ -804,7 +801,6 @@
             if (!canvas) return;
             if (bellCurveChart) bellCurveChart.destroy();
 
-            // Исключаем отчисленных студентов из расчёта кривой распределения
             const activeStudents = students.filter(s => !s.expelled && !s.name.toLowerCase().includes('отчислен'));
             const scores = activeStudents.map(s => getMetricValue(s, currentBellMetric));
             const metricLabel = getMetricTitle(currentBellMetric);
@@ -831,9 +827,6 @@
                 else counts[5]++;
             });
 
-            // Контроль п. 8.2 Положения:
-            // Максимально допустимое количество оценок «отлично» (A, A-) и «неудовлетворительно» (F, FX)
-            // не может превышать 15% соответственно (суммарно не более 30%). Допустимое отклонение от нормы — не более 5%.
             const failPct = (counts[0] / n) * 100;
             const excPct = (counts[5] / n) * 100;
             const sumExtremesPct = failPct + excPct;
@@ -870,8 +863,6 @@
 
             const actualProfilePoints = counts.map(val => val);
 
-            // Эталонная гауссовская кривая (п. 8.1 & 8.4) с центром в середине шкалы (70 баллов) и σ = 14.5,
-            // при которой края (<50 и >=90) соответствуют нормативу ~15% каждый (суммарно ~30%)
             const idealMu = 70.0;
             const idealSigma = 14.5;
             function gaussianPDF(x, mu, sigma) {
@@ -1034,7 +1025,6 @@
             if (personalActChart) personalActChart.destroy();
             if (personalExamChart) personalExamChart.destroy();
 
-            // 1. Attendance Chart
             const attCtx = document.getElementById('attendanceBarChart').getContext('2d');
             document.getElementById('val-att-text').textContent = `${student.attendance}%`;
             personalAttChart = new Chart(attCtx, {
@@ -1059,7 +1049,6 @@
                 }
             });
 
-            // 2. Continuous Assessment Trend
             const actCtx = document.getElementById('activityLineChart').getContext('2d');
             personalActChart = new Chart(actCtx, {
                 type: 'line',
@@ -1087,7 +1076,6 @@
                 }
             });
 
-            // 3. Midterm Gauge
             const exCtx = document.getElementById('examGaugeChart').getContext('2d');
             const avgMc = Math.round(((student.mc1 || 0) + (student.mc2 || 0)) / 2);
             personalExamChart = new Chart(exCtx, {
@@ -1110,7 +1098,6 @@
                 }
             });
 
-            // 4. Circle Score
             const circle = document.getElementById('finalScoreCircle');
             document.getElementById('finalCircleLetter').textContent = letter;
             document.getElementById('finalCircleScore').textContent = total.toFixed(1);
@@ -1119,14 +1106,13 @@
             circle.style.strokeDashoffset = strokeOffset;
         }
 
-        // Открытие панели преподавателя в один клик (без пароля и без скрытого ключика)
         function toggleTeacherMode() {
             isTeacherMode = !isTeacherMode;
             updateViewMode();
             if (isTeacherMode) {
                 showToast('Панель преподавателя открыта.', 'success');
             } else {
-                showToast('Переключено в режим студента.', 'info');
+                showToast('Режим студента открыт.', 'info');
             }
         }
 
@@ -1139,14 +1125,14 @@
             if (isTeacherMode) {
                 studentView.classList.add('hidden');
                 teacherView.classList.remove('hidden');
-                badge.innerHTML = `<span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span><span>Instructor Mode</span>`;
+                badge.innerHTML = `<span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span><span>Панель преподавателя</span>`;
                 badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center space-x-1.5";
-                authBtnText.textContent = "Закрыть панель преподавателя";
+                authBtnText.textContent = "Режим студента";
                 updateDashboardData();
             } else {
                 studentView.classList.remove('hidden');
                 teacherView.classList.add('hidden');
-                badge.innerHTML = `<span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span><span>Student Mode</span>`;
+                badge.innerHTML = `<span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span><span>Режим студента</span>`;
                 badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center space-x-1.5";
                 authBtnText.textContent = "Панель преподавателя";
             }
