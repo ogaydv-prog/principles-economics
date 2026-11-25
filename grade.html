@@ -68,9 +68,9 @@
                     <span>Student Mode</span>
                 </div>
                 
-                <button id="auth-action-btn" onclick="openAuthModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-700 hover:border-slate-600 flex items-center space-x-2">
+                <button id="auth-action-btn" onclick="toggleTeacherMode()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs sm:text-sm font-semibold transition-all border border-slate-700 hover:border-slate-600 flex items-center space-x-2">
                     <i class="fa-solid fa-user-tie text-indigo-400"></i>
-                    <span id="auth-btn-text">Instructor Portal</span>
+                    <span id="auth-btn-text">Панель преподавателя</span>
                 </button>
             </div>
         </div>
@@ -229,7 +229,7 @@
                     <button onclick="toggleStudentAttDetails()" class="w-full flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider hover:text-slate-200 transition-colors">
                         <span class="flex items-center gap-2">
                             <i class="fa-solid fa-list-check text-emerald-400"></i>
-                            Attendance Session Details (15 Weeks x 3 Hours = 45 Hours)
+                            Attendance Session Details (15 Weeks × 3 Hours = 45 Hours; Conducted: 30 Hours / 10 Weeks)
                         </span>
                         <span id="student-att-toggle-icon" class="text-[10px] bg-slate-800 px-2.5 py-1 rounded border border-slate-700 transition-all">Expand ▾</span>
                     </button>
@@ -290,7 +290,7 @@
                 </div>
                 <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 flex items-center justify-between shadow-lg">
                     <div>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pass Rate (>=50)</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">MC1 Pass Rate (≥50)</p>
                         <h3 class="text-3xl font-extrabold text-white mt-1" id="stat-pass-rate">0%</h3>
                     </div>
                     <div class="h-12 w-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-xl border border-blue-500/20">
@@ -308,23 +308,37 @@
                 </div>
             </div>
 
-            <!-- Profile Curve Widget (Огибающая кривая) -->
-            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <!-- Bell Curve / Гауссовское распределение оценок (п. 8 Положения) -->
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl space-y-4">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div>
                         <h3 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-wave-square text-violet-400"></i>
-                            Профиль успеваемости по РК1 (Огибающая тренд-кривая)
+                            <i class="fa-solid fa-bell text-violet-400"></i>
+                            Кривая распределения оценок (Bell Curve — п. 8 Положения)
                         </h3>
                         <p class="text-xs text-slate-400 mt-1">
-                            Плавная огибающая линия фактического распределения оценок студентов за 1-й Рубежный контроль (данные Platonus).
+                            Анализ качества оценивания и сопоставление с нормальным распределением Гаусса (п. 8.1–8.4: «отлично» A/A- и «неуд» F/FX не более 15% каждого, суммарно ≤ 30%, допустимое отклонение ≤ 5%).
                         </p>
                     </div>
-                    <div class="flex items-center space-x-4 text-xs font-semibold">
-                        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-indigo-500/70"></span><span class="text-slate-300">Фактически студентов</span></div>
-                        <div class="flex items-center gap-1.5"><span class="w-3 h-1 bg-violet-400 rounded-full"></span><span class="text-slate-300">Сглаженный профиль (KDE)</span></div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
+                            <button onclick="switchBellMetric('mc1')" id="btn-bell-mc1" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white">
+                                РК 1 (MC1)
+                            </button>
+                            <button onclick="switchBellMetric('ca2')" id="btn-bell-ca2" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+                                СРСП 2 (CA2)
+                            </button>
+                            <button onclick="switchBellMetric('total')" id="btn-bell-total" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+                                Итоговый балл
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-3 text-xs bg-slate-950 px-3.5 py-1.5 rounded-xl border border-slate-800 font-mono">
+                            <span class="text-indigo-400 font-bold">μ (Среднее): <span id="bell-mean-val" class="text-white">0.0</span></span>
+                            <span class="text-violet-400 font-bold">σ (Отклонение): <span id="bell-std-val" class="text-white">0.0</span></span>
+                        </div>
                     </div>
                 </div>
+                <div id="bell-quota-bar" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs"></div>
                 <div class="relative w-full h-72">
                     <canvas id="bellCurveCanvas"></canvas>
                 </div>
@@ -423,7 +437,7 @@
                         <!-- Real-time editing tips -->
                         <div class="bg-indigo-950/10 p-4 border-t border-slate-800/80 text-xs text-indigo-300 flex items-center space-x-3.5">
                             <i class="fa-solid fa-circle-info text-indigo-400 text-lg"></i>
-                            <p><strong>Attendance tracking:</strong> Click percentage in the "Att" column to open the 15-week (45-hour) attendance checklist!</p>
+                            <p><strong>Attendance tracking:</strong> Click percentage in the "Att" column to open the 15-week (45-hour) attendance checklist! Weeks 1–10 (30 hours) pre-filled from Platonus.</p>
                         </div>
                     </div>
                 </div>
@@ -513,27 +527,6 @@
 
     </main>
 
-    <!-- Instructor Authentication Modal -->
-    <div id="auth-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
-        <div class="bg-slate-900 p-6 rounded-2xl max-w-sm w-full mx-4 shadow-2xl border border-slate-800 transform scale-95 transition-transform duration-200">
-            <div class="h-12 w-12 bg-indigo-500/10 text-indigo-400 rounded-full flex items-center justify-center text-xl mb-4 border border-indigo-500/20">
-                <i class="fa-solid fa-key"></i>
-            </div>
-            <h3 class="text-lg font-extrabold text-white">Instructor Access</h3>
-            <p class="text-slate-400 text-xs mt-1">Enter password to unlock instructor management panel.</p>
-            
-            <div class="mt-4">
-                <input type="password" id="auth-password" onkeydown="handleAuthKeyDown(event)" placeholder="Enter password..." 
-                    class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-700">
-            </div>
-            
-            <div class="mt-6 flex justify-end space-x-3">
-                <button onclick="closeAuthModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs transition-colors">Cancel</button>
-                <button onclick="verifyTeacherPassword()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition-colors shadow-lg shadow-indigo-600/30">Login</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Confirm Reset Dialog Modal -->
     <div id="confirm-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
         <div class="bg-slate-900 p-6 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-800 transform scale-95 transition-transform duration-200">
@@ -541,7 +534,7 @@
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h3 class="text-lg font-bold text-white">Are you sure?</h3>
-            <p class="text-slate-400 text-xs mt-2">This action will erase all student data from the current gradebook. This cannot be undone.</p>
+            <p class="text-slate-400 text-xs mt-2">This action will reset all student data back to the initial Platonus register. This cannot be undone.</p>
             <div class="mt-6 flex justify-end space-x-3">
                 <button onclick="closeConfirmModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs transition-colors">Cancel</button>
                 <button onclick="resetAllData()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-xl text-xs transition-colors shadow-lg shadow-rose-600/30">Reset Database</button>
@@ -559,7 +552,7 @@
                     </div>
                     <div>
                         <h3 class="text-sm font-extrabold text-white" id="att-modal-student-name">Attendance Details</h3>
-                        <p class="text-[10px] text-slate-400">15 Weeks × 3 Hours/Week (45 Total Academic Hours)</p>
+                        <p class="text-[10px] text-slate-400">15 Weeks × 3 Hours/Week (45 Total Academic Hours; Conducted: 30 Hours)</p>
                     </div>
                 </div>
                 <button onclick="closeAttendanceModal()" class="text-slate-400 hover:text-white transition-colors">
@@ -570,7 +563,7 @@
             <!-- List content -->
             <div class="flex-grow overflow-y-auto custom-scrollbar my-4 pr-1">
                 <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 mb-4 flex justify-between items-center">
-                    <span class="text-xs text-slate-400 font-semibold">Total Attendance Rate:</span>
+                    <span class="text-xs text-slate-400 font-semibold">Total Attendance Rate (out of 45 hrs):</span>
                     <div class="flex items-center space-x-2">
                         <span id="att-modal-percent" class="text-emerald-400 font-extrabold text-sm">0%</span>
                         <span id="att-modal-hours" class="text-slate-500 text-xs font-medium">(0 of 45 hrs)</span>
@@ -613,36 +606,73 @@
 
     <script>
         const TOTAL_ATTENDANCE_HOURS = 45;
-        const STORAGE_KEY = 'almau_pe_ib_students_2026_v5';
+        const CONDUCTED_HOURS = 30; // 10 недель × 3 часа (21 сен — 23 ноя) по журналу Platonus
+        const STORAGE_KEY = 'almau_pe_ib_students_2026_v6';
 
-        const initialGroupStudentsData = [
-            { id: "st-ib-1", name: "Hebatallah Aldada", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-2", name: "Абдихай Салтанат Жалғасқызы", attendance: 0, activities: 0, ca1: 0, mc1: 82.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-3", name: "Абдрахманов Бабур Хамза улы", attendance: 0, activities: 0, ca1: 0, mc1: 56.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-4", name: "Адильхан Надия Берікқызы", attendance: 0, activities: 0, ca1: 0, mc1: 73.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-5", name: "Бахытов Алимжан Бахыткалиулы", attendance: 0, activities: 0, ca1: 0, mc1: 84.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-6", name: "Жұмажан Осман Дарменұлы", attendance: 0, activities: 0, ca1: 0, mc1: 60.00, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-7", name: "Замотина Дарья Астемировна (Отчислен)", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-8", name: "Кабдрахманова Ажар Ниязовна", attendance: 0, activities: 0, ca1: 0, mc1: 87.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-9", name: "Ким Есфирь Севастьяновна", attendance: 0, activities: 0, ca1: 0, mc1: 78.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-10", name: "Кожахметова Малика Азаматовна", attendance: 0, activities: 0, ca1: 0, mc1: 66.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-11", name: "Көшкінбай Айару Арманқызы", attendance: 0, activities: 0, ca1: 0, mc1: 73.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-12", name: "Нигус Дамте", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-13", name: "Сериккалиева Еңлік Думанқызы", attendance: 0, activities: 0, ca1: 0, mc1: 61.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-14", name: "Степанченко Савелий Дмитриевич", attendance: 0, activities: 0, ca1: 0, mc1: 78.33, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-15", name: "Сулейменова Айдана Нурлановна", attendance: 0, activities: 0, ca1: 0, mc1: 71.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-16", name: "Толстова Эвелина Евгеньевна", attendance: 0, activities: 0, ca1: 0, mc1: 72.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-17", name: "Хирана Касита Путри", attendance: 0, activities: 0, ca1: 0, mc1: 0, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-18", name: "Хусаинова Адия Галимовна", attendance: 0, activities: 0, ca1: 0, mc1: 75.00, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-19", name: "Шабанов Анварбек", attendance: 0, activities: 0, ca1: 0, mc1: 80.67, ca2: 0, mc2: 0, exam: 0 },
-            { id: "st-ib-20", name: "Югай Ксения Альбертовна", attendance: 0, activities: 0, ca1: 0, mc1: 85.00, ca2: 0, mc2: 0, exam: 0 }
+        const weekLabels = [
+            "Week 1 (21 сен)",
+            "Week 2 (28 сен)",
+            "Week 3 (5 окт)",
+            "Week 4 (12 окт)",
+            "Week 5 (19 окт)",
+            "Week 6 (26 окт)",
+            "Week 7 (2 ноя)",
+            "Week 8 (9 ноя)",
+            "Week 9 (16 ноя)",
+            "Week 10 (23 ноя)",
+            "Week 11 (30 ноя)",
+            "Week 12 (7 дек)",
+            "Week 13 (14 дек)",
+            "Week 14 (21 дек)",
+            "Week 15 (28 дек)"
         ];
 
+        // Индексы часов с отметкой «н» (0..29 — проведённые 30 часов за 10 недель) по скриншотам Platonus,
+        // а также оценка за 9 ноября (ca2):
+        const initialGroupStudentsData = [
+            { id: "st-ib-1",  name: "Абдихай Салтанат Жалғасқызы",           activities: 0, ca1: 0, mc1: 82.33, ca2: 20, mc2: 0, exam: 0, absences: [12, 21] },
+            { id: "st-ib-2",  name: "Абдрахманов Бабур Хамза улы",            activities: 0, ca1: 0, mc1: 56.67, ca2: 20, mc2: 0, exam: 0, absences: [0, 1, 2, 3, 5, 15, 16, 17, 21, 24, 25, 26] },
+            { id: "st-ib-3",  name: "Адильхан Надия Берікқызы",               activities: 0, ca1: 0, mc1: 73.33, ca2: 20, mc2: 0, exam: 0, absences: [7, 8, 27, 28] },
+            { id: "st-ib-4",  name: "Альдада Хебаталла с.м.",                  activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [3, 5, 6, 7, 8, 9, 12, 14, 15, 18, 19, 20, 21, 28] },
+            { id: "st-ib-5",  name: "Бахытов Алимжан Бахыткалиулы",           activities: 0, ca1: 0, mc1: 84.33, ca2: 90, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-6",  name: "Белачев Нигус Дамте",                     activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [15, 16, 17, 21, 25, 26, 27, 28] },
+            { id: "st-ib-7",  name: "Жұмажан Осман Дарменұлы",                 activities: 0, ca1: 0, mc1: 60.00, ca2: 20, mc2: 0, exam: 0, absences: [3, 18, 20, 21] },
+            { id: "st-ib-8",  name: "Замотина Дарья Астемировна (Отчислен)",   activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, expelled: true, absences: Array.from({ length: CONDUCTED_HOURS }, (_, i) => i) },
+            { id: "st-ib-9",  name: "Кабдрахманова Ажар Ниязовна",            activities: 0, ca1: 0, mc1: 87.33, ca2: 90, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-10", name: "Ким Есфирь Севастьяновна",               activities: 0, ca1: 0, mc1: 78.33, ca2: 85, mc2: 0, exam: 0, absences: [15, 16, 17, 24, 25, 26] },
+            { id: "st-ib-11", name: "Кожахметова Малика Азаматовна",          activities: 0, ca1: 0, mc1: 66.67, ca2: 20, mc2: 0, exam: 0, absences: [3, 5, 12, 14, 15, 18, 19, 20] },
+            { id: "st-ib-12", name: "Көшкінбай Айару Арманқызы",              activities: 0, ca1: 0, mc1: 73.33, ca2: 85, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-13", name: "Сериккалиева Еңлік Думанқызы",           activities: 0, ca1: 0, mc1: 61.67, ca2: 75, mc2: 0, exam: 0, absences: [3, 5, 21] },
+            { id: "st-ib-14", name: "Степанченко Савелий Дмитриевич",         activities: 0, ca1: 0, mc1: 78.33, ca2: 0,  mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-15", name: "Сулейменова Айдана Нурлановна",          activities: 0, ca1: 0, mc1: 71.67, ca2: 20, mc2: 0, exam: 0, absences: [12, 14, 15] },
+            { id: "st-ib-16", name: "Толстова Эвелина Евгеньевна",            activities: 0, ca1: 0, mc1: 72.67, ca2: 80, mc2: 0, exam: 0, absences: [5, 21] },
+            { id: "st-ib-17", name: "Хирана Касита Путри",                     activities: 0, ca1: 0, mc1: 0,     ca2: 0,  mc2: 0, exam: 0, absences: [21] },
+            { id: "st-ib-18", name: "Хусаинова Адия Галимовна",               activities: 0, ca1: 0, mc1: 75.00, ca2: 75, mc2: 0, exam: 0, absences: [21] },
+            { id: "st-ib-19", name: "Шабанов Анварбек",                        activities: 0, ca1: 0, mc1: 80.67, ca2: 75, mc2: 0, exam: 0, absences: [] },
+            { id: "st-ib-20", name: "Югай Ксения Альбертовна",                activities: 0, ca1: 0, mc1: 85.00, ca2: 90, mc2: 0, exam: 0, absences: [15, 16, 17, 24, 25, 26] }
+        ];
+
+        function buildAttendanceHoursFromAbsences(absences) {
+            const absSet = new Set(absences || []);
+            const hours = Array(TOTAL_ATTENDANCE_HOURS).fill(false);
+            // Для проведённых 30 часов (недели 1-10): все белые ячейки = присутствовал (true), ячейки с «н» = пропуск (false)
+            for (let i = 0; i < CONDUCTED_HOURS; i++) {
+                hours[i] = !absSet.has(i);
+            }
+            return hours;
+        }
+
         function createFreshInitialList() {
-            return initialGroupStudentsData.map(st => ({
-                ...st,
-                attendanceHours: Array(TOTAL_ATTENDANCE_HOURS).fill(false)
-            }));
+            return initialGroupStudentsData.map(st => {
+                const attendanceHours = buildAttendanceHoursFromAbsences(st.absences);
+                const checkedCount = attendanceHours.filter(Boolean).length;
+                const attendance = Math.round((checkedCount / TOTAL_ATTENDANCE_HOURS) * 100);
+                return {
+                    ...st,
+                    attendance,
+                    attendanceHours
+                };
+            });
         }
 
         let students = [];
@@ -651,9 +681,8 @@
         let personalExamChart = null;
         let groupChart = null;
         let bellCurveChart = null;
+        let currentBellMetric = 'mc1';
         let isTeacherMode = false;
-        
-        const correctPassword = 'PE-12092026';
 
         let activeEditingStudentId = null;
         let tempAttendanceHours = [];
@@ -670,7 +699,6 @@
 
         function ensureAttendanceHours(student) {
             if (!Array.isArray(student.attendanceHours) || student.attendanceHours.length !== TOTAL_ATTENDANCE_HOURS) {
-                // Если процент посещаемости уже был выставлен вручную без массива часов, восстанавливаем соответствующее число часов
                 const approxHours = Math.round(((Number(student.attendance) || 0) / 100) * TOTAL_ATTENDANCE_HOURS);
                 student.attendanceHours = Array.from({ length: TOTAL_ATTENDANCE_HOURS }, (_, idx) => idx < approxHours);
             }
@@ -683,7 +711,6 @@
                     const parsed = JSON.parse(savedData);
                     if (Array.isArray(parsed) && parsed.length > 0) {
                         students = parsed;
-                        // Гарантируем уникальность ID у всех загруженных записей
                         const seenIds = new Set();
                         students.forEach((st, idx) => {
                             if (!st.id || seenIds.has(st.id)) {
@@ -738,15 +765,61 @@
             return { letter: 'F', class: 'bg-rose-500/10 text-rose-400 border-rose-500/30' };
         }
 
+        function switchBellMetric(metric) {
+            currentBellMetric = metric;
+            ['mc1', 'ca2', 'total'].forEach(m => {
+                const btn = document.getElementById(`btn-bell-${m}`);
+                if (!btn) return;
+                if (m === metric) {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+                }
+            });
+            renderBellCurveChart();
+        }
+
+        function getMetricValue(student, metric) {
+            if (metric === 'mc1') return Number(student.mc1) || 0;
+            if (metric === 'ca2') return Number(student.ca2) || 0;
+            return calculateWeightedScore(
+                student.attendance,
+                student.activities,
+                student.ca1,
+                student.mc1,
+                student.ca2,
+                student.mc2,
+                student.exam
+            );
+        }
+
+        function getMetricTitle(metric) {
+            if (metric === 'mc1') return 'РК 1 (MC1)';
+            if (metric === 'ca2') return 'СРСП 2 (CA2)';
+            return 'Итоговый балл';
+        }
+
         function renderBellCurveChart() {
             const canvas = document.getElementById('bellCurveCanvas');
             if (!canvas) return;
             if (bellCurveChart) bellCurveChart.destroy();
 
-            const scores = students.map(s => Number(s.mc1) || 0);
+            // Исключаем отчисленных студентов из расчёта кривой распределения
+            const activeStudents = students.filter(s => !s.expelled && !s.name.toLowerCase().includes('отчислен'));
+            const scores = activeStudents.map(s => getMetricValue(s, currentBellMetric));
+            const metricLabel = getMetricTitle(currentBellMetric);
+
             if (scores.length === 0) return;
 
-            const bins = ['0-49', '50-59', '60-69', '70-79', '80-89', '90-100'];
+            const n = scores.length;
+            const mean = scores.reduce((a, b) => a + b, 0) / n;
+            const variance = scores.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / n;
+            const stdDev = Math.sqrt(variance) || 1;
+
+            document.getElementById('bell-mean-val').textContent = mean.toFixed(1);
+            document.getElementById('bell-std-val').textContent = stdDev.toFixed(1);
+
+            const bins = ['0–49 (F / FX)', '50–59 (D / D+)', '60–69 (C- / C / C+)', '70–79 (C+ / B- / B)', '80–89 (B / B+)', '90–100 (A- / A)'];
             const counts = [0, 0, 0, 0, 0, 0];
 
             scores.forEach(s => {
@@ -758,7 +831,66 @@
                 else counts[5]++;
             });
 
+            // Контроль п. 8.2 Положения:
+            // Максимально допустимое количество оценок «отлично» (A, A-) и «неудовлетворительно» (F, FX)
+            // не может превышать 15% соответственно (суммарно не более 30%). Допустимое отклонение от нормы — не более 5%.
+            const failPct = (counts[0] / n) * 100;
+            const excPct = (counts[5] / n) * 100;
+            const sumExtremesPct = failPct + excPct;
+
+            const quotaBar = document.getElementById('bell-quota-bar');
+            if (quotaBar) {
+                const excOk = excPct <= 20;
+                const failOk = failPct <= 20;
+                const sumOk = sumExtremesPct <= 35;
+                quotaBar.innerHTML = `
+                    <div class="bg-slate-950/90 border ${excOk ? 'border-emerald-900/40' : 'border-rose-900/50'} rounded-xl px-3.5 py-2.5 flex items-center justify-between">
+                        <div>
+                            <span class="text-slate-400 block text-[10px] uppercase font-bold">Доля «Отлично» (A, A- / 90–100)</span>
+                            <span class="text-[10px] text-slate-500">Норма п. 8.2: ≤ 15% (допуск +5%)</span>
+                        </div>
+                        <span class="font-mono font-extrabold text-sm ${excOk ? 'text-emerald-400' : 'text-rose-400'}">${excPct.toFixed(1)}% (${counts[5]} чел.)</span>
+                    </div>
+                    <div class="bg-slate-950/90 border ${failOk ? 'border-emerald-900/40' : 'border-rose-900/50'} rounded-xl px-3.5 py-2.5 flex items-center justify-between">
+                        <div>
+                            <span class="text-slate-400 block text-[10px] uppercase font-bold">Доля «Неуд» (F, FX / &lt; 50)</span>
+                            <span class="text-[10px] text-slate-500">Норма п. 8.2: ≤ 15% (допуск +5%)</span>
+                        </div>
+                        <span class="font-mono font-extrabold text-sm ${failOk ? 'text-emerald-400' : 'text-rose-400'}">${failPct.toFixed(1)}% (${counts[0]} чел.)</span>
+                    </div>
+                    <div class="bg-slate-950/90 border ${sumOk ? 'border-indigo-900/40' : 'border-amber-900/50'} rounded-xl px-3.5 py-2.5 flex items-center justify-between">
+                        <div>
+                            <span class="text-slate-400 block text-[10px] uppercase font-bold">Суммарно края (A/A- + F/FX)</span>
+                            <span class="text-[10px] text-slate-500">Норма п. 8.2: ≤ 30% (допуск +5%)</span>
+                        </div>
+                        <span class="font-mono font-extrabold text-sm ${sumOk ? 'text-indigo-400' : 'text-amber-400'}">${sumExtremesPct.toFixed(1)}% (${counts[0] + counts[5]} чел.)</span>
+                    </div>
+                `;
+            }
+
             const actualProfilePoints = counts.map(val => val);
+
+            // Эталонная гауссовская кривая (п. 8.1 & 8.4) с центром в середине шкалы (70 баллов) и σ = 14.5,
+            // при которой края (<50 и >=90) соответствуют нормативу ~15% каждый (суммарно ~30%)
+            const idealMu = 70.0;
+            const idealSigma = 14.5;
+            function gaussianPDF(x, mu, sigma) {
+                return (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
+            }
+
+            const binCenters = [42, 54.5, 64.5, 74.5, 84.5, 95];
+            const binWidths = [15, 10, 10, 10, 10, 10];
+
+            const rawTheoretical = binCenters.map((center, idx) => {
+                return gaussianPDF(center, idealMu, idealSigma) * binWidths[idx] * n;
+            });
+
+            const peakTheoretical = Math.max(...rawTheoretical, 0.001);
+            const maxActual = Math.max(...counts, 1);
+            const scaleFactor = maxActual / peakTheoretical;
+
+            const idealGaussianPoints = rawTheoretical.map(val => parseFloat((val * scaleFactor).toFixed(2)));
+            const yAxisCeiling = Math.max(8, Math.ceil(Math.max(maxActual, ...idealGaussianPoints)) + 2);
 
             const ctx = canvas.getContext('2d');
             bellCurveChart = new Chart(ctx, {
@@ -768,9 +900,9 @@
                     datasets: [
                         {
                             type: 'bar',
-                            label: 'Фактически студентов',
+                            label: `Фактически студентов (${metricLabel})`,
                             data: counts,
-                            backgroundColor: 'rgba(99, 102, 241, 0.5)',
+                            backgroundColor: 'rgba(99, 102, 241, 0.45)',
                             borderColor: '#6366f1',
                             borderWidth: 1,
                             borderRadius: 8,
@@ -778,15 +910,27 @@
                         },
                         {
                             type: 'line',
-                            label: 'Сглаженный профиль (KDE)',
+                            label: 'Фактический профиль (Огибающая)',
                             data: actualProfilePoints,
                             borderColor: '#c084fc',
                             borderWidth: 3,
                             pointBackgroundColor: '#c084fc',
                             pointBorderColor: '#ffffff',
                             pointRadius: 4,
+                            fill: false,
+                            tension: 0.35
+                        },
+                        {
+                            type: 'line',
+                            label: 'Эталон Гаусса (п. 8.2: A/A- ≤ 15%, F/FX ≤ 15%)',
+                            data: idealGaussianPoints,
+                            borderColor: '#34d399',
+                            borderWidth: 2.5,
+                            borderDash: [6, 4],
+                            pointBackgroundColor: '#34d399',
+                            pointRadius: 3,
                             fill: true,
-                            backgroundColor: 'rgba(192, 132, 252, 0.12)',
+                            backgroundColor: 'rgba(52, 211, 153, 0.08)',
                             tension: 0.4
                         }
                     ]
@@ -807,6 +951,7 @@
                         },
                         y: {
                             beginAtZero: true,
+                            suggestedMax: yAxisCeiling,
                             grid: { color: '#1e293b' },
                             ticks: { color: '#94a3b8', precision: 0 },
                             title: { display: true, text: 'Количество студентов', color: '#64748b', font: { size: 10 } }
@@ -974,23 +1119,14 @@
             circle.style.strokeDashoffset = strokeOffset;
         }
 
-        function verifyTeacherPassword() {
-            const pwdInput = document.getElementById('auth-password');
-            if (pwdInput.value === correctPassword) {
-                isTeacherMode = true;
-                pwdInput.value = '';
-                closeAuthModal();
-                updateViewMode();
-                showToast('Instructor Workspace Unlocked.', 'success');
+        // Открытие панели преподавателя в один клик (без пароля и без скрытого ключика)
+        function toggleTeacherMode() {
+            isTeacherMode = !isTeacherMode;
+            updateViewMode();
+            if (isTeacherMode) {
+                showToast('Панель преподавателя открыта.', 'success');
             } else {
-                showToast('Invalid password access!', 'error');
-                pwdInput.select();
-            }
-        }
-
-        function handleAuthKeyDown(event) {
-            if (event.key === 'Enter') {
-                verifyTeacherPassword();
+                showToast('Переключено в режим студента.', 'info');
             }
         }
 
@@ -1005,40 +1141,15 @@
                 teacherView.classList.remove('hidden');
                 badge.innerHTML = `<span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span><span>Instructor Mode</span>`;
                 badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center space-x-1.5";
-                authBtnText.textContent = "Exit Instructor Panel";
+                authBtnText.textContent = "Закрыть панель преподавателя";
                 updateDashboardData();
             } else {
                 studentView.classList.remove('hidden');
                 teacherView.classList.add('hidden');
                 badge.innerHTML = `<span class="h-2 w-2 bg-indigo-400 rounded-full animate-pulse"></span><span>Student Mode</span>`;
                 badge.className = "px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center space-x-1.5";
-                authBtnText.textContent = "Instructor Portal";
+                authBtnText.textContent = "Панель преподавателя";
             }
-        }
-
-        function openAuthModal() {
-            if (isTeacherMode) {
-                isTeacherMode = false;
-                updateViewMode();
-                showToast('Session closed.', 'info');
-                return;
-            }
-            const modal = document.getElementById('auth-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.querySelector('div').classList.remove('scale-95');
-                document.getElementById('auth-password').focus();
-            }, 10);
-        }
-
-        function closeAuthModal() {
-            const modal = document.getElementById('auth-modal');
-            modal.classList.add('opacity-0');
-            modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 200);
         }
 
         function renderTeacherTable(filterQuery = '') {
@@ -1165,7 +1276,8 @@
         }
 
         function updateStats() {
-            const total = students.length;
+            const activeStudents = students.filter(s => !s.expelled && !s.name.toLowerCase().includes('отчислен'));
+            const total = activeStudents.length;
             document.getElementById('stat-total-students').textContent = total;
 
             if (total === 0) {
@@ -1181,7 +1293,7 @@
             let topStudent = null;
             let topScore = -1;
 
-            students.forEach(s => {
+            activeStudents.forEach(s => {
                 const mc1 = Number(s.mc1) || 0;
                 sumMc1 += mc1;
                 if (mc1 >= 50) passes++;
@@ -1291,7 +1403,7 @@
                 dateRow.innerHTML = `
                     <span class="font-bold text-slate-300 flex items-center gap-1.5">
                         <i class="fa-solid fa-calendar-week text-indigo-400 text-[11px]"></i>
-                        Week ${week}
+                        ${weekLabels[week - 1] || ('Week ' + week)}
                     </span>
                     <div class="flex items-center justify-between space-x-1">
                         <span class="px-1.5 py-0.5 rounded font-semibold text-[9px] flex items-center gap-0.5 ${h1 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-950 text-slate-600 border border-slate-800'}">
@@ -1337,7 +1449,7 @@
                 row.innerHTML = `
                     <span class="text-xs font-bold text-slate-300 flex items-center gap-2">
                         <span class="h-5 w-5 rounded bg-slate-950 flex items-center justify-center text-[10px] text-indigo-400 border border-indigo-900/30">W${week}</span>
-                        Week ${week}
+                        ${weekLabels[week - 1] || ('Week ' + week)}
                     </span>
                     <div class="flex items-center space-x-1.5">
                         <button type="button" onclick="toggleTempHour(${h1Idx})" id="temp-chk-${h1Idx}" class="px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1">
@@ -1587,7 +1699,7 @@
             saveDatabase();
             updateDashboardData();
             closeConfirmModal();
-            showToast('Gradebook reset to initial student list.', 'info');
+            showToast('Gradebook reset to Platonus register.', 'info');
         }
 
         function exportBackupJSON() {
