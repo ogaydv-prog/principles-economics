@@ -750,8 +750,7 @@
                 tableTip: "<strong>Посещаемость и оценки:</strong> Нажмите на процент в колонке «Att», чтобы открыть чек-лист на 15 недель (45 часов). Недели 1–3 (31 авг — 14 сен, 9 часов) отмечены без пропусков у всех 20 студентов; недели 4–13 (21 сен — 23 ноя, 30 часов), СР 1 (CA1), РК 1 (MC1) и СР 2 (CA2) заполнены по журналу Platonus.",
                 bulkTitle: "Массовый импорт студентов",
                 bulkDesc: "Каждая строка будет добавлена как ФИО нового студента (начальные оценки: 0).",
-                bulkPlaceholder: "Иванов Иван
-Петров Пётр",
+                bulkPlaceholder: "Иванов Иван\nПетров Пётр",
                 bulkBtn: "Импортировать список",
                 singleTitle: "Добавить студента",
                 singleNameLbl: "ФИО студента (RU)",
@@ -846,8 +845,7 @@
                 tableTip: "<strong>Attendance & Grades:</strong> Click any percentage in the 'Att' column to open the 15-week (45-hour) checklist. Weeks 1–3 (Aug 31 – Sep 14, 9 hrs) are marked 100% present for all 20 students; Weeks 4–13 (Sep 21 – Nov 23, 30 hrs), CA1, MC1, and CA2 match Platonus records.",
                 bulkTitle: "Bulk Import Students",
                 bulkDesc: "Each line will be imported as a student name. Initial grades default to 0.",
-                bulkPlaceholder: "John Doe
-Jane Smith",
+                bulkPlaceholder: "John Doe\nJane Smith",
                 bulkBtn: "Import List into System",
                 singleTitle: "Add Single Student",
                 singleNameLbl: "Student Full Name (RU)",
@@ -875,9 +873,9 @@ Jane Smith",
         // Все 20 студентов по ведомости Platonus (нумерация 1..20):
         // - Первые 9 часов (31 авг — 14 сен) отмечены как 100% посещение без пропусков;
         // - Недели 4–13 (21 сен — 23 ноя, 30 часов) заполнены по журналу Platonus;
-        // - CA1 = СР 1 (из 3-го скриншота Platonus);
-        // - MC1 = РК 1 (из 3-го скриншота Platonus);
-        // - CA2 = СР 2 (из 3-го скриншота Platonus);
+        // - CA1 = СР 1;
+        // - MC1 = РК 1;
+        // - CA2 = СР 2;
         // - activities = зафиксированные баллы активности.
         const initialGroupStudentsData = [
             { id: "st-ib-1",  name: "Абдихай Салтанат Жалғасқызы",           nameEn: "Abdikhai Saltanat Zhalgaskyzy",         activities: 15, ca1: 82.33, mc1: 82.33, ca2: 20, mc2: 0, exam: 0, absences: [12, 21] },
@@ -1346,7 +1344,7 @@ Jane Smith",
             
             const letterBadge = document.getElementById('sr-letter');
             letterBadge.textContent = gradeInfo.letter;
-            letterBadge.className = `text-2xl font-black px-3.5 py-1 rounded-xl text-white shadow-md bg-indigo-600`;
+            letterBadge.className = "text-2xl font-black px-3.5 py-1 rounded-xl text-white shadow-md bg-indigo-600";
 
             document.getElementById('sr-total-score').textContent = finalScore;
             document.getElementById('sr-val-attendance').textContent = `${matchedStudent.attendance || 0}%`;
@@ -2016,8 +2014,7 @@ Jane Smith",
                 return;
             }
 
-            const lines = text.split('
-');
+            const lines = text.split(/\r?\n/);
             let counter = 0;
 
             lines.forEach((line, idx) => {
@@ -2107,15 +2104,13 @@ Jane Smith",
                 return;
             }
 
-            let csvContent = "﻿";
-            csvContent += "No;Student Name (RU);Student Name (EN);Attendance (10%);Activities (10%);CA1 (10%);MC1 (10%);CA2 (10%);MC2 (10%);Exam (40%);Rating;Grade
-";
+            let csvContent = "\uFEFF";
+            csvContent += "No;Student Name (RU);Student Name (EN);Attendance (10%);Activities (10%);CA1 (10%);MC1 (10%);CA2 (10%);MC2 (10%);Exam (40%);Rating;Grade\n";
 
             students.forEach((s, idx) => {
                 const final = calculateWeightedScore(s.attendance, s.activities, s.ca1, s.mc1, s.ca2, s.mc2, s.exam);
                 const letter = getLetterGrade(final).letter;
-                csvContent += `${idx + 1};"${s.name.replace(/"/g, '""')}";"${(s.nameEn || '').replace(/"/g, '""')}";${s.attendance};${s.activities || 0};${s.ca1 || 0};${s.mc1 || 0};${s.ca2 || 0};${s.mc2 || 0};${s.exam || 0};${final};${letter}
-`;
+                csvContent += `${idx + 1};"${s.name.replace(/"/g, '""')}";"${(s.nameEn || '').replace(/"/g, '""')}";${s.attendance};${s.activities || 0};${s.ca1 || 0};${s.mc1 || 0};${s.ca2 || 0};${s.mc2 || 0};${s.exam || 0};${final};${letter}\n`;
             });
 
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
