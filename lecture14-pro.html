@@ -173,38 +173,38 @@
                         <h2 class="text-sm md:text-base font-black text-white uppercase" id="t1-title">Равновесие на рынке без международной торговли (Автаркия)</h2>
                         <p class="text-xs text-blue-200/80" id="t1-sub">Когда страна закрыта от мирового рынка, цена и объём определяются исключительно внутренним спросом и предложением.</p>
                     </div>
-                    <span id="aut-badge" class="px-3 py-1.5 rounded-lg text-xs font-mono font-black bg-[#001e50] text-white border border-[#c8102e]">P<sub>A</sub> = $50.0 | Q<sub>A</sub> = 66.7</span>
+                    <span id="aut-badge" class="px-3.5 py-1.5 rounded-lg text-sm font-mono font-black bg-[#001e50] text-white border border-[#c8102e]">P<sub>A</sub> = $50.0 | Q<sub>A</sub> = 66.7</span>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-grow">
                     <div class="lg:col-span-5 flex flex-col justify-between bg-[#04122e] p-4 rounded-xl border border-blue-900/70 space-y-3">
                         <div>
-                            <label class="text-xs text-slate-200 flex justify-between font-bold mb-2">
-                                <span id="t1-slider-lbl">Сдвиг внутреннего спроса (уровень равновесия):</span>
-                                <span id="disp-aut-shift" class="text-[#ff6b81] font-mono font-black">P<sub>A</sub> = $50.0</span>
+                            <label class="text-sm text-slate-200 flex justify-between items-center font-bold mb-2">
+                                <span id="t1-slider-lbl">Сдвиг внутреннего спроса:</span>
+                                <span id="disp-aut-shift" class="text-[#ff6b81] font-mono font-black text-lg">P<sub>A</sub> = $50.0</span>
                             </label>
                             <input type="range" id="slider-aut" min="-15" max="15" step="1" value="0" class="vintage-tuner tuner-red" oninput="updateAutarkyTab()" onchange="updateAutarkyTab()">
-                            <div class="flex justify-between text-[10px] text-blue-300/70 font-mono mt-1.5">
-                                <span>$37.5 (Низкий спрос)</span>
-                                <span>$50.0 (База)</span>
-                                <span>$62.5 (Высокий спрос)</span>
+                            <div class="flex justify-between text-xs text-blue-200/90 font-mono font-semibold mt-1.5">
+                                <span id="t1-min-lbl">$37.5 (Низкий спрос)</span>
+                                <span id="t1-mid-lbl">$50.0 (База)</span>
+                                <span id="t1-max-lbl">$62.5 (Высокий спрос)</span>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3 font-mono text-xs">
-                            <div class="bg-[#020a1c] p-3 rounded-lg border border-blue-800/70">
-                                <div class="text-[10px] text-blue-300 mb-1" id="t1-cs-lbl">Излишек потребителей (CS)</div>
-                                <div id="aut-cs" class="text-lg font-black text-blue-400">1333.3</div>
+                            <div class="bg-[#020a1c] p-3.5 rounded-lg border border-blue-800/70">
+                                <div class="text-xs text-blue-300 font-sans font-bold mb-1" id="t1-cs-lbl">Излишек потребителей (CS)</div>
+                                <div id="aut-cs" class="text-2xl font-black text-blue-400">1333.3</div>
                             </div>
-                            <div class="bg-[#020a1c] p-3 rounded-lg border border-rose-900/70">
-                                <div class="text-[10px] text-rose-300 mb-1" id="t1-ps-lbl">Излишек производителей (PS)</div>
-                                <div id="aut-ps" class="text-lg font-black text-[#ff6b81]">1333.3</div>
+                            <div class="bg-[#020a1c] p-3.5 rounded-lg border border-rose-900/70">
+                                <div class="text-xs text-rose-300 font-sans font-bold mb-1" id="t1-ps-lbl">Излишек производителей (PS)</div>
+                                <div id="aut-ps" class="text-2xl font-black text-[#ff6b81]">1333.3</div>
                             </div>
                         </div>
 
                         <div class="p-3.5 bg-[#020a1c] rounded-lg border border-blue-700/60 flex justify-between items-center">
-                            <span class="text-xs font-bold text-slate-200" id="t1-ts-lbl">Общий излишек (CS + PS):</span>
-                            <span id="aut-ts" class="text-xl font-mono font-black pretty-math-text">2666.7</span>
+                            <span class="text-sm font-bold text-slate-200" id="t1-ts-lbl">Общий излишек (CS + PS):</span>
+                            <span id="aut-ts" class="text-2xl font-mono font-black pretty-math-text">2666.7</span>
                         </div>
 
                         <p class="text-xs text-slate-300 leading-relaxed bg-[#020a1c]/80 p-3 rounded-lg border border-blue-950" id="t1-note">
@@ -227,36 +227,36 @@
                         <h2 class="text-sm md:text-base font-black text-white uppercase" id="t2-title">Международная торговля в стране-экспортёре (P<sub>W</sub> &gt; P<sub>A</sub>)</h2>
                         <p class="text-xs text-blue-200/80" id="t2-sub">Мировая цена выше внутренней равновесной ($50). Внутренняя цена поднимается до мировой, выпуск растёт, излишек уходит на экспорт.</p>
                     </div>
-                    <span id="exp-badge" class="px-3 py-1.5 rounded-lg text-xs font-mono font-black bg-[#001e50] text-white border border-[#c8102e]">Exports = 50.0 | +D = +375.0</span>
+                    <span id="exp-badge" class="px-3.5 py-1.5 rounded-lg text-sm font-mono font-black bg-[#001e50] text-white border border-[#c8102e]">Exports = 50.0 | +D = +375.0</span>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-grow">
                     <div class="lg:col-span-5 flex flex-col justify-between bg-[#04122e] p-4 rounded-xl border border-blue-900/70 space-y-3">
                         <div>
-                            <label class="text-xs text-slate-200 flex justify-between font-bold mb-2">
+                            <label class="text-sm text-slate-200 flex justify-between items-center font-bold mb-2">
                                 <span id="t2-slider-lbl">Мировая цена (линия P<sub>W</sub>):</span>
-                                <span id="disp-exp-pw" class="text-[#ff6b81] font-mono font-black">$65.0</span>
+                                <span id="disp-exp-pw" class="text-[#ff6b81] font-mono font-black text-xl">$65.0</span>
                             </label>
                             <input type="range" id="slider-exp" min="50" max="80" step="1" value="65" class="vintage-tuner tuner-red" oninput="updateExportTab()" onchange="updateExportTab()">
-                            <div class="flex justify-between text-[10px] text-blue-300/70 font-mono mt-1.5">
-                                <span>$50 (Равновесие P<sub>A</sub>)</span>
+                            <div class="flex justify-between text-xs text-blue-200/90 font-mono font-semibold mt-1.5">
+                                <span id="t2-min-lbl">$50 (Равновесие P<sub>A</sub>)</span>
                                 <span>$65</span>
-                                <span>$80 (Макс. экспорт)</span>
+                                <span id="t2-max-lbl">$80 (Макс. экспорт)</span>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-blue-900/70">
-                                <div class="text-[10px] text-blue-300" id="t2-qd-lbl">Спрос (Q<sub>d</sub>)</div>
-                                <div id="exp-qd" class="text-base font-black text-blue-400">41.7</div>
+                        <div class="grid grid-cols-3 gap-2.5 font-mono text-center">
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-blue-900/70">
+                                <div class="text-xs text-blue-300 font-sans font-bold mb-1" id="t2-qd-lbl">Спрос (Q<sub>d</sub>)</div>
+                                <div id="exp-qd" class="text-2xl font-black text-blue-400">41.7</div>
                             </div>
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-blue-900/70">
-                                <div class="text-[10px] text-slate-300" id="t2-qs-lbl">Выпуск (Q<sub>s</sub>)</div>
-                                <div id="exp-qs" class="text-base font-black text-white">91.7</div>
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-blue-900/70">
+                                <div class="text-xs text-slate-200 font-sans font-bold mb-1" id="t2-qs-lbl">Выпуск (Q<sub>s</sub>)</div>
+                                <div id="exp-qs" class="text-2xl font-black text-white">91.7</div>
                             </div>
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-[#c8102e]/70">
-                                <div class="text-[10px] text-rose-300" id="t2-ex-lbl">Экспорт</div>
-                                <div id="exp-vol" class="text-base font-black text-[#ff6b81]">50.0</div>
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-[#c8102e]/70">
+                                <div class="text-xs text-rose-300 font-sans font-bold mb-1" id="t2-ex-lbl">Экспорт</div>
+                                <div id="exp-vol" class="text-2xl font-black text-[#ff6b81]">50.0</div>
                             </div>
                         </div>
 
@@ -272,21 +272,21 @@
                             <tbody class="divide-y divide-blue-950 text-slate-200 bg-[#020a1c]">
                                 <tr>
                                     <td class="p-2 text-left text-blue-300 font-sans font-bold">Consumer Surplus</td>
-                                    <td>1333.3</td>
-                                    <td id="exp-cs">520.8</td>
-                                    <td id="exp-dcs" class="text-rose-400 font-bold">−812.5</td>
+                                    <td class="text-sm">1333.3</td>
+                                    <td id="exp-cs" class="text-sm font-bold">520.8</td>
+                                    <td id="exp-dcs" class="text-sm text-rose-400 font-black">−812.5</td>
                                 </tr>
                                 <tr>
                                     <td class="p-2 text-left text-slate-200 font-sans font-bold">Producer Surplus</td>
-                                    <td>1333.3</td>
-                                    <td id="exp-ps">2520.8</td>
-                                    <td id="exp-dps" class="text-emerald-400 font-bold">+1187.5</td>
+                                    <td class="text-sm">1333.3</td>
+                                    <td id="exp-ps" class="text-sm font-bold">2520.8</td>
+                                    <td id="exp-dps" class="text-sm text-emerald-400 font-black">+1187.5</td>
                                 </tr>
                                 <tr class="bg-[#001842] font-bold">
                                     <td class="p-2 text-left text-white font-sans">Total Surplus</td>
-                                    <td>2666.7</td>
-                                    <td id="exp-ts">3041.7</td>
-                                    <td id="exp-dts" class="text-emerald-400">+375.0</td>
+                                    <td class="text-sm">2666.7</td>
+                                    <td id="exp-ts" class="text-sm">3041.7</td>
+                                    <td id="exp-dts" class="text-sm text-emerald-400 font-black">+375.0</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -307,36 +307,36 @@
                         <h2 class="text-sm md:text-base font-black text-white uppercase" id="t3-title">Международная торговля в стране-импортёре (P<sub>W</sub> &lt; P<sub>A</sub>)</h2>
                         <p class="text-xs text-blue-200/80" id="t3-sub">Мировая цена ниже внутренней равновесной ($50). Внутренняя цена снижается до мировой, потребление растёт, разница покрывается импортом.</p>
                     </div>
-                    <span id="imp-badge" class="px-3 py-1.5 rounded-lg text-xs font-mono font-black bg-[#001e50] text-blue-200 border border-blue-500">Imports = 50.0 | +D = +375.0</span>
+                    <span id="imp-badge" class="px-3.5 py-1.5 rounded-lg text-sm font-mono font-black bg-[#001e50] text-blue-200 border border-blue-500">Imports = 50.0 | +D = +375.0</span>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-grow">
                     <div class="lg:col-span-5 flex flex-col justify-between bg-[#04122e] p-4 rounded-xl border border-blue-900/70 space-y-3">
                         <div>
-                            <label class="text-xs text-slate-200 flex justify-between font-bold mb-2">
+                            <label class="text-sm text-slate-200 flex justify-between items-center font-bold mb-2">
                                 <span id="t3-slider-lbl">Мировая цена (линия P<sub>W</sub>):</span>
-                                <span id="disp-imp-pw" class="text-blue-400 font-mono font-black">$35.0</span>
+                                <span id="disp-imp-pw" class="text-blue-400 font-mono font-black text-xl">$35.0</span>
                             </label>
                             <input type="range" id="slider-imp" min="20" max="50" step="1" value="35" class="vintage-tuner tuner-navy" oninput="updateImportTab()" onchange="updateImportTab()">
-                            <div class="flex justify-between text-[10px] text-blue-300/70 font-mono mt-1.5">
-                                <span>$20 (Макс. импорт)</span>
+                            <div class="flex justify-between text-xs text-blue-200/90 font-mono font-semibold mt-1.5">
+                                <span id="t3-min-lbl">$20 (Макс. импорт)</span>
                                 <span>$35</span>
-                                <span>$50 (Равновесие P<sub>A</sub>)</span>
+                                <span id="t3-max-lbl">$50 (Равновесие P<sub>A</sub>)</span>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-blue-900/70">
-                                <div class="text-[10px] text-slate-300" id="t3-qs-lbl">Выпуск (Q<sub>s</sub>)</div>
-                                <div id="imp-qs" class="text-base font-black text-white">41.7</div>
+                        <div class="grid grid-cols-3 gap-2.5 font-mono text-center">
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-blue-900/70">
+                                <div class="text-xs text-slate-200 font-sans font-bold mb-1" id="t3-qs-lbl">Выпуск (Q<sub>s</sub>)</div>
+                                <div id="imp-qs" class="text-2xl font-black text-white">41.7</div>
                             </div>
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-blue-900/70">
-                                <div class="text-[10px] text-blue-300" id="t3-qd-lbl">Спрос (Q<sub>d</sub>)</div>
-                                <div id="imp-qd" class="text-base font-black text-blue-400">91.7</div>
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-blue-900/70">
+                                <div class="text-xs text-blue-300 font-sans font-bold mb-1" id="t3-qd-lbl">Спрос (Q<sub>d</sub>)</div>
+                                <div id="imp-qd" class="text-2xl font-black text-blue-400">91.7</div>
                             </div>
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-blue-500/70">
-                                <div class="text-[10px] text-blue-300" id="t3-im-lbl">Импорт</div>
-                                <div id="imp-vol" class="text-base font-black text-blue-300">50.0</div>
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-blue-500/70">
+                                <div class="text-xs text-blue-300 font-sans font-bold mb-1" id="t3-im-lbl">Импорт</div>
+                                <div id="imp-vol" class="text-2xl font-black text-blue-300">50.0</div>
                             </div>
                         </div>
 
@@ -352,21 +352,21 @@
                             <tbody class="divide-y divide-blue-950 text-slate-200 bg-[#020a1c]">
                                 <tr>
                                     <td class="p-2 text-left text-blue-300 font-sans font-bold">Consumer Surplus</td>
-                                    <td>1333.3</td>
-                                    <td id="imp-cs">2520.8</td>
-                                    <td id="imp-dcs" class="text-emerald-400 font-bold">+1187.5</td>
+                                    <td class="text-sm">1333.3</td>
+                                    <td id="imp-cs" class="text-sm font-bold">2520.8</td>
+                                    <td id="imp-dcs" class="text-sm text-emerald-400 font-black">+1187.5</td>
                                 </tr>
                                 <tr>
                                     <td class="p-2 text-left text-slate-200 font-sans font-bold">Producer Surplus</td>
-                                    <td>1333.3</td>
-                                    <td id="imp-ps">520.8</td>
-                                    <td id="imp-dps" class="text-rose-400 font-bold">−812.5</td>
+                                    <td class="text-sm">1333.3</td>
+                                    <td id="imp-ps" class="text-sm font-bold">520.8</td>
+                                    <td id="imp-dps" class="text-sm text-rose-400 font-black">−812.5</td>
                                 </tr>
                                 <tr class="bg-[#001842] font-bold">
                                     <td class="p-2 text-left text-white font-sans">Total Surplus</td>
-                                    <td>2666.7</td>
-                                    <td id="imp-ts">3041.7</td>
-                                    <td id="imp-dts" class="text-blue-300">+375.0</td>
+                                    <td class="text-sm">2666.7</td>
+                                    <td id="imp-ts" class="text-sm">3041.7</td>
+                                    <td id="imp-dts" class="text-sm text-blue-300 font-black">+375.0</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -387,21 +387,21 @@
                         <h2 class="text-sm md:text-base font-black text-white uppercase" id="t4-title">Последствия введения импортного тарифа (P<sub>dom</sub> = P<sub>W</sub> + t)</h2>
                         <p class="text-xs text-blue-200/80" id="t4-sub">Базовая мировая цена P<sub>W</sub> = $35. Тариф поднимает внутреннюю цену (красная линия), сокращает импорт и создаёт чистые потери общества (D + F).</p>
                     </div>
-                    <span id="tar-badge" class="px-3 py-1.5 rounded-lg text-xs font-mono font-black bg-[#001e50] text-rose-200 border border-[#c8102e]">DWL = 166.7 | Rev = 166.7</span>
+                    <span id="tar-badge" class="px-3.5 py-1.5 rounded-lg text-sm font-mono font-black bg-[#001e50] text-rose-200 border border-[#c8102e]">DWL = 166.7 | Rev = 166.7</span>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch flex-grow">
                     <div class="lg:col-span-5 flex flex-col justify-between bg-[#04122e] p-4 rounded-xl border border-blue-900/70 space-y-3">
                         <div>
-                            <label class="text-xs text-slate-200 flex justify-between font-bold mb-2">
-                                <span id="t4-slider-lbl">Импортный тариф t (красная линия P<sub>W</sub> + t):</span>
-                                <span id="disp-tar-t" class="text-[#ff6b81] font-mono font-black">t = $10 (Цена $45)</span>
+                            <label class="text-sm text-slate-200 flex justify-between items-center font-bold mb-2">
+                                <span id="t4-slider-lbl">Импортный тариф t:</span>
+                                <span id="disp-tar-t" class="text-[#ff6b81] font-mono font-black text-lg">t = $10 (Цена $45)</span>
                             </label>
                             <input type="range" id="slider-tar" min="0" max="15" step="1" value="10" class="vintage-tuner tuner-red" oninput="updateTariffTab()" onchange="updateTariffTab()">
-                            <div class="flex justify-between text-[10px] text-blue-300/70 font-mono mt-1.5">
-                                <span>$0 (Свободный импорт)</span>
+                            <div class="flex justify-between text-xs text-blue-200/90 font-mono font-semibold mt-1.5">
+                                <span id="t4-min-lbl">$0 (Свободный импорт)</span>
                                 <span>$10</span>
-                                <span>$15 (Автаркия $50)</span>
+                                <span id="t4-max-lbl">$15 (Автаркия $50)</span>
                             </div>
                         </div>
 
@@ -417,39 +417,39 @@
                             <tbody class="divide-y divide-blue-950 text-slate-200 bg-[#020a1c]">
                                 <tr>
                                     <td class="p-2 text-left text-blue-300 font-sans font-bold">Consumer Surplus</td>
-                                    <td>2520.8</td>
-                                    <td id="tar-cs">1687.5</td>
-                                    <td id="tar-dcs" class="text-rose-400 font-bold">−833.3</td>
+                                    <td class="text-sm">2520.8</td>
+                                    <td id="tar-cs" class="text-sm font-bold">1687.5</td>
+                                    <td id="tar-dcs" class="text-sm text-rose-400 font-black">−833.3</td>
                                 </tr>
                                 <tr>
                                     <td class="p-2 text-left text-slate-200 font-sans font-bold">Producer Surplus</td>
-                                    <td>520.8</td>
-                                    <td id="tar-ps">1020.8</td>
-                                    <td id="tar-dps" class="text-emerald-400 font-bold">+500.0</td>
+                                    <td class="text-sm">520.8</td>
+                                    <td id="tar-ps" class="text-sm font-bold">1020.8</td>
+                                    <td id="tar-dps" class="text-sm text-emerald-400 font-black">+500.0</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-2 text-left text-indigo-300 font-sans font-bold">Доход бюджета (E)</td>
-                                    <td>0.0</td>
-                                    <td id="tar-rev">166.7</td>
-                                    <td id="tar-drev" class="text-indigo-300 font-bold">+166.7</td>
+                                    <td class="p-2 text-left text-indigo-300 font-sans font-bold" id="t4-rev-lbl">Доход бюджета (E)</td>
+                                    <td class="text-sm">0.0</td>
+                                    <td id="tar-rev" class="text-sm font-bold">166.7</td>
+                                    <td id="tar-drev" class="text-sm text-indigo-300 font-black">+166.7</td>
                                 </tr>
                                 <tr class="bg-[#001842] font-bold">
                                     <td class="p-2 text-left text-white font-sans">Total Surplus</td>
-                                    <td>3041.7</td>
-                                    <td id="tar-ts">2875.0</td>
-                                    <td id="tar-dwl" class="text-rose-400">−166.7 (DWL)</td>
+                                    <td class="text-sm">3041.7</td>
+                                    <td id="tar-ts" class="text-sm">2875.0</td>
+                                    <td id="tar-dwl" class="text-sm text-rose-400 font-black">−166.7 (DWL)</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <div class="grid grid-cols-2 gap-2.5 font-mono text-xs text-center">
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-blue-900/70">
-                                <div class="text-[10px] text-blue-300" id="t4-imp-lbl">Импорт с тарифом</div>
-                                <div id="tar-imp" class="text-sm font-black text-blue-300">16.7 (было 50.0)</div>
+                        <div class="grid grid-cols-2 gap-2.5 font-mono text-center">
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-blue-900/70">
+                                <div class="text-xs text-blue-300 font-sans font-bold mb-1" id="t4-imp-lbl">Импорт с тарифом</div>
+                                <div id="tar-imp" class="text-base font-black text-blue-300">16.7 (было 50.0)</div>
                             </div>
-                            <div class="bg-[#020a1c] p-2.5 rounded-lg border border-[#c8102e]/70">
-                                <div class="text-[10px] text-rose-300" id="t4-dwl-lbl">Потери общества (D + F)</div>
-                                <div id="tar-dwl-box" class="text-sm font-black text-[#ff6b81]">166.7</div>
+                            <div class="bg-[#020a1c] p-3 rounded-lg border border-[#c8102e]/70">
+                                <div class="text-xs text-rose-300 font-sans font-bold mb-1" id="t4-dwl-lbl">Потери общества (D + F)</div>
+                                <div id="tar-dwl-box" class="text-xl font-black text-[#ff6b81]">166.7</div>
                             </div>
                         </div>
                     </div>
@@ -566,11 +566,11 @@
 
                         <div class="p-3 bg-[#020a1c] rounded-lg border border-blue-800/70 space-y-1.5 font-mono text-xs">
                             <div class="flex justify-between">
-                                <span class="text-slate-400">Чистый отток капитала (NCO = S − I):</span>
+                                <span class="text-slate-400" id="lbl-nco">Чистый отток капитала (NCO = S − I):</span>
                                 <span id="res-nco" class="font-black text-blue-300">+$40 млрд</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-slate-400">Чистый экспорт (NX = Exports − Imports):</span>
+                                <span class="text-slate-400" id="lbl-nx">Чистый экспорт (NX = Exports − Imports):</span>
                                 <span id="res-nx" class="font-black text-white">+$40 млрд</span>
                             </div>
                             <div id="macro-status-text" class="text-xs font-sans text-blue-200 pt-1.5 border-t border-blue-950">
@@ -592,17 +592,17 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
                     <div class="trade-card border-blue-500/40 space-y-1">
-                        <div class="text-blue-300 font-black">1. Профицит торговли (NX &gt; 0)</div>
+                        <div class="text-blue-300 font-black" id="mc1-t">1. Профицит торговли (NX &gt; 0)</div>
                         <div class="font-mono text-[11px] text-white">Exports &gt; Imports | S &gt; I | NCO &gt; 0</div>
                         <p class="text-[11px] text-slate-300" id="mc1-d">Страна продаёт миру больше товаров, чем покупает. На полученную валюту резиденты покупают иностранные активы.</p>
                     </div>
                     <div class="trade-card border-slate-500/40 space-y-1">
-                        <div class="text-white font-black">2. Сбалансированная торговля (NX = 0)</div>
+                        <div class="text-white font-black" id="mc2-t">2. Сбалансированная торговля (NX = 0)</div>
                         <div class="font-mono text-[11px] text-blue-200">Exports = Imports | S = I | NCO = 0</div>
                         <p class="text-[11px] text-slate-300" id="mc2-d">Экспорт равен импорту. Внутренние сбережения точно покрывают внутренние инвестиции.</p>
                     </div>
                     <div class="trade-card border-[#c8102e]/60 space-y-1">
-                        <div class="text-[#ff6b81] font-black">3. Дефицит торговли (NX &lt; 0)</div>
+                        <div class="text-[#ff6b81] font-black" id="mc3-t">3. Дефицит торговли (NX &lt; 0)</div>
                         <div class="font-mono text-[11px] text-white">Exports &lt; Imports | S &lt; I | NCO &lt; 0</div>
                         <p class="text-[11px] text-slate-300" id="mc3-d">Импорт превышает экспорт (пример США). Разницу финансирует приток иностранного капитала.</p>
                     </div>
@@ -682,7 +682,7 @@
             <div class="glass-panel p-4 rounded-xl border-l-4 border-l-[#c8102e] flex-grow flex flex-col justify-between gap-4">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 border-b border-blue-900/70 pb-2.5">
                     <div>
-                        <span class="px-2 py-0.5 rounded bg-[#c8102e] text-white text-[10px] font-black uppercase">Кейс-анализ • 2025–2026</span>
+                        <span class="px-2 py-0.5 rounded bg-[#c8102e] text-white text-[10px] font-black uppercase" id="tc-badge">Кейс-анализ • 2025–2026</span>
                         <h2 class="text-sm md:text-base font-black text-white mt-1" id="tc-title">Тарифная политика Дональда Трампа (2025–2026): Микро- и Макроэффекты</h2>
                     </div>
                     <div class="bg-[#001e50] px-3 py-1.5 rounded-xl border border-[#c8102e] text-right font-mono">
@@ -1074,7 +1074,10 @@
             const ts = cs + ps + rev;
             const dwl = 3041.67 - ts;
 
-            document.getElementById('disp-tar-t').innerText = `t = $${t} (Цена $${pdom})`;
+            const priceLbl = currentLang === 'ru' ? 'Цена' : 'Price';
+            const wasLbl = currentLang === 'ru' ? 'было' : 'was';
+
+            document.getElementById('disp-tar-t').innerText = `t = $${t} (${priceLbl} $${pdom})`;
             document.getElementById('tar-badge').innerText = `DWL = ${dwl.toFixed(1)} | Rev = ${rev.toFixed(1)}`;
             document.getElementById('tar-cs').innerText = cs.toFixed(1);
             document.getElementById('tar-dcs').innerText = (cs - 2520.83).toFixed(1);
@@ -1084,7 +1087,7 @@
             document.getElementById('tar-drev').innerText = '+' + rev.toFixed(1);
             document.getElementById('tar-ts').innerText = ts.toFixed(1);
             document.getElementById('tar-dwl').innerText = `−${dwl.toFixed(1)} (DWL)`;
-            document.getElementById('tar-imp').innerText = `${imp.toFixed(1)} (было 50.0)`;
+            document.getElementById('tar-imp').innerText = `${imp.toFixed(1)} (${wasLbl} 50.0)`;
             document.getElementById('tar-dwl-box').innerText = dwl.toFixed(1);
 
             if (chart4) {
@@ -1109,10 +1112,11 @@
             const i = parseFloat(document.getElementById('slider-inv').value);
             const nco = s - i;
             const unit = currentLang === 'ru' ? 'млрд' : 'B';
+            const inflowLbl = currentLang === 'ru' ? 'Приток' : 'Inflow';
 
             const scale = (h - 60) / 550;
             const leftX = 35;
-            const rightX = w - 165;
+            const rightX = w - 175;
             const barW = 24;
 
             function drawRibbon(x1, y1Top, y1Bot, x2, y2Top, y2Bot, fillStyle) {
@@ -1177,7 +1181,7 @@
                 ctx.fillStyle = '#c8102e';
                 ctx.fillRect(leftX, inTop, barW, Math.max(6, inH));
                 ctx.fillStyle = '#fda4af';
-                ctx.fillText(`Приток = $${inflow}${unit}`, leftX, inTop + inH + 13);
+                ctx.fillText(`${inflowLbl} = $${inflow}${unit}`, leftX, inTop + inH + 13);
 
                 ctx.fillStyle = '#1d4ed8';
                 ctx.fillRect(rightX, iTop, barW, iH);
@@ -1269,36 +1273,118 @@
                 "nav-6": "6. Потоки NX = NCO",
                 "nav-7": "7. Валютные курсы (PPP)",
                 "nav-8": "8. Кейс: Тарифы Трампа",
+
+                // Tab 1
                 "t1-title": "Равновесие на рынке без международной торговли (Автаркия)",
                 "t1-sub": "Когда страна закрыта от мирового рынка, цена и объём определяются исключительно внутренним спросом и предложением.",
-                "t1-slider-lbl": "Сдвиг внутреннего спроса (уровень равновесия):",
-                "t1-cs-lbl": "Излишек потребителей (CS)", "t1-ps-lbl": "Излишек производителей (PS)", "t1-ts-lbl": "Общий излишек (CS + PS):",
+                "t1-slider-lbl": "Сдвиг внутреннего спроса:",
+                "t1-min-lbl": "$37.5 (Низкий спрос)",
+                "t1-mid-lbl": "$50.0 (База)",
+                "t1-max-lbl": "$62.5 (Высокий спрос)",
+                "t1-cs-lbl": "Излишек потребителей (CS)",
+                "t1-ps-lbl": "Излишек производителей (PS)",
+                "t1-ts-lbl": "Общий излишек (CS + PS):",
+                "t1-note": "Внутренняя равновесная цена <strong>P<sub>A</sub></strong> показывает альтернативные издержки производства товара внутри страны. Если мировая цена окажется выше P<sub>A</sub>, стране выгодно экспортировать; если ниже — импортировать.",
+
+                // Tab 2
                 "t2-title": "Международная торговля в стране-экспортёре (P<sub>W</sub> > P<sub>A</sub>)",
                 "t2-sub": "Мировая цена выше внутренней равновесной ($50). Внутренняя цена поднимается до мировой, выпуск растёт, излишек уходит на экспорт.",
                 "t2-slider-lbl": "Мировая цена (линия P<sub>W</sub>):",
-                "t2-qd-lbl": "Спрос (Q<sub>d</sub>)", "t2-qs-lbl": "Выпуск (Q<sub>s</sub>)", "t2-ex-lbl": "Экспорт",
+                "t2-min-lbl": "$50 (Равновесие P<sub>A</sub>)",
+                "t2-max-lbl": "$80 (Макс. экспорт)",
+                "t2-qd-lbl": "Спрос (Q<sub>d</sub>)",
+                "t2-qs-lbl": "Выпуск (Q<sub>s</sub>)",
+                "t2-ex-lbl": "Экспорт",
                 "t2-th1": "Показатель", "t2-th2": "Было", "t2-th3": "Стало", "t2-th4": "Итог",
+
+                // Tab 3
                 "t3-title": "Международная торговля в стране-импортёре (P<sub>W</sub> < P<sub>A</sub>)",
                 "t3-sub": "Мировая цена ниже внутренней равновесной ($50). Внутренняя цена снижается до мировой, потребление растёт, разница покрывается импортом.",
                 "t3-slider-lbl": "Мировая цена (линия P<sub>W</sub>):",
-                "t3-qs-lbl": "Выпуск (Q<sub>s</sub>)", "t3-qd-lbl": "Спрос (Q<sub>d</sub>)", "t3-im-lbl": "Импорт",
+                "t3-min-lbl": "$20 (Макс. импорт)",
+                "t3-max-lbl": "$50 (Равновесие P<sub>A</sub>)",
+                "t3-qs-lbl": "Выпуск (Q<sub>s</sub>)",
+                "t3-qd-lbl": "Спрос (Q<sub>d</sub>)",
+                "t3-im-lbl": "Импорт",
                 "t3-th1": "Показатель", "t3-th2": "Было", "t3-th3": "Стало", "t3-th4": "Итог",
+
+                // Tab 4
                 "t4-title": "Последствия введения импортного тарифа (P<sub>dom</sub> = P<sub>W</sub> + t)",
                 "t4-sub": "Базовая мировая цена P<sub>W</sub> = $35. Тариф поднимает внутреннюю цену (красная линия), сокращает импорт и создаёт чистые потери общества (D + F).",
-                "t4-slider-lbl": "Импортный тариф t (красная линия P<sub>W</sub> + t):",
+                "t4-slider-lbl": "Импортный тариф t:",
+                "t4-min-lbl": "$0 (Свободный импорт)",
+                "t4-max-lbl": "$15 (Автаркия $50)",
                 "t4-th1": "Категория", "t4-th2": "Без тарифа", "t4-th3": "С тарифом", "t4-th4": "Изменение",
-                "t4-imp-lbl": "Импорт с тарифом", "t4-dwl-lbl": "Потери общества (D + F)",
+                "t4-rev-lbl": "Доход бюджета (E)",
+                "t4-imp-lbl": "Импорт с тарифом",
+                "t4-dwl-lbl": "Потери общества (D + F)",
+
+                // Tab 5
                 "t5-q-title": "Тариф против импортной квоты",
+                "q1-t": "1. Импортный тариф (Налог на импорт)",
+                "q1-d": "Поднимает цену через налог. Выручку получает <strong>государство</strong> (бюджет). Создаёт потери эффективности в производстве и потреблении.",
+                "q2-t": "2. Импортная квота (Физический лимит ввоза)",
+                "q2-d": "Ограничивает физический объём ввоза. Прибыль (<strong>квотная рента</strong>) достаётся владельцам импортных лицензий, а не бюджету.",
+                "q3-t": "3. Аукцион импортных лицензий",
+                "q3-d": "Если государство продаёт лицензии на аукционе по максимальной цене, оно изымает квотную ренту — эффект становится идентичен тарифу.",
+                "wto-t": "🌐 ВТО и мониторинг мировой торговли (2026)",
+                "wto-d": "По данным мониторинга ВТО, накопленные торговые ограничения охватили <strong>21.3% мирового импорта</strong>. Несмотря на рост протекционизма, мировой товарный обмен сохранил устойчивость с темпом роста около <strong>+3.9% в 2026 г.</strong>",
                 "t5-args-title": "5 аргументов за ограничение торговли — и ответ экономистов",
+                "th-a1": "Аргумент", "th-a2": "Логика сторонников", "th-a3": "Экономический контраргумент",
+                "a1-n": "1. Рабочие места",
+                "a1-l": "Дешёвый импорт разоряет заводы и лишает людей работы.",
+                "a1-c": "Свободная торговля создаёт новые рабочие места в экспортных отраслях и снижает цены для всех семей.",
+                "a2-n": "2. Нацбезопасность",
+                "a2-l": "Сталь, чипы и энергия критичны в случае конфликта.",
+                "a2-c": "Оправдано в узких рамках, но лоббисты часто злоупотребляют этим аргументом ради защиты прибыли.",
+                "a3-n": "3. Молодая отрасль",
+                "a3-l": "Временные пошлины помогут стартапам окрепнуть.",
+                "a3-c": "Чиновники плохо угадывают «победителей», а «временная» защита почти всегда становится вечной.",
+                "a4-n": "4. Нечестная конкуренция",
+                "a4-l": "Иностранные государства субсидируют своих экспортёров.",
+                "a4-c": "Если чужой бюджет дотирует дешёвые товары для наших граждан, выигрыш наших потребителей всё равно выше потерь фирм.",
+                "a5-n": "5. Козырь в переговорах",
+                "a5-l": "Угроза тарифа заставит партнёра открыть свой рынок.",
+                "a5-c": "Опасная игра: если партнёр не уступит, страна либо наносит ущерб себе, либо теряет репутацию.",
+
+                // Tab 6
                 "t6-m-title": "Макроэкономика открытой экономики: Потоки товаров (NX) и капитала (NCO)",
                 "t6-m-sub": "Любая международная сделка имеет две стороны: движение товаров (NX) и встречное движение капитала (NCO).",
                 "sim-macro-t": "Баланс сбережений и инвестиций (млрд $)",
+                "lbl-sav": "Национальные сбережения (S):",
+                "lbl-inv": "Внутренние инвестиции (I):",
+                "lbl-nco": "Чистый отток капитала (NCO = S − I):",
+                "lbl-nx": "Чистый экспорт (NX = Exports − Imports):",
                 "sankey-title": "Потоковая диаграмма баланса: S → I + NCO (Sankey Flow)",
+                "mc1-t": "1. Профицит торговли (NX > 0)",
+                "mc1-d": "Страна продаёт миру больше товаров, чем покупает. На полученную валюту резиденты покупают иностранные активы.",
+                "mc2-t": "2. Сбалансированная торговля (NX = 0)",
+                "mc2-d": "Экспорт равен импорту. Внутренние сбережения точно покрывают внутренние инвестиции.",
+                "mc3-t": "3. Дефицит торговли (NX < 0)",
+                "mc3-d": "Импорт превышает экспорт (пример США). Разницу финансирует приток иностранного капитала.",
+
+                // Tab 7
                 "t7-fx-title": "Номинальный (e), Реальный курс (ε) и Паритет покупательной способности (PPP)",
                 "t7-fx-sub": "Как цена валюты и разница цен определяют ценовую конкурентоспособность товаров (KZT / USD)",
                 "fx-calc-t": "Калькулятор курса KZT/USD и реального обменного курса",
+                "lbl-fx-rate": "Рыночный курс (KZT за 1 USD):",
+                "lbl-p-kz": "Цена корзины в Казахстане (P<sub>KZT</sub>):",
+                "lbl-p-us": "Цена корзины в США (P<sub>USD</sub>):",
+                "lbl-equip": "Станок $10 000",
+                "lbl-ppp-rate": "Курс по PPP",
+                "lbl-real-er": "Реальный курс ε",
                 "fx-chart-t": "Сравнение рыночного курса и паритета покупательной способности (KZT/$)",
+
+                // Tab 8
+                "tc-badge": "Кейс-анализ • 2025–2026",
                 "tc-title": "Тарифная политика Дональда Трампа (2025–2026): Микро- и Макроэффекты",
+                "tc-avg-lbl": "Средняя эффективная пошлина США",
+                "tc1-t": "1. Суть кейса: Универсальные и зеркальные тарифы",
+                "tc1-d": "В 2025–2026 гг. США ввели базовый универсальный тариф <strong>10%</strong> на импорт, повышенные тарифы на сталь, алюминий и авто (<strong>25%</strong>), а также жёсткие пошлины против Китая (<strong>54%+</strong>) и партнёров с профицитом (ЕС, Мексика, Канада, Вьетнам). Цели: защита рабочих мест, реиндустриализация и давление на переговорах.",
+                "tc2-t": "2. Микроэффект: Кто реально платит за тариф?",
+                "tc2-d": "Тариф поднимает внутреннюю цену <strong>P<sub>dom</sub> = P<sub>W</sub> + t</strong>. Американские импортёры и потребители платят более высокую цену (сокращение Consumer Surplus), внутренние производители расширяют выпуск с более высокими издержками, а экономика несёт безвозвратные потери (Deadweight Loss).",
+                "tc3-t": "3. Макропарадокс: Почему тариф не убирает торговый дефицит?",
+                "tc3-d": "Согласно тождеству <strong>NX = S − I</strong>, торговый дефицит США вызван низкими национальными сбережениями относительно инвестиций. Повышение тарифов сокращает спрос на иностранную валюту и вызывает <strong>реальное укрепление доллара (ε ↑)</strong>, что бьёт по экспортёрам США — в итоге общий торговый баланс почти не улучшается.",
                 "tc-chart-t": "Сравнение ставок тарифов США по направлениям (2024 vs 2025–2026, %)",
                 "txt-footer": "AlmaU • Школа цифровых технологий и экономики | Международная торговля"
             },
@@ -1313,40 +1399,153 @@
                 "nav-6": "6. Flows NX = NCO",
                 "nav-7": "7. Exchange Rates (PPP)",
                 "nav-8": "8. Case: Trump Tariffs",
+
+                // Tab 1
                 "t1-title": "Market Equilibrium without International Trade (Autarky)",
                 "t1-sub": "When an economy is closed to world markets, price and quantity adjust to balance domestic supply and demand.",
-                "t1-slider-lbl": "Domestic Demand Shift (Equilibrium Level):",
-                "t1-cs-lbl": "Consumer Surplus (CS)", "t1-ps-lbl": "Producer Surplus (PS)", "t1-ts-lbl": "Total Surplus (CS + PS):",
+                "t1-slider-lbl": "Domestic Demand Shift:",
+                "t1-min-lbl": "$37.5 (Low Demand)",
+                "t1-mid-lbl": "$50.0 (Baseline)",
+                "t1-max-lbl": "$62.5 (High Demand)",
+                "t1-cs-lbl": "Consumer Surplus (CS)",
+                "t1-ps-lbl": "Producer Surplus (PS)",
+                "t1-ts-lbl": "Total Surplus (CS + PS):",
+                "t1-note": "The domestic equilibrium price <strong>P<sub>A</sub></strong> reflects the domestic opportunity cost of producing the good. If the world price exceeds P<sub>A</sub>, the country exports; if it is lower, the country imports.",
+
+                // Tab 2
                 "t2-title": "International Trade in an Exporting Country (P<sub>W</sub> > P<sub>A</sub>)",
                 "t2-sub": "World price exceeds domestic equilibrium ($50). Domestic price rises to the world price, output expands, and surplus is exported.",
                 "t2-slider-lbl": "World Price (Line P<sub>W</sub>):",
-                "t2-qd-lbl": "Demand (Q<sub>d</sub>)", "t2-qs-lbl": "Supply (Q<sub>s</sub>)", "t2-ex-lbl": "Exports",
+                "t2-min-lbl": "$50 (Equilibrium P<sub>A</sub>)",
+                "t2-max-lbl": "$80 (Max Exports)",
+                "t2-qd-lbl": "Demand (Q<sub>d</sub>)",
+                "t2-qs-lbl": "Supply (Q<sub>s</sub>)",
+                "t2-ex-lbl": "Exports",
                 "t2-th1": "Metric", "t2-th2": "Before", "t2-th3": "After", "t2-th4": "Change",
+
+                // Tab 3
                 "t3-title": "International Trade in an Importing Country (P<sub>W</sub> < P<sub>A</sub>)",
                 "t3-sub": "World price is below domestic equilibrium ($50). Domestic price falls to the world price, consumption expands, and imports fill the gap.",
                 "t3-slider-lbl": "World Price (Line P<sub>W</sub>):",
-                "t3-qs-lbl": "Supply (Q<sub>s</sub>)", "t3-qd-lbl": "Demand (Q<sub>d</sub>)", "t3-im-lbl": "Imports",
+                "t3-min-lbl": "$20 (Max Imports)",
+                "t3-max-lbl": "$50 (Equilibrium P<sub>A</sub>)",
+                "t3-qs-lbl": "Supply (Q<sub>s</sub>)",
+                "t3-qd-lbl": "Demand (Q<sub>d</sub>)",
+                "t3-im-lbl": "Imports",
                 "t3-th1": "Metric", "t3-th2": "Before", "t3-th3": "After", "t3-th4": "Change",
+
+                // Tab 4
                 "t4-title": "The Effects of an Import Tariff (P<sub>dom</sub> = P<sub>W</sub> + t)",
                 "t4-sub": "Baseline world price P<sub>W</sub> = $35. The tariff raises domestic price (red line), shrinks imports, and creates deadweight loss (D + F).",
-                "t4-slider-lbl": "Import Tariff t (Red Line P<sub>W</sub> + t):",
+                "t4-slider-lbl": "Import Tariff t:",
+                "t4-min-lbl": "$0 (Free Trade)",
+                "t4-max-lbl": "$15 (Autarky $50)",
                 "t4-th1": "Category", "t4-th2": "No Tariff", "t4-th3": "With Tariff", "t4-th4": "Change",
-                "t4-imp-lbl": "Imports w/ Tariff", "t4-dwl-lbl": "Deadweight Loss (D + F)",
+                "t4-rev-lbl": "Tariff Revenue (E)",
+                "t4-imp-lbl": "Imports w/ Tariff",
+                "t4-dwl-lbl": "Deadweight Loss (D + F)",
+
+                // Tab 5
                 "t5-q-title": "Tariff vs. Import Quota",
+                "q1-t": "1. Import Tariff (Tax on Imports)",
+                "q1-d": "Raises domestic price via a tax. Revenue goes to the <strong>government</strong> (budget). Creates deadweight loss in production and consumption.",
+                "q2-t": "2. Import Quota (Physical Limit on Imports)",
+                "q2-d": "Restricts physical import volume. Surplus (<strong>quota rent</strong>) goes to import license holders rather than the government budget.",
+                "q3-t": "3. Auctioning Import Licenses",
+                "q3-d": "If the government auctions licenses to the highest bidders, it captures the quota rent — making the outcome identical to a tariff.",
+                "wto-t": "🌐 WTO & Global Trade Monitoring (2026)",
+                "wto-d": "According to WTO trade monitoring, cumulative trade restrictions cover <strong>21.3% of world imports</strong>. Despite rising protectionism, global merchandise trade remains resilient at around <strong>+3.9% growth in 2026</strong>.",
                 "t5-args-title": "5 Arguments for Restricting Trade — and Economists' Rebuttals",
+                "th-a1": "Argument", "th-a2": "Proponents' Logic", "th-a3": "Economists' Rebuttal",
+                "a1-n": "1. Jobs Argument",
+                "a1-l": "Cheap imports destroy domestic factories and eliminate jobs.",
+                "a1-c": "Free trade creates jobs in export industries and lowers prices for all households.",
+                "a2-n": "2. National Security",
+                "a2-l": "Steel, chips, and energy are vital during conflicts.",
+                "a2-c": "Valid in narrow cases, but lobbyists frequently abuse it to protect industry profits.",
+                "a3-n": "3. Infant Industry",
+                "a3-l": "Temporary tariffs help startups grow competitive.",
+                "a3-c": "Officials rarely pick 'winners' well, and 'temporary' protection almost always becomes permanent.",
+                "a4-n": "4. Unfair Competition",
+                "a4-l": "Foreign governments subsidize their exporters.",
+                "a4-c": "If foreign taxpayers subsidize cheap goods for our consumers, consumer gains still exceed producer losses.",
+                "a5-n": "5. Bargaining Chip",
+                "a5-l": "Tariff threats force trading partners to open their markets.",
+                "a5-c": "Risky strategy: if the partner refuses to back down, the country either harms itself or loses credibility.",
+
+                // Tab 6
                 "t6-m-title": "Open-Economy Macroeconomics: Goods Flows (NX) & Capital Flows (NCO)",
                 "t6-m-sub": "Every international transaction has two sides: flows of goods (NX) and matching flows of capital (NCO).",
                 "sim-macro-t": "Saving and Investment Balance ($ Billions)",
+                "lbl-sav": "National Saving (S):",
+                "lbl-inv": "Domestic Investment (I):",
+                "lbl-nco": "Net Capital Outflow (NCO = S − I):",
+                "lbl-nx": "Net Exports (NX = Exports − Imports):",
                 "sankey-title": "Balance Flow Diagram: S → I + NCO (Sankey Flow)",
+                "mc1-t": "1. Trade Surplus (NX > 0)",
+                "mc1-d": "The country sells more goods abroad than it buys. Residents use foreign currency to purchase foreign assets.",
+                "mc2-t": "2. Balanced Trade (NX = 0)",
+                "mc2-d": "Exports equal imports. Domestic saving exactly finances domestic investment.",
+                "mc3-t": "3. Trade Deficit (NX < 0)",
+                "mc3-d": "Imports exceed exports (e.g., the US). The gap is financed by net foreign capital inflows.",
+
+                // Tab 7
                 "t7-fx-title": "Nominal (e), Real Exchange Rate (ε), and Purchasing Power Parity (PPP)",
                 "t7-fx-sub": "How currency prices and relative price levels determine goods competitiveness (KZT / USD)",
                 "fx-calc-t": "KZT/USD Exchange Rate & Real Rate Calculator",
+                "lbl-fx-rate": "Market Exchange Rate (KZT per 1 USD):",
+                "lbl-p-kz": "Basket Price in Kazakhstan (P<sub>KZT</sub>):",
+                "lbl-p-us": "Basket Price in the US (P<sub>USD</sub>):",
+                "lbl-equip": "Machine $10,000",
+                "lbl-ppp-rate": "PPP Rate",
+                "lbl-real-er": "Real Rate ε",
                 "fx-chart-t": "Market Exchange Rate vs. PPP Benchmark (KZT/$)",
+
+                // Tab 8
+                "tc-badge": "Case Study • 2025–2026",
                 "tc-title": "Donald Trump's Tariff Policy (2025–2026): Micro & Macro Effects",
+                "tc-avg-lbl": "Average US Effective Tariff Rate",
+                "tc1-t": "1. Case Overview: Universal & Reciprocal Tariffs",
+                "tc1-d": "In 2025–2026, the US introduced a <strong>10%</strong> universal baseline tariff, <strong>25%</strong> tariffs on steel, aluminum, and autos, and steep duties on China (<strong>54%+</strong>) and surplus partners (EU, Mexico, Canada, Vietnam). Goals: protecting jobs, reshoring manufacturing, and trade leverage.",
+                "tc2-t": "2. Micro Effect: Who Really Pays for the Tariff?",
+                "tc2-d": "A tariff raises domestic price <strong>P<sub>dom</sub> = P<sub>W</sub> + t</strong>. US importers and consumers pay higher prices (lower Consumer Surplus), domestic firms expand higher-cost output, and the economy suffers Deadweight Loss.",
+                "tc3-t": "3. Macro Paradox: Why Tariffs Don't Eliminate Trade Deficits",
+                "tc3-d": "By the identity <strong>NX = S − I</strong>, the US trade deficit reflects low national saving relative to investment. Higher tariffs reduce demand for foreign currency and cause <strong>real USD appreciation (ε ↑)</strong>, hurting US exporters — leaving the overall trade balance largely unchanged.",
                 "tc-chart-t": "US Tariff Rates Comparison by Sector/Partner (2024 vs. 2025–2026, %)",
                 "txt-footer": "AlmaU • School of Digital Technologies & Economics | International Trade"
             }
         };
+
+        function updateChartLabels(lang) {
+            const dLbl = lang === 'ru' ? 'Спрос (Demand)' : 'Demand';
+            const sLbl = lang === 'ru' ? 'Предложение (Supply)' : 'Supply';
+            const xTitle = lang === 'ru' ? 'Количество (Q)' : 'Quantity (Q)';
+            const yTitle = lang === 'ru' ? 'Цена (P, $)' : 'Price (P, $)';
+
+            [chart1, chart2, chart3, chart4].forEach(ch => {
+                if (!ch) return;
+                ch.data.datasets[0].label = dLbl;
+                ch.data.datasets[1].label = sLbl;
+                ch.options.scales.x.title.text = xTitle;
+                ch.options.scales.y.title.text = yTitle;
+            });
+
+            if (chart1) {
+                chart1.data.datasets[2].label = lang === 'ru' ? 'Равновесная цена (PA)' : 'Autarky Price (PA)';
+            }
+            if (chart2) {
+                chart2.data.datasets[2].label = lang === 'ru' ? 'Мировая цена (PW)' : 'World Price (PW)';
+                chart2.data.datasets[3].label = lang === 'ru' ? 'Цена до торговли ($50)' : 'Pre-Trade Price ($50)';
+            }
+            if (chart3) {
+                chart3.data.datasets[2].label = lang === 'ru' ? 'Цена до торговли ($50)' : 'Pre-Trade Price ($50)';
+                chart3.data.datasets[3].label = lang === 'ru' ? 'Мировая цена (PW)' : 'World Price (PW)';
+            }
+            if (chart4) {
+                chart4.data.datasets[2].label = lang === 'ru' ? 'Цена с тарифом (PW + t)' : 'Price w/ Tariff (PW + t)';
+                chart4.data.datasets[3].label = lang === 'ru' ? 'Мировая цена без тарифа ($35)' : 'World Price w/o Tariff ($35)';
+            }
+        }
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -1362,6 +1561,8 @@
             document.getElementById('btn-lang-en').className = lang === 'en'
                 ? "px-3.5 py-1.5 text-xs font-black rounded bg-[#c8102e] text-white transition"
                 : "px-3.5 py-1.5 text-xs font-black rounded text-blue-200 hover:text-white transition";
+
+            updateChartLabels(lang);
 
             if (fxChartObj) {
                 fxChartObj.data.labels = lang === 'ru' ? ['Рыночный курс (e)', 'Курс по паритету (PPP)'] : ['Market Rate (e)', 'PPP Rate'];
