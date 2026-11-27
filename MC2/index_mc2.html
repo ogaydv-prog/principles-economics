@@ -5,90 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlmaU • Principles of Economics • Midterm Control 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020617;
-            color: #f8fafc;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .card {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(51, 65, 85, 0.7);
-            border-radius: 1rem;
-            backdrop-filter: blur(12px);
-        }
+        .card { background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(51, 65, 85, 0.7); border-radius: 1rem; backdrop-filter: blur(12px); }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
 
-    <!-- Toast Notification -->
     <div id="toast-box" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300">
         <div id="toast-msg" class="px-5 py-3 rounded-xl font-bold text-xs md:text-sm shadow-2xl border bg-slate-900 border-cyan-500 text-cyan-300"></div>
     </div>
 
-    <!-- Sticky Header -->
     <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center font-black text-slate-950 text-sm shadow-lg">
-                    MC2
-                </div>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center font-black text-slate-950 text-sm shadow-lg">MC2</div>
                 <div>
-                    <div class="text-xs md:text-sm font-black tracking-tight text-white">
-                        AlmaU • Principles of Economics
-                    </div>
-                    <div id="hdr-sub" class="text-[11px] text-slate-400 font-mono">
-                        Рубежный контроль №2 • Макроэкономика (5 заданий × 20 = 100 баллов)
-                    </div>
+                    <div class="text-xs md:text-sm font-black tracking-tight text-white">AlmaU • Principles of Economics</div>
+                    <div id="hdr-sub" class="text-[11px] text-slate-400 font-mono">Рубежный контроль №2 • Макроэкономика (5 заданий × 20 = 100 баллов)</div>
                 </div>
             </div>
-
             <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Built-in Calculator Toggle -->
-                <button type="button" onclick="toggleCalcModal()"
-                        class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 text-xs font-bold flex items-center gap-1.5 transition-all">
-                    <span>🧮</span>
-                    <span id="btn-calc-lbl">Калькулятор</span>
+                <button type="button" onclick="toggleCalcModal()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 text-xs font-bold flex items-center gap-1.5 transition-all">
+                    <span>🧮</span><span id="btn-calc-lbl">Калькулятор</span>
                 </button>
-
-                <!-- Timer -->
                 <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 font-mono text-xs font-bold text-cyan-400">
                     ⏱ <span id="exam-timer">75:00</span>
                 </div>
-
-                <!-- Language Switcher -->
                 <div class="flex rounded-lg overflow-hidden border border-slate-700 text-xs font-bold">
                     <button type="button" id="lang-ru" onclick="setLanguageMC2('ru')" class="px-2.5 py-1.5 bg-cyan-500 text-slate-950">RU</button>
                     <button type="button" id="lang-en" onclick="setLanguageMC2('en')" class="px-2.5 py-1.5 bg-slate-900 text-slate-400 hover:text-white">EN</button>
                 </div>
-
-                <!-- Teacher Panel Trigger -->
-                <button type="button" onclick="toggleModal('teacher-modal', true)" title="Professor Panel"
-                        class="px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-white text-xs font-mono">
-                    🔐
-                </button>
+                <button type="button" onclick="toggleModal('teacher-modal', true)" title="Professor Panel" class="px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-white text-xs font-mono">🔐</button>
             </div>
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="max-w-7xl mx-auto w-full px-4 py-6 space-y-8 flex-1">
-
-        <!-- Student Selector & Password Gate -->
         <section class="card p-5 border-l-4 border-cyan-500 space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
                 <div class="md:col-span-6">
                     <label id="lbl-select-student" for="student-select" class="text-xs font-bold uppercase tracking-wider text-cyan-400 block mb-1.5">
                         1. Выберите ФИО студента (персональный вариант №1–21):
                     </label>
-                    <select id="student-select" onchange="onStudentSelectPreviewMC2(this.value)"
-                            class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 rounded-xl px-4 py-2.5 text-sm font-semibold text-white outline-none">
+                    <select id="student-select" onchange="onStudentSelectPreviewMC2(this.value)" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 rounded-xl px-4 py-2.5 text-sm font-semibold text-white outline-none">
                         <option value="-1">-- Выберите из списка / Select Student --</option>
                     </select>
                 </div>
@@ -104,27 +71,20 @@
                 </div>
             </div>
 
-            <!-- Password Lock Banner -->
             <div id="auth-lock-banner" class="bg-slate-950/90 border border-amber-500/40 rounded-xl p-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                 <div class="flex-1">
                     <label id="lbl-exam-pass" for="exam-pass-input" class="text-xs font-bold uppercase tracking-wider text-amber-400 block mb-1.5">
                         2. Введите код доступа (пароль), выданный преподавателем в аудитории:
                     </label>
-                    <input type="password" id="exam-pass-input" onkeydown="if(event.key==='Enter') checkExamPasswordMC2()"
-                           placeholder="••••••••••••••••"
-                           class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-4 py-2.5 text-sm font-mono font-bold text-white outline-none">
+                    <input type="password" id="exam-pass-input" onkeydown="if(event.key==='Enter') checkExamPasswordMC2()" placeholder="••••••••••••••••" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-4 py-2.5 text-sm font-mono font-bold text-white outline-none">
                 </div>
-                <button type="button" id="btn-unlock-exam" onclick="checkExamPasswordMC2()"
-                        class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg transition-all shrink-0">
+                <button type="button" id="btn-unlock-exam" onclick="checkExamPasswordMC2()" class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg transition-all shrink-0">
                     Начать экзамен
                 </button>
             </div>
         </section>
 
-        <!-- Exam Workspace (Hidden until authorized) -->
         <div id="exam-workspace" class="hidden space-y-10">
-
-            <!-- Navigation Pills -->
             <nav class="flex flex-wrap gap-2 sticky top-16 z-30 bg-slate-950/85 backdrop-blur py-2 border-b border-slate-900">
                 <a href="#sec-t1" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">1. <span id="nav1">Теория (20 б.)</span></a>
                 <a href="#sec-t2" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">2. <span id="nav2">ВВП / GDP (20 б.)</span></a>
@@ -133,65 +93,32 @@
                 <a href="#sec-t5" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">5. <span id="nav5">Безработица (20 б.)</span></a>
             </nav>
 
-            <!-- TASK 1: THEORY -->
-            <section id="sec-t1" class="scroll-mt-28">
-                <div id="task1-container"></div>
-            </section>
+            <section id="sec-t1" class="scroll-mt-28"><div id="task1-container"></div></section>
+            <section id="sec-t2" class="scroll-mt-28"><div id="task2-container"></div></section>
+            <section id="sec-t3" class="scroll-mt-28"><div id="task3-container"></div></section>
+            <section id="sec-t4" class="scroll-mt-28"><div id="task4-container"></div></section>
+            <section id="sec-t5" class="scroll-mt-28"><div id="task5-container"></div></section>
 
-            <!-- TASK 2: GDP -->
-            <section id="sec-t2" class="scroll-mt-28">
-                <div id="task2-container"></div>
-            </section>
-
-            <!-- TASK 3: KEYNESIAN CROSS -->
-            <section id="sec-t3" class="scroll-mt-28">
-                <div id="task3-container"></div>
-            </section>
-
-            <!-- TASK 4: QUANTITY THEORY OF MONEY (MV = PY) -->
-            <section id="sec-t4" class="scroll-mt-28">
-                <div id="task4-container"></div>
-            </section>
-
-            <!-- TASK 5: LABOR MARKET & UNEMPLOYMENT -->
-            <section id="sec-t5" class="scroll-mt-28">
-                <div id="task5-container"></div>
-            </section>
-
-            <!-- SUBMIT SECTION -->
             <section class="card p-6 border-t-2 border-emerald-500 space-y-5">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <h3 id="sub-title" class="text-lg font-black text-white">Завершение работы и отправка в журнал</h3>
-                        <p id="sub-desc" class="text-xs text-slate-400 mt-1">
-                            Проверьте ответы по всем 5 заданиям. После нажатия кнопки результаты автоматически сохранятся в ведомости преподавателя.
-                        </p>
+                        <p id="sub-desc" class="text-xs text-slate-400 mt-1">Проверьте ответы по всем 5 заданиям. После нажатия кнопки результаты автоматически сохранятся в ведомости преподавателя.</p>
                     </div>
-                    <button type="button" onclick="compileFinalTokenMC2()"
-                            class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-sm shadow-xl transition-all shrink-0">
+                    <button type="button" onclick="compileFinalTokenMC2()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-sm shadow-xl transition-all shrink-0">
                         <span id="btn-submit-lbl">Завершить и отправить в журнал</span>
                     </button>
                 </div>
 
-                <!-- Session Passport -->
                 <div id="passport-block" class="hidden bg-slate-950 border border-emerald-500/40 rounded-xl p-5 space-y-4">
                     <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-800 pb-3">
                         <span class="text-xs font-mono uppercase font-bold text-emerald-400">✓ Session Recorded • Паспорт сессии</span>
                         <span id="p-time" class="text-xs font-mono text-slate-400"></span>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                            <span class="text-slate-400 block">Студент / Student:</span>
-                            <strong id="p-student" class="text-white text-sm"></strong>
-                        </div>
-                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                            <span class="text-slate-400 block">Вариант / Variant:</span>
-                            <strong id="p-variant" class="text-cyan-400 text-sm"></strong>
-                        </div>
-                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                            <span class="text-slate-400 block">Предварительный балл / Score:</span>
-                            <strong id="p-score" class="text-emerald-400 text-sm"></strong>
-                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800"><span class="text-slate-400 block">Студент / Student:</span><strong id="p-student" class="text-white text-sm"></strong></div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800"><span class="text-slate-400 block">Вариант / Variant:</span><strong id="p-variant" class="text-cyan-400 text-sm"></strong></div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800"><span class="text-slate-400 block">Предварительный балл / Score:</span><strong id="p-score" class="text-emerald-400 text-sm"></strong></div>
                     </div>
                     <div>
                         <div class="flex justify-between items-center mb-1">
@@ -202,22 +129,16 @@
                     </div>
                 </div>
             </section>
-
         </div>
 
-        <!-- PROFESSOR GRADE PANEL -->
         <section id="prof-grade-panel" class="hidden card p-6 border-2 border-amber-500/50 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-black text-amber-400">🔐 Панель преподавателя • Расшифровка токена РК-2</h3>
                 <button type="button" onclick="document.getElementById('prof-grade-panel').classList.add('hidden')" class="text-xs text-slate-400 hover:text-white">✕ Закрыть</button>
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
-                <input type="text" id="prof-token-input" placeholder="Вставьте MC2PE2026-..."
-                       class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs font-mono text-white outline-none">
-                <button type="button" onclick="decryptAndScoreTokenMC2()"
-                        class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs">
-                    Расшифровать
-                </button>
+                <input type="text" id="prof-token-input" placeholder="Вставьте MC2PE2026-..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs font-mono text-white outline-none">
+                <button type="button" onclick="decryptAndScoreTokenMC2()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs">Расшифровать</button>
             </div>
             <div id="grade-panel-output" class="hidden space-y-3 pt-2">
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
@@ -228,7 +149,6 @@
                 <div id="dec-breakdown"></div>
             </div>
         </section>
-
     </main>
 
     <!-- BUILT-IN CALCULATOR MODAL -->
@@ -238,28 +158,23 @@
                 <span class="text-xs font-mono font-bold uppercase text-amber-400">🧮 Calculator</span>
                 <button type="button" onclick="toggleCalcModal()" class="text-slate-400 hover:text-white text-sm font-bold">✕</button>
             </div>
-            <input type="text" id="calc-display" readonly value="0"
-                   class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-3 text-right font-mono text-xl font-black text-white outline-none">
+            <input type="text" id="calc-display" readonly value="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-3 text-right font-mono text-xl font-black text-white outline-none">
             <div class="grid grid-cols-4 gap-2 font-mono text-sm font-bold">
                 <button type="button" onclick="calcClear()" class="col-span-2 py-2.5 rounded-lg bg-rose-500/20 text-rose-400 hover:bg-rose-500/30">C</button>
                 <button type="button" onclick="calcBack()" class="py-2.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700">⌫</button>
                 <button type="button" onclick="calcAppend('/')" class="py-2.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30">÷</button>
-
                 <button type="button" onclick="calcAppend('7')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">7</button>
                 <button type="button" onclick="calcAppend('8')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">8</button>
                 <button type="button" onclick="calcAppend('9')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">9</button>
                 <button type="button" onclick="calcAppend('*')" class="py-2.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30">×</button>
-
                 <button type="button" onclick="calcAppend('4')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">4</button>
                 <button type="button" onclick="calcAppend('5')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">5</button>
                 <button type="button" onclick="calcAppend('6')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">6</button>
                 <button type="button" onclick="calcAppend('-')" class="py-2.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30">−</button>
-
                 <button type="button" onclick="calcAppend('1')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">1</button>
                 <button type="button" onclick="calcAppend('2')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">2</button>
                 <button type="button" onclick="calcAppend('3')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">3</button>
                 <button type="button" onclick="calcAppend('+')" class="py-2.5 rounded-lg bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30">+</button>
-
                 <button type="button" onclick="calcAppend('0')" class="col-span-2 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">0</button>
                 <button type="button" onclick="calcAppend('.')" class="py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white">.</button>
                 <button type="button" onclick="calcEval()" class="py-2.5 rounded-lg bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400">=</button>
@@ -272,9 +187,7 @@
         <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm p-5 shadow-2xl space-y-4">
             <h4 class="text-sm font-black text-white">Режим преподавателя / Professor Access</h4>
             <p class="text-xs text-slate-400">Введите пароль доступа к РК-2 для открытия панели проверки:</p>
-            <input type="password" id="teacher-pass-input" onkeydown="if(event.key==='Enter') verifyTeacherKeyMC2()"
-                   placeholder="Пароль / Password"
-                   class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-white outline-none">
+            <input type="password" id="teacher-pass-input" onkeydown="if(event.key==='Enter') verifyTeacherKeyMC2()" placeholder="Пароль / Password" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-white outline-none">
             <div class="flex justify-end gap-2">
                 <button type="button" onclick="toggleModal('teacher-modal', false)" class="px-4 py-2 rounded-lg bg-slate-800 text-xs font-bold text-slate-300">Отмена</button>
                 <button type="button" onclick="verifyTeacherKeyMC2()" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-black">Открыть</button>
@@ -282,176 +195,24 @@
         </div>
     </div>
 
-    <!-- TASK MODULES & GRADING ENGINE -->
+    <!-- ALL 5 TASK MODULES & GRADING ENGINE -->
+    <script src="questions_mc2.js"></script>
     <script src="task2_mc2.js"></script>
     <script src="task3_mc2.js"></script>
     <script src="task4_mc2.js"></script>
     <script src="task5_mc2.js"></script>
     <script src="grading_ai_engine_mc2.js"></script>
 
-    <!-- CORE CONTROLLER & TASK 1 BANK -->
+    <!-- CORE UI CONTROLLER -->
     <script>
-        const STUDENTS_DATA = [
-            { "en": "Abdikhai Saltanat Zhalgaskyzy", "ru": "Абдихай Салтанат Жалғасқызы" },
-            { "en": "Abdrakhmanov Babur Khamza uly", "ru": "Абдрахманов Бабур Хамза улы" },
-            { "en": "Adilkhan Nadiya Berikkyzy", "ru": "Адильхан Надия Берікқызы" },
-            { "en": "Hebatallah Aldada", "ru": "Альдада Хебаталла" },
-            { "en": "Bakhytov Alimzhan Bakhytkaliuly", "ru": "Бахытов Алимжан Бахыткалиулы" },
-            { "en": "Belachew Nigus Damte", "ru": "Белачев Нигус Дамте" },
-            { "en": "Dzhumagul Amirlan Magauiyauly", "ru": "Джұмағұл Әмірлан Мағауияұлы" },
-            { "en": "Zhumazhan Osman Darmenuly", "ru": "Жұмажан Осман Дарменұлы" },
-            { "en": "Zamotina Darya Astemirovna", "ru": "Замотина Дарья Астемировна" },
-            { "en": "Kabdrakhmanova Azhar Niyazovna", "ru": "Кабдрахманова Ажар Ниязовна" },
-            { "en": "Kim Esfir Sevastyanovna", "ru": "Ким Есфирь Севастьяновна" },
-            { "en": "Kozhakhmetova Malika Azamatovna", "ru": "Кожахметова Малика Азаматовна" },
-            { "en": "Koshkinbay Aiaru Armankyzy", "ru": "Көшкінбай Айару Арманқызы" },
-            { "en": "Serikkaliyeva Yenlik Dumankyzy", "ru": "Сериккалиева Еңлік Думанқызы" },
-            { "en": "Stepanchenko Saveliy Dmitriyevich", "ru": "Степанченко Савелий Дмитриевич" },
-            { "en": "Suleimenova Aidana Nurlanovna", "ru": "Сулейменова Айдана Нурлановна" },
-            { "en": "Tolstova Evelina Yevgenyevna", "ru": "Толстова Эвелина Евгеньевна" },
-            { "en": "Khirana Kasita Putri", "ru": "Хирана Касита Путри" },
-            { "en": "Khussainova Adiya Galimovna", "ru": "Хусаинова Адия Галимовна" },
-            { "en": "Shabanov Anvarbek", "ru": "Шабанов Анварбек" },
-            { "en": "Yugay Kseniya Albertovna", "ru": "Югай Ксения Альбертовна" }
-        ];
-        const STUDENTS_LIST = STUDENTS_DATA.map(s => s.ru);
-
         let currentStudentIdx = -1;
         let currentLang = 'ru';
         let timerSeconds = 75 * 60;
         let timerInterval = null;
 
         function getStudentDisplayName(idx, lang = currentLang) {
-            if (idx < 0 || idx >= STUDENTS_DATA.length) return '';
-            return lang === 'en' ? STUDENTS_DATA[idx].en : STUDENTS_DATA[idx].ru;
-        }
-
-        const TASK1_BANK = [
-            {
-                id: 'q1',
-                ans: 'b',
-                ru: 'Что из перечисленного НЕ включается в расчёт ВВП страны методом конечного использования (по расходам)?',
-                en: 'Which of the following is NOT included in GDP calculated by the expenditure approach?',
-                opts: {
-                    a: { ru: 'Покупка нового жилого дома семьёй', en: 'Purchase of a newly built house by a household' },
-                    b: { ru: 'Покупка государственных облигаций коммерческим банком на вторичном рынке', en: 'Purchase of government bonds by a commercial bank on the secondary market' },
-                    c: { ru: 'Государственные закупки медицинского оборудования для больниц', en: 'Government purchases of medical equipment for public hospitals' },
-                    d: { ru: 'Прирост товарных запасов на складах производителей', en: 'Increase in business inventories held by producers' }
-                }
-            },
-            {
-                id: 'q2',
-                ans: 'c',
-                ru: 'В закрытой экономике без государства предельная склонность к потреблению MPC = 0.8. На сколько изменится равновесный выпуск Y*, если автономные инвестиции вырастут на 50 млрд?',
-                en: 'In a closed economy without government, MPC = 0.8. By how much will equilibrium output Y* change if autonomous investment increases by 50 billion?',
-                opts: {
-                    a: { ru: 'Вырастет на 50 млрд', en: 'Increases by 50 billion' },
-                    b: { ru: 'Вырастет на 200 млрд', en: 'Increases by 200 billion' },
-                    c: { ru: 'Вырастет на 250 млрд', en: 'Increases by 250 billion' },
-                    d: { ru: 'Снизится на 250 млрд', en: 'Decreases by 250 billion' }
-                }
-            },
-            {
-                id: 'q3',
-                ans: 'a',
-                ru: 'Согласно количественной теории денег (MV = PY), если скорость обращения денег V постоянна, а реальный ВВП Y вырос на 4% при увеличении денежной массы M на 10%, то уровень цен P:',
-                en: 'According to the Quantity Theory of Money (MV = PY), if velocity V is constant and real GDP Y grows by 4% while money supply M increases by 10%, the price level P will:',
-                opts: {
-                    a: { ru: 'Вырастет примерно на 6%', en: 'Increase by approximately 6%' },
-                    b: { ru: 'Вырастет на 14%', en: 'Increase by 14%' },
-                    c: { ru: 'Снизится на 6%', en: 'Decrease by 6%' },
-                    d: { ru: 'Останется неизменным', en: 'Remain unchanged' }
-                }
-            },
-            {
-                id: 'q4',
-                ans: 'd',
-                ru: 'Инженер-программист уволился по собственному желанию в Алматы и в течение последних двух недель активно проходит собеседования в IT-компаниях. К какому типу безработицы относится его статус?',
-                en: 'A software engineer voluntarily quit his job in Almaty and has been actively interviewing with IT firms for the past two weeks. Which type of unemployment describes his status?',
-                opts: {
-                    a: { ru: 'Циклическая безработица', en: 'Cyclical unemployment' },
-                    b: { ru: 'Структурная безработица', en: 'Structural unemployment' },
-                    c: { ru: 'Он относится к категории вне рабочей силы (NILF)', en: 'He is classified as Not in the Labor Force (NILF)' },
-                    d: { ru: 'Фрикционная безработица', en: 'Frictional unemployment' }
-                }
-            },
-            {
-                id: 'q5',
-                ans: 'b',
-                ru: 'Как официальная статистика рынка труда (методология МОТ / BLS) классифицирует «отчаявшихся работников» (discouraged workers), которые хотят работать, но прекратили поиск работы в течение последних 4 недель?',
-                en: 'How does official labor statistics (ILO / BLS methodology) classify discouraged workers who want a job but stopped searching over the past 4 weeks?',
-                opts: {
-                    a: { ru: 'Как безработных (U)', en: 'As Unemployed (U)' },
-                    b: { ru: 'Как экономически неактивное население — вне рабочей силы (NILF)', en: 'As Not in the Labor Force (NILF)' },
-                    c: { ru: 'Как неполностью занятых (E)', en: 'As Underemployed (E)' },
-                    d: { ru: 'Как находящихся вне обследуемой совокупности (OUT)', en: 'As Outside the survey universe (OUT)' }
-                }
-            },
-            {
-                id: 'q6',
-                ans: 'c',
-                ru: 'Что происходит на графике Кейнсианского креста (AE = Y), если при текущем объёме выпуска Y фактические совокупные расходы AE меньше выпуска (AE < Y)?',
-                en: 'In the Keynesian Cross diagram (AE = Y), what happens when at current output Y actual aggregate expenditure AE is less than output (AE < Y)?',
-                opts: {
-                    a: { ru: 'Товарные запасы фирм неожиданно сокращаются, и фирмы расширяют производство', en: 'Unplanned inventories fall and firms expand production' },
-                    b: { ru: 'Экономика находится в точке макроэкономического равновесия', en: 'The economy is in macroeconomic equilibrium' },
-                    c: { ru: 'Происходит незапланированное накопление запасов, и фирмы сокращают выпуск Y', en: 'Unplanned inventory accumulation occurs and firms cut output Y' },
-                    d: { ru: 'Предельная склонность к сбережению становится отрицательной', en: 'Marginal propensity to save becomes negative' }
-                }
-            }
-        ];
-
-        const t1SavedAnswers = {};
-
-        function renderTask1MC2(studentIdx, lang) {
-            const container = document.getElementById('task1-container');
-            if (!container) return;
-            const isEn = lang === 'en';
-
-            const shift = studentIdx % TASK1_BANK.length;
-            const orderedQuestions = TASK1_BANK.slice(shift).concat(TASK1_BANK.slice(0, shift));
-
-            const qHTML = orderedQuestions.map((q, idx) => {
-                const saved = t1SavedAnswers[q.id] || '';
-                const optsHTML = ['a', 'b', 'c', 'd'].map(key => {
-                    const checked = saved === key ? 'checked' : '';
-                    return `
-                        <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-cyan-500/50 cursor-pointer transition">
-                            <input type="radio" name="${q.id}" value="${key}" data-ans="${q.ans}" ${checked}
-                                   onchange="t1SavedAnswers['${q.id}'] = this.value"
-                                   class="mt-0.5 accent-cyan-400">
-                            <span class="text-xs md:text-sm text-slate-200">${isEn ? q.opts[key].en : q.opts[key].ru}</span>
-                        </label>
-                    `;
-                }).join('');
-
-                return `
-                    <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 space-y-3">
-                        <div class="text-xs md:text-sm font-bold text-white leading-relaxed">
-                            <span class="text-cyan-400 font-mono mr-1.5">${idx + 1}.</span> ${isEn ? q.en : q.ru}
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            ${optsHTML}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            container.innerHTML = `
-                <div class="card p-6 border-t-2 border-cyan-500 space-y-5">
-                    <div class="flex flex-wrap justify-between items-center gap-2">
-                        <span class="text-xs bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-md border border-cyan-500/20 uppercase font-black tracking-widest">
-                            ${isEn ? 'Task 1 • Macroeconomic Theory (20 pts)' : 'Задание 1 • Теоретический блок (20 баллов)'}
-                        </span>
-                        <span class="text-xs font-mono text-slate-400">
-                            ${isEn ? '6 questions × 3.33 pts = 20 pts' : '6 вопросов × 3.33 балла = 20 баллов'}
-                        </span>
-                    </div>
-                    <div class="space-y-4">
-                        ${qHTML}
-                    </div>
-                </div>
-            `;
+            if (idx < 0 || idx >= STUDENTS_LIST.length) return '';
+            return lang === 'en' ? STUDENTS_LIST[idx].en : STUDENTS_LIST[idx].ru;
         }
 
         function populateStudentDropdown() {
@@ -459,15 +220,13 @@
             if (!sel) return;
             const prevVal = sel.value;
             sel.innerHTML = `<option value="-1">${currentLang === 'en' ? '-- Select Student Full Name --' : '-- Выберите ФИО из списка --'}</option>`;
-            STUDENTS_DATA.forEach((st, idx) => {
+            STUDENTS_LIST.forEach((st, idx) => {
                 const opt = document.createElement('option');
                 opt.value = idx;
                 opt.textContent = `${idx + 1}. ${currentLang === 'en' ? st.en : st.ru}`;
                 sel.appendChild(opt);
             });
-            if (prevVal !== undefined && prevVal !== "-1") {
-                sel.value = prevVal;
-            }
+            if (prevVal !== undefined && prevVal !== "-1") sel.value = prevVal;
         }
 
         function onStudentSelectPreviewMC2(val) {
@@ -483,7 +242,7 @@
 
         function renderAllTasksMC2() {
             if (currentStudentIdx < 0) return;
-            renderTask1MC2(currentStudentIdx, currentLang);
+            if (typeof renderTask1MC2 === 'function') renderTask1MC2(currentStudentIdx, currentLang);
             if (typeof renderTask2MC2 === 'function') renderTask2MC2(currentStudentIdx, currentLang);
             if (typeof renderTask3MC2 === 'function') renderTask3MC2(currentStudentIdx, currentLang);
             if (typeof renderTask4MC2 === 'function') renderTask4MC2(currentStudentIdx, currentLang);
@@ -518,31 +277,23 @@
             document.getElementById('nav4').innerText = isEn ? 'Equation MV=PY (20 pts)' : 'Уравнение MV=PY (20 б.)';
             document.getElementById('nav5').innerText = isEn ? 'Unemployment (20 pts)' : 'Безработица (20 б.)';
 
-            document.getElementById('sub-title').innerText = isEn
-                ? 'Finish Exam & Submit to Gradebook'
-                : 'Завершение работы и отправка в журнал';
+            document.getElementById('sub-title').innerText = isEn ? 'Finish Exam & Submit to Gradebook' : 'Завершение работы и отправка в журнал';
             document.getElementById('sub-desc').innerText = isEn
                 ? 'Review your answers across all 5 tasks. Clicking submit records your results directly in the Professor Gradebook.'
                 : 'Проверьте ответы по всем 5 заданиям. После нажатия кнопки результаты автоматически сохранятся в ведомости преподавателя.';
-            document.getElementById('btn-submit-lbl').innerText = isEn
-                ? 'Submit Exam to Gradebook'
-                : 'Завершить и отправить в журнал';
+            document.getElementById('btn-submit-lbl').innerText = isEn ? 'Submit Exam to Gradebook' : 'Завершить и отправить в журнал';
 
             populateStudentDropdown();
             if (currentStudentIdx >= 0) {
                 document.getElementById('active-variant-badge').innerText = `#${currentStudentIdx + 1} (${getStudentDisplayName(currentStudentIdx, currentLang)})`;
             }
-
             renderAllTasksMC2();
         }
 
         function startTimerMC2() {
             if (timerInterval) return;
             timerInterval = setInterval(() => {
-                if (timerSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    return;
-                }
+                if (timerSeconds <= 0) { clearInterval(timerInterval); return; }
                 timerSeconds--;
                 const m = Math.floor(timerSeconds / 60);
                 const s = timerSeconds % 60;
@@ -571,38 +322,21 @@
 
         function copyTokenMC2() {
             const token = document.getElementById('p-token').innerText;
-            navigator.clipboard.writeText(token).then(() => {
-                notify(currentLang === 'en' ? "Token copied!" : "Токен скопирован!");
-            });
+            navigator.clipboard.writeText(token).then(() => notify(currentLang === 'en' ? "Token copied!" : "Токен скопирован!"));
         }
 
         let calcExpr = "";
-        function toggleCalcModal() {
-            const el = document.getElementById('calc-modal');
-            el.classList.toggle('hidden');
-        }
-        function calcAppend(ch) {
-            calcExpr += ch;
-            document.getElementById('calc-display').value = calcExpr;
-        }
-        function calcClear() {
-            calcExpr = "";
-            document.getElementById('calc-display').value = "0";
-        }
-        function calcBack() {
-            calcExpr = calcExpr.slice(0, -1);
-            document.getElementById('calc-display').value = calcExpr || "0";
-        }
+        function toggleCalcModal() { document.getElementById('calc-modal').classList.toggle('hidden'); }
+        function calcAppend(ch) { calcExpr += ch; document.getElementById('calc-display').value = calcExpr; }
+        function calcClear() { calcExpr = ""; document.getElementById('calc-display').value = "0"; }
+        function calcBack() { calcExpr = calcExpr.slice(0, -1); document.getElementById('calc-display').value = calcExpr || "0"; }
         function calcEval() {
             try {
                 if (!/^[0-9+\-*/.()\s]+$/.test(calcExpr)) return;
                 const val = Function('"use strict";return (' + calcExpr + ')')();
                 calcExpr = String(Number(val.toFixed(6)));
                 document.getElementById('calc-display').value = calcExpr;
-            } catch (e) {
-                document.getElementById('calc-display').value = "Error";
-                calcExpr = "";
-            }
+            } catch (e) { document.getElementById('calc-display').value = "Error"; calcExpr = ""; }
         }
 
         window.addEventListener('DOMContentLoaded', populateStudentDropdown);
