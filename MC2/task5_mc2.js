@@ -2,7 +2,7 @@
    MIDTERM CONTROL 2 • TASK 5: LABOR MARKET, POPULATION CLASSIFICATION & UNEMPLOYMENT RATE
    AlmaU SDTE 2026 • Principles of Economics
    21 Students • Personalized Population Groups + Interactive Stacked Bar & Unemployment Input
-   Bilingual (EN/RU) • No Hints
+   Bilingual (EN/RU) • Auto-Grader
    ========================================== */
 
 const mc2Task5State = {};
@@ -229,7 +229,7 @@ function renderTask5MC2(studentIdx, lang) {
             <div class="card p-6 border-t-2 border-cyan-500 space-y-4">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <span class="text-xs bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-md border border-cyan-500/20 uppercase font-black tracking-widest">
-                        ${isEn ? 'Task 5 • Labor Market & Unemployment' : 'Задание 5 • Рынок труда и безработица'}
+                        ${isEn ? 'Task 5 • Labor Market & Unemployment (20 pts)' : 'Задание 5 • Рынок труда и безработица (20 баллов)'}
                     </span>
                     <span class="text-xs font-mono text-slate-400">
                         ${isEn ? 'Total Population:' : 'Общая численность населения:'} <strong class="text-white">${d.trueTotalPop.toFixed(1)} ${unit}</strong>
@@ -260,7 +260,7 @@ function renderTask5MC2(studentIdx, lang) {
                 <!-- Right Column: Stacked Population Bar & Unemployment Rate Answer Box (5 cols) -->
                 <div class="xl:col-span-5 space-y-4 sticky top-24">
                     
-                    <!-- White Stacked Bar Panel (styled after Labor Simulator Tab 2) -->
+                    <!-- White Stacked Bar Panel -->
                     <div class="bg-white rounded-2xl p-5 border border-slate-300 shadow-2xl text-slate-900 space-y-4">
                         <div class="flex justify-between items-center border-b border-slate-200 pb-2">
                             <span class="text-[11px] font-mono font-bold uppercase text-slate-600">
@@ -424,4 +424,36 @@ function updateTask5BarMC2(studentIdx) {
     document.getElementById('t5-sum-e').innerText = sumE.toFixed(1);
     document.getElementById('t5-sum-u').innerText = sumU.toFixed(1);
     document.getElementById('t5-sum-l').innerText = sumL.toFixed(1);
+}
+
+// ==========================================
+// ФУНКЦИЯ АВТОМАТИЧЕСКОЙ ОЦЕНКИ ЗАДАНИЯ 5 ДЛЯ ДВИЖКА
+// ==========================================
+function gradeTask5MC2(studentIdx) {
+    const d = getStudentLaborDataMC2(studentIdx);
+    const st = mc2Task5State[studentIdx] || { selections: {}, ansURate: '' };
+    let correctGroups = 0;
+
+    d.groups.forEach(g => {
+        if (st.selections[g.id] === g.correctCat) {
+            correctGroups++;
+        }
+    });
+
+    const uVal = parseFloat(String(st.ansURate || '').replace(',', '.'));
+    const uRateOk = !isNaN(uVal) && Math.abs(uVal - d.trueURate) <= 0.1;
+
+    const groupScore = correctGroups * 1.5;
+    const rateScore = uRateOk ? 6.5 : 0;
+    const score = Number((groupScore + rateScore).toFixed(2));
+
+    return {
+        score,
+        correctGroups,
+        totalGroups: d.groups.length,
+        uRateOk,
+        studentURate: st.ansURate,
+        expectedURate: d.trueURate,
+        selections: { ...st.selections }
+    };
 }
