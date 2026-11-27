@@ -1,30 +1,101 @@
 /* ==========================================
    grading_ai_engine_mc2.js
-   Midterm Control 2 • Grading, Token Compiler, Teacher Audit & Google Sheets Sync
+   Midterm Control 2 • Server-Side Password Auth, Grading, Token Compiler & Google Sheets Sync
    AlmaU SDTE 2026 • Principles of Economics (5 Tasks × 20 pts = 100 pts)
    ========================================== */
 
 const GOOGLE_SHEET_WEBAPP_URL_MC2 = "https://script.google.com/macros/s/AKfycbwvKlJmY60YN4pUh6HiBHNFxOvWllcQsCbpyOAIwEweJAd7YuuBMJ1LWHLqu622uk65uQ/exec";
+let isExamAuthorizedMC2 = false;
 
 // ==========================================
-// 1. АВТОРИЗАЦИЯ ПРЕПОДАВАТЕЛЯ
+// 1. СЕРВЕРНАЯ ПРОВЕРКА ПАРОЛЯ ВХОДА В РК-2 (ПАРОЛЬ НЕ ХРАНИТСЯ В КЛИЕНТСКОМ КОДЕ)
 // ==========================================
-function verifyTeacherKeyMC2() {
-    if (typeof toggleModal === 'function') {
-        toggleModal('teacher-modal', false);
+async function checkExamPasswordMC2() {
+    const idx = parseInt(document.getElementById('student-select').value, 10);
+    if (isNaN(idx) || idx < 0) {
+        notify(currentLang === 'en' ? "Please select your name first!" : "Сначала выберите ваше ФИО из списка!", true);
+        return;
     }
-    const profPanel = document.getElementById('prof-grade-panel');
-    if (profPanel) {
-        profPanel.classList.remove('hidden');
-        profPanel.scrollIntoView({ behavior: 'smooth' });
+
+    const passInput = document.getElementById('exam-pass-input');
+    const btn = document.getElementById('btn-unlock-exam');
+    const pass = passInput ? passInput.value.trim() : "";
+
+    if (!pass) {
+        notify(currentLang === 'en' ? "Enter the access password!" : "Введите пароль доступа к РК-2!", true);
+        return;
     }
-    if (typeof notify === 'function') {
-        notify(currentLang === 'en' ? "Professor panel unlocked!" : "Панель преподавателя разблокирована!");
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = currentLang === 'en' ? "Checking..." : "Проверка...";
+    }
+
+    try {
+        const url = `${GOOGLE_SHEET_WEBAPP_URL_MC2}?pass=${encodeURIComponent(pass)}`;
+        const resp = await fetch(url, { method: 'GET', redirect: 'follow' });
+        const data = await resp.json();
+
+        if (data && data.authorized === true) {
+            isExamAuthorizedMC2 = true;
+            currentStudentIdx = idx;
+            document.getElementById('auth-lock-banner').classList.add('hidden');
+            document.getElementById('student-select').disabled = true;
+            document.getElementById('active-variant-badge').innerText = `#${idx + 1} (${getStudentDisplayName(idx, currentLang)})`;
+            document.getElementById('exam-workspace').classList.remove('hidden');
+            document.getElementById('passport-block').classList.add('hidden');
+
+            renderAllTasksMC2();
+            startTimerMC2();
+            notify(currentLang === 'en' ? "Access granted! Good luck!" : "Доступ разрешён! Удачи на экзамене!");
+        } else {
+            notify(currentLang === 'en' ? "Invalid password! Access denied." : "Неверный пароль! Доступ запрещён.", true);
+        }
+    } catch (err) {
+        console.error("Auth check error:", err);
+        notify(currentLang === 'en' ? "Server connection error. Try again." : "Ошибка соединения с сервером проверки. Повторите попытку.", true);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = currentLang === 'en' ? "Start Exam" : "Начать экзамен";
+        }
     }
 }
 
 // ==========================================
-// 2. ОЦЕНКА ВСЕХ 5 ЗАДАНИЙ (20 × 5 = 100 БАЛЛОВ)
+// 2. АВТОРИЗАЦИЯ ПРЕПОДАВАТЕЛЯ (ЧЕРЕЗ ТОТ ЖЕ СЕРВЕРНЫЙ ПАРОЛЬ)
+// ==========================================
+async function verifyTeacherKeyMC2() {
+    const input = document.getElementById('teacher-pass-input');
+    const pass = input ? input.value.trim() : "";
+    if (!pass) {
+        notify(currentLang === 'en' ? "Enter professor password!" : "Введите пароль!", true);
+        return;
+    }
+
+    try {
+        const url = `${GOOGLE_SHEET_WEBAPP_URL_MC2}?pass=${encodeURIComponent(pass)}`;
+        const resp = await fetch(url, { method: 'GET', redirect: 'follow' });
+        const data = await resp.json();
+
+        if (data && data.authorized === true) {
+            if (typeof toggleModal === 'function') toggleModal('teacher-modal', false);
+            const profPanel = document.getElementById('prof-grade-panel');
+            if (profPanel) {
+                profPanel.classList.remove('hidden');
+                profPanel.scrollIntoView({ behavior: 'smooth' });
+            }
+            notify(currentLang === 'en' ? "Professor panel unlocked!" : "Панель преподавателя разблокирована!");
+        } else {
+            notify(currentLang === 'en' ? "Invalid password!" : "Неверный пароль!", true);
+        }
+    } catch (e) {
+        notify(currentLang === 'en' ? "Server error!" : "Ошибка сервера!", true);
+    }
+}
+
+// ==========================================
+// 3. ОЦЕНКА ВСЕХ 5 ЗАДАНИЙ (20 × 5 = 100 БАЛЛОВ)
 // ==========================================
 function evaluateAllTasksMC2(studentIdx) {
     const breakdown = {
@@ -102,7 +173,7 @@ function evaluateAllTasksMC2(studentIdx) {
     breakdown.t3 = Number(t3Score.toFixed(2));
     breakdown.details.t3 = t3Details;
 
-    // --- ЗАДАНИЕ 4: КОЛИЧЕСТВЕННАЯ ТЕОРИЯ ДЕНЕГ (MV = PY) — 20 баллов (всё верно = 20, есть попытка/ошибки = 10, пусто = 0) ---
+    // --- ЗАДАНИЕ 4: КОЛИЧЕСТВЕННАЯ ТЕОРИЯ ДЕНЕГ (MV = PY) — 20 баллов (всё верно = 20, попытка/ошибки = 10, пусто = 0) ---
     let t4Score = 0;
     let t4Details = {};
     if (typeof getStudentQTMDataMC2 === 'function' && typeof mc2Task4State !== 'undefined' && mc2Task4State[studentIdx]) {
@@ -187,13 +258,11 @@ function evaluateAllTasksMC2(studentIdx) {
 }
 
 // ==========================================
-// 3. СБОРКА ТОКЕНА И ОТПРАВКА В GOOGLE ТАБЛИЦУ
+// 4. СБОРКА ТОКЕНА И ОТПРАВКА В GOOGLE ТАБЛИЦУ
 // ==========================================
 function compileFinalTokenMC2() {
-    if (typeof currentStudentIdx === 'undefined' || currentStudentIdx === -1) {
-        if (typeof notify === 'function') {
-            notify(currentLang === 'en' ? "Please select your name first!" : "Сначала выберите свое ФИО!", true);
-        }
+    if (!isExamAuthorizedMC2 || typeof currentStudentIdx === 'undefined' || currentStudentIdx === -1) {
+        notify(currentLang === 'en' ? "Unauthorized session!" : "Сначала пройдите авторизацию по паролю!", true);
         return;
     }
 
@@ -242,9 +311,7 @@ function compileFinalTokenMC2() {
 
 function sendDirectToGoogleSheetMC2(payload, token) {
     if (!GOOGLE_SHEET_WEBAPP_URL_MC2) {
-        if (typeof notify === 'function') {
-            notify(currentLang === 'en' ? "Session completed!" : "Работа завершена!");
-        }
+        notify(currentLang === 'en' ? "Session completed!" : "Работа завершена!");
         return;
     }
 
@@ -266,23 +333,19 @@ function sendDirectToGoogleSheetMC2(payload, token) {
             rawToken: token
         })
     }).then(() => {
-        if (typeof notify === 'function') {
-            notify(currentLang === 'en' ? "Exam recorded in Professor's Gradebook!" : "Работа успешно записана в журнал!");
-        }
+        notify(currentLang === 'en' ? "Exam recorded in Professor's Gradebook!" : "Работа успешно записана в журнал!");
     }).catch(err => {
         console.error("Sync Error:", err);
     });
 }
 
 // ==========================================
-// 4. РАСШИФРОВКА ТОКЕНА В ПАНЕЛИ ПРЕПОДАВАТЕЛЯ
+// 5. РАСШИФРОВКА ТОКЕНА В ПАНЕЛИ ПРЕПОДАВАТЕЛЯ
 // ==========================================
 function decryptAndScoreTokenMC2() {
     const rawToken = document.getElementById('prof-token-input').value.trim();
     if (!rawToken.startsWith("MC2PE2026-")) {
-        if (typeof notify === 'function') {
-            notify(currentLang === 'en' ? "Invalid MC2 token format!" : "Неверный формат токена РК-2!", true);
-        }
+        notify(currentLang === 'en' ? "Invalid MC2 token format!" : "Неверный формат токена РК-2!", true);
         return;
     }
 
@@ -312,12 +375,8 @@ function decryptAndScoreTokenMC2() {
         const out = document.getElementById('grade-panel-output');
         if (out) out.classList.remove('hidden');
 
-        if (typeof notify === 'function') {
-            notify(currentLang === 'en' ? "Session decrypted!" : "Сессия расшифрована!");
-        }
+        notify(currentLang === 'en' ? "Session decrypted!" : "Сессия расшифрована!");
     } catch (e) {
-        if (typeof notify === 'function') {
-            notify(currentLang === 'en' ? "Failed to parse token!" : "Ошибка расшифровки токена!", true);
-        }
+        notify(currentLang === 'en' ? "Failed to parse token!" : "Ошибка расшифровки токена!", true);
     }
 }
