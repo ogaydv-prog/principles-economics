@@ -1,26 +1,43 @@
 /* ==========================================
+   task2_mc2.js
    MIDTERM CONTROL 2 • TASK 2: GDP & NATIONAL ACCOUNTS (SANKEY)
    AlmaU SDTE 2026 • Principles of Economics
    21 Students • Personalized Balanced National Accounts + Distractors
-   Bilingual (EN/RU) • Interactive Sankey Flow Builder
+   Bilingual (EN/RU) • Interactive Sankey Flow Builder & Auto-Grader
    ========================================== */
 
 let mc2SankeyChart = null;
 let mc2GoogleChartsReady = false;
 
-if (typeof google !== 'undefined' && google.charts) {
-    google.charts.load('current', { packages: ['sankey'] });
-    google.charts.setOnLoadCallback(() => {
-        mc2GoogleChartsReady = true;
-    });
+function initGoogleChartsForTask2() {
+    if (typeof google !== 'undefined' && google.charts) {
+        google.charts.load('current', { packages: ['sankey'] });
+        google.charts.setOnLoadCallback(() => {
+            mc2GoogleChartsReady = true;
+        });
+    } else if (!document.getElementById('google-charts-loader-script')) {
+        const script = document.createElement('script');
+        script.id = 'google-charts-loader-script';
+        script.src = 'https://www.gstatic.com/charts/loader.js';
+        script.onload = () => {
+            if (typeof google !== 'undefined' && google.charts) {
+                google.charts.load('current', { packages: ['sankey'] });
+                google.charts.setOnLoadCallback(() => {
+                    mc2GoogleChartsReady = true;
+                });
+            }
+        };
+        document.head.appendChild(script);
+    }
 }
+
+initGoogleChartsForTask2();
 
 // Генератор персонального сбалансированного набора данных для каждого студента (21 вариант)
 function getStudentGDPDataMC2(studentIdx) {
     const s = studentIdx + 1;
 
     // 1. ДОХОДНЫЙ МЕТОД (Income Approach / GDI)
-    // Разбиваем прибыль корпораций на 3 составляющие: дивиденды, нераспределенную прибыль и КПН
     const wages = 340 + ((s * 23) % 160);              // Заработная плата наемных работников (W)
     const rent = 45 + ((s * 11) % 45);                 // Рентный доход (R)
     const interest = 40 + ((s * 13) % 40);             // Процентный доход (i)
@@ -206,11 +223,14 @@ function getStudentGDPDataMC2(studentIdx) {
     };
 }
 
-// Сохраняем выбор студента при переключении языка EN/RU
+// Сохраняем выбор студента по каждому варианту при переключении языка EN/RU
 const mc2Task2Selections = {};
 
-function recordTask2Choice(itemId, value) {
-    mc2Task2Selections[itemId] = value;
+function recordTask2Choice(studentIdx, itemId, value) {
+    if (!mc2Task2Selections[studentIdx]) {
+        mc2Task2Selections[studentIdx] = {};
+    }
+    mc2Task2Selections[studentIdx][itemId] = value;
 }
 
 function renderTask2MC2(studentIdx, lang) {
@@ -220,6 +240,7 @@ function renderTask2MC2(studentIdx, lang) {
     const data = getStudentGDPDataMC2(studentIdx);
     const isEn = lang === 'en';
     const unit = isEn ? 'bln ₸' : 'млрд ₸';
+    const savedMap = mc2Task2Selections[studentIdx] || {};
 
     const title = isEn
         ? 'Task 2: National Accounts Reconstruction & GDP Circular Flow (Sankey)'
@@ -231,7 +252,7 @@ function renderTask2MC2(studentIdx, lang) {
     let rowsHTML = '';
     data.items.forEach((item, idx) => {
         const label = isEn ? item.en : item.ru;
-        const savedChoice = mc2Task2Selections[item.id] || '';
+        const savedChoice = savedMap[item.id] || '';
 
         rowsHTML += `
             <tr class="border-b border-slate-800/80 hover:bg-slate-800/40 transition">
@@ -241,19 +262,19 @@ function renderTask2MC2(studentIdx, lang) {
                 <td class="py-2.5 px-2 text-center">
                     <div class="inline-flex rounded-lg bg-slate-950 p-1 border border-slate-800 gap-1">
                         <label class="cursor-pointer">
-                            <input type="radio" name="t2-${item.id}" value="income" data-cat="${item.cat}" data-val="${item.val}" ${savedChoice === 'income' ? 'checked' : ''} onchange="recordTask2Choice('${item.id}', 'income')" class="peer sr-only">
+                            <input type="radio" name="t2-${item.id}" value="income" data-cat="${item.cat}" data-val="${item.val}" ${savedChoice === 'income' ? 'checked' : ''} onchange="recordTask2Choice(${studentIdx}, '${item.id}', 'income')" class="peer sr-only">
                             <span class="block px-2.5 py-1 rounded text-[11px] font-bold text-slate-400 peer-checked:bg-sky-600 peer-checked:text-white transition">
                                 ${isEn ? 'Income' : 'Доход'}
                             </span>
                         </label>
                         <label class="cursor-pointer">
-                            <input type="radio" name="t2-${item.id}" value="expenditure" data-cat="${item.cat}" data-val="${item.val}" ${savedChoice === 'expenditure' ? 'checked' : ''} onchange="recordTask2Choice('${item.id}', 'expenditure')" class="peer sr-only">
+                            <input type="radio" name="t2-${item.id}" value="expenditure" data-cat="${item.cat}" data-val="${item.val}" ${savedChoice === 'expenditure' ? 'checked' : ''} onchange="recordTask2Choice(${studentIdx}, '${item.id}', 'expenditure')" class="peer sr-only">
                             <span class="block px-2.5 py-1 rounded text-[11px] font-bold text-slate-400 peer-checked:bg-emerald-600 peer-checked:text-white transition">
                                 ${isEn ? 'Expend.' : 'Расход'}
                             </span>
                         </label>
                         <label class="cursor-pointer">
-                            <input type="radio" name="t2-${item.id}" value="exclude" data-cat="${item.cat}" data-val="${item.val}" ${savedChoice === 'exclude' ? 'checked' : ''} onchange="recordTask2Choice('${item.id}', 'exclude')" class="peer sr-only">
+                            <input type="radio" name="t2-${item.id}" value="exclude" data-cat="${item.cat}" data-val="${item.val}" ${savedChoice === 'exclude' ? 'checked' : ''} onchange="recordTask2Choice(${studentIdx}, '${item.id}', 'exclude')" class="peer sr-only">
                             <span class="block px-2.5 py-1 rounded text-[11px] font-bold text-slate-400 peer-checked:bg-slate-700 peer-checked:text-amber-300 transition">
                                 ${isEn ? 'Not GDP' : 'Не ВВП'}
                             </span>
@@ -270,7 +291,7 @@ function renderTask2MC2(studentIdx, lang) {
             <div class="card p-6 border-t-2 border-indigo-500 space-y-2">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest">
-                        ${isEn ? 'Task 2 • National Accounts' : 'Задание 2 • Система национальных счетов'}
+                        ${isEn ? 'Task 2 • National Accounts (20 pts)' : 'Задание 2 • Система национальных счетов (20 баллов)'}
                     </span>
                     <span class="text-xs font-mono text-slate-400">
                         ${isEn ? 'Variant #' + (studentIdx + 1) : 'Вариант №' + (studentIdx + 1)}
@@ -300,11 +321,11 @@ function renderTask2MC2(studentIdx, lang) {
                     </table>
 
                     <div class="mt-4 pt-4 border-t border-slate-800 flex flex-wrap justify-between items-center gap-3">
-                        <button onclick="resetTask2MC2()" class="px-4 py-2.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
-                            <i class="fas fa-undo mr-1.5"></i> ${isEn ? 'Clear Selections' : 'Сбросить выбор'}
+                        <button type="button" onclick="resetTask2MC2()" class="px-4 py-2.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+                            ↺ ${isEn ? 'Clear Selections' : 'Сбросить выбор'}
                         </button>
-                        <button onclick="buildTask2Sankey()" class="px-5 py-2.5 rounded-lg text-xs md:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-950/50 transition">
-                            <i class="fas fa-project-diagram mr-1.5"></i> ${isEn ? 'Build Sankey & Check Equilibrium' : 'Построить Санки и Проверить Баланс'}
+                        <button type="button" onclick="buildTask2Sankey()" class="px-5 py-2.5 rounded-lg text-xs md:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-950/50 transition">
+                            📊 ${isEn ? 'Build Sankey & Check Equilibrium' : 'Построить Санки и Проверить Баланс'}
                         </button>
                     </div>
                 </div>
@@ -331,7 +352,7 @@ function renderTask2MC2(studentIdx, lang) {
                     <div id="t2-eq-banner" class="hidden rounded-xl p-4 bg-gradient-to-r from-sky-950/80 via-indigo-950/80 to-emerald-950/80 border border-sky-500/40 flex items-center justify-between gap-3">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-300 text-lg">
-                                <i class="fas fa-balance-scale"></i>
+                                ⚖️
                             </div>
                             <div>
                                 <div class="text-xs md:text-sm font-black uppercase tracking-wider text-sky-300" id="t2-eq-title">
@@ -348,7 +369,7 @@ function renderTask2MC2(studentIdx, lang) {
                     <!-- White Board for Google Sankey Chart -->
                     <div class="bg-white rounded-2xl border border-slate-300 p-4 shadow-xl min-h-[480px] flex flex-col justify-center">
                         <div id="t2-sankey-placeholder" class="text-center text-slate-500 py-20 px-4 space-y-2">
-                            <i class="fas fa-stream text-3xl text-slate-300"></i>
+                            <div class="text-3xl">🔀</div>
                             <p class="text-sm font-semibold text-slate-600">
                                 ${isEn ? 'Sankey Diagram is currently empty' : 'Диаграмма Санки пока пуста'}
                             </p>
@@ -364,15 +385,15 @@ function renderTask2MC2(studentIdx, lang) {
     `;
 
     // Если студент уже нажимал кнопку построения до смены языка EN/RU, перерисуем диаграмму на новом языке
-    if (Object.keys(mc2Task2Selections).length > 0 && window.mc2Task2HasBuilt) {
+    if (Object.keys(savedMap).length > 0 && window.mc2Task2HasBuilt) {
         setTimeout(() => buildTask2Sankey(true), 100);
     }
 }
 
 function resetTask2MC2() {
-    Object.keys(mc2Task2Selections).forEach(k => delete mc2Task2Selections[k]);
-    window.mc2Task2HasBuilt = false;
     if (typeof currentStudentIdx !== 'undefined' && currentStudentIdx !== -1) {
+        delete mc2Task2Selections[currentStudentIdx];
+        window.mc2Task2HasBuilt = false;
         renderTask2MC2(currentStudentIdx, currentLang);
     }
 }
@@ -394,7 +415,7 @@ function buildTask2Sankey(silent = false) {
         if (checked) {
             classifiedCount++;
             const choice = checked.value;
-            mc2Task2Selections[item.id] = choice;
+            recordTask2Choice(currentStudentIdx, item.id, choice);
             const shortLabel = isEn ? item.en.split(' (')[0] : item.ru.split(' (')[0];
 
             if (choice === 'income') {
@@ -448,7 +469,7 @@ function buildTask2Sankey(silent = false) {
     canvasEl.classList.remove('hidden');
 
     const drawChart = () => {
-        if (!google || !google.visualization || !google.visualization.Sankey) {
+        if (typeof google === 'undefined' || !google.visualization || !google.visualization.Sankey) {
             setTimeout(drawChart, 200);
             return;
         }
@@ -466,7 +487,6 @@ function buildTask2Sankey(silent = false) {
             rows.push([inc.label, centerIncomeNode, Math.max(1, inc.val)]);
         });
 
-        // Связующий мост между GDI и GDP, если оба потока непустые
         if (incomeItems.length > 0 && expItems.length > 0) {
             rows.push([centerIncomeNode, centerExpNode, Math.max(1, Math.min(sumGDI, sumGDP))]);
         }
@@ -500,4 +520,42 @@ function buildTask2Sankey(silent = false) {
     };
 
     drawChart();
+}
+
+// ==========================================
+// ФУНКЦИЯ АВТОМАТИЧЕСКОЙ ОЦЕНКИ ЗАДАНИЯ 2 ДЛЯ ДВИЖКА
+// ==========================================
+function gradeTask2MC2(studentIdx) {
+    const dataObj = getStudentGDPDataMC2(studentIdx);
+    const savedMap = mc2Task2Selections[studentIdx] || {};
+    let errors = 0;
+    let answeredCount = 0;
+    let sumGDI = 0;
+    let sumGDP = 0;
+
+    dataObj.items.forEach(item => {
+        const checked = document.querySelector(`input[name="t2-${item.id}"]:checked`);
+        const choice = checked ? checked.value : (savedMap[item.id] || '');
+        if (choice) {
+            answeredCount++;
+            if (choice === 'income') sumGDI += item.val;
+            if (choice === 'expenditure') sumGDP += item.val;
+        }
+        if (choice !== item.cat) {
+            errors++;
+        }
+    });
+
+    const score = answeredCount === 0 ? 0 : Math.max(0, 20 - errors * 2);
+
+    return {
+        score,
+        errors,
+        answeredCount,
+        totalItems: dataObj.items.length,
+        studentGDI: sumGDI,
+        studentGDP: sumGDP,
+        expectedGDP: dataObj.exactGDP,
+        selections: { ...savedMap }
+    };
 }
