@@ -268,10 +268,10 @@
     </header>
 
     <!-- Main 2-Column Workspace -->
-    <main class="flex-1 max-w-[1680px] w-full mx-auto p-3 sm:p-4 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+    <main class="flex-1 max-w-[1680px] w-full mx-auto p-3 sm:p-4 grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
         
-        <!-- LEFT PANEL: Radio-Tuner Sliders (~28% -> 3.5/12 cols, using lg:col-span-4 xl:col-span-3) -->
-        <aside class="lg:col-span-4 xl:col-span-3 neon-panel rounded-2xl p-3.5 sm:p-4 flex flex-col gap-4 lg:max-h-[calc(100vh-88px)] lg:overflow-y-auto custom-scroll">
+        <!-- LEFT PANEL: Radio-Tuner Sliders (~28% -> lg:col-span-4 xl:col-span-3) -->
+        <aside class="lg:col-span-4 xl:col-span-3 neon-panel rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-4">
             
             <!-- Source Note Banner -->
             <div class="rounded-xl bg-[#12161f] border border-[#2a3344] px-3 py-2 flex items-center justify-between text-[11px]">
@@ -301,7 +301,7 @@
             <div class="border-t border-[#2b3445]"></div>
 
             <!-- Group B: Additional Taxes, Customs & Excises -->
-            <div>
+            <div class="flex-1 flex flex-col">
                 <div class="flex items-center justify-between mb-2.5">
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
@@ -313,7 +313,7 @@
                         ~39%
                     </span>
                 </div>
-                <div id="otherSlidersContainer" class="flex flex-col gap-2.5">
+                <div id="otherSlidersContainer" class="flex-1 flex flex-col justify-between gap-2.5">
                     <!-- Injected via JS -->
                 </div>
             </div>
@@ -366,7 +366,7 @@
             </div>
 
             <!-- Main Sankey Canvas Card -->
-            <div class="neon-panel rounded-2xl p-4 sm:p-5 flex flex-col">
+            <div class="neon-panel rounded-2xl p-4 sm:p-5 flex-1 flex flex-col justify-between">
                 <!-- Diagram Stage Headers & Legend -->
                 <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-[#2a3344]">
                     <div>
@@ -401,7 +401,7 @@
                 </div>
 
                 <!-- Responsive SVG Sankey Container -->
-                <div id="sankeyWrapper" class="w-full overflow-x-auto">
+                <div id="sankeyWrapper" class="w-full overflow-x-auto my-auto">
                     <svg id="sankeySvg" class="w-full min-w-[780px] h-[640px] select-none" viewBox="0 0 1160 640" preserveAspectRatio="xMidYMid meet"></svg>
                 </div>
 
@@ -445,8 +445,8 @@
             KZ: {
                 currencySymbol: 'трлн ₸',
                 currencySymbolEn: 'Tln ₸',
-                gdpBase: 134.8, // Nominal GDP in trillion KZT
-                baselineExpenditure: 27.40, // Consolidated state + National Fund transfers spending (trillion KZT)
+                gdpBase: 134.8,
+                baselineExpenditure: 27.40,
                 sourceBadge: { ru: 'КГД МФ РК • НК РК 2026', en: 'SRC MoF RK • Tax Code 2026' },
                 pools: [
                     {
@@ -544,7 +544,7 @@
                         group: 'core',
                         color: '#00e5ff',
                         min: 0, max: 30, step: 0.5, baseline: 16.0,
-                        baseRevenue: 6.70, // ~27% of 24.8 Tln
+                        baseRevenue: 6.70,
                         elasticity: 0.28,
                         unit: '%',
                         name: { ru: 'НДС (Налог на добавленную стоимость)', en: 'VAT (Value Added Tax)' },
@@ -561,7 +561,7 @@
                         group: 'core',
                         color: '#3b82f6',
                         min: 5, max: 35, step: 0.5, baseline: 20.0,
-                        baseRevenue: 5.70, // ~23%
+                        baseRevenue: 5.70,
                         elasticity: 0.35,
                         unit: '%',
                         name: { ru: 'КПН (Корпоративный подоходный налог)', en: 'CIT (Corporate Income Tax)' },
@@ -578,7 +578,7 @@
                         group: 'core',
                         color: '#a855f7',
                         min: 0, max: 25, step: 0.5, baseline: 10.0,
-                        baseRevenue: 2.75, // ~11.1%
+                        baseRevenue: 2.75,
                         elasticity: 0.22,
                         unit: '%',
                         name: { ru: 'ИПН (Индивидуальный подоходный налог)', en: 'IIT (Individual Income Tax)' },
@@ -596,7 +596,7 @@
                         group: 'other',
                         color: '#f59e0b',
                         min: 0, max: 30, step: 0.5, baseline: 12.0,
-                        baseRevenue: 2.50, // ~10.1%
+                        baseRevenue: 2.50,
                         elasticity: 0.15,
                         unit: '%',
                         name: { ru: 'НДПИ и рентный налог на экспорт', en: 'Mineral Extraction & Rent Tax' },
@@ -613,7 +613,7 @@
                         group: 'other',
                         color: '#10b981',
                         min: 0, max: 25, step: 0.5, baseline: 8.5,
-                        baseRevenue: 2.25, // ~9.1%
+                        baseRevenue: 2.25,
                         elasticity: 0.30,
                         unit: '%',
                         name: { ru: 'Таможенные пошлины и ЭТП', en: 'Customs Duties & Export Tariff' },
@@ -630,7 +630,7 @@
                         group: 'other',
                         color: '#6366f1',
                         min: 0, max: 20, step: 0.5, baseline: 9.5,
-                        baseRevenue: 1.75, // ~7.1%
+                        baseRevenue: 1.75,
                         elasticity: 0.20,
                         unit: '%',
                         name: { ru: 'Социальный налог', en: 'Social Tax (Payroll)' },
@@ -647,7 +647,7 @@
                         group: 'other',
                         color: '#ec4899',
                         min: 0, max: 35, step: 0.5, baseline: 14.0,
-                        baseRevenue: 1.00, // ~4.0%
+                        baseRevenue: 1.00,
                         elasticity: 0.25,
                         unit: '%',
                         name: { ru: 'Акцизы (ГСМ, табак, алкоголь)', en: 'Excise Taxes (Fuel, Tobacco, Alcohol)' },
@@ -664,7 +664,7 @@
                         group: 'other',
                         color: '#14b8a6',
                         min: 0, max: 15, step: 0.5, baseline: 4.0,
-                        baseRevenue: 0.95, // ~3.8%
+                        baseRevenue: 0.95,
                         elasticity: 0.12,
                         unit: '%',
                         name: { ru: 'Сборы, госпошлины и плата за эмиссии', en: 'State Fees & Environmental Levies' },
@@ -681,7 +681,7 @@
                         group: 'other',
                         color: '#f97316',
                         min: 0, max: 5, step: 0.1, baseline: 1.5,
-                        baseRevenue: 0.70, // ~2.8%
+                        baseRevenue: 0.70,
                         elasticity: 0.08,
                         unit: '%',
                         name: { ru: 'Налог на имущество и землю', en: 'Property & Land Taxes' },
@@ -698,7 +698,7 @@
                         group: 'other',
                         color: '#84cc16',
                         min: 0, max: 10, step: 0.2, baseline: 2.5,
-                        baseRevenue: 0.50, // ~2.0%
+                        baseRevenue: 0.50,
                         elasticity: 0.10,
                         unit: '%',
                         name: { ru: 'Налог на транспортные средства', en: 'Vehicle Tax' },
@@ -719,8 +719,8 @@
             US: {
                 currencySymbol: 'млрд $',
                 currencySymbolEn: '$B',
-                gdpBase: 30400, // Nominal US GDP ~$30.4 Trillion ($30,400B)
-                baselineExpenditure: 6850, // Federal outlays ~$6.85 Trillion ($6,850B)
+                gdpBase: 30400,
+                baselineExpenditure: 6850,
                 sourceBadge: { ru: 'IRS • U.S. Treasury FY2026', en: 'IRS • U.S. Treasury FY2026' },
                 pools: [
                     {
@@ -818,7 +818,7 @@
                         group: 'core',
                         color: '#00e5ff',
                         min: 5, max: 45, step: 0.5, baseline: 22.0,
-                        baseRevenue: 2480, // ~48.6% of ~$5,100B
+                        baseRevenue: 2480,
                         elasticity: 0.26,
                         unit: '%',
                         name: { ru: 'Индивидуальный подоходный налог (IRS Form 1040)', en: 'Individual Income Tax (Form 1040)' },
@@ -835,7 +835,7 @@
                         group: 'core',
                         color: '#818cf8',
                         min: 4, max: 20, step: 0.2, baseline: 12.4,
-                        baseRevenue: 1320, // ~25.9%
+                        baseRevenue: 1320,
                         elasticity: 0.14,
                         unit: '%',
                         name: { ru: 'Взносы Social Security (OASDI Payroll)', en: 'Social Security Payroll Tax (OASDI)' },
@@ -852,7 +852,7 @@
                         group: 'core',
                         color: '#3b82f6',
                         min: 5, max: 35, step: 0.5, baseline: 21.0,
-                        baseRevenue: 530, // ~10.4%
+                        baseRevenue: 530,
                         elasticity: 0.34,
                         unit: '%',
                         name: { ru: 'Корпоративный подоходный налог (Form 1120)', en: 'Corporate Income Tax (Form 1120)' },
@@ -870,7 +870,7 @@
                         group: 'other',
                         color: '#a855f7',
                         min: 1.0, max: 8.0, step: 0.1, baseline: 2.9,
-                        baseRevenue: 390, // ~7.6%
+                        baseRevenue: 390,
                         elasticity: 0.12,
                         unit: '%',
                         name: { ru: 'Взносы Medicare (Hospital Insurance)', en: 'Medicare Payroll Tax (HI)' },
@@ -887,7 +887,7 @@
                         group: 'other',
                         color: '#06b6d4',
                         min: 0, max: 30, step: 0.5, baseline: 15.0,
-                        baseRevenue: 115, // ~2.3%
+                        baseRevenue: 115,
                         elasticity: 0.38,
                         unit: '%',
                         name: { ru: 'Налог на прирост капитала и дивиденды', en: 'Long-Term Capital Gains & Dividends' },
@@ -904,7 +904,7 @@
                         group: 'other',
                         color: '#10b981',
                         min: 0, max: 25, step: 0.5, baseline: 4.5,
-                        baseRevenue: 95, // ~1.9%
+                        baseRevenue: 95,
                         elasticity: 0.32,
                         unit: '%',
                         name: { ru: 'Таможенные пошлины и торговые тарифы', en: 'Customs Duties & Import Tariffs' },
@@ -921,7 +921,7 @@
                         group: 'other',
                         color: '#ec4899',
                         min: 0, max: 25, step: 0.5, baseline: 8.0,
-                        baseRevenue: 92, // ~1.8%
+                        baseRevenue: 92,
                         elasticity: 0.22,
                         unit: '%',
                         name: { ru: 'Федеральные акцизы (топливо, авиа, табак)', en: 'Federal Excise Taxes (Fuel, Air, Tobacco)' },
@@ -938,7 +938,7 @@
                         group: 'other',
                         color: '#f59e0b',
                         min: 0, max: 55, step: 1.0, baseline: 40.0,
-                        baseRevenue: 38, // ~0.7%
+                        baseRevenue: 38,
                         elasticity: 0.25,
                         unit: '%',
                         name: { ru: 'Налог на наследство и дарение (Estate & Gift)', en: 'Estate & Gift Taxes (Form 706)' },
@@ -955,7 +955,7 @@
                         group: 'other',
                         color: '#14b8a6',
                         min: 0, max: 6.0, step: 0.1, baseline: 0.6,
-                        baseRevenue: 24, // ~0.5%
+                        baseRevenue: 24,
                         elasticity: 0.10,
                         unit: '%',
                         name: { ru: 'Налог FUTA (страхование от безработицы)', en: 'FUTA Unemployment Tax (Form 940)' },
@@ -972,7 +972,7 @@
                         group: 'other',
                         color: '#84cc16',
                         min: 0, max: 10, step: 0.2, baseline: 2.0,
-                        baseRevenue: 36, // ~0.7%
+                        baseRevenue: 36,
                         elasticity: 0.08,
                         unit: '%',
                         name: { ru: 'Доходы ФРС и федеральные сборы', en: 'Fed Remittances & Misc. Treasury Fees' },
@@ -993,7 +993,7 @@
         // =========================================================================
         let currentCountry = 'KZ';
         let currentLang = 'ru';
-        let currentRates = {}; // Map of tax.id -> current rate
+        let currentRates = {};
 
         const UI_TEXT = {
             ru: {
@@ -1078,7 +1078,6 @@
             }
         };
 
-        // Initialize rates for both countries
         function initRates() {
             ['KZ', 'US'].forEach(country => {
                 FISCAL_DATA[country].taxes.forEach(tax => {
@@ -1087,12 +1086,10 @@
             });
         }
 
-        // Compute simulated revenue for a single tax with mild Laffer behavioral elasticity
         function computeTaxRevenue(tax) {
             const rate = currentRates[tax.id];
             if (rate <= 0 || tax.baseline === 0) return 0;
             const ratio = rate / tax.baseline;
-            // Mild behavioral elasticity: if rate > baseline, base shrinks slightly; if rate < baseline, base expands slightly
             const behavioralMultiplier = Math.max(0.35, 1 - tax.elasticity * (ratio - 1) * 0.45);
             return tax.baseRevenue * ratio * behavioralMultiplier;
         }
@@ -1194,7 +1191,6 @@
             const val = parseFloat(rawValue);
             currentRates[taxId] = val;
 
-            // Update slider visual bar & numeric badge immediately
             const pct = ((val - tax.min) / (tax.max - tax.min)) * 100;
             const fillEl = document.getElementById(`fill-${taxId}`);
             const rateEl = document.getElementById(`rate-val-${taxId}`);
@@ -1211,7 +1207,6 @@
             const data = FISCAL_DATA[currentCountry];
             const t = UI_TEXT[currentLang];
 
-            // 1. Calculate revenues for all 10 sources
             const taxResults = data.taxes.map(tax => {
                 const rev = computeTaxRevenue(tax);
                 return { ...tax, rev };
@@ -1220,7 +1215,6 @@
             const totalRev = taxResults.reduce((acc, item) => acc + item.rev, 0);
             const baselineRev = data.taxes.reduce((acc, item) => acc + item.baseRevenue, 0);
 
-            // Update per-slider revenue & share readouts
             let coreRevSum = 0;
             let otherRevSum = 0;
             taxResults.forEach(item => {
@@ -1239,7 +1233,6 @@
             document.getElementById('groupAShare').textContent = `${coreSharePct.toFixed(1)}%`;
             document.getElementById('groupBShare').textContent = `${otherSharePct.toFixed(1)}%`;
 
-            // 2. Update Top 4 KPI Cards
             const revDeltaPct = ((totalRev - baselineRev) / baselineRev) * 100;
             const deltaSign = revDeltaPct >= 0 ? '+' : '';
             const deltaEl = document.getElementById('kpiRevDelta');
@@ -1256,7 +1249,6 @@
             const expVal = data.baselineExpenditure;
             document.getElementById('kpiExpValue').textContent = formatMoney(expVal, currentCountry);
 
-            // Balance = Total Revenue - Baseline Expenditure
             const balance = totalRev - expVal;
             const balValEl = document.getElementById('kpiBalValue');
             const balBadgeEl = document.getElementById('kpiBalBadge');
@@ -1277,7 +1269,6 @@
                 balBadgeEl.className = 'px-1.5 py-0.5 rounded mono text-[10px] font-bold bg-sky-500/15 text-sky-400';
             }
 
-            // Tax Burden (% of GDP)
             const burdenPct = (totalRev / data.gdpBase) * 100;
             const burdenIndex = (totalRev / baselineRev) * 100;
             document.getElementById('kpiBurdenValue').textContent = `${burdenPct.toFixed(1)}${t.gdpSuffix}`;
@@ -1295,7 +1286,6 @@
                 burdenStatusEl.className = 'px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 mono text-[10px] font-bold';
             }
 
-            // 3. Draw 3-Stage Sankey Diagram
             drawSankey(taxResults, totalRev);
         }
 
@@ -1310,18 +1300,17 @@
             const padBottom = 18;
             const usableH = H - padTop - padBottom;
 
-            const col1X = 185; // Left nodes right edge
+            const col1X = 185;
             const nodeW = 22;
-            const col2X = 569; // Middle nodes left edge
-            const col3X = 953; // Right nodes left edge
+            const col2X = 569;
+            const col3X = 953;
 
-            // --- STAGE 1 NODES (10 Taxes) ---
             const gap1 = 10;
             const availH1 = usableH - gap1 * (taxResults.length - 1);
             let y1 = padTop;
             const stage1Nodes = taxResults.map(tax => {
                 const rawH = (tax.rev / safeTotal) * availH1;
-                const h = Math.max(14, rawH); // Minimum height so labels remain crisp
+                const h = Math.max(14, rawH);
                 const node = {
                     ...tax,
                     x: col1X - nodeW,
@@ -1334,7 +1323,6 @@
                 return node;
             });
 
-            // Normalize Stage 1 total vertical height if min-heights expanded it
             const actualEnd1 = y1 - gap1;
             const scale1 = usableH / (actualEnd1 - padTop);
             let curY1 = padTop;
@@ -1344,7 +1332,6 @@
                 curY1 += n.h + gap1 * scale1;
             });
 
-            // --- STAGE 2 NODES (3 Budget Pools) ---
             const poolTotals = {};
             data.pools.forEach(p => poolTotals[p.id] = 0);
             stage1Nodes.forEach(tax => {
@@ -1383,7 +1370,6 @@
                 curY2 += n.h + gap2 * scale2;
             });
 
-            // --- STAGE 3 NODES (5 Spending Categories) ---
             const gap3 = 20;
             const availH3 = usableH - gap3 * (data.spending.length - 1);
             let y3 = padTop;
@@ -1412,14 +1398,12 @@
                 curY3 += n.h + gap3 * scale3;
             });
 
-            // --- BUILD SVG MARKUP ---
             let defsHtml = `<defs>`;
             let ribbonsHtml = `<g id="ribbonsLayer">`;
             let nodesHtml = `<g id="nodesLayer">`;
 
             let linkIdx = 0;
 
-            // Links: Stage 1 -> Stage 2
             stage1Nodes.forEach(sNode => {
                 data.pools.forEach(p => {
                     const allocShare = sNode.allocation[p.id] || 0;
@@ -1464,7 +1448,6 @@
                 });
             });
 
-            // Links: Stage 2 -> Stage 3
             stage2Nodes.forEach(pNode => {
                 stage3Nodes.forEach(spNode => {
                     const flowVal = pNode.val * spNode.share;
@@ -1509,7 +1492,6 @@
             defsHtml += `</defs>`;
             ribbonsHtml += `</g>`;
 
-            // Draw Stage 1 Nodes + Left Labels
             stage1Nodes.forEach(n => {
                 const sharePct = ((n.rev / safeTotal) * 100).toFixed(1);
                 const midY = n.y + n.h / 2;
@@ -1532,7 +1514,6 @@
                 `;
             });
 
-            // Draw Stage 2 Nodes + Center Pill Labels
             stage2Nodes.forEach(n => {
                 const sharePct = ((n.val / safeTotal) * 100).toFixed(1);
                 const midY = n.y + n.h / 2;
@@ -1556,7 +1537,6 @@
                 `;
             });
 
-            // Draw Stage 3 Nodes + Right Labels
             stage3Nodes.forEach(n => {
                 const sharePct = (n.share * 100).toFixed(0);
                 const midY = n.y + n.h / 2;
@@ -1782,7 +1762,6 @@
             updateSimulation();
         }
 
-        // Boot
         window.addEventListener('DOMContentLoaded', () => {
             initRates();
             applyTranslations();
