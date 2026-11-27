@@ -1,95 +1,32 @@
 /* ==========================================
-   MIDTERM CONTROL 2 • FULL MACRO QUESTION BANK
+   questions_mc2.js
+   MIDTERM CONTROL 2 • FULL MACRO QUESTION BANK & STUDENT ROSTER
    AlmaU SDTE 2026 • Principles of Economics
    21 Students • 6 Personalized Questions per Student
-   Fully Checked, Deduplicated, Bilingual (EN/RU) & Randomized
    ========================================== */
 
 const STUDENTS_LIST = [
-    {
-        "en": "Abdikhai Saltanat Zhalgaskyzy",
-        "ru": "Абдихай Салтанат Жалғасқызы"
-    },
-    {
-        "en": "Abdrakhmanov Babur Khamza uly",
-        "ru": "Абдрахманов Бабур Хамза улы"
-    },
-    {
-        "en": "Adilkhan Nadiya Berikkyzy",
-        "ru": "Адильхан Надия Берікқызы"
-    },
-    {
-        "en": "Hebatallah Aldada",
-        "ru": "Альдада Хебаталла"
-    },
-    {
-        "en": "Bakhytov Alimzhan Bakhytkaliuly",
-        "ru": "Бахытов Алимжан Бахыткалиулы"
-    },
-    {
-        "en": "Belachew Nigus Damte",
-        "ru": "Белачев Нигус Дамте"
-    },
-    {
-        "en": "Dzhumagul Amirlan Magauiyauly",
-        "ru": "Джұмағұл Әмірлан Мағауияұлы"
-    },
-    {
-        "en": "Zhumazhan Osman Darmenuly",
-        "ru": "Жұмажан Осман Дарменұлы"
-    },
-    {
-        "en": "Zamotina Darya Astemirovna",
-        "ru": "Замотина Дарья Астемировна"
-    },
-    {
-        "en": "Kabdrakhmanova Azhar Niyazovna",
-        "ru": "Кабдрахманова Ажар Ниязовна"
-    },
-    {
-        "en": "Kim Esfir Sevastyanovna",
-        "ru": "Ким Есфирь Севастьяновна"
-    },
-    {
-        "en": "Kozhakhmetova Malika Azamatovna",
-        "ru": "Кожахметова Малика Азаматовна"
-    },
-    {
-        "en": "Koshkinbay Aiaru Armankyzy",
-        "ru": "Көшкінбай Айару Арманқызы"
-    },
-    {
-        "en": "Serikkaliyeva Yenlik Dumankyzy",
-        "ru": "Сериккалиева Еңлік Думанқызы"
-    },
-    {
-        "en": "Stepanchenko Saveliy Dmitriyevich",
-        "ru": "Степанченко Савелий Дмитриевич"
-    },
-    {
-        "en": "Suleimenova Aidana Nurlanovna",
-        "ru": "Сулейменова Айдана Нурлановна"
-    },
-    {
-        "en": "Tolstova Evelina Yevgenyevna",
-        "ru": "Толстова Эвелина Евгеньевна"
-    },
-    {
-        "en": "Khirana Kasita Putri",
-        "ru": "Хирана Касита Путри"
-    },
-    {
-        "en": "Khussainova Adiya Galimovna",
-        "ru": "Хусаинова Адия Галимовна"
-    },
-    {
-        "en": "Shabanov Anvarbek",
-        "ru": "Шабанов Анварбек"
-    },
-    {
-        "en": "Yugay Kseniya Albertovna",
-        "ru": "Югай Ксения Альбертовна"
-    }
+    { "en": "Abdikhai Saltanat Zhalgaskyzy", "ru": "Абдихай Салтанат Жалғасқызы" },
+    { "en": "Abdrakhmanov Babur Khamza uly", "ru": "Абдрахманов Бабур Хамза улы" },
+    { "en": "Adilkhan Nadiya Berikkyzy", "ru": "Адильхан Надия Берікқызы" },
+    { "en": "Hebatallah Aldada", "ru": "Альдада Хебаталла" },
+    { "en": "Bakhytov Alimzhan Bakhytkaliuly", "ru": "Бахытов Алимжан Бахыткалиулы" },
+    { "en": "Belachew Nigus Damte", "ru": "Белачев Нигус Дамте" },
+    { "en": "Dzhumagul Amirlan Magauiyauly", "ru": "Джұмағұл Әмірлан Мағауияұлы" },
+    { "en": "Zhumazhan Osman Darmenuly", "ru": "Жұмажан Осман Дарменұлы" },
+    { "en": "Zamotina Darya Astemirovna", "ru": "Замотина Дарья Астемировна" },
+    { "en": "Kabdrakhmanova Azhar Niyazovna", "ru": "Кабдрахманова Ажар Ниязовна" },
+    { "en": "Kim Esfir Sevastyanovna", "ru": "Ким Есфирь Севастьяновна" },
+    { "en": "Kozhakhmetova Malika Azamatovna", "ru": "Кожахметова Малика Азаматовна" },
+    { "en": "Koshkinbay Aiaru Armankyzy", "ru": "Көшкінбай Айару Арманқызы" },
+    { "en": "Serikkaliyeva Yenlik Dumankyzy", "ru": "Сериккалиева Еңлік Думанқызы" },
+    { "en": "Stepanchenko Saveliy Dmitriyevich", "ru": "Степанченко Савелий Дмитриевич" },
+    { "en": "Suleimenova Aidana Nurlanovna", "ru": "Сулейменова Айдана Нурлановна" },
+    { "en": "Tolstova Evelina Yevgenyevna", "ru": "Толстова Эвелина Евгеньевна" },
+    { "en": "Khirana Kasita Putri", "ru": "Хирана Касита Путри" },
+    { "en": "Khussainova Adiya Galimovna", "ru": "Хусаинова Адия Галимовна" },
+    { "en": "Shabanov Anvarbek", "ru": "Шабанов Анварбек" },
+    { "en": "Yugay Kseniya Albertovna", "ru": "Югай Ксения Альбертовна" }
 ];
 
 const MC2_THEORY_POOL = [
@@ -1748,6 +1685,8 @@ const MC2_THEORY_POOL = [
     }
 ];
 
+const t1SavedAnswers = {};
+
 // ДЕТЕРМИНИРОВАННЫЙ ГЕНЕРАТОР 6 УНИКАЛЬНЫХ ВОПРОСОВ ДЛЯ КАЖДОГО СТУДЕНТА
 function getStudentQuestionsMC2(studentIdx) {
     const pseudoRandom = (seed) => {
@@ -1755,19 +1694,16 @@ function getStudentQuestionsMC2(studentIdx) {
         return x - Math.floor(x);
     };
 
-    // Перемешиваем варианты ответов A, B, C, D, E с равномерным распределением правильной буквы
     const shuffleQuestionOptions = (qObj, seed, targetLetterIdx) => {
         const letters = ["A", "B", "C", "D", "E"];
         const origCorrectIdx = qObj.ans;
 
-        // Сначала перемешиваем 4 неправильных варианта
         let wrongIndices = [0, 1, 2, 3, 4].filter(idx => idx !== origCorrectIdx);
         for (let i = wrongIndices.length - 1; i > 0; i--) {
             let j = Math.floor(pseudoRandom(seed + i * 19) * (i + 1));
             [wrongIndices[i], wrongIndices[j]] = [wrongIndices[j], wrongIndices[i]];
         }
 
-        // Вставляем правильный вариант на целевую сбалансированную позицию
         let finalIndices = [];
         let wPtr = 0;
         for (let pos = 0; pos < 5; pos++) {
@@ -1795,7 +1731,6 @@ function getStudentQuestionsMC2(studentIdx) {
         };
     };
 
-    // Выбираем 6 уникальных вопросов из пула (82 вопроса) для данного студента
     const count = 6;
     let selectedIndices = [];
     let usedSet = new Set();
@@ -1810,7 +1745,6 @@ function getStudentQuestionsMC2(studentIdx) {
         step++;
     }
 
-    // Балансируем буквы правильных ответов среди 6 вопросов студента (чтобы не было 6 подряд "A")
     let targetPositions = [0, 1, 2, 3, 4, Math.floor(pseudoRandom((studentIdx + 1) * 107) * 5)];
     for (let i = targetPositions.length - 1; i > 0; i--) {
         let j = Math.floor(pseudoRandom((studentIdx + 1) * 71 + i * 29) * (i + 1));
@@ -1826,38 +1760,59 @@ function getStudentQuestionsMC2(studentIdx) {
     });
 }
 
-function renderQuestionsMC2(studentIdx, lang) {
-    const container = document.getElementById('part1-container');
+function renderTask1MC2(studentIdx, lang) {
+    const container = document.getElementById('task1-container');
     if (!container) return;
 
+    const isEn = lang === 'en';
     const selectedQuestions = getStudentQuestionsMC2(studentIdx);
-    container.innerHTML = '';
+    const savedMap = t1SavedAnswers[studentIdx] || {};
 
-    selectedQuestions.forEach((qObj, i) => {
-        const qText = lang === 'en' ? qObj.q_en : qObj.q_ru;
-        const opts = lang === 'en' ? qObj.opts_en : qObj.opts_ru;
-        const qLabel = lang === 'en' ? `Question 1.${i + 1}` : `Вопрос 1.${i + 1}`;
+    const qHTML = selectedQuestions.map((qObj, i) => {
+        const qText = isEn ? qObj.q_en : qObj.q_ru;
+        const opts = isEn ? qObj.opts_en : qObj.opts_ru;
+        const qName = `p1-q${i + 1}`;
+        const qLabel = isEn ? `Question 1.${i + 1}` : `Вопрос 1.${i + 1}`;
 
         let optionsHTML = '';
         for (let oIdx = 0; oIdx < opts.length; oIdx++) {
             const optText = opts[oIdx];
             const letter = String.fromCharCode(65 + oIdx);
+            const checked = savedMap[qName] === letter ? 'checked' : '';
             optionsHTML += `
-                <label class="flex items-start gap-3 p-3.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:bg-slate-800/80 cursor-pointer transition text-sm md:text-base text-slate-200">
-                    <input type="radio" name="p1-q${i + 1}" value="${letter}" data-ans="${qObj.ans}" class="mt-1 accent-indigo-500 w-4 h-4">
-                    <span>${optText}</span>
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-cyan-500/50 cursor-pointer transition">
+                    <input type="radio" name="${qName}" value="${letter}" data-ans="${qObj.ans}" ${checked}
+                           onchange="if(!t1SavedAnswers[${studentIdx}]) t1SavedAnswers[${studentIdx}]={}; t1SavedAnswers[${studentIdx}]['${qName}']=this.value"
+                           class="mt-0.5 accent-cyan-400">
+                    <span class="text-xs md:text-sm text-slate-200">${optText}</span>
                 </label>
             `;
         }
 
-        container.innerHTML += `
-            <div class="card p-6 space-y-4 border-t-2 border-slate-700 hover:border-indigo-500">
-                <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest inline-block">${qLabel}</span>
-                <h4 class="text-base md:text-lg font-bold text-slate-100 leading-snug">${qText}</h4>
-                <div class="space-y-2.5 pt-1">
+        return `
+            <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 space-y-3">
+                <span class="text-[11px] bg-cyan-500/10 text-cyan-400 px-2.5 py-0.5 rounded border border-cyan-500/20 uppercase font-mono font-bold inline-block">${qLabel}</span>
+                <div class="text-xs md:text-sm font-bold text-white leading-relaxed">${qText}</div>
+                <div class="space-y-2">
                     ${optionsHTML}
                 </div>
             </div>
         `;
-    });
+    }).join('');
+
+    container.innerHTML = `
+        <div class="card p-6 border-t-2 border-cyan-500 space-y-5">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+                <span class="text-xs bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-md border border-cyan-500/20 uppercase font-black tracking-widest">
+                    ${isEn ? 'Task 1 • Macroeconomic Theory (20 pts)' : 'Задание 1 • Теоретический блок (20 баллов)'}
+                </span>
+                <span class="text-xs font-mono text-slate-400">
+                    ${isEn ? '6 personalized questions × 3.33 pts = 20 pts' : '6 персональных вопросов × 3.33 балла = 20 баллов'}
+                </span>
+            </div>
+            <div class="space-y-4">
+                ${qHTML}
+            </div>
+        </div>
+    `;
 }
