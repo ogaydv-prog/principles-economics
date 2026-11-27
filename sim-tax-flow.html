@@ -268,10 +268,10 @@
     </header>
 
     <!-- Main 2-Column Workspace -->
-    <main class="flex-1 max-w-[1680px] w-full mx-auto p-3 sm:p-4 grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+    <main class="flex-1 max-w-[1680px] w-full mx-auto p-3 sm:p-4 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
         
-        <!-- LEFT PANEL: Radio-Tuner Sliders (~28% -> lg:col-span-4 xl:col-span-3) -->
-        <aside class="lg:col-span-4 xl:col-span-3 neon-panel rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between gap-4">
+        <!-- LEFT PANEL: Radio-Tuner Sliders (aligned down to the bottom edge of the Sankey card) -->
+        <aside class="lg:col-span-4 xl:col-span-3 neon-panel rounded-2xl p-3.5 sm:p-4 flex flex-col gap-4 lg:h-[852px] lg:overflow-y-auto custom-scroll">
             
             <!-- Source Note Banner -->
             <div class="rounded-xl bg-[#12161f] border border-[#2a3344] px-3 py-2 flex items-center justify-between text-[11px]">
@@ -301,7 +301,7 @@
             <div class="border-t border-[#2b3445]"></div>
 
             <!-- Group B: Additional Taxes, Customs & Excises -->
-            <div class="flex-1 flex flex-col">
+            <div>
                 <div class="flex items-center justify-between mb-2.5">
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
@@ -313,7 +313,7 @@
                         ~39%
                     </span>
                 </div>
-                <div id="otherSlidersContainer" class="flex-1 flex flex-col justify-between gap-2.5">
+                <div id="otherSlidersContainer" class="flex flex-col gap-2.5">
                     <!-- Injected via JS -->
                 </div>
             </div>
@@ -366,7 +366,7 @@
             </div>
 
             <!-- Main Sankey Canvas Card -->
-            <div class="neon-panel rounded-2xl p-4 sm:p-5 flex-1 flex flex-col justify-between">
+            <div class="neon-panel rounded-2xl p-4 sm:p-5 flex flex-col">
                 <!-- Diagram Stage Headers & Legend -->
                 <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-[#2a3344]">
                     <div>
@@ -401,7 +401,7 @@
                 </div>
 
                 <!-- Responsive SVG Sankey Container -->
-                <div id="sankeyWrapper" class="w-full overflow-x-auto my-auto">
+                <div id="sankeyWrapper" class="w-full overflow-x-auto">
                     <svg id="sankeySvg" class="w-full min-w-[780px] h-[640px] select-none" viewBox="0 0 1160 640" preserveAspectRatio="xMidYMid meet"></svg>
                 </div>
 
