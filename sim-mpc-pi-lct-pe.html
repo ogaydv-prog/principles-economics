@@ -125,8 +125,8 @@
         ::-webkit-scrollbar-track { background: #121316; }
         ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
 
-        /* Strictly Square Projection Containers */
-        .square-chart-box {
+        /* Strictly Square Box ONLY for Keynesian Cross */
+        .keynes-square-box {
             width: 100%;
             max-width: 630px;
             aspect-ratio: 1 / 1;
@@ -138,17 +138,18 @@
         svg#friedmanSvgChart {
             display: block;
             width: 100%;
-            height: 100%;
+            height: auto;
+            min-height: 410px;
             border: 1px solid #d1d5db;
             border-radius: 10px;
             background: #ffffff;
         }
         .grid-line { stroke: #e5e7eb; stroke-width: 1; }
-        .axis-line { stroke: #4b5563; stroke-width: 1.5; }
-        .curve-line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
-        .dash-line { stroke-dasharray: 6 5; opacity: 0.65; }
+        .axis-line { stroke: #374151; stroke-width: 1.6; }
+        .curve-line { fill: none; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+        .dash-line { stroke-dasharray: 6 5; }
         .tick-text, .label-text { font: 11px ui-monospace, monospace; fill: #374151; }
-        .anno-text { font: 700 12px ui-sans-serif, sans-serif; fill: #111827; }
+        .anno-text { font: 700 11.5px ui-sans-serif, sans-serif; fill: #111827; }
         .legend-text { font: 700 11px ui-monospace, monospace; }
     </style>
 </head>
@@ -252,7 +253,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-                    <!-- Compact Controls Box (-20% width: 3 cols instead of 4) -->
+                    <!-- Compact Controls Box (-20% width: 3 cols) -->
                     <div class="lg:col-span-3 flex flex-col space-y-2">
                         <div class="neon-card p-2.5 rounded-lg space-y-1.5">
                             <div class="flex justify-between items-center border-b border-gray-700 pb-1">
@@ -333,10 +334,10 @@
                         </div>
                     </div>
 
-                    <!-- Strictly Square Canvas Chart Box (9 cols) -->
+                    <!-- Strictly Square Canvas Chart Box for Keynesian Cross -->
                     <div class="lg:col-span-9 flex flex-col items-center justify-center w-full">
                         <div class="w-full bg-white rounded-xl p-3 border border-gray-300 shadow-2xl flex justify-center items-center">
-                            <div class="square-chart-box">
+                            <div class="keynes-square-box">
                                 <canvas id="keynesianChart"></canvas>
                             </div>
                         </div>
@@ -356,21 +357,21 @@
                     <div>
                         <h3 class="font-bold text-sm text-white" id="name-friedman">Милтон Фридман</h3>
                         <span class="text-xs text-emerald-400 font-semibold block mb-0.5" id="lbl-friedman-sub">Теория Перманентного Дохода (1957)</span>
-                        <p class="text-xs text-gray-400 leading-snug" id="desc-friedman">Доход делится на перманентную часть Yᵖ (постоянный оклад) и временную премию Yᵗ. Потребление C зависит от стабильного Yᵖ, а случайные разовые бонусы Yᵗ целиком сберегаются в S.</p>
+                        <p class="text-xs text-gray-400 leading-snug" id="desc-friedman">Доход делится на перманентную часть Yᵖ (постоянный оклад) и временную премию Yᵗ. Потребление C зависит только от стабильного Yᵖ (линия C = α·Yᵖ), а разовые бонусы Yᵗ целиком направляются в сбережения S = Y − C.</p>
                     </div>
                 </div>
 
                 <!-- Friedman Interactive Simulator -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-                    <!-- Compact Controls Column (3 cols) -->
-                    <div class="lg:col-span-3 bg-[#121316] p-3 rounded-lg border border-gray-800 space-y-2.5">
-                        <h3 class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider border-b border-gray-800 pb-1" id="lbl-friedman-ctrl">
+                    <!-- Controls Column (4 cols) -->
+                    <div class="lg:col-span-4 bg-[#121316] p-3 rounded-lg border border-gray-800 space-y-2.5">
+                        <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider border-b border-gray-800 pb-1.5" id="lbl-friedman-ctrl">
                             Параметры Перманентного Дохода
                         </h3>
 
                         <!-- Slider 1: Yp -->
                         <div class="p-2 bg-[#1a1d24] rounded border border-gray-800 space-y-1">
-                            <div class="flex justify-between text-[11px] font-semibold">
+                            <div class="flex justify-between text-xs font-semibold">
                                 <span class="text-gray-300" id="lbl-yp">Перманентный доход (Yᵖ):</span>
                                 <span id="val-yp" class="text-emerald-400 font-mono font-bold">$3,000</span>
                             </div>
@@ -380,8 +381,8 @@
 
                         <!-- Slider 2: Yt -->
                         <div class="p-2 bg-[#1a1d24] rounded border border-gray-800 space-y-1">
-                            <div class="flex justify-between text-[11px] font-semibold">
-                                <span class="text-gray-300" id="lbl-yt">Временный доход (Yᵗ):</span>
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-gray-300" id="lbl-yt">Временный доход / Премия (Yᵗ):</span>
                                 <span id="val-yt" class="text-amber-400 font-mono font-bold">$1,000</span>
                             </div>
                             <input type="range" id="slider-yt" min="0" max="3000" step="250" value="1000" oninput="updateFriedman()" class="vintage-slider slider-amber">
@@ -390,7 +391,7 @@
 
                         <!-- Slider 3: Alpha -->
                         <div class="p-2 bg-[#1a1d24] rounded border border-gray-800 space-y-1">
-                            <div class="flex justify-between text-[11px] font-semibold">
+                            <div class="flex justify-between text-xs font-semibold">
                                 <span class="text-gray-300" id="lbl-alpha">Склонность из Yᵖ (α):</span>
                                 <span id="val-alpha" class="text-blue-400 font-mono font-bold">0.85</span>
                             </div>
@@ -400,23 +401,21 @@
 
                         <!-- Calculation Formula Card -->
                         <div class="p-2.5 bg-[#1a1d24] rounded border border-gray-800 space-y-1 font-mono text-xs">
-                            <div class="text-[10.5px] font-bold text-emerald-400 border-b border-gray-700 pb-1" id="lbl-friedman-eq">Динамическое Уравнение Фридмана</div>
-                            <div id="val-friedman-formula" class="text-amber-300 text-[10.5px] font-semibold pt-1 leading-relaxed">
+                            <div class="text-[11px] font-bold text-emerald-400 border-b border-gray-700 pb-1" id="lbl-friedman-eq">Динамическое Уравнение Фридмана</div>
+                            <div id="val-friedman-formula" class="text-amber-300 text-[11px] font-semibold pt-1 leading-relaxed">
                                 Общий доход Y = $4,000<br>Потребление C = $2,550<br>Сбережения S = $1,450
                             </div>
                         </div>
-
-                        <!-- Metrics Stack -->
-                        <div class="space-y-1.5" id="friedmanMetrics"></div>
                     </div>
 
-                    <!-- Strictly Square SVG Chart Column (9 cols) -->
-                    <div class="lg:col-span-9 bg-white p-3 rounded-xl border border-gray-300 flex justify-center items-center">
-                        <div class="square-chart-box">
-                            <svg id="friedmanSvgChart" viewBox="0 0 620 620" preserveAspectRatio="xMidYMid meet" role="img"></svg>
-                        </div>
+                    <!-- Clear Orthogonal SVG Chart Column (8 cols) -->
+                    <div class="lg:col-span-8 bg-white p-3 rounded-xl border border-gray-300">
+                        <svg id="friedmanSvgChart" viewBox="0 0 760 440" role="img"></svg>
                     </div>
                 </div>
+
+                <!-- Metrics Output Row -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3" id="friedmanMetrics"></div>
             </div>
         </div>
 
@@ -435,62 +434,67 @@
                     </div>
                 </div>
 
-                <!-- Modigliani Simulator Header -->
-                <div class="flex flex-col md:flex-row justify-between md:items-center mb-2.5 gap-2">
+                <!-- Modigliani Simulator Header (Compact, Slider moved inside right card) -->
+                <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gray-800 pb-2 mb-3 gap-2">
                     <div>
                         <h2 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center" id="title-modi-sim">
                             <i class="fa-solid fa-sliders mr-2"></i> Симулятор Модели Жизненного Цикла Франко Модильяни
                         </h2>
-                        <p class="text-[11px] text-gray-400 mt-0.5" id="sub-modi">Перемещайте ползунок возраста для анализа сбережений и потребления.</p>
+                        <p class="text-[11px] text-gray-400 mt-0.5" id="sub-modi">Перемещайте ползунок возраста в правой панели для анализа сбережений и потребления.</p>
                     </div>
-                    <div class="font-mono bg-[#121316] px-3 py-1 rounded-lg border border-[#2a2e39]">
+                    <div class="font-mono bg-[#121316] px-3 py-1 rounded-lg border border-[#2a2e39] shrink-0">
                         <span class="text-xs text-gray-400" id="lbl-age">Возраст человека:</span>
                         <span id="val-age-display" class="text-sm font-extrabold text-amber-400 ml-2">35 лет</span>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-                    <!-- Compact Left Controls & Status (3 cols) -->
-                    <div class="lg:col-span-3 space-y-2.5">
-                        <div class="bg-[#121316] p-3 rounded-lg border border-gray-800">
-                            <input type="range" id="slider-age" min="18" max="80" step="1" value="35" oninput="updateModigliani()" class="vintage-slider slider-amber">
-                            <div class="grid grid-cols-2 gap-1 text-[10px] text-gray-400 font-semibold mt-2">
-                                <span id="txt-age-18">18 лет (Студент)</span>
-                                <span id="txt-age-45" class="text-right">45 лет (Пик)</span>
-                                <span id="txt-age-65">65 лет (Пенсия)</span>
-                                <span id="txt-age-80" class="text-right">80+ лет</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-[#121316] p-3 rounded-lg border border-gray-800 space-y-2.5">
-                            <div id="phase-badge" class="inline-block px-2 py-1 rounded text-[10.5px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                                Фаза Накопления (Saving Phase)
-                            </div>
-                            <h3 id="phase-title" class="text-sm font-bold text-white">Возраст: 35 лет</h3>
-                            <p id="phase-desc" class="text-xs text-gray-300 leading-relaxed">
-                                Доход превышает потребление (Y > C). Индивид сформировал резерв и гасит долги.
-                            </p>
-                            <div class="p-2 bg-[#1a1d24] rounded border border-gray-800 space-y-1 font-mono text-[11px]">
-                                <div class="flex justify-between text-gray-400">
-                                    <span id="lbl-c-modi">Потребление (C):</span>
-                                    <span class="text-blue-400 font-bold">$32,000 / год</span>
-                                </div>
-                                <div class="flex justify-between text-gray-400">
-                                    <span id="lbl-y-modi">Доход (Y):</span>
-                                    <span id="val-income-current" class="text-emerald-400 font-bold">$55,000 / год</span>
-                                </div>
-                                <div class="flex justify-between text-gray-400 pt-1 border-t border-gray-800">
-                                    <span id="lbl-net-status">Сальдо:</span>
-                                    <span id="val-net-current" class="text-amber-400 font-bold">+$23,000</span>
-                                </div>
-                            </div>
+                <!-- Chart on Left + Phase & Integrated Age Slider on Right (No scrolling needed) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+                    <div class="lg:col-span-7 bg-white p-3 rounded-xl border border-gray-300 flex items-center">
+                        <div class="w-full aspect-[1.45/1]">
+                            <canvas id="modiglianiChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- Strictly Square Chart Container (9 cols) -->
-                    <div class="lg:col-span-9 bg-white p-3 rounded-xl border border-gray-300 flex justify-center items-center">
-                        <div class="square-chart-box">
-                            <canvas id="modiglianiChart"></canvas>
+                    <div class="lg:col-span-5 bg-[#121316] p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
+                        <div class="space-y-2.5">
+                            <div id="phase-badge" class="inline-block px-2.5 py-1 rounded text-[11px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                                Фаза Накопления (Saving Phase)
+                            </div>
+                            <h3 id="phase-title" class="text-base font-bold text-white">Возраст: 35 лет</h3>
+                            <p id="phase-desc" class="text-xs text-gray-300 leading-relaxed">
+                                Доход превышает потребление (Y > C). Индивид сформировал резерв и гасит долги.
+                            </p>
+                        </div>
+
+                        <!-- Integrated Age Slider right under description -->
+                        <div class="bg-[#1a1d24] p-3 rounded-lg border border-gray-800">
+                            <div class="flex justify-between items-center text-[11px] font-bold text-amber-400 mb-1.5">
+                                <span id="lbl-slider-age-inner">Выберите возраст (18–80 лет):</span>
+                                <span id="val-age-inner" class="font-mono text-white">35 лет</span>
+                            </div>
+                            <input type="range" id="slider-age" min="18" max="80" step="1" value="35" oninput="updateModigliani()" class="vintage-slider slider-amber">
+                            <div class="flex justify-between text-[9.5px] text-gray-400 font-semibold mt-1.5">
+                                <span id="txt-age-18">18 (Студент)</span>
+                                <span id="txt-age-45">45 (Пик Y)</span>
+                                <span id="txt-age-65">65 (Пенсия)</span>
+                                <span id="txt-age-80">80+</span>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 bg-[#1a1d24] rounded-lg border border-gray-800 space-y-1 font-mono text-xs">
+                            <div class="flex justify-between text-gray-400">
+                                <span id="lbl-c-modi">Текущее Потребление (C):</span>
+                                <span class="text-blue-400 font-bold">$32,000 / год</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span id="lbl-y-modi">Текущий Доход (Y):</span>
+                                <span id="val-income-current" class="text-emerald-400 font-bold">$55,000 / год</span>
+                            </div>
+                            <div class="flex justify-between text-gray-400 pt-1 border-t border-gray-800">
+                                <span id="lbl-net-status">Чистое сальдо:</span>
+                                <span id="val-net-current" class="text-amber-400 font-bold">Сбережение (+$23,000)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -529,7 +533,7 @@
                 lblFriedmanSub: "Теория Перманентного Дохода (1957)",
                 lblModiSub: "Гипотеза Жизненного Цикла (1954)",
                 descKeynes: "Потребление зависит от текущего располагаемого дохода: C = a + MPC(Y-T). Модель планируемых расходов Y_ad определяет равновесный ВВП в точке пересечения с линией 45°.",
-                descFriedman: "Доход делится на перманентную часть Yᵖ (постоянный оклад) и временную премию Yᵗ. Потребление C зависит от стабильного Yᵖ, а случайные разовые бонусы Yᵗ целиком сберегаются в S.",
+                descFriedman: "Доход делится на перманентную часть Yᵖ (постоянный оклад) и временную премию Yᵗ. Потребление C зависит только от стабильного Yᵖ (линия C = α·Yᵖ), а разовые бонусы Yᵗ целиком направляются в сбережения S = Y − C.",
                 descModigliani: "Индивид планирует потребление на всю жизнь, накапливая сбережения в зрелом трудоспособном возрасте и расходуя накопившийся капитал на пенсии.",
                 titleKeynesCross: "Симулятор Модели Совокупных Расходов (Кейнсианский Крест)",
                 controls: "Параметры Модели",
@@ -551,32 +555,34 @@
                 lblFriedmanCtrl: "Параметры Перманентного Дохода",
                 lblYp: "Перманентный доход (Yᵖ):",
                 subYp: "Устойчивый долгосрочный оклад.",
-                lblYt: "Временный доход (Yᵗ):",
+                lblYt: "Временный доход / Премия (Yᵗ):",
                 subYt: "Разовый случайный выигрыш / премия.",
                 lblAlpha: "Склонность из Yᵖ (α):",
                 subAlpha: "Доля потребления из постоянного оклада.",
                 lblFriedmanEq: "Динамическое Уравнение Фридмана",
-                axisXFriedman: "Доход Y ($ тыс)",
-                axisYFriedman: "Потребление / Доход ($ тыс)",
+                axisXFriedman: "Совокупный текущий доход Y = Yᵖ + Yᵗ ($ тыс.)",
+                axisYFriedman: "Потребление C / Сбережения S ($ тыс.)",
                 svgTotalY: "Общий Y =",
-                svgSavings: "Сбережения S =",
-                svgLegendC: "Потребление C = α·Yᵖ",
-                svgLegendY: "Линия дохода Y = Y (45°)",
+                svgSavings: "Сбережения S = Y − C =",
+                svgLegendC: "Функция потребления C = α·Yᵖ",
+                svgLegendCShift: "Параллельный сдвиг (если бы премия Yᵗ тратилась)",
+                svgLegendY: "Биссектриса дохода Y = Y (45°)",
                 formulaTextY: "Общий доход Y =",
                 formulaTextC: "Потребление C =",
                 formulaTextS: "Сбережения S =",
-                formulaDetails: "($PERM оклад + $BONUS премия)",
+                formulaDetails: "($PERM от Yᵖ + $BONUS премия Yᵗ)",
 
                 titleModiSim: "Симулятор Модели Жизненного Цикла Франко Модильяни",
-                subModi: "Перемещайте ползунок возраста для анализа сбережений и потребления.",
+                subModi: "Перемещайте ползунок возраста в правой панели для анализа сбережений и потребления.",
                 lblAge: "Возраст человека:",
-                txtAge18: "18 лет (Студент)",
-                txtAge45: "45 лет (Пик)",
-                txtAge65: "65 лет (Пенсия)",
-                txtAge80: "80+ лет",
-                lblCModi: "Потребление (C):",
-                lblYModi: "Доход (Y):",
-                lblNetStatus: "Сальдо:",
+                lblSliderAgeInner: "Выберите возраст (18–80 лет):",
+                txtAge18: "18 (Студент)",
+                txtAge45: "45 (Пик Y)",
+                txtAge65: "65 (Пенсия)",
+                txtAge80: "80+",
+                lblCModi: "Текущее Потребление (C):",
+                lblYModi: "Текущий Доход (Y):",
+                lblNetStatus: "Чистое сальдо:",
                 axisXModi: "Возраст (годы)",
                 axisYModi: "Доход / Потребление ($ тыс / год)"
             },
@@ -597,7 +603,7 @@
                 lblFriedmanSub: "Permanent Income Theory (1957)",
                 lblModiSub: "Life Cycle Hypothesis (1954)",
                 descKeynes: "Consumption depends on current disposable income: C = a + MPC(Y-T). Planned expenditure Y_ad determines equilibrium GDP at the 45° line intersection.",
-                descFriedman: "Income splits into permanent Yᵖ and transitory Yᵗ. Consumption C depends on stable Yᵖ, while temporary bonuses Yᵗ are saved in S.",
+                descFriedman: "Income splits into permanent Yᵖ and transitory Yᵗ. Consumption C depends only on stable Yᵖ (line C = α·Yᵖ), while temporary bonuses Yᵗ go directly into savings S = Y − C.",
                 descModigliani: "Individuals plan consumption over lifetime, accumulating savings during working age and spending wealth during retirement.",
                 titleKeynesCross: "Aggregate Expenditure Model Simulator (Keynesian Cross)",
                 controls: "Model Parameters",
@@ -619,32 +625,34 @@
                 lblFriedmanCtrl: "Permanent Income Parameters",
                 lblYp: "Permanent Income (Yᵖ):",
                 subYp: "Stable long-term salary.",
-                lblYt: "Transitory Income (Yᵗ):",
+                lblYt: "Transitory Income / Bonus (Yᵗ):",
                 subYt: "One-off bonus or unexpected win.",
                 lblAlpha: "Propensity from Yᵖ (α):",
                 subAlpha: "Fraction consumed out of salary.",
                 lblFriedmanEq: "Dynamic Friedman Equation",
-                axisXFriedman: "Income Y ($ K)",
-                axisYFriedman: "Consumption / Income ($ K)",
+                axisXFriedman: "Total Current Income Y = Yᵖ + Yᵗ ($ K)",
+                axisYFriedman: "Consumption C / Savings S ($ K)",
                 svgTotalY: "Total Y =",
-                svgSavings: "Savings S =",
-                svgLegendC: "Consumption C = α·Yᵖ",
-                svgLegendY: "Income Line Y = Y (45°)",
+                svgSavings: "Savings S = Y − C =",
+                svgLegendC: "Consumption Function C = α·Yᵖ",
+                svgLegendCShift: "Parallel Shift (if Yᵗ were spent)",
+                svgLegendY: "45° Income Line (Y = Y)",
                 formulaTextY: "Total Income Y =",
                 formulaTextC: "Consumption C =",
                 formulaTextS: "Savings S =",
-                formulaDetails: "($PERM salary + $BONUS bonus)",
+                formulaDetails: "($PERM from Yᵖ + $BONUS bonus Yᵗ)",
 
                 titleModiSim: "Franco Modigliani's Life Cycle Simulator",
-                subModi: "Adjust age slider to analyze saving and dis-saving phases over lifetime.",
+                subModi: "Use the age slider in the right panel to analyze saving and dis-saving phases.",
                 lblAge: "Person's Age:",
-                txtAge18: "18 Yrs (Student)",
-                txtAge45: "45 Yrs (Peak)",
-                txtAge65: "65 Yrs (Pension)",
-                txtAge80: "80+ Yrs",
-                lblCModi: "Consumption (C):",
-                lblYModi: "Income (Y):",
-                lblNetStatus: "Balance:",
+                lblSliderAgeInner: "Select age (18–80 yrs):",
+                txtAge18: "18 (Student)",
+                txtAge45: "45 (Peak Y)",
+                txtAge65: "65 (Pension)",
+                txtAge80: "80+",
+                lblCModi: "Current Consumption (C):",
+                lblYModi: "Current Income (Y):",
+                lblNetStatus: "Net Balance:",
                 axisXModi: "Age (years)",
                 axisYModi: "Income / Consumption ($ K / yr)"
             }
@@ -783,6 +791,7 @@
             document.getElementById('title-modi-sim').innerHTML = `<i class="fa-solid fa-sliders mr-2"></i> ${t.titleModiSim}`;
             document.getElementById('sub-modi').innerText = t.subModi;
             document.getElementById('lbl-age').innerText = t.lblAge;
+            document.getElementById('lbl-slider-age-inner').innerText = t.lblSliderAgeInner;
             document.getElementById('txt-age-18').innerText = t.txtAge18;
             document.getElementById('txt-age-45').innerText = t.txtAge45;
             document.getElementById('txt-age-65').innerText = t.txtAge65;
@@ -969,7 +978,7 @@
         function resetKeynes() { setCountry('KAZ'); }
 
         // ==========================================
-        // FULLY DYNAMIC MILTON FRIEDMAN ENGINE (STRICT 1:1 SQUARE SVG)
+        // MILTON FRIEDMAN ENGINE (CLEAR PARALLEL LINES & ORTHOGONAL PROJECTIONS)
         // ==========================================
         function updateFriedman() {
             const yp = parseFloat(document.getElementById('slider-yp').value);
@@ -991,14 +1000,13 @@
             document.getElementById('val-friedman-formula').innerHTML = 
                 `${t.formulaTextY} $${totalIncome.toLocaleString()}<br>${t.formulaTextC} $${Math.round(cVal).toLocaleString()}<br>${t.formulaTextS} $${Math.round(savingsVal).toLocaleString()} ${detailsStr}`;
 
-            // Square coordinate plane: l=66, r=576 (width 510), t=42, b=552 (height 510), equal domain 0..8000
-            const box = { l: 66, r: 576, t: 42, b: 552 };
+            const box = { l: 74, r: 724, t: 54, b: 382 };
             const X = x => box.l + (x / 8000) * (box.r - box.l);
             const Y = y => box.b - (y / 8000) * (box.b - box.t);
 
             let svg = '';
 
-            // Square Grid & Ticks (0..8000 on both axes)
+            // Orthogonal Grid & Ticks (Equal 0..8000 scale on X and Y)
             for (let i = 0; i <= 8000; i += 1000) {
                 svg += `<line class="grid-line" x1="${X(i)}" y1="${box.t}" x2="${X(i)}" y2="${box.b}"/>`;
                 svg += `<text class="tick-text" x="${X(i)}" y="${box.b + 18}" text-anchor="middle">$${i / 1000}k</text>`;
@@ -1006,78 +1014,80 @@
                 svg += `<text class="tick-text" x="${box.l - 10}" y="${Y(i) + 4}" text-anchor="end">$${i / 1000}k</text>`;
             }
 
-            // Axes
+            // Main Axes
             svg += `<line class="axis-line" x1="${box.l}" y1="${box.b}" x2="${box.r}" y2="${box.b}"/>`;
             svg += `<line class="axis-line" x1="${box.l}" y1="${box.b}" x2="${box.l}" y2="${box.t}"/>`;
-            svg += `<text class="label-text" x="${(box.l + box.r) / 2}" y="${box.b + 42}" text-anchor="middle">${t.axisXFriedman}</text>`;
-            svg += `<text class="label-text" transform="translate(20 ${(box.t + box.b) / 2}) rotate(-90)" text-anchor="middle">${t.axisYFriedman}</text>`;
+            svg += `<text class="label-text" x="${(box.l + box.r) / 2}" y="${box.b + 40}" text-anchor="middle">${t.axisXFriedman}</text>`;
+            svg += `<text class="label-text" transform="translate(22 ${(box.t + box.b) / 2}) rotate(-90)" text-anchor="middle">${t.axisYFriedman}</text>`;
 
-            // True 45-degree diagonal line (Y = Y)
-            svg += `<line class="curve-line dash-line" stroke="#173f5f" x1="${X(0)}" y1="${Y(0)}" x2="${X(8000)}" y2="${Y(8000)}"/>`;
+            // 1. 45-degree Income Line (Y = Y)
+            svg += `<line class="curve-line dash-line" stroke="#1e3a8a" stroke-opacity="0.75" x1="${X(0)}" y1="${Y(0)}" x2="${X(8000)}" y2="${Y(8000)}"/>`;
 
-            // Savings Area Shading
-            svg += `<polygon points="${X(totalIncome)},${Y(totalIncome)} ${X(totalIncome)},${Y(cVal)} ${X(yp)},${Y(cVal)}" fill="rgba(217, 119, 6, 0.16)"/>`;
+            // 2. Primary Consumption Line C = α * Yp (passes through origin with slope α)
+            svg += `<line class="curve-line" stroke="#0d9488" x1="${X(0)}" y1="${Y(0)}" x2="${X(8000)}" y2="${Y(alpha * 8000)}"/>`;
 
-            // C(Yp) Permanent consumption line
-            const ptsC = [];
-            for (let x = 0; x <= 8000; x += 500) {
-                ptsC.push(`${X(x).toFixed(1)},${Y(alpha * x).toFixed(1)}`);
+            // 3. Parallel Reference Line if transitory income Yt were also consumed at rate α: C_alt = α * Y
+            // Notice: because C = α*Yp stays flat as Y increases by Yt, the line C = α*Yp is parallel to the horizontal shift!
+            // Draw clear horizontal consumption plateau from (Yp, C) to (Yp + Yt, C) showing C stays constant!
+            svg += `<line stroke="#0d9488" stroke-width="3.2" x1="${X(yp)}" y1="${Y(cVal)}" x2="${X(totalIncome)}" y2="${Y(cVal)}"/>`;
+
+            // Orthogonal Projection 1: Permanent Income Yp -> Consumption C
+            svg += `<line class="dash-line" stroke="#0d9488" stroke-width="1.6" x1="${X(yp)}" y1="${Y(cVal)}" x2="${X(yp)}" y2="${box.b}"/>`;
+            svg += `<line class="dash-line" stroke="#0d9488" stroke-width="1.6" x1="${box.l}" y1="${Y(cVal)}" x2="${X(yp)}" y2="${Y(cVal)}"/>`;
+            svg += `<circle cx="${X(yp)}" cy="${Y(cVal)}" r="6" fill="#0d9488" stroke="#ffffff" stroke-width="2"/>`;
+            svg += `<text class="anno-text" x="${box.l + 8}" y="${Y(cVal) - 7}" fill="#0f766e">C = α·Yᵖ = $${Math.round(cVal)}</text>`;
+            svg += `<text class="anno-text" x="${X(yp)}" y="${box.b - 7}" text-anchor="middle" fill="#0f766e">Yᵖ = $${yp}</text>`;
+
+            // Orthogonal Projection 2: Total Income Y = Yp + Yt -> 45° Line (Total Y) & Constant Consumption C
+            svg += `<line class="dash-line" stroke="#d97706" stroke-width="1.8" x1="${X(totalIncome)}" y1="${Y(totalIncome)}" x2="${X(totalIncome)}" y2="${box.b}"/>`;
+            svg += `<line class="dash-line" stroke="#d97706" stroke-width="1.5" x1="${box.l}" y1="${Y(totalIncome)}" x2="${X(totalIncome)}" y2="${Y(totalIncome)}"/>`;
+            svg += `<circle cx="${X(totalIncome)}" cy="${Y(totalIncome)}" r="6" fill="#1e3a8a" stroke="#ffffff" stroke-width="2"/>`;
+            svg += `<circle cx="${X(totalIncome)}" cy="${Y(cVal)}" r="6" fill="#0d9488" stroke="#ffffff" stroke-width="2"/>`;
+
+            // Vertical Savings Segment S = Y - C at X = totalIncome
+            svg += `<line stroke="#d97706" stroke-width="3.5" x1="${X(totalIncome)}" y1="${Y(cVal)}" x2="${X(totalIncome)}" y2="${Y(totalIncome)}"/>`;
+
+            const rightLabelX = totalIncome > 6100 ? X(totalIncome) - 155 : X(totalIncome) + 12;
+            svg += `<text class="anno-text" x="${rightLabelX}" y="${Y(totalIncome) - 8}" fill="#1e3a8a">${t.svgTotalY} $${totalIncome}</text>`;
+            svg += `<text class="anno-text" x="${rightLabelX}" y="${Y((cVal + totalIncome) / 2) + 4}" fill="#b45309">${t.svgSavings} $${Math.round(savingsVal)}</text>`;
+            if (yt > 0) {
+                svg += `<text class="anno-text" x="${X((yp + totalIncome) / 2)}" y="${box.b - 7}" text-anchor="middle" fill="#b45309">+Yᵗ ($${yt})</text>`;
             }
-            svg += `<path class="curve-line" stroke="#0b8f8c" d="M ${ptsC.join(' L ')}"/>`;
 
-            // Projection for Permanent Income Yp
-            svg += `<line class="dash-line" stroke="#8b95a0" x1="${X(yp)}" y1="${Y(cVal)}" x2="${X(yp)}" y2="${box.b}"/>`;
-            svg += `<circle cx="${X(yp)}" cy="${Y(cVal)}" r="6" fill="#0b8f8c" stroke="#ffffff" stroke-width="2"/>`;
-            svg += `<text class="anno-text" x="${Math.max(box.l + 8, X(yp) - 42)}" y="${Y(cVal) - 12}">C = $${Math.round(cVal)}</text>`;
+            // Top Legend Bar
+            svg += `<line x1="80" y1="22" x2="108" y2="22" stroke="#0d9488" stroke-width="3.2"/>`;
+            svg += `<text class="legend-text" x="115" y="26" fill="#0f766e">${t.svgLegendC}</text>`;
 
-            // Projection for Total Income Y (Yp + Yt)
-            svg += `<line class="dash-line" stroke="#d97706" stroke-width="2" x1="${X(totalIncome)}" y1="${Y(totalIncome)}" x2="${X(totalIncome)}" y2="${box.b}"/>`;
-            svg += `<line class="dash-line" stroke="#d97706" stroke-width="1.5" x1="${X(yp)}" y1="${Y(cVal)}" x2="${X(totalIncome)}" y2="${Y(cVal)}"/>`;
-            svg += `<circle cx="${X(totalIncome)}" cy="${Y(totalIncome)}" r="6" fill="#d97706" stroke="#ffffff" stroke-width="2"/>`;
+            svg += `<line x1="365" y1="22" x2="393" y2="22" stroke="#1e3a8a" stroke-width="2.5" stroke-dasharray="6 5"/>`;
+            svg += `<text class="legend-text" x="400" y="26" fill="#1e3a8a">${t.svgLegendY}</text>`;
 
-            const labelX = totalIncome > 6400 ? X(totalIncome) - 125 : X(totalIncome) + 10;
-            svg += `<text class="anno-text" x="${labelX}" y="${Y(totalIncome) - 10}">${t.svgTotalY} $${totalIncome}</text>`;
-
-            // Savings Bracket Arrow Line
-            svg += `<line stroke="#d97706" stroke-width="3" x1="${X(totalIncome)}" y1="${Y(cVal)}" x2="${X(totalIncome)}" y2="${Y(totalIncome)}"/>`;
-            svg += `<text class="anno-text" x="${labelX}" y="${Y((cVal + totalIncome) / 2)}" fill="#d97706">${t.svgSavings} $${Math.round(savingsVal)}</text>`;
-
-            // Legend
-            svg += `<line x1="84" y1="22" x2="108" y2="22" stroke="#0b8f8c" stroke-width="3"/>`;
-            svg += `<text class="legend-text" x="114" y="26" fill="#0b8f8c">${t.svgLegendC}</text>`;
-            svg += `<line x1="330" y1="22" x2="354" y2="22" stroke="#173f5f" stroke-width="2" stroke-dasharray="5 4"/>`;
-            svg += `<text class="legend-text" x="360" y="26" fill="#173f5f">${t.svgLegendY}</text>`;
+            svg += `<line x1="615" y1="15" x2="615" y2="30" stroke="#d97706" stroke-width="3.5"/>`;
+            svg += `<text class="legend-text" x="623" y="26" fill="#b45309">S = Y − C</text>`;
 
             document.getElementById('friedmanSvgChart').innerHTML = svg;
 
             // Metrics Cards
             document.getElementById('friedmanMetrics').innerHTML = `
-                <div class="neon-card p-2.5 rounded-lg border border-gray-800 flex justify-between items-center">
-                    <div>
-                        <b class="text-[10px] text-gray-400 uppercase tracking-wider block font-mono">${currentLang==='ru'?'Перманентное C':'Permanent C'}</b>
-                        <span class="text-[10px] text-gray-400">${currentLang==='ru'?'Из оклада Yᵖ':'From salary Yᵖ'}</span>
-                    </div>
-                    <strong class="text-base text-emerald-400 font-mono">$${Math.round(cVal).toLocaleString()}</strong>
+                <div class="neon-card p-3 rounded-lg border border-gray-800">
+                    <b class="text-[10px] text-gray-400 uppercase tracking-wider block font-mono">${currentLang==='ru'?'Перманентное потребление C':'Permanent Consumption C'}</b>
+                    <strong class="text-lg text-emerald-400 block mt-1">$${Math.round(cVal).toLocaleString()}</strong>
+                    <span class="text-[10px] text-gray-400">${currentLang==='ru'?'Зависит только от оклада Yᵖ':'Driven strictly by salary Yᵖ'}</span>
                 </div>
-                <div class="neon-card p-2.5 rounded-lg border border-gray-800 flex justify-between items-center">
-                    <div>
-                        <b class="text-[10px] text-gray-400 uppercase tracking-wider block font-mono">${currentLang==='ru'?'Сбережения S':'Total Savings S'}</b>
-                        <span class="text-[10px] text-gray-400">${currentLang==='ru'?'Бонус Yᵗ + из Yᵖ':'Bonus Yᵗ + Yᵖ'}</span>
-                    </div>
-                    <strong class="text-base text-amber-400 font-mono">$${Math.round(savingsVal).toLocaleString()}</strong>
+                <div class="neon-card p-3 rounded-lg border border-gray-800">
+                    <b class="text-[10px] text-gray-400 uppercase tracking-wider block font-mono">${currentLang==='ru'?'Совокупные сбережения S':'Total Savings S'}</b>
+                    <strong class="text-lg text-amber-400 block mt-1">$${Math.round(savingsVal).toLocaleString()}</strong>
+                    <span class="text-[10px] text-gray-400">${currentLang==='ru'?'100% премии Yᵗ + сбережения из Yᵖ':'100% of bonus Yᵗ + savings from Yᵖ'}</span>
                 </div>
-                <div class="neon-card p-2.5 rounded-lg border border-gray-800 flex justify-between items-center">
-                    <div>
-                        <b class="text-[10px] text-gray-400 uppercase tracking-wider block font-mono">${currentLang==='ru'?'Общий доход Y':'Total Income Y'}</b>
-                        <span class="text-[10px] text-gray-400">Yᵖ + Yᵗ</span>
-                    </div>
-                    <strong class="text-base text-blue-400 font-mono">$${totalIncome.toLocaleString()}</strong>
+                <div class="neon-card p-3 rounded-lg border border-gray-800">
+                    <b class="text-[10px] text-gray-400 uppercase tracking-wider block font-mono">${currentLang==='ru'?'Общий доход Y':'Total Income Y'}</b>
+                    <strong class="text-lg text-blue-400 block mt-1">$${totalIncome.toLocaleString()}</strong>
+                    <span class="text-[10px] text-gray-400">Yᵖ + Yᵗ</span>
                 </div>
             `;
         }
 
         // ==========================================
-        // FRANCO MODIGLIANI ENGINE (STRICT 1:1 SQUARE)
+        // FRANCO MODIGLIANI ENGINE
         // ==========================================
         function initModiglianiChart() {
             const ctx = document.getElementById('modiglianiChart').getContext('2d');
@@ -1086,8 +1096,7 @@
                 data: { labels: [], datasets: [] },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
-                    aspectRatio: 1,
+                    maintainAspectRatio: false,
                     animation: false,
                     scales: {
                         x: { type: 'linear', min: 18, max: 80, title: { display: true, text: i18n[currentLang].axisXModi, color: '#111827', font: { size: 12, weight: 'bold' } }, grid: { color: '#e5e7eb' } },
@@ -1100,7 +1109,9 @@
 
         function updateModigliani() {
             const age = parseInt(document.getElementById('slider-age').value);
-            document.getElementById('val-age-display').innerText = age + (currentLang === 'ru' ? ' лет' : ' Yrs');
+            const ageText = age + (currentLang === 'ru' ? ' лет' : ' Yrs');
+            document.getElementById('val-age-display').innerText = ageText;
+            document.getElementById('val-age-inner').innerText = ageText;
 
             const ages = [];
             for (let a = 18; a <= 80; a++) ages.push(a);
@@ -1132,32 +1143,32 @@
             const diff = currentIncome - 32;
 
             if (age < 28) {
-                badge.className = "inline-block px-2 py-1 rounded text-[10.5px] font-black uppercase tracking-wider bg-red-500/20 text-red-400 border border-red-500/30";
-                badge.innerText = currentLang === 'ru' ? "Фаза Образования / Займа" : "Student Loan / Dis-saving";
-                title.innerText = (currentLang === 'ru' ? `Возраст: ${age} лет (Студент)` : `Age: ${age} Yrs (Student)`);
+                badge.className = "inline-block px-2.5 py-1 rounded text-[11px] font-black uppercase tracking-wider bg-red-500/20 text-red-400 border border-red-500/30";
+                badge.innerText = currentLang === 'ru' ? "Фаза Образования / Займа (Dis-saving)" : "Student Loan / Dis-saving Phase";
+                title.innerText = (currentLang === 'ru' ? `Возраст: ${age} лет (Молодой специалист)` : `Age: ${age} Yrs (Young Specialist)`);
                 desc.innerText = currentLang === 'ru' ? 
                     "Текущий доход ниже уровня сглаженного потребления (Y < C). Индивид финансирует обучение и старт карьеры за счет долгов." :
                     "Current income is below smoothed consumption (Y < C). Individual finances education and career start via debt.";
                 netStatus.className = "text-red-400 font-bold";
-                netStatus.innerText = (currentLang === 'ru' ? `-$${Math.abs(Math.round(diff * 1000))}` : `-$${Math.abs(Math.round(diff * 1000))}`);
+                netStatus.innerText = (currentLang === 'ru' ? `Дефицит (-$${Math.abs(Math.round(diff * 1000))})` : `Deficit (-$${Math.abs(Math.round(diff * 1000))})`);
             } else if (age >= 28 && age < 65) {
-                badge.className = "inline-block px-2 py-1 rounded text-[10.5px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-                badge.innerText = currentLang === 'ru' ? "Фаза Накопления (Saving)" : "Peak Saving Phase";
-                title.innerText = (currentLang === 'ru' ? `Возраст: ${age} лет (Работа)` : `Age: ${age} Yrs (Working Age)`);
+                badge.className = "inline-block px-2.5 py-1 rounded text-[11px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+                badge.innerText = currentLang === 'ru' ? "Фаза Накопления (Saving Phase)" : "Peak Saving Phase";
+                title.innerText = (currentLang === 'ru' ? `Возраст: ${age} лет (Трудоспособный период)` : `Age: ${age} Yrs (Working Age)`);
                 desc.innerText = currentLang === 'ru' ? 
                     "Пиковый доход превышает потребление (Y > C). Индивид сберегает и инвестирует капитал к старости." :
                     "Peak income exceeds consumption (Y > C). Individual saves and invests capital for retirement.";
                 netStatus.className = "text-emerald-400 font-bold";
-                netStatus.innerText = (currentLang === 'ru' ? `+$${Math.round(diff * 1000)}` : `+$${Math.round(diff * 1000)}`);
+                netStatus.innerText = (currentLang === 'ru' ? `Сбережение (+$${Math.round(diff * 1000)})` : `Saving (+$${Math.round(diff * 1000)})`);
             } else {
-                badge.className = "inline-block px-2 py-1 rounded text-[10.5px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30";
-                badge.innerText = currentLang === 'ru' ? "Пенсионный Период" : "Retirement Dis-saving";
-                title.innerText = (currentLang === 'ru' ? `Возраст: ${age} лет (Пенсия)` : `Age: ${age} Yrs (Retirement)`);
+                badge.className = "inline-block px-2.5 py-1 rounded text-[11px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30";
+                badge.innerText = currentLang === 'ru' ? "Пенсионный Период (Retirement Dis-saving)" : "Retirement Dis-saving Phase";
+                title.innerText = (currentLang === 'ru' ? `Возраст: ${age} лет (Пенсионный возраст)` : `Age: ${age} Yrs (Retirement)`);
                 desc.innerText = currentLang === 'ru' ? 
                     "Трудовой доход прекращается (Y < C). Индивид расходует накопленный за жизнь капитал." :
                     "Labor income drops (Y < C). Individual runs down wealth accumulated over lifetime.";
                 netStatus.className = "text-amber-400 font-bold";
-                netStatus.innerText = (currentLang === 'ru' ? `-$${Math.abs(Math.round(diff * 1000))}` : `-$${Math.abs(Math.round(diff * 1000))}`);
+                netStatus.innerText = (currentLang === 'ru' ? `Растрата накоплений (-$${Math.abs(Math.round(diff * 1000))})` : `Dis-saving (-$${Math.abs(Math.round(diff * 1000))})`);
             }
 
             modiglianiChart.options.scales.x.title.text = i18n[currentLang].axisXModi;
