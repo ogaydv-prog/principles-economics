@@ -125,11 +125,10 @@
         ::-webkit-scrollbar-track { background: #121316; }
         ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
 
-        /* Strictly Square Box ONLY for Keynesian Cross */
+        /* Expanded (+15%) Keynesian Cross Container without empty white margins */
         .keynes-square-box {
             width: 100%;
-            max-width: 630px;
-            aspect-ratio: 1 / 1;
+            max-width: 725px;
             position: relative;
             margin: 0 auto;
         }
@@ -253,90 +252,90 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-                    <!-- Compact Controls Box (-20% width: 3 cols) -->
-                    <div class="lg:col-span-3 flex flex-col space-y-2">
-                        <div class="neon-card p-2.5 rounded-lg space-y-1.5">
-                            <div class="flex justify-between items-center border-b border-gray-700 pb-1">
-                                <h3 class="text-[11px] font-bold text-blue-400 uppercase tracking-wider" id="lbl-controls">Параметры Модели</h3>
+                    <!-- Wider Controls Box (4 cols) to eliminate empty white gaps -->
+                    <div class="lg:col-span-4 flex flex-col space-y-2.5">
+                        <div class="neon-card p-3 rounded-lg space-y-2">
+                            <div class="flex justify-between items-center border-b border-gray-700 pb-1.5">
+                                <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider" id="lbl-controls">Параметры Модели</h3>
                                 <button onclick="resetKeynes()" class="text-[11px] text-gray-400 hover:text-red-400 underline" id="btn-reset">Сброс</button>
                             </div>
 
-                            <div class="p-1.5 bg-[#121316] rounded border border-gray-800">
-                                <div class="flex justify-between text-[11px] font-semibold mb-1">
-                                    <span id="lbl-mpc" class="text-gray-300">MPC (Склонность):</span>
+                            <div class="p-2 bg-[#121316] rounded border border-gray-800">
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span id="lbl-mpc" class="text-gray-300">MPC (Предельная склонность):</span>
                                     <span id="val-mpc" class="text-blue-400 font-mono font-bold">0.90</span>
                                 </div>
                                 <input type="range" id="slider-mpc" min="0.10" max="0.95" step="0.01" value="0.90" oninput="updateKeynes()" class="vintage-slider slider-gray">
                             </div>
 
-                            <div class="p-1.5 bg-[#121316] rounded border border-blue-950 space-y-1">
+                            <div class="p-2 bg-[#121316] rounded border border-blue-950 space-y-1">
                                 <div class="flex items-center justify-between">
-                                    <label class="flex items-center space-x-1.5 text-[11px] font-bold text-blue-400 cursor-pointer">
+                                    <label class="flex items-center space-x-2 text-xs font-bold text-blue-400 cursor-pointer">
                                         <input type="checkbox" id="chk-c" checked disabled class="rounded bg-gray-800 border-gray-700 text-blue-500">
-                                        <span id="lbl-c-title">1. Потребление (a)</span>
+                                        <span id="lbl-c-title">1. Автономное потребление (a)</span>
                                     </label>
-                                    <span id="val-c" class="text-[11px] font-mono font-bold text-blue-400">$300 млрд</span>
+                                    <span id="val-c" class="text-xs font-mono font-bold text-blue-400">$300 млрд</span>
                                 </div>
                                 <input type="range" id="slider-c" min="0" max="1000" step="50" value="300" oninput="updateKeynes()" class="vintage-slider slider-blue">
                             </div>
 
-                            <div class="p-1.5 bg-[#121316] rounded border border-emerald-950 space-y-1">
+                            <div class="p-2 bg-[#121316] rounded border border-emerald-950 space-y-1">
                                 <div class="flex items-center justify-between">
-                                    <label class="flex items-center space-x-1.5 text-[11px] font-bold text-emerald-400 cursor-pointer">
+                                    <label class="flex items-center space-x-2 text-xs font-bold text-emerald-400 cursor-pointer">
                                         <input type="checkbox" id="chk-i" checked onchange="updateKeynes()" class="rounded bg-gray-800 border-gray-700 text-emerald-500">
                                         <span id="lbl-i-title">2. Инвестиции (I)</span>
                                     </label>
-                                    <span id="val-i" class="text-[11px] font-mono font-bold text-emerald-400">$150 млрд</span>
+                                    <span id="val-i" class="text-xs font-mono font-bold text-emerald-400">$150 млрд</span>
                                 </div>
                                 <input type="range" id="slider-i" min="0" max="800" step="50" value="150" oninput="updateKeynes()" class="vintage-slider slider-green">
                             </div>
 
-                            <div class="p-1.5 bg-[#121316] rounded border border-amber-950 space-y-1">
+                            <div class="p-2 bg-[#121316] rounded border border-amber-950 space-y-1">
                                 <div class="flex items-center justify-between">
-                                    <label class="flex items-center space-x-1.5 text-[11px] font-bold text-amber-400 cursor-pointer">
+                                    <label class="flex items-center space-x-2 text-xs font-bold text-amber-400 cursor-pointer">
                                         <input type="checkbox" id="chk-g" checked onchange="updateKeynes()" class="rounded bg-gray-800 border-gray-700 text-amber-500">
                                         <span id="lbl-g-title">3. Госрасходы (G)</span>
                                     </label>
-                                    <span id="val-g" class="text-[11px] font-mono font-bold text-amber-400">$150 млрд</span>
+                                    <span id="val-g" class="text-xs font-mono font-bold text-amber-400">$150 млрд</span>
                                 </div>
                                 <input type="range" id="slider-g" min="0" max="800" step="50" value="150" oninput="updateKeynes()" class="vintage-slider slider-amber">
                             </div>
 
-                            <div class="p-1.5 bg-[#121316] rounded border border-purple-950 space-y-1">
+                            <div class="p-2 bg-[#121316] rounded border border-purple-950 space-y-1">
                                 <div class="flex items-center justify-between">
-                                    <label class="flex items-center space-x-1.5 text-[11px] font-bold text-purple-400 cursor-pointer">
+                                    <label class="flex items-center space-x-2 text-xs font-bold text-purple-400 cursor-pointer">
                                         <input type="checkbox" id="chk-nx" checked onchange="updateKeynes()" class="rounded bg-gray-800 border-gray-700 text-purple-500">
                                         <span id="lbl-nx-title">4. Чистый экспорт (NX)</span>
                                     </label>
-                                    <span id="val-nx" class="text-[11px] font-mono font-bold text-purple-400">$100 млрд</span>
+                                    <span id="val-nx" class="text-xs font-mono font-bold text-purple-400">$100 млрд</span>
                                 </div>
                                 <input type="range" id="slider-nx" min="-400" max="500" step="50" value="100" oninput="updateKeynes()" class="vintage-slider slider-purple">
                             </div>
                         </div>
 
-                        <div class="neon-card p-2 rounded-lg grid grid-cols-2 gap-1.5 text-center font-mono">
-                            <div class="bg-[#121316] p-1.5 rounded border border-[#2a2e39]">
-                                <span class="text-[9.5px] text-gray-400 uppercase tracking-wider block" id="lbl-mult">Мультипликатор (m)</span>
-                                <span id="res-mult" class="text-sm font-extrabold text-blue-400">10.00</span>
+                        <div class="neon-card p-2 rounded-lg grid grid-cols-2 gap-2 text-center font-mono">
+                            <div class="bg-[#121316] p-2 rounded border border-[#2a2e39]">
+                                <span class="text-[10px] text-gray-400 uppercase tracking-wider block" id="lbl-mult">Мультипликатор (m)</span>
+                                <span id="res-mult" class="text-base font-extrabold text-blue-400">10.00</span>
                             </div>
-                            <div class="bg-[#121316] p-1.5 rounded border border-[#2a2e39]">
-                                <span class="text-[9.5px] text-gray-400 uppercase tracking-wider block" id="lbl-eq">Выпуск (Y*)</span>
-                                <span id="res-y" class="text-sm font-extrabold text-emerald-400">$7000 млрд</span>
+                            <div class="bg-[#121316] p-2 rounded border border-[#2a2e39]">
+                                <span class="text-[10px] text-gray-400 uppercase tracking-wider block" id="lbl-eq">Выпуск (Y*)</span>
+                                <span id="res-y" class="text-base font-extrabold text-emerald-400">$7000 млрд</span>
                             </div>
                         </div>
 
-                        <div class="neon-card p-2.5 rounded-lg space-y-1 text-xs">
-                            <div class="font-bold text-blue-400 border-b border-gray-700 pb-1 uppercase tracking-wider text-[10.5px]" id="lbl-exp-title">Механизм Равновесия</div>
-                            <div id="exp-formula" class="font-mono text-[10.5px] text-amber-300 font-semibold">Y* = 10.00 × ($300 + $150 + $150 + $100) = $7000 млрд</div>
-                            <p id="exp-text" class="text-gray-400 text-[10px] leading-snug">
+                        <div class="neon-card p-3 rounded-lg space-y-1.5 text-xs">
+                            <div class="font-bold text-blue-400 border-b border-gray-700 pb-1 uppercase tracking-wider text-[11px]" id="lbl-exp-title">Механизм Равновесия</div>
+                            <div id="exp-formula" class="font-mono text-[11px] text-amber-300 font-semibold">Y* = 10.00 × ($300 + $150 + $150 + $100) = $7000 млрд</div>
+                            <p id="exp-text" class="text-gray-400 text-[10px] leading-relaxed">
                                 В точке пересечения E (Кейнсианский крест) планируемые расходы равны выпуску (Y = Y_ad).
                             </p>
                         </div>
                     </div>
 
-                    <!-- Strictly Square Canvas Chart Box for Keynesian Cross -->
-                    <div class="lg:col-span-9 flex flex-col items-center justify-center w-full">
-                        <div class="w-full bg-white rounded-xl p-3 border border-gray-300 shadow-2xl flex justify-center items-center">
+                    <!-- Expanded (+15%) Canvas Chart Box with true square grid projections -->
+                    <div class="lg:col-span-8 flex flex-col items-center justify-center w-full">
+                        <div class="w-full max-w-[760px] bg-white rounded-xl p-3 border border-gray-300 shadow-2xl flex justify-center items-center">
                             <div class="keynes-square-box">
                                 <canvas id="keynesianChart"></canvas>
                             </div>
@@ -538,8 +537,8 @@
                 titleKeynesCross: "Симулятор Модели Совокупных Расходов (Кейнсианский Крест)",
                 controls: "Параметры Модели",
                 reset: "Сбросить",
-                mpc: "MPC (Склонность):",
-                cTitle: "1. Потребление (a)",
+                mpc: "MPC (Предельная склонность):",
+                cTitle: "1. Автономное потребление (a)",
                 iTitle: "2. Инвестиции (I)",
                 gTitle: "3. Госрасходы (G)",
                 nxTitle: "4. Чистый экспорт (NX)",
@@ -565,7 +564,6 @@
                 svgTotalY: "Общий Y =",
                 svgSavings: "Сбережения S = Y − C =",
                 svgLegendC: "Функция потребления C = α·Yᵖ",
-                svgLegendCShift: "Параллельный сдвиг (если бы премия Yᵗ тратилась)",
                 svgLegendY: "Биссектриса дохода Y = Y (45°)",
                 formulaTextY: "Общий доход Y =",
                 formulaTextC: "Потребление C =",
@@ -608,13 +606,13 @@
                 titleKeynesCross: "Aggregate Expenditure Model Simulator (Keynesian Cross)",
                 controls: "Model Parameters",
                 reset: "Reset",
-                mpc: "MPC (Propensity):",
-                cTitle: "1. Consumption (a)",
-                iTitle: "2. Investment (I)",
-                gTitle: "3. Gov. Spending (G)",
+                mpc: "MPC (Marginal Propensity):",
+                cTitle: "1. Autonomous Consumption (a)",
+                iTitle: "2. Investment Spending (I)",
+                gTitle: "3. Government Purchases (G)",
                 nxTitle: "4. Net Exports (NX)",
                 mult: "Multiplier (m)",
-                eq: "Output (Y*)",
+                eq: "Equilibrium Output (Y*)",
                 expTitle: "Equilibrium Mechanism",
                 expText: "At intersection point E (Keynesian Cross), planned expenditure equals output (Y = Y_ad).",
                 axisXKeynes: "Aggregate Output / Income, Y ($ B)",
@@ -635,7 +633,6 @@
                 svgTotalY: "Total Y =",
                 svgSavings: "Savings S = Y − C =",
                 svgLegendC: "Consumption Function C = α·Yᵖ",
-                svgLegendCShift: "Parallel Shift (if Yᵗ were spent)",
                 svgLegendY: "45° Income Line (Y = Y)",
                 formulaTextY: "Total Income Y =",
                 formulaTextC: "Consumption C =",
@@ -658,9 +655,26 @@
             }
         };
 
-        // CANVAS PLUGIN FOR KEYNESIAN CROSS 45-DEGREE ANGLE & EQUILIBRIUM E
+        // CANVAS PLUGIN FOR KEYNESIAN CROSS: KEEPS INNER PLOT AREA STRICTLY SQUARE (1:1 GRID CELLS & PROJECTIONS)
         const keynesianCrossPlugin = {
             id: 'keynesianCrossPlugin',
+            afterLayout(chart) {
+                const ca = chart.chartArea;
+                if (!ca || ca.width <= 0 || ca.height <= 0) return;
+                const plotW = ca.right - ca.left;
+                const plotH = ca.bottom - ca.top;
+                if (Math.abs(plotW - plotH) > 2) {
+                    const padLeft = ca.left;
+                    const padRight = chart.width - ca.right;
+                    const padTop = ca.top;
+                    const padBottom = chart.height - ca.bottom;
+                    const targetAspect = (plotW + padLeft + padRight) / (plotW + padTop + padBottom);
+                    if (Math.abs(chart.options.aspectRatio - targetAspect) > 0.005) {
+                        chart.options.aspectRatio = targetAspect;
+                        requestAnimationFrame(() => chart.resize());
+                    }
+                }
+            },
             afterDatasetsDraw(chart) {
                 const { ctx, chartArea: { left, bottom } } = chart;
                 const datasetMeta = chart.getDatasetMeta(0);
@@ -672,7 +686,7 @@
                 const lineAngle = Math.atan2(dy, dx); 
 
                 ctx.save();
-                const radius = 42;
+                const radius = 44;
                 ctx.beginPath();
                 ctx.arc(left, bottom, radius, 0, lineAngle, true);
                 ctx.strokeStyle = '#dc2626';
@@ -806,7 +820,7 @@
         }
 
         // ==========================================
-        // KEYNESIAN CROSS ENGINE (STRICT 1:1 SQUARE)
+        // KEYNESIAN CROSS ENGINE (TRUE SQUARE INNER PROJECTION)
         // ==========================================
         function initKeynesChart() {
             const ctx = document.getElementById('keynesianChart').getContext('2d');
@@ -817,7 +831,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    aspectRatio: 1,
+                    aspectRatio: 1.04,
                     animation: false,
                     scales: {
                         x: {
@@ -978,7 +992,7 @@
         function resetKeynes() { setCountry('KAZ'); }
 
         // ==========================================
-        // MILTON FRIEDMAN ENGINE (CLEAR PARALLEL LINES & ORTHOGONAL PROJECTIONS)
+        // MILTON FRIEDMAN ENGINE
         // ==========================================
         function updateFriedman() {
             const yp = parseFloat(document.getElementById('slider-yp').value);
@@ -1006,7 +1020,6 @@
 
             let svg = '';
 
-            // Orthogonal Grid & Ticks (Equal 0..8000 scale on X and Y)
             for (let i = 0; i <= 8000; i += 1000) {
                 svg += `<line class="grid-line" x1="${X(i)}" y1="${box.t}" x2="${X(i)}" y2="${box.b}"/>`;
                 svg += `<text class="tick-text" x="${X(i)}" y="${box.b + 18}" text-anchor="middle">$${i / 1000}k</text>`;
@@ -1014,37 +1027,26 @@
                 svg += `<text class="tick-text" x="${box.l - 10}" y="${Y(i) + 4}" text-anchor="end">$${i / 1000}k</text>`;
             }
 
-            // Main Axes
             svg += `<line class="axis-line" x1="${box.l}" y1="${box.b}" x2="${box.r}" y2="${box.b}"/>`;
             svg += `<line class="axis-line" x1="${box.l}" y1="${box.b}" x2="${box.l}" y2="${box.t}"/>`;
             svg += `<text class="label-text" x="${(box.l + box.r) / 2}" y="${box.b + 40}" text-anchor="middle">${t.axisXFriedman}</text>`;
             svg += `<text class="label-text" transform="translate(22 ${(box.t + box.b) / 2}) rotate(-90)" text-anchor="middle">${t.axisYFriedman}</text>`;
 
-            // 1. 45-degree Income Line (Y = Y)
             svg += `<line class="curve-line dash-line" stroke="#1e3a8a" stroke-opacity="0.75" x1="${X(0)}" y1="${Y(0)}" x2="${X(8000)}" y2="${Y(8000)}"/>`;
-
-            // 2. Primary Consumption Line C = α * Yp (passes through origin with slope α)
             svg += `<line class="curve-line" stroke="#0d9488" x1="${X(0)}" y1="${Y(0)}" x2="${X(8000)}" y2="${Y(alpha * 8000)}"/>`;
-
-            // 3. Parallel Reference Line if transitory income Yt were also consumed at rate α: C_alt = α * Y
-            // Notice: because C = α*Yp stays flat as Y increases by Yt, the line C = α*Yp is parallel to the horizontal shift!
-            // Draw clear horizontal consumption plateau from (Yp, C) to (Yp + Yt, C) showing C stays constant!
             svg += `<line stroke="#0d9488" stroke-width="3.2" x1="${X(yp)}" y1="${Y(cVal)}" x2="${X(totalIncome)}" y2="${Y(cVal)}"/>`;
 
-            // Orthogonal Projection 1: Permanent Income Yp -> Consumption C
             svg += `<line class="dash-line" stroke="#0d9488" stroke-width="1.6" x1="${X(yp)}" y1="${Y(cVal)}" x2="${X(yp)}" y2="${box.b}"/>`;
             svg += `<line class="dash-line" stroke="#0d9488" stroke-width="1.6" x1="${box.l}" y1="${Y(cVal)}" x2="${X(yp)}" y2="${Y(cVal)}"/>`;
             svg += `<circle cx="${X(yp)}" cy="${Y(cVal)}" r="6" fill="#0d9488" stroke="#ffffff" stroke-width="2"/>`;
             svg += `<text class="anno-text" x="${box.l + 8}" y="${Y(cVal) - 7}" fill="#0f766e">C = α·Yᵖ = $${Math.round(cVal)}</text>`;
             svg += `<text class="anno-text" x="${X(yp)}" y="${box.b - 7}" text-anchor="middle" fill="#0f766e">Yᵖ = $${yp}</text>`;
 
-            // Orthogonal Projection 2: Total Income Y = Yp + Yt -> 45° Line (Total Y) & Constant Consumption C
             svg += `<line class="dash-line" stroke="#d97706" stroke-width="1.8" x1="${X(totalIncome)}" y1="${Y(totalIncome)}" x2="${X(totalIncome)}" y2="${box.b}"/>`;
             svg += `<line class="dash-line" stroke="#d97706" stroke-width="1.5" x1="${box.l}" y1="${Y(totalIncome)}" x2="${X(totalIncome)}" y2="${Y(totalIncome)}"/>`;
             svg += `<circle cx="${X(totalIncome)}" cy="${Y(totalIncome)}" r="6" fill="#1e3a8a" stroke="#ffffff" stroke-width="2"/>`;
             svg += `<circle cx="${X(totalIncome)}" cy="${Y(cVal)}" r="6" fill="#0d9488" stroke="#ffffff" stroke-width="2"/>`;
 
-            // Vertical Savings Segment S = Y - C at X = totalIncome
             svg += `<line stroke="#d97706" stroke-width="3.5" x1="${X(totalIncome)}" y1="${Y(cVal)}" x2="${X(totalIncome)}" y2="${Y(totalIncome)}"/>`;
 
             const rightLabelX = totalIncome > 6100 ? X(totalIncome) - 155 : X(totalIncome) + 12;
@@ -1054,7 +1056,6 @@
                 svg += `<text class="anno-text" x="${X((yp + totalIncome) / 2)}" y="${box.b - 7}" text-anchor="middle" fill="#b45309">+Yᵗ ($${yt})</text>`;
             }
 
-            // Top Legend Bar
             svg += `<line x1="80" y1="22" x2="108" y2="22" stroke="#0d9488" stroke-width="3.2"/>`;
             svg += `<text class="legend-text" x="115" y="26" fill="#0f766e">${t.svgLegendC}</text>`;
 
@@ -1066,7 +1067,6 @@
 
             document.getElementById('friedmanSvgChart').innerHTML = svg;
 
-            // Metrics Cards
             document.getElementById('friedmanMetrics').innerHTML = `
                 <div class="neon-card p-3 rounded-lg border border-gray-800">
                     <b class="text-[10px] text-gray-400 uppercase tracking-wider block font-mono">${currentLang==='ru'?'Перманентное потребление C':'Permanent Consumption C'}</b>
