@@ -41,7 +41,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 16px 22px;
+            padding: 12px 18px 14px;
         }
 
         /* Верхняя банковская шапка */
@@ -51,31 +51,31 @@
             align-items: center;
             background: linear-gradient(180deg, #192230 0%, #11161f 100%);
             border: 1px solid var(--border-vault);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
             border-radius: 14px;
-            padding: 14px 22px;
-            margin-bottom: 16px;
-            gap: 16px;
+            padding: 11px 18px;
+            margin-bottom: 12px;
+            gap: 14px;
             flex-wrap: wrap;
         }
 
         .crest-block {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
         /* Круглая белая плашка под логотип AlmaU */
         .almau-logo-frame {
             background: #ffffff;
             border: 2px solid #fbbf24;
-            box-shadow: 0 4px 16px rgba(234, 179, 8, 0.35), inset 0 0 6px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35), inset 0 0 6px rgba(0, 0, 0, 0.08);
             border-radius: 50%;
-            width: 58px;
-            height: 58px;
-            min-width: 58px;
-            min-height: 58px;
-            padding: 6px;
+            width: 54px;
+            height: 54px;
+            min-width: 54px;
+            min-height: 54px;
+            padding: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -101,48 +101,46 @@
 
         .title-stack h1 {
             font-family: 'Playfair Display', 'Georgia', serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
-            line-height: 1.25;
-            letter-spacing: 0.35px;
+            line-height: 1.22;
+            letter-spacing: 0.3px;
             background: linear-gradient(180deg, #ffffff 0%, #fde68a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 14px rgba(234, 179, 8, 0.15);
         }
 
         .title-stack p {
-            font-size: 12.8px;
+            font-size: 12.2px;
             color: var(--text-slate);
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .nav-controls {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        /* Отдельные выпуклые 3D-кнопки вкладок */
         .tabs-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             flex-wrap: wrap;
         }
 
         .region-tab {
             border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: 10px;
-            padding: 9px 14px;
-            font-size: 12.8px;
+            border-radius: 9px;
+            padding: 8px 12px;
+            font-size: 12.4px;
             font-weight: 700;
             color: #e2e8f0;
             background: linear-gradient(180deg, #242f40 0%, #151c27 100%);
             box-shadow:
-                0 4px 0 #090d12,
-                0 6px 14px rgba(0, 0, 0, 0.45),
+                0 3px 0 #090d12,
+                0 5px 12px rgba(0, 0, 0, 0.45),
                 inset 0 1px 0 rgba(255, 255, 255, 0.18);
             cursor: pointer;
             transition: all 0.18s ease;
@@ -158,7 +156,7 @@
 
         .region-tab:active {
             top: 2px;
-            box-shadow: 0 2px 0 #090d12, 0 3px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 0 #090d12, 0 3px 8px rgba(0, 0, 0, 0.4);
         }
 
         .region-tab[data-region="kz"] { border-bottom: 2px solid #10b981; }
@@ -166,7 +164,7 @@
             background: linear-gradient(180deg, #10b981 0%, #047857 100%);
             border-color: #6ee7b7;
             color: #ffffff;
-            box-shadow: 0 4px 0 #064e3b, 0 0 18px rgba(16, 185, 129, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 3px 0 #064e3b, 0 0 16px rgba(16, 185, 129, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .region-tab[data-region="us"] { border-bottom: 2px solid #ef4444; }
@@ -174,7 +172,7 @@
             background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
             border-color: #fca5a5;
             color: #ffffff;
-            box-shadow: 0 4px 0 #7f1d1d, 0 0 18px rgba(239, 68, 68, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 3px 0 #7f1d1d, 0 0 16px rgba(239, 68, 68, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .region-tab[data-region="eu"] { border-bottom: 2px solid #3b82f6; }
@@ -182,7 +180,7 @@
             background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
             border-color: #93c5fd;
             color: #ffffff;
-            box-shadow: 0 4px 0 #1e3a8a, 0 0 18px rgba(59, 130, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 3px 0 #1e3a8a, 0 0 16px rgba(59, 130, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .region-tab[data-region="global"] { border-bottom: 2px solid #8b5cf6; }
@@ -190,7 +188,7 @@
             background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
             border-color: #c4b5fd;
             color: #ffffff;
-            box-shadow: 0 4px 0 #4c1d95, 0 0 18px rgba(139, 92, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 3px 0 #4c1d95, 0 0 16px rgba(139, 92, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .region-tab[data-region="deposit_lab"] { border-bottom: 2px solid #14b8a6; }
@@ -198,14 +196,14 @@
             background: linear-gradient(180deg, #14b8a6 0%, #0f766e 100%);
             border-color: #5eead4;
             color: #ffffff;
-            box-shadow: 0 4px 0 #115e59, 0 0 18px rgba(20, 184, 166, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 3px 0 #115e59, 0 0 16px rgba(20, 184, 166, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .pill-switch {
             display: inline-flex;
             background: var(--bg-recess);
-            padding: 4px;
-            border-radius: 10px;
+            padding: 3px;
+            border-radius: 9px;
             border: 1px solid var(--border-steel);
             gap: 2px;
         }
@@ -214,9 +212,9 @@
             border: none;
             background: transparent;
             color: var(--text-slate);
-            padding: 6px 10px;
-            border-radius: 7px;
-            font-size: 12px;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 11.5px;
             font-weight: 700;
             cursor: pointer;
         }
@@ -231,9 +229,9 @@
             border: 1px solid var(--border-vault);
             box-shadow: 0 3px 0 #090d12, inset 0 1px 0 rgba(255, 255, 255, 0.14);
             color: #fde68a;
-            padding: 8px 13px;
+            padding: 7px 12px;
             border-radius: 9px;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.18s ease;
@@ -248,36 +246,36 @@
         .metrics-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .metric-tile {
             background: var(--bg-vault);
             border: 1px solid var(--border-steel);
             border-left: 3px solid var(--gold-accent);
-            border-radius: 11px;
-            padding: 12px 16px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
+            border-radius: 10px;
+            padding: 10px 14px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.32);
         }
 
         .metric-lbl {
-            font-size: 11px;
+            font-size: 10.5px;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
+            letter-spacing: 0.65px;
             color: var(--text-slate);
             font-weight: 700;
         }
 
         .metric-val {
             font-family: 'Playfair Display', 'Georgia', serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
-            margin: 4px 0 2px;
+            margin: 3px 0 2px;
         }
 
         .metric-sub {
-            font-size: 11.5px;
+            font-size: 11px;
             color: var(--text-slate);
         }
 
@@ -285,67 +283,67 @@
         .pyramid-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .pyramid-card {
             background: var(--bg-vault);
             border: 1px solid var(--border-steel);
-            border-radius: 12px;
-            padding: 13px 16px;
+            border-radius: 11px;
+            padding: 10px 14px;
         }
 
         .step-tag {
             display: inline-block;
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            padding: 2px 8px;
+            letter-spacing: 0.65px;
+            padding: 2px 7px;
             border-radius: 5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .pyramid-card h3 {
             font-family: 'Playfair Display', 'Georgia', serif;
-            font-size: 15.5px;
+            font-size: 14.5px;
             color: #ffffff;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .pyramid-card p {
-            font-size: 12.5px;
+            font-size: 12px;
             color: var(--text-slate);
-            line-height: 1.45;
+            line-height: 1.4;
         }
 
-        /* Основной рабочий блок: Слева винтажные радио-регуляторы (365px) + Справа визуализация трансмиссии */
+        /* Основной рабочий блок */
         .main-grid {
             display: grid;
-            grid-template-columns: 365px 1fr;
-            gap: 16px;
-            margin-bottom: 16px;
+            grid-template-columns: 350px 1fr;
+            gap: 14px;
+            margin-bottom: 12px;
         }
 
         .radio-deck {
             background: linear-gradient(180deg, #18202c 0%, #121720 100%);
             border: 1px solid var(--border-vault);
             border-radius: 14px;
-            padding: 16px;
+            padding: 13px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.45);
+            gap: 9px;
+            box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.45);
         }
 
         .deck-section-title {
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.75px;
             color: #fbbf24;
-            padding: 6px 10px;
+            padding: 5px 9px;
             background: rgba(234, 179, 8, 0.1);
             border-left: 3px solid #eab308;
             border-radius: 4px;
@@ -357,9 +355,9 @@
         .tuner-module {
             background: var(--bg-tuner);
             border: 1px solid rgba(148, 163, 184, 0.24);
-            border-radius: 11px;
-            padding: 10px 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            border-radius: 10px;
+            padding: 8px 11px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
             transition: border-color 0.2s ease;
         }
 
@@ -371,25 +369,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 6px;
+            margin-bottom: 6px;
         }
 
         .tuner-name-box {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
         }
 
         .jewel-dot {
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             flex-shrink: 0;
         }
 
         .tuner-label {
-            font-size: 12.8px;
+            font-size: 12.2px;
             font-weight: 700;
             color: #f8fafc;
         }
@@ -398,13 +396,13 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 16px;
-            height: 16px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             background: #273244;
             border: 1px solid #64748b;
             color: #e2e8f0;
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 800;
             cursor: help;
             position: relative;
@@ -420,16 +418,16 @@
         .help-bubble {
             position: absolute;
             left: -8px;
-            top: 22px;
-            width: 265px;
+            top: 20px;
+            width: 260px;
             background: #080b10;
             color: #f8fafc;
             border: 1px solid var(--gold-accent);
             border-radius: 8px;
-            padding: 10px 12px;
-            font-size: 11.8px;
+            padding: 9px 11px;
+            font-size: 11.5px;
             font-weight: 400;
-            line-height: 1.45;
+            line-height: 1.4;
             z-index: 150;
             opacity: 0;
             visibility: hidden;
@@ -441,10 +439,10 @@
 
         .freq-display {
             font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 13px;
+            font-size: 12.2px;
             font-weight: 800;
             background: var(--bg-recess);
-            padding: 3px 9px;
+            padding: 2px 8px;
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             white-space: nowrap;
@@ -453,8 +451,8 @@
         .vintage-dial-housing {
             background: #0b0f15;
             border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 8px 10px 6px;
+            border-radius: 7px;
+            padding: 6px 9px 4px;
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.85);
             position: relative;
         }
@@ -463,7 +461,7 @@
             -webkit-appearance: none;
             appearance: none;
             width: 100%;
-            height: 8px;
+            height: 7px;
             border-radius: 4px;
             background: #1e293b;
             outline: none;
@@ -474,8 +472,8 @@
         input[type="range"].vintage-radio-knob::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 22px;
-            height: 28px;
+            width: 20px;
+            height: 24px;
             border-radius: 4px;
             border: 1.5px solid #cbd5e1;
             background: linear-gradient(
@@ -488,7 +486,7 @@
                 #1e293b 100%
             );
             box-shadow:
-                0 0 12px var(--knob-stripe, #eab308),
+                0 0 10px var(--knob-stripe, #eab308),
                 0 3px 6px rgba(0, 0, 0, 0.9),
                 inset 0 1px 0 rgba(255, 255, 255, 0.45);
             cursor: grab;
@@ -497,12 +495,11 @@
 
         input[type="range"].vintage-radio-knob::-webkit-slider-thumb:hover {
             transform: scale(1.08);
-            box-shadow: 0 0 16px var(--knob-stripe, #eab308), 0 4px 8px rgba(0, 0, 0, 0.95);
         }
 
         input[type="range"].vintage-radio-knob::-moz-range-thumb {
-            width: 22px;
-            height: 28px;
+            width: 20px;
+            height: 24px;
             border-radius: 4px;
             border: 1.5px solid #cbd5e1;
             background: linear-gradient(
@@ -514,7 +511,7 @@
                 #334155 66%,
                 #1e293b 100%
             );
-            box-shadow: 0 0 12px var(--knob-stripe, #eab308);
+            box-shadow: 0 0 10px var(--knob-stripe, #eab308);
             cursor: grab;
         }
 
@@ -522,18 +519,18 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: 6px;
-            padding: 0 4px;
+            margin-top: 5px;
+            padding: 0 3px;
         }
 
         .dial-graduations span {
             width: 1px;
-            height: 4px;
+            height: 3.5px;
             background: #64748b;
         }
 
         .dial-graduations span:nth-child(4n+1) {
-            height: 8px;
+            height: 6.5px;
             width: 1.5px;
             background: #e2e8f0;
         }
@@ -541,36 +538,36 @@
         .tuner-bounds {
             display: flex;
             justify-content: space-between;
-            font-size: 10.5px;
+            font-size: 9.8px;
             color: var(--text-slate);
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         /* Правая колонка */
         .right-stage {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
 
         .panel-box {
             background: var(--bg-vault);
             border: 1px solid var(--border-steel);
-            border-radius: 14px;
-            padding: 18px 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            border-radius: 13px;
+            padding: 13px 16px;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
         }
 
         .sankey-columns {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            padding-bottom: 10px;
-            margin-bottom: 8px;
+            padding-bottom: 8px;
+            margin-bottom: 6px;
             border-bottom: 1px solid var(--border-steel);
-            font-size: 11.6px;
+            font-size: 11.2px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.65px;
+            letter-spacing: 0.6px;
             color: #fde68a;
         }
 
@@ -579,9 +576,8 @@
 
         svg#moneyFlowSvg {
             width: 100%;
-            height: 390px;
+            height: 335px;
             display: block;
-            overflow: visible;
         }
 
         .stream-path {
@@ -598,46 +594,54 @@
         .vault-node {
             rx: 5;
             ry: 5;
-            stroke: rgba(255, 255, 255, 0.3);
+            stroke: rgba(255, 255, 255, 0.32);
             stroke-width: 1;
         }
 
         .svg-title {
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 700;
             fill: #f8fafc;
         }
 
         .svg-sub {
-            font-size: 10.8px;
+            font-size: 10.5px;
             font-weight: 600;
             fill: #94a3b8;
         }
 
         .sankey-footnote {
-            margin-top: 8px;
-            padding: 8px 12px;
+            margin-top: 6px;
+            padding: 7px 11px;
             background: var(--bg-recess);
             border-left: 3px solid var(--gold-accent);
             border-radius: 4px 8px 8px 4px;
-            font-size: 11.8px;
+            font-size: 11.4px;
             color: #cbd5e1;
-            line-height: 1.45;
+            line-height: 1.4;
         }
 
-        /* Двухколоночный аналитический блок */
+        /* Компактный двухколоночный аналитический блок (уменьшена высота!) */
         .analytics-split {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 16px;
+            grid-template-columns: 1.22fr 0.78fr;
+            gap: 14px;
+            align-items: stretch;
+        }
+
+        .analytics-split .panel-box {
+            padding: 11px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .box-heading {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+            margin-bottom: 8px;
+            padding-bottom: 6px;
             border-bottom: 1px solid var(--border-steel);
             flex-wrap: wrap;
             gap: 6px;
@@ -645,32 +649,32 @@
 
         .box-heading h2 {
             font-family: 'Playfair Display', 'Georgia', serif;
-            font-size: 16.5px;
+            font-size: 15.5px;
             color: #ffffff;
         }
 
         .math-badge {
             font-family: 'Consolas', monospace;
-            font-size: 11.5px;
+            font-size: 11px;
             background: var(--bg-recess);
             border: 1px solid var(--border-vault);
             color: #fbbf24;
-            padding: 3px 9px;
+            padding: 2px 8px;
             border-radius: 6px;
         }
 
         .taylor-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .taylor-input-card {
             background: var(--bg-tuner);
             border: 1px solid var(--border-steel);
-            border-radius: 10px;
-            padding: 9px 10px;
+            border-radius: 9px;
+            padding: 7px 8px;
             transition: border-color 0.2s ease;
         }
 
@@ -682,7 +686,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 7px;
+            margin-bottom: 5px;
             gap: 4px;
         }
 
@@ -690,14 +694,14 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: 11.2px;
+            font-size: 10.8px;
             color: #e2e8f0;
             font-weight: 700;
         }
 
         .taylor-input-card .t-val {
             font-family: 'Consolas', monospace;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 800;
             background: var(--bg-recess);
             padding: 2px 6px;
@@ -708,32 +712,34 @@
         .taylor-verdict {
             background: var(--bg-recess);
             border: 1px solid var(--border-vault);
-            border-radius: 10px;
-            padding: 11px 14px;
+            border-radius: 9px;
+            padding: 8px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .taylor-res-num {
             font-family: 'Playfair Display', 'Georgia', serif;
-            font-size: 24px;
+            font-size: 21px;
             font-weight: 700;
             color: #fbbf24;
+            line-height: 1.1;
         }
 
         .stance-pill {
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 700;
-            padding: 5px 11px;
+            padding: 4px 10px;
             border-radius: 7px;
         }
 
+        /* Компактная кривая доходности без пустого пространства */
         svg#yieldCurveSvg {
             width: 100%;
-            height: 195px;
+            height: 138px;
             display: block;
         }
 
@@ -743,28 +749,27 @@
 
         .dep-lab-grid {
             display: grid;
-            grid-template-columns: 365px 1fr;
-            gap: 16px;
-            margin-bottom: 16px;
+            grid-template-columns: 350px 1fr;
+            gap: 14px;
         }
 
         .dep-summary-cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 10px;
+            margin-bottom: 14px;
         }
 
         .dep-stat {
             background: var(--bg-tuner);
             border: 1px solid var(--border-steel);
-            border-radius: 10px;
-            padding: 11px 14px;
+            border-radius: 9px;
+            padding: 10px 12px;
         }
 
         .dep-stat span {
             display: block;
-            font-size: 11px;
+            font-size: 10.5px;
             color: var(--text-slate);
             text-transform: uppercase;
             font-weight: 700;
@@ -772,21 +777,21 @@
 
         .dep-stat strong {
             font-family: 'Playfair Display', 'Georgia', serif;
-            font-size: 20px;
+            font-size: 19px;
             color: #ffffff;
-            margin-top: 3px;
+            margin-top: 2px;
             display: block;
         }
 
         .dep-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12.5px;
+            font-size: 12.2px;
         }
 
         .dep-table th {
             text-align: left;
-            padding: 9px 10px;
+            padding: 8px 9px;
             background: var(--bg-recess);
             color: #fde68a;
             font-weight: 700;
@@ -794,64 +799,64 @@
         }
 
         .dep-table td {
-            padding: 8px 10px;
+            padding: 7px 9px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.12);
             color: #e2e8f0;
         }
 
         .progress-bar-cell {
-            height: 8px;
+            height: 7px;
             border-radius: 4px;
             display: inline-block;
-            margin-right: 8px;
+            margin-right: 7px;
         }
 
         .formula-explain-box {
-            margin-top: 14px;
+            margin-top: 12px;
             background: var(--bg-recess);
             border: 1px solid rgba(20, 184, 166, 0.35);
-            border-radius: 10px;
-            padding: 13px 16px;
-            font-size: 12.8px;
+            border-radius: 9px;
+            padding: 11px 14px;
+            font-size: 12.3px;
             color: #cbd5e1;
-            line-height: 1.55;
+            line-height: 1.5;
         }
 
         .basel-cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
+            gap: 12px;
         }
 
         .basel-item {
             background: var(--bg-tuner);
             border: 1px solid var(--border-steel);
             border-top: 2px solid var(--stream-teal);
-            border-radius: 10px;
-            padding: 13px 15px;
+            border-radius: 9px;
+            padding: 11px 13px;
         }
 
         .basel-kicker {
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 800;
             color: #2dd4bf;
             text-transform: uppercase;
             letter-spacing: 0.6px;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             display: block;
         }
 
         .basel-item h4 {
             font-family: 'Playfair Display', 'Georgia', serif;
-            font-size: 14.5px;
+            font-size: 14px;
             color: #ffffff;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .basel-item p {
-            font-size: 12.3px;
+            font-size: 12px;
             color: var(--text-slate);
-            line-height: 1.45;
+            line-height: 1.4;
         }
 
         .cursor-tip {
@@ -859,22 +864,15 @@
             background: #080b10;
             border: 1px solid var(--gold-accent);
             color: #f8fafc;
-            padding: 9px 13px;
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 11.8px;
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.12s ease;
             z-index: 999;
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85);
-            max-width: 310px;
-        }
-
-        footer {
-            margin-top: 16px;
-            text-align: center;
-            font-size: 12.5px;
-            color: var(--text-slate);
+            max-width: 300px;
         }
 
         @media (max-width: 1180px) {
@@ -934,13 +932,13 @@
             </div>
             <div class="metric-tile">
                 <div class="metric-lbl" id="k2Lbl">Полный мультипликатор (m)</div>
-                <div class="metric-val" id="k2Val" style="color: #2dd4bf;">4.41x</div>
+                <div class="metric-val" id="k2Val" style="color: #2dd4bf;">4.36x</div>
                 <div class="metric-sub" id="k2Sub">m = (1 + c) / (rr + e + c)</div>
             </div>
             <div class="metric-tile">
                 <div class="metric-lbl" id="k3Lbl">Широкая денежная масса (M3)</div>
-                <div class="metric-val" id="k3Val" style="color: #60a5fa;">57.77 трлн ₸</div>
-                <div class="metric-sub" id="k3Sub">M2 = 50.66 трлн ₸ • M1 = 11.93 трлн ₸</div>
+                <div class="metric-val" id="k3Val" style="color: #60a5fa;">57.77 / 50.66 трлн ₸</div>
+                <div class="metric-sub" id="k3Sub">M0 = 4.91 • M1 = 11.93 трлн ₸</div>
             </div>
             <div class="metric-tile">
                 <div class="metric-lbl" id="k4Lbl">Инфляция: Факт / Таргет</div>
@@ -952,7 +950,7 @@
         <!-- Пирамида целей ДКП -->
         <section class="pyramid-grid" id="pyramidContainer"></section>
 
-        <!-- Основная зона: Слева инструменты ЦБ + Справа Sankey трансмиссии в реальные агрегаты страны -->
+        <!-- Основная зона -->
         <main class="main-grid">
             <aside class="radio-deck" id="radioDeck"></aside>
 
@@ -963,7 +961,7 @@
                         <div id="col2Lbl">II. Банковская система и Канал ставок</div>
                         <div id="col3Lbl">III. Официальные денежные агрегаты</div>
                     </div>
-                    <svg id="moneyFlowSvg" viewBox="0 0 920 390" preserveAspectRatio="none"></svg>
+                    <svg id="moneyFlowSvg" viewBox="0 0 920 335" preserveAspectRatio="xMidYMid meet"></svg>
                     <div class="sankey-footnote" id="sankeyFootnote"></div>
                 </section>
 
@@ -1027,7 +1025,7 @@
 
                         <div class="taylor-verdict">
                             <div>
-                                <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase; font-weight: 700;" id="lblTaylorEq">Равновесная ставка по Тейлору:</div>
+                                <div style="font-size: 10.5px; color: #94a3b8; text-transform: uppercase; font-weight: 700;" id="lblTaylorEq">Равновесная ставка по Тейлору:</div>
                                 <div class="taylor-res-num" id="valTaylorRes">15.30%</div>
                             </div>
                             <div id="taylorStanceBadge" class="stance-pill"></div>
@@ -1038,9 +1036,9 @@
                     <section class="panel-box">
                         <div class="box-heading">
                             <h2 id="yieldTitle">Кривая доходности ГЦБ МФ РК</h2>
-                            <span class="math-badge" id="yieldSpreadBadge">10Y–3M: -1.4%</span>
+                            <span class="math-badge" id="yieldSpreadBadge">10Y–3M: -1.72%</span>
                         </div>
-                        <svg id="yieldCurveSvg" viewBox="0 0 380 195"></svg>
+                        <svg id="yieldCurveSvg" viewBox="0 0 380 138"></svg>
                     </section>
                 </div>
             </div>
@@ -1050,7 +1048,7 @@
         <section class="panel-box">
             <div class="box-heading">
                 <h2 id="baselTitle">Пруденциальное регулирование и стандарты Базель III / IV</h2>
-                <span style="font-size: 12px; color: #94a3b8;" id="baselSub">Нормативы достаточности капитала, ликвидности и надзора</span>
+                <span style="font-size: 11.5px; color: #94a3b8;" id="baselSub">Нормативы достаточности капитала, ликвидности и надзора</span>
             </div>
             <div class="basel-cards" id="baselContainer"></div>
         </section>
@@ -1108,65 +1106,60 @@
 
     <div class="cursor-tip" id="cursorTip"></div>
 
-    <footer id="uiFooter">
-        Разработано для курса «Монетарная экономика» и «Принципы экономики» | AlmaU 2026
-    </footer>
-
     <script>
         /*
-         * Официальные статистические пропорции агрегатов (данные из второго файла):
-         * 1) Казахстан (НБРК, 31.10.2026): M0 = 4.906 трлн ₸, M1 = 11.929 трлн ₸, M2 = 50.660 трлн ₸, M3 = 57.774 трлн ₸
-         * 2) США (ФРС H.6, Sep/Oct 2026): НЕТ M0 и НЕТ M3! Currency = $2.397tn, M1 = $20.061tn (вкл. сберег.), M2 = $23.414tn
-         * 3) Еврозона (ЕЦБ, Sep 2026): НЕТ M0! Currency = €1.618tn, M1 = €11.333tn, M2 = €16.491tn, M3 = €17.716tn
-         * 4) Мировые кейсы (НБК Китая, Oct 2026): M0 = ¥14.997tn, M1 = ¥116.896tn, M2 = ¥359.055tn
+         * Калибровка моделей и индивидуального масштаба Sankey по юрисдикциям:
+         * - Казахстан (НБРК): sankeyScale = 0.70 (-30% по высоте полос, чтобы все 3 агрегата M3/M2/M1 свободно входили в блок)
+         * - США (ФРС H.6): sankeyScale = 0.90 (-10%)
+         * - Еврозона (ЕЦБ): sankeyScale = 0.80 (-20%)
+         * - Мировые кейсы (НБК Китая): sankeyScale = 0.85 (-15%)
          */
         const DATA_MODELS = {
             kz: {
                 unitRu: "трлн ₸",
                 unitEn: "KZT tn",
-                /* Базовая денежная база B = 11.49 трлн ₸, при rr=4%, e=2%, c=22% -> m=4.41x -> M2=50.66 трлн ₸ */
+                sankeyScale: 0.70,
                 baseMB: 11.49,
                 broadLabel: "M3",
-                /* Коэффициент перевода M2 -> M3 (валютные депозиты M3/M2 = 57.774 / 50.660 = 1.1404) */
                 broadRatio: 57.774 / 50.660,
                 m1ShareOfDep: (11.929 - 4.906) / (50.660 - 4.906),
                 piTarget: 5.0,
                 defaultTaylor: { rStar: 3.5, pi: 9.2, gap: 1.0 },
                 inflationText: { ru: "9.2% → Цель 5.0%", en: "9.2% → Target 5.0%" },
                 inflationNote: { ru: "Актуальные данные НБРК (nationalbank.kz)", en: "Current NBK data (nationalbank.kz)" },
-                yieldTitle: { ru: "Кривая доходности ГЦБ МФ РК", en: "Yield Curve: Gov. Securities of MinFin RK" },
+                yieldTitle: { ru: "Кривая доходности ГЦБ МФ РК", en: "Yield Curve: MinFin RK Gov. Bonds" },
                 longBondBase: 13.6,
                 cols: {
-                    ru: ["I. Денежная база (Наличные M0 + Резервы)", "II. Банковская система и Канал ставок", "III. Официальные агрегаты НБРК (M1 / M2 / M3)"],
-                    en: ["I. Monetary Base (Cash M0 + Reserves)", "II. Banking System & Rate Channel", "III. Official NBK Aggregates (M1 / M2 / M3)"]
+                    ru: ["I. Денежная база (Наличные M0 + Резервы)", "II. Банковская система и Канал ставок", "III. Официальные агрегаты НБРК (M3 / M2 / M1)"],
+                    en: ["I. Monetary Base (Cash M0 + Reserves)", "II. Banking System & Rate Channel", "III. Official NBK Aggregates (M3 / M2 / M1)"]
                 },
                 sankeyNodes: {
                     ru: {
                         c1_cash: "Наличные вне банков (M0)",
                         c1_res: "Резервы БВУ в НБРК (rr + e)",
                         c2_cred: "Кредитный мультипликатор БВУ",
-                        c2_res: "Резервы и ноты НБРК (Стерилизация)",
+                        c2_res: "Резервы и ноты НБРК",
                         c2_cash: "Наличный оборот (M0)",
                         c3_broad: "Широкая масса M3 (вкл. FX)",
-                        c3_mid: "Денежная масса M2 (тенге + тек. FX)",
+                        c3_mid: "Денежная масса M2 (₸ + тек. FX)",
                         c3_narrow: "Узкие деньги M1 (M0 + тек. ₸)"
                     },
                     en: {
                         c1_cash: "Currency Outside Banks (M0)",
                         c1_res: "Bank Reserves at NBK (rr + e)",
-                        c2_cred: "Bank Credit Multiplier Channel",
-                        c2_res: "NBK Reserves & Notes (Sterilization)",
+                        c2_cred: "Bank Credit Multiplier",
+                        c2_res: "NBK Reserves & Notes",
                         c2_cash: "Cash Circulation (M0)",
                         c3_broad: "Broad Money M3 (incl. FX)",
-                        c3_mid: "Money Supply M2 (KZT + trans. FX)",
-                        c3_narrow: "Narrow Money M1 (M0 + trans. KZT)"
+                        c3_mid: "Money Supply M2 (KZT + FX)",
+                        c3_narrow: "Narrow Money M1 (M0 + KZT)"
                     }
                 },
                 footnote: {
                     ru: "Методология НБРК (31.10.2026): в Казахстане официально публикуются M0 (4,91 трлн ₸), M1 (11,93 трлн ₸), M2 (50,66 трлн ₸) и широкий агрегат M3 (57,77 трлн ₸, включающий срочные валютные депозиты).",
                     en: "NBK Methodology (31 Oct 2026): Kazakhstan officially publishes M0 (KZT 4.91tn), M1 (11.93tn), M2 (50.66tn), and broad money M3 (57.77tn, including FX time deposits)."
                 },
-                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6" },
                 goals: [
                     {
                         step: { ru: "1. Стратегическая цель", en: "1. Strategic Goal" },
@@ -1282,21 +1275,20 @@
             us: {
                 unitRu: "трлн $",
                 unitEn: "USD tn",
-                /* Денежная база ФРС MB = 5.135 трлн $, при rr=0%, e=11%, c=14% -> m = 1.14 / 0.25 = 4.56x -> M2 = 23.41 трлн $ */
+                sankeyScale: 0.90,
                 baseMB: 5.135,
                 broadLabel: "M2",
                 broadRatio: 1.0,
-                /* После реформы мая 2020 г. US M1 = $20.061tn, US M2 = $23.414tn (доля M1 в M2 = 85.7%) */
                 m1ShareOfDep: (20.061 - 2.397) / (23.414 - 2.397),
                 piTarget: 2.0,
                 defaultTaylor: { rStar: 1.0, pi: 2.8, gap: 0.4 },
                 inflationText: { ru: "2.8% → Цель 2.0%", en: "2.8% → Target 2.0%" },
                 inflationNote: { ru: "Двойной мандат ФРС (PCE 2% + занятость)", en: "Fed Dual Mandate (2% PCE + Max Employment)" },
                 yieldTitle: { ru: "Кривая доходности U.S. Treasuries", en: "U.S. Treasury Yield Curve" },
-                longBondBase: 4.30,
+                longBondBase: 4.35,
                 cols: {
-                    ru: ["I. Денежная база ФРС (Currency + Резервы)", "II. Банковская система США и Канал ставок", "III. Официальные агрегаты H.6 (M1 и M2)"],
-                    en: ["I. Fed Monetary Base (Currency + Reserves)", "II. U.S. Banking System & Rate Channel", "III. Official H.6 Aggregates (M1 & M2)"]
+                    ru: ["I. Денежная база ФРС (Currency + Резервы)", "II. Банковская система США и Канал ставок", "III. Официальные агрегаты H.6 (M2 / M1)"],
+                    en: ["I. Fed Monetary Base (Currency + Reserves)", "II. U.S. Banking System & Rate Channel", "III. Official H.6 Aggregates (M2 / M1)"]
                 },
                 sankeyNodes: {
                     ru: {
@@ -1307,16 +1299,16 @@
                         c2_cash: "Наличные доллары в обращении",
                         c3_broad: "Агрегат M2 США (H.6)",
                         c3_mid: "Агрегат M1 США (вкл. сбер. счета)",
-                        c3_narrow: "Наличная компонента M1 (Currency)"
+                        c3_narrow: "Наличная компонента (Currency)"
                     },
                     en: {
                         c1_cash: "U.S. Currency in Circulation",
                         c1_res: "Bank Reserves at the Fed (IORB)",
-                        c2_cred: "U.S. Bank Deposit Creation Channel",
-                        c2_res: "Fed Reserve Balances (Ample Reserves)",
+                        c2_cred: "U.S. Deposit Creation Channel",
+                        c2_res: "Fed Reserve Balances (IORB)",
                         c2_cash: "Physical USD Outside Banks",
                         c3_broad: "U.S. M2 Money Supply (H.6)",
-                        c3_mid: "U.S. M1 (incl. savings deposits)",
+                        c3_mid: "U.S. M1 (incl. savings)",
                         c3_narrow: "Currency Component of M1"
                     }
                 },
@@ -1324,7 +1316,7 @@
                     ru: "Методология ФРС США (Отчёт H.6, окт. 2026): в США НЕТ официального агрегата M0 (публикуется Monetary Base), а публикация M3 прекращена в 2006 г. С мая 2020 г. M1 ($20,06 трлн) включает сберегательные депозиты; M2 ($23,41 трлн) добавляет срочные вклады и розничные фонды MMF.",
                     en: "Federal Reserve Methodology (H.6, Oct 2026): The US has NO official M0 aggregate (Monetary Base is reported instead), and M3 was discontinued in 2006. Since May 2020, M1 ($20.06tn) includes savings deposits; M2 ($23.41tn) adds small time deposits and retail MMFs."
                 },
-                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6" },
                 goals: [
                     {
                         step: { ru: "1. Стратегическая цель", en: "1. Strategic Goal" },
@@ -1440,22 +1432,20 @@
             eu: {
                 unitRu: "трлн €",
                 unitEn: "EUR tn",
-                /* База Евросистемы MB = 3.045 трлн €, при rr=1%, e=7.5%, c=12% -> m = 1.12 / 0.205 = 5.46x -> M2 = 16.49 трлн €, M3 = 17.72 трлн € */
+                sankeyScale: 0.80,
                 baseMB: 3.018,
                 broadLabel: "M3",
-                /* Отношение M3 / M2 в Еврозоне = 17.716 / 16.491 = 1.0743 */
                 broadRatio: 17.716 / 16.491,
-                /* Доля безналичного M1 в депозитах M2: (11.333 - 1.618) / (16.491 - 1.618) = 0.653 */
                 m1ShareOfDep: (11.333 - 1.618) / (16.491 - 1.618),
                 piTarget: 2.0,
                 defaultTaylor: { rStar: 0.75, pi: 2.1, gap: -0.2 },
                 inflationText: { ru: "2.1% → Цель 2.0%", en: "2.1% → Target 2.0%" },
                 inflationNote: { ru: "Симметричный таргет ЕЦБ по HICP", en: "ECB symmetric 2.0% HICP target" },
                 yieldTitle: { ru: "Кривая доходности гособлигаций Еврозоны", en: "Eurozone Sovereign Yield Curve (AAA)" },
-                longBondBase: 2.60,
+                longBondBase: 2.85,
                 cols: {
-                    ru: ["I. Денежная база Евросистемы (ЕЦБ)", "II. Банки Еврозоны и Канал ставок", "III. Иерархия агрегатов ЕЦБ (M1 / M2 / M3)"],
-                    en: ["I. Eurosystem Monetary Base (ECB)", "II. Eurozone Banks & Rate Channel", "III. ECB Nested Aggregates (M1 / M2 / M3)"]
+                    ru: ["I. Денежная база Евросистемы (ЕЦБ)", "II. Банки Еврозоны и Канал ставок", "III. Иерархия агрегатов ЕЦБ (M3 / M2 / M1)"],
+                    en: ["I. Eurosystem Monetary Base (ECB)", "II. Eurozone Banks & Rate Channel", "III. ECB Nested Aggregates (M3 / M2 / M1)"]
                 },
                 sankeyNodes: {
                     ru: {
@@ -1464,18 +1454,18 @@
                         c2_cred: "Кредитный мультипликатор Еврозоны",
                         c2_res: "Депозитная линия ЕЦБ (Deposit Facility)",
                         c2_cash: "Наличный евро-оборот",
-                        c3_broad: "Широкий агрегат M3 (вкл. РЕПО и MMF)",
-                        c3_mid: "Денежный агрегат M2 (депозиты ≤2л)",
-                        c3_narrow: "Узкие деньги M1 (наличные + овернайт)"
+                        c3_broad: "Широкий агрегат M3 (РЕПО + MMF)",
+                        c3_mid: "Денежный агрегат M2 (вклады ≤2л)",
+                        c3_narrow: "Узкие деньги M1 (нал. + овернайт)"
                     },
                     en: {
-                        c1_cash: "Euro Banknotes & Coins in Circulation",
+                        c1_cash: "Euro Currency in Circulation",
                         c1_res: "Bank Reserves at ECB (rr + e)",
-                        c2_cred: "Eurozone Credit Multiplier Channel",
+                        c2_cred: "Eurozone Credit Multiplier",
                         c2_res: "ECB Deposit Facility Reserves",
                         c2_cash: "Physical Euro Circulation",
-                        c3_broad: "Broad Money M3 (incl. Repos & MMFs)",
-                        c3_mid: "Intermediate Money M2 (deposits ≤2y)",
+                        c3_broad: "Broad Money M3 (Repos + MMF)",
+                        c3_mid: "Intermediate M2 (deposits ≤2y)",
                         c3_narrow: "Narrow Money M1 (cash + overnight)"
                     }
                 },
@@ -1483,7 +1473,7 @@
                     ru: "Методология ЕЦБ (Сентябрь 2026): в Еврозоне НЕТ агрегата M0, используется вложенная иерархия M1 (€11,33 трлн: наличные €1,62 трлн + депозиты овернайт €9,72 трлн) → M2 (€16,49 трлн) → M3 (€17,72 трлн: M2 + РЕПО, паи MMF и бумаги до 2 лет).",
                     en: "ECB Methodology (Sep 2026): The Euro area has NO M0 aggregate; it uses a nested ladder M1 (€11.33tn: currency €1.62tn + overnight deposits €9.72tn) → M2 (€16.49tn) → M3 (€17.72tn: M2 + repos, MMF shares, and debt ≤2y)."
                 },
-                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6" },
                 goals: [
                     {
                         step: { ru: "1. Стратегическая цель", en: "1. Strategic Goal" },
@@ -1599,7 +1589,7 @@
             global: {
                 unitRu: "трлн ¥",
                 unitEn: "CNY tn",
-                /* НБК Китая (окт. 2026): M0 = 15.00 трлн ¥, M1 = 116.90 трлн ¥, M2 = 359.06 трлн ¥ (MB = 44.33 трлн ¥, m = 8.10x) */
+                sankeyScale: 0.85,
                 baseMB: 44.33,
                 broadLabel: "M2",
                 broadRatio: 1.0,
@@ -1611,8 +1601,8 @@
                 yieldTitle: { ru: "Кривая гос. облигаций (CGB / Gilts)", en: "Sovereign Yield Curve (CGB / Gilts)" },
                 longBondBase: 2.35,
                 cols: {
-                    ru: ["I. Резервные деньги НБК (M0 + Резервы RRR)", "II. Банковский мультипликатор Китая", "III. Официальные агрегаты НБК (M0 / M1 / M2)"],
-                    en: ["I. PBoC Reserve Money (M0 + RRR Reserves)", "II. China Banking Multiplier Channel", "III. Official PBoC Aggregates (M0 / M1 / M2)"]
+                    ru: ["I. Резервные деньги НБК (M0 + Резервы RRR)", "II. Банковский мультипликатор Китая", "III. Официальные агрегаты НБК (M2 / M1 / M0)"],
+                    en: ["I. PBoC Reserve Money (M0 + RRR Reserves)", "II. China Banking Multiplier Channel", "III. Official PBoC Aggregates (M2 / M1 / M0)"]
                 },
                 sankeyNodes: {
                     ru: {
@@ -1621,26 +1611,26 @@
                         c2_cred: "Кредитная экспансия банков Китая",
                         c2_res: "Заморожено в нормах резервов RRR",
                         c2_cash: "Внебанковский оборот юаня (M0)",
-                        c3_broad: "Широкая денежная масса M2 (НБК)",
-                        c3_mid: "Денежный агрегат M1 (M0 + до востреб.)",
+                        c3_broad: "Широкая масса M2 (НБК)",
+                        c3_mid: "Денежный агрегат M1 (M0 + до востр.)",
                         c3_narrow: "Наличная масса M0 (¥15.00 трлн)"
                     },
                     en: {
                         c1_cash: "Currency in Circulation (M0)",
                         c1_res: "Bank Reserves at PBoC (RRR + excess)",
-                        c2_cred: "Chinese Commercial Bank Credit Channel",
+                        c2_cred: "Chinese Commercial Bank Credit",
                         c2_res: "Sterilized in RRR Reserves",
                         c2_cash: "Non-Bank CNY Circulation (M0)",
                         c3_broad: "Broad Money M2 (PBoC Oct 2026)",
-                        c3_mid: "Narrow Money M1 (M0 + demand dep.)",
+                        c3_mid: "Narrow Money M1 (M0 + demand)",
                         c3_narrow: "Cash Aggregate M0 (CNY 15.00tn)"
                     }
                 },
                 footnote: {
-                    ru: "Методология НБК Китая (Октябрь 2026): Китай официально публикует M0 (¥15,00 трлн), M1 (¥116,90 трлн) и M2 (¥359,06 трлн). Низкая доля наличных (Alipay / WeChat Pay, c ≈ 4,4%) обеспечивает высокий денежный мультипликатор (>8x).",
-                    en: "PBoC Methodology (Oct 2026): China officially publishes M0 (CNY 15.00tn), M1 (CNY 116.90tn), and M2 (CNY 359.06tn). Low physical currency ratio (Alipay / WeChat Pay, c ≈ 4.4%) produces a high money multiplier (>8x)."
+                    ru: "Методология НБК Китая (Октябрь 2026): Китай официально публикует M0 (¥15,00 трлн), M1 (¥116,90 трлн) и M2 (¥359,06 трлн). Низкая доля наличных (Alipay / WeChat Pay, c ≈ 4,5%) обеспечивает высокий денежный мультипликатор (>8x).",
+                    en: "PBoC Methodology (Oct 2026): China officially publishes M0 (CNY 15.00tn), M1 (CNY 116.90tn), and M2 (CNY 359.06tn). Low physical currency ratio (Alipay / WeChat Pay, c ≈ 4.5%) produces a high money multiplier (>8x)."
                 },
-                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6" },
                 goals: [
                     {
                         step: { ru: "🇨🇳 Народный банк Китая (НБК)", en: "🇨🇳 People's Bank of China (PBoC)" },
@@ -1831,7 +1821,7 @@
                 html += createVintageTuner(c, stateVals[c.id], ticksHtml);
             });
 
-            html += `<div class="deck-section-title" style="margin-top:4px;"><span>${sec2}</span><span>∑</span></div>`;
+            html += `<div class="deck-section-title" style="margin-top:2px;"><span>${sec2}</span><span>∑</span></div>`;
             cfg.controls.filter(c => c.group === "mult").forEach(c => {
                 html += createVintageTuner(c, stateVals[c.id], ticksHtml);
             });
@@ -1997,6 +1987,7 @@
             }
         }
 
+        /* Исправленная кривая доходности: динамический масштаб оси Y для всех стран (РК, США, Еврозона, Мир) */
         function drawYieldCurve(shortRate, longBase) {
             const svg = document.getElementById("yieldCurveSvg");
             const y3m = shortRate;
@@ -2006,11 +1997,11 @@
             const y10y = shortRate * 0.20 + longBase * 0.80;
 
             const points = [
-                { lbl: "3M", val: y3m, x: 40 },
-                { lbl: "1Y", val: y1y, x: 115 },
+                { lbl: "3M", val: y3m, x: 38 },
+                { lbl: "1Y", val: y1y, x: 114 },
                 { lbl: "3Y", val: y3y, x: 190 },
-                { lbl: "5Y", val: y5y, x: 265 },
-                { lbl: "10Y", val: y10y, x: 340 }
+                { lbl: "5Y", val: y5y, x: 266 },
+                { lbl: "10Y", val: y10y, x: 342 }
             ];
 
             const spread = y10y - y3m;
@@ -2018,13 +2009,19 @@
             spreadEl.textContent = `10Y–3M: ${spread >= 0 ? "+" : ""}${spread.toFixed(2)}%`;
             spreadEl.style.color = spread < 0 ? "#fb7185" : "#2dd4bf";
 
-            const maxY = Math.max(...points.map(p => p.val), 18) + 2;
-            const minY = Math.max(0, Math.min(...points.map(p => p.val)) - 2);
-            const mapY = v => 152 - ((v - minY) / Math.max(1, maxY - minY)) * 120;
+            const rawMax = Math.max(...points.map(p => p.val));
+            const rawMin = Math.min(...points.map(p => p.val));
+            const padRange = Math.max(0.45, (rawMax - rawMin) * 0.45);
+            const maxY = rawMax + padRange;
+            const minY = rawMin - padRange;
+
+            const topY = 26;
+            const bottomY = 112;
+            const mapY = v => bottomY - ((v - minY) / Math.max(0.1, maxY - minY)) * (bottomY - topY);
 
             const coords = points.map(p => ({ ...p, py: mapY(p.val) }));
-            const poly = coords.map(c => `${c.x},${c.py}`).join(" ");
-            const area = `40,152 ${poly} 340,152`;
+            const poly = coords.map(c => `${c.x},${c.py.toFixed(1)}`).join(" ");
+            const area = `38,${bottomY} ${poly} 342,${bottomY}`;
             const lineColor = spread < 0 ? "#fb7185" : "#14b8a6";
 
             let svgMarkup = `
@@ -2034,31 +2031,34 @@
                         <stop offset="100%" stop-color="${lineColor}" stop-opacity="0.0"/>
                     </linearGradient>
                 </defs>
-                <line x1="30" y1="152" x2="355" y2="152" stroke="#334155" stroke-width="1"/>
+                <line x1="26" y1="${topY}" x2="356" y2="${topY}" stroke="#1e293b" stroke-dasharray="3,3" stroke-width="1"/>
+                <line x1="26" y1="${(topY + bottomY) / 2}" x2="356" y2="${(topY + bottomY) / 2}" stroke="#1e293b" stroke-dasharray="3,3" stroke-width="1"/>
+                <line x1="26" y1="${bottomY}" x2="356" y2="${bottomY}" stroke="#334155" stroke-width="1"/>
                 <polygon points="${area}" fill="url(#ycGrad)"></polygon>
-                <polyline fill="none" stroke="${lineColor}" stroke-width="3" points="${poly}"></polyline>
+                <polyline fill="none" stroke="${lineColor}" stroke-width="2.8" points="${poly}"></polyline>
             `;
 
             coords.forEach(c => {
                 svgMarkup += `
-                    <circle cx="${c.x}" cy="${c.py}" r="4.5" fill="#0d1117" stroke="${lineColor}" stroke-width="2.5"></circle>
-                    <text x="${c.x}" y="${c.py - 9}" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">${c.val.toFixed(1)}%</text>
-                    <text x="${c.x}" y="172" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600">${c.lbl}</text>
+                    <circle cx="${c.x}" cy="${c.py.toFixed(1)}" r="4.2" fill="#0d1117" stroke="${lineColor}" stroke-width="2.4"></circle>
+                    <text x="${c.x}" y="${(c.py - 8).toFixed(1)}" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="700">${c.val.toFixed(2)}%</text>
+                    <text x="${c.x}" y="129" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="600">${c.lbl}</text>
                 `;
             });
 
             svg.innerHTML = svgMarkup;
         }
 
+        /* Диаграмма Sankey с гарантированным размещением всех 3 столбцов внутри блока и индивидуальным масштабом */
         function drawMoneySankey(mb, mBroad, m2, m1, cashPart, rr, er, c, unit, cfg) {
             const svg = document.getElementById("moneyFlowSvg");
-            const H = 390;
-            const pad = 18;
+            const H = 335;
+            const pad = 14;
             const usable = H - pad * 2;
             const labels = cfg.sankeyNodes[curLang];
             const colors = cfg.colors;
+            const scaleFactor = cfg.sankeyScale || 0.80;
 
-            const totalResRatio = rr + er;
             const reservesPart = Math.max(0.3, mb - cashPart);
             const creditCreated = Math.max(0.5, mBroad - cashPart - reservesPart);
 
@@ -2073,7 +2073,6 @@
                 { name: labels.c2_cash, val: cashPart, color: colors.cash }
             ];
 
-            /* Правая колонка адаптируется под официальную линейку агрегатов выбранного ЦБ */
             const col3 = cfg.broadRatio > 1.001
                 ? [
                     { name: labels.c3_broad, val: mBroad, color: colors.credit },
@@ -2086,25 +2085,35 @@
                     { name: labels.c3_narrow, val: cashPart, color: colors.cash }
                   ];
 
-            const span = Math.max(mBroad + reservesPart, m2 + m1);
+            /* Распределяем узлы каждой колонки строго внутри usable с учётом индивидуального масштаба */
+            function placeColumn(nodes, gap) {
+                const colTotal = nodes.reduce((acc, n) => acc + n.val, 0);
+                const maxAvailHeight = (usable - gap * (nodes.length - 1)) * scaleFactor;
+                const minH = 26;
+                const rawHeights = nodes.map(n => Math.max(minH, (n.val / Math.max(0.1, colTotal)) * maxAvailHeight));
+                const sumRaw = rawHeights.reduce((a, b) => a + b, 0);
+                const norm = sumRaw > (usable - gap * (nodes.length - 1))
+                    ? (usable - gap * (nodes.length - 1)) / sumRaw
+                    : 1;
 
-            function place(nodes, gap) {
-                const sc = (usable - gap * (nodes.length - 1)) / span;
-                let y = pad;
-                nodes.forEach(n => {
+                const finalHeights = rawHeights.map(h => h * norm);
+                const blockTotalH = finalHeights.reduce((a, b) => a + b, 0) + gap * (nodes.length - 1);
+                let y = pad + Math.max(0, (usable - blockTotalH) / 2);
+
+                nodes.forEach((n, idx) => {
                     n.y = y;
-                    n.h = Math.max(22, n.val * sc);
+                    n.h = finalHeights[idx];
                     y += n.h + gap;
                 });
             }
 
-            place(col1, 30);
-            place(col2, 22);
-            place(col3, 22);
+            placeColumn(col1, 24);
+            placeColumn(col2, 18);
+            placeColumn(col3, 18);
 
-            const x1 = 12, w1 = 18;
-            const x2 = 440, w2 = 20;
-            const x3 = 735, w3 = 18;
+            const x1 = 10, w1 = 16;
+            const x2 = 415, w2 = 18;
+            const x3 = 655, w3 = 16;
 
             let html = "";
 
@@ -2117,7 +2126,7 @@
             links12.forEach(l => {
                 const d = bezier(x1 + w1, l.a.y + l.a.h / 2, x2, l.b.y + l.b.h / 2);
                 const tip = `${l.a.name} → ${l.b.name}: <b>${l.v.toFixed(2)} ${unit}</b>`;
-                html += `<path class="stream-path" d="${d}" stroke="${l.clr}" stroke-width="${Math.max(6, l.b.h * 0.72)}" data-tip="${tip}"></path>`;
+                html += `<path class="stream-path" d="${d}" stroke="${l.clr}" stroke-width="${Math.max(5, Math.min(l.a.h, l.b.h) * 0.72)}" data-tip="${tip}"></path>`;
             });
 
             const links23 = [
@@ -2129,31 +2138,31 @@
             links23.forEach(l => {
                 const d = bezier(x2 + w2, l.a.y + l.a.h / 2, x3, l.b.y + l.b.h / 2);
                 const tip = `${l.a.name} → ${l.b.name}: <b>${l.v.toFixed(2)} ${unit}</b>`;
-                html += `<path class="stream-path" d="${d}" stroke="${l.clr}" stroke-width="${Math.max(6, l.b.h * 0.72)}" data-tip="${tip}"></path>`;
+                html += `<path class="stream-path" d="${d}" stroke="${l.clr}" stroke-width="${Math.max(5, Math.min(l.a.h, l.b.h) * 0.72)}" data-tip="${tip}"></path>`;
             });
 
             col1.forEach(n => {
                 html += `
                     <rect class="vault-node" x="${x1}" y="${n.y}" width="${w1}" height="${n.h}" fill="${n.color}"></rect>
-                    <text class="svg-title" x="${x1 + w1 + 9}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
-                    <text class="svg-sub" x="${x1 + w1 + 9}" y="${n.y + n.h / 2 + 12}">${n.val.toFixed(2)} ${unit}</text>
+                    <text class="svg-title" x="${x1 + w1 + 8}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
+                    <text class="svg-sub" x="${x1 + w1 + 8}" y="${n.y + n.h / 2 + 11}">${n.val.toFixed(2)} ${unit}</text>
                 `;
             });
 
             col2.forEach(n => {
                 html += `
                     <rect class="vault-node" x="${x2}" y="${n.y}" width="${w2}" height="${n.h}" fill="${n.color}"></rect>
-                    <rect x="${x2 - 102}" y="${n.y + n.h / 2 - 18}" width="224" height="36" rx="7" fill="#090d12" fill-opacity="0.93" stroke="${n.color}" stroke-width="1.2"></rect>
+                    <rect x="${x2 - 98}" y="${n.y + n.h / 2 - 16}" width="214" height="32" rx="6" fill="#090d12" fill-opacity="0.93" stroke="${n.color}" stroke-width="1.2"></rect>
                     <text class="svg-title" text-anchor="middle" x="${x2 + w2 / 2}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
-                    <text class="svg-sub" text-anchor="middle" x="${x2 + w2 / 2}" y="${n.y + n.h / 2 + 12}">${n.val.toFixed(2)} ${unit}</text>
+                    <text class="svg-sub" text-anchor="middle" x="${x2 + w2 / 2}" y="${n.y + n.h / 2 + 11}">${n.val.toFixed(2)} ${unit}</text>
                 `;
             });
 
             col3.forEach(n => {
                 html += `
                     <rect class="vault-node" x="${x3}" y="${n.y}" width="${w3}" height="${n.h}" fill="${n.color}"></rect>
-                    <text class="svg-title" x="${x3 + w3 + 9}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
-                    <text class="svg-sub" x="${x3 + w3 + 9}" y="${n.y + n.h / 2 + 12}">${n.val.toFixed(2)} ${unit}</text>
+                    <text class="svg-title" x="${x3 + w3 + 8}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
+                    <text class="svg-sub" x="${x3 + w3 + 8}" y="${n.y + n.h / 2 + 11}">${n.val.toFixed(2)} ${unit}</text>
                 `;
             });
 
@@ -2379,8 +2388,7 @@
                     thExc: "Избыт. резервы (e)",
                     thCash: "Утечка в нал. (c)",
                     thLoan: "Выданный кредит",
-                    thCum: "Накопленные депозиты",
-                    uiFooter: "Разработано для курса «Монетарная экономика» и «Принципы экономики» | AlmaU 2026"
+                    thCum: "Накопленные депозиты"
                 },
                 en: {
                     uiTitle: "Monetary Policy, Taylor Rule & Deposit Creation",
@@ -2415,8 +2423,7 @@
                     thExc: "Excess Reserves (e)",
                     thCash: "Cash Leakage (c)",
                     thLoan: "New Loan Issued",
-                    thCum: "Cumulative Deposits",
-                    uiFooter: "Developed for Monetary Economics & Principles of Economics | AlmaU 2026"
+                    thCum: "Cumulative Deposits"
                 }
             }[curLang];
 
@@ -2426,7 +2433,6 @@
             });
         }
 
-        // Слушатели событий
         document.querySelectorAll(".region-tab").forEach(btn => {
             btn.addEventListener("click", () => {
                 curRegion = btn.dataset.region;
@@ -2459,7 +2465,6 @@
             switchMainView(curRegion);
         });
 
-        // Первичный запуск
         applyTranslations();
         switchMainView("kz");
     </script>
