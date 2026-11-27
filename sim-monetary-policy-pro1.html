@@ -69,7 +69,7 @@
         .almau-logo-frame {
             background: #ffffff;
             border: 2px solid #fbbf24;
-            box-shadow: 0 4px 16px rgba(234, 179, 8, 0.34), inset 0 0 6px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 16px rgba(234, 179, 8, 0.35), inset 0 0 6px rgba(0, 0, 0, 0.08);
             border-radius: 50%;
             width: 58px;
             height: 58px;
@@ -97,7 +97,6 @@
             font-size: 13px;
             color: #0f172a;
             letter-spacing: 0.3px;
-            text-align: center;
         }
 
         .title-stack h1 {
@@ -162,74 +161,44 @@
             box-shadow: 0 2px 0 #090d12, 0 3px 8px rgba(0, 0, 0, 0.4);
         }
 
-        /* Казахстан — зелёненький */
-        .region-tab[data-region="kz"] {
-            border-bottom: 2px solid #10b981;
-        }
+        .region-tab[data-region="kz"] { border-bottom: 2px solid #10b981; }
         .region-tab[data-region="kz"].active {
             background: linear-gradient(180deg, #10b981 0%, #047857 100%);
             border-color: #6ee7b7;
             color: #ffffff;
-            box-shadow:
-                0 4px 0 #064e3b,
-                0 0 18px rgba(16, 185, 129, 0.55),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 0 #064e3b, 0 0 18px rgba(16, 185, 129, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        /* США — красный */
-        .region-tab[data-region="us"] {
-            border-bottom: 2px solid #ef4444;
-        }
+        .region-tab[data-region="us"] { border-bottom: 2px solid #ef4444; }
         .region-tab[data-region="us"].active {
             background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
             border-color: #fca5a5;
             color: #ffffff;
-            box-shadow:
-                0 4px 0 #7f1d1d,
-                0 0 18px rgba(239, 68, 68, 0.55),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 0 #7f1d1d, 0 0 18px rgba(239, 68, 68, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        /* Еврозона — синий */
-        .region-tab[data-region="eu"] {
-            border-bottom: 2px solid #3b82f6;
-        }
+        .region-tab[data-region="eu"] { border-bottom: 2px solid #3b82f6; }
         .region-tab[data-region="eu"].active {
             background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%);
             border-color: #93c5fd;
             color: #ffffff;
-            box-shadow:
-                0 4px 0 #1e3a8a,
-                0 0 18px rgba(59, 130, 246, 0.55),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 0 #1e3a8a, 0 0 18px rgba(59, 130, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        /* Мировые кейсы — фиолетовый */
-        .region-tab[data-region="global"] {
-            border-bottom: 2px solid #8b5cf6;
-        }
+        .region-tab[data-region="global"] { border-bottom: 2px solid #8b5cf6; }
         .region-tab[data-region="global"].active {
             background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
             border-color: #c4b5fd;
             color: #ffffff;
-            box-shadow:
-                0 4px 0 #4c1d95,
-                0 0 18px rgba(139, 92, 246, 0.55),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 0 #4c1d95, 0 0 18px rgba(139, 92, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
-        /* Модель создания депозитов — бирюзовый */
-        .region-tab[data-region="deposit_lab"] {
-            border-bottom: 2px solid #14b8a6;
-        }
+        .region-tab[data-region="deposit_lab"] { border-bottom: 2px solid #14b8a6; }
         .region-tab[data-region="deposit_lab"].active {
             background: linear-gradient(180deg, #14b8a6 0%, #0f766e 100%);
             border-color: #5eead4;
             color: #ffffff;
-            box-shadow:
-                0 4px 0 #115e59,
-                0 0 18px rgba(20, 184, 166, 0.55),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 0 #115e59, 0 0 18px rgba(20, 184, 166, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .pill-switch {
@@ -275,7 +244,7 @@
             color: #ffffff;
         }
 
-        /* Полоса макроиндикаторов (адаптируется под агрегаты каждой страны) */
+        /* Полоса макроиндикаторов */
         .metrics-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -351,10 +320,10 @@
             line-height: 1.45;
         }
 
-        /* Основной рабочий блок: Слева винтажные радио-регуляторы (375px) + Справа визуализация */
+        /* Основной рабочий блок: Слева винтажные радио-регуляторы (365px) + Справа визуализация трансмиссии */
         .main-grid {
             display: grid;
-            grid-template-columns: 375px 1fr;
+            grid-template-columns: 365px 1fr;
             gap: 16px;
             margin-bottom: 16px;
         }
@@ -366,7 +335,7 @@
             padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 11px;
+            gap: 12px;
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.45);
         }
 
@@ -389,7 +358,7 @@
             background: var(--bg-tuner);
             border: 1px solid rgba(148, 163, 184, 0.24);
             border-radius: 11px;
-            padding: 9px 12px;
+            padding: 10px 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
             transition: border-color 0.2s ease;
         }
@@ -403,7 +372,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 8px;
-            margin-bottom: 7px;
+            margin-bottom: 8px;
         }
 
         .tuner-name-box {
@@ -420,7 +389,7 @@
         }
 
         .tuner-label {
-            font-size: 12.5px;
+            font-size: 12.8px;
             font-weight: 700;
             color: #f8fafc;
         }
@@ -452,7 +421,7 @@
             position: absolute;
             left: -8px;
             top: 22px;
-            width: 270px;
+            width: 265px;
             background: #080b10;
             color: #f8fafc;
             border: 1px solid var(--gold-accent);
@@ -472,21 +441,20 @@
 
         .freq-display {
             font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: 800;
             background: var(--bg-recess);
-            padding: 3px 8px;
+            padding: 3px 9px;
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             white-space: nowrap;
         }
 
-        /* КЛАССИЧЕСКИЙ ПОЛЗУНОК В СТИЛЕ СТАРОГО РАДИОПРИЁМНИКА С ВЕРТИКАЛЬНОЙ ЦВЕТНОЙ ПОЛОСКОЙ ПОСЕРЕДИНЕ */
         .vintage-dial-housing {
             background: #0b0f15;
             border: 1px solid #334155;
             border-radius: 8px;
-            padding: 7px 10px 5px;
+            padding: 8px 10px 6px;
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.85);
             position: relative;
         }
@@ -507,7 +475,7 @@
             -webkit-appearance: none;
             appearance: none;
             width: 22px;
-            height: 26px;
+            height: 28px;
             border-radius: 4px;
             border: 1.5px solid #cbd5e1;
             background: linear-gradient(
@@ -534,7 +502,7 @@
 
         input[type="range"].vintage-radio-knob::-moz-range-thumb {
             width: 22px;
-            height: 26px;
+            height: 28px;
             border-radius: 4px;
             border: 1.5px solid #cbd5e1;
             background: linear-gradient(
@@ -554,7 +522,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: 5px;
+            margin-top: 6px;
             padding: 0 4px;
         }
 
@@ -565,7 +533,7 @@
         }
 
         .dial-graduations span:nth-child(4n+1) {
-            height: 7px;
+            height: 8px;
             width: 1.5px;
             background: #e2e8f0;
         }
@@ -573,9 +541,9 @@
         .tuner-bounds {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
+            font-size: 10.5px;
             color: var(--text-slate);
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         /* Правая колонка */
@@ -593,110 +561,68 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
         }
 
-        .sankey-header-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .sankey-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             padding-bottom: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             border-bottom: 1px solid var(--border-steel);
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .sankey-arch-title {
-            font-size: 12.2px;
+            font-size: 11.6px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
+            letter-spacing: 0.65px;
             color: #fde68a;
         }
 
-        .sankey-arch-badge {
-            font-family: 'Consolas', monospace;
-            font-size: 11.5px;
-            background: var(--bg-recess);
-            border: 1px solid var(--border-steel);
-            color: #38bdf8;
-            padding: 4px 10px;
-            border-radius: 999px;
-        }
-
-        /* Переключатель кейсов внутри вкладки Мировые кейсы */
-        .global-subtabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .global-sub-btn {
-            background: var(--bg-recess);
-            border: 1px solid var(--border-steel);
-            color: var(--text-slate);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.16s ease;
-        }
-
-        .global-sub-btn.active {
-            background: rgba(139, 92, 246, 0.22);
-            border-color: #a78bfa;
-            color: #ffffff;
-        }
+        .sankey-columns div:nth-child(2) { text-align: center; }
+        .sankey-columns div:nth-child(3) { text-align: right; }
 
         svg#moneyFlowSvg {
             width: 100%;
-            height: 410px;
+            height: 390px;
             display: block;
             overflow: visible;
-            background: linear-gradient(180deg, #0b1018 0%, #080c12 100%);
-            border: 1px solid rgba(148, 163, 184, 0.14);
-            border-radius: 11px;
         }
 
         .stream-path {
             fill: none;
-            stroke-opacity: 0.52;
+            stroke-opacity: 0.48;
             transition: stroke-opacity 0.2s ease;
             cursor: pointer;
         }
 
         .stream-path:hover {
-            stroke-opacity: 0.94;
+            stroke-opacity: 0.92;
         }
 
         .vault-node {
-            rx: 6;
-            ry: 6;
-            stroke: rgba(255, 255, 255, 0.35);
-            stroke-width: 1.2;
+            rx: 5;
+            ry: 5;
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 1;
         }
 
         .svg-title {
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 700;
             fill: #f8fafc;
         }
 
         .svg-sub {
-            font-size: 11px;
-            font-weight: 700;
-            fill: #cbd5e1;
+            font-size: 10.8px;
+            font-weight: 600;
+            fill: #94a3b8;
         }
 
-        .method-note {
-            margin-top: 10px;
-            padding: 10px 13px;
-            border-left: 3px solid var(--gold-accent);
+        .sankey-footnote {
+            margin-top: 8px;
+            padding: 8px 12px;
             background: var(--bg-recess);
+            border-left: 3px solid var(--gold-accent);
             border-radius: 4px 8px 8px 4px;
-            font-size: 12px;
+            font-size: 11.8px;
             color: #cbd5e1;
-            line-height: 1.48;
+            line-height: 1.45;
         }
 
         /* Двухколоночный аналитический блок */
@@ -733,7 +659,6 @@
             border-radius: 6px;
         }
 
-        /* Калькулятор Правила Тейлора */
         .taylor-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -806,21 +731,19 @@
             border-radius: 7px;
         }
 
-        /* Кривая доходности ГЦБ */
         svg#yieldCurveSvg {
             width: 100%;
             height: 195px;
             display: block;
         }
 
-        /* Отдельная вкладка: Модель создания депозитов */
         .hidden-view {
             display: none !important;
         }
 
         .dep-lab-grid {
             display: grid;
-            grid-template-columns: 375px 1fr;
+            grid-template-columns: 365px 1fr;
             gap: 16px;
             margin-bottom: 16px;
         }
@@ -894,7 +817,6 @@
             line-height: 1.55;
         }
 
-        /* Раздел Базель III / IV */
         .basel-cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -945,7 +867,7 @@
             transition: opacity 0.12s ease;
             z-index: 999;
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85);
-            max-width: 320px;
+            max-width: 310px;
         }
 
         footer {
@@ -1004,24 +926,23 @@
 
     <!-- ================= ВИД 1: РЕГИОНЫ МОНЕТАРНОЙ ПОЛИТИКИ (РК / США / ЕС / МИР) ================= -->
     <div id="policyMainView">
-        <!-- Полоса верхних карточек с точной методологией агрегатов выбранного ЦБ -->
         <section class="metrics-row">
-            <div class="metric-tile" id="tile1">
-                <div class="metric-lbl" id="k1Lbl">Базовая ставка НБРК</div>
+            <div class="metric-tile">
+                <div class="metric-lbl" id="k1Lbl">Базовая / Ключевая ставка</div>
                 <div class="metric-val" id="k1Val" style="color: #fbbf24;">15.75%</div>
-                <div class="metric-sub" id="k1Sub">Ориентир денежного рынка TONIA</div>
+                <div class="metric-sub" id="k1Sub">Ориентир денежного рынка</div>
             </div>
-            <div class="metric-tile" id="tile2">
-                <div class="metric-lbl" id="k2Lbl">Узкие деньги: M0 → M1</div>
-                <div class="metric-val" id="k2Val" style="color: #38bdf8;">4.91 → 11.93 трлн ₸</div>
-                <div class="metric-sub" id="k2Sub">M0 (наличные) + переводимые KZT депозиты</div>
+            <div class="metric-tile">
+                <div class="metric-lbl" id="k2Lbl">Полный мультипликатор (m)</div>
+                <div class="metric-val" id="k2Val" style="color: #2dd4bf;">4.41x</div>
+                <div class="metric-sub" id="k2Sub">m = (1 + c) / (rr + e + c)</div>
             </div>
-            <div class="metric-tile" id="tile3">
-                <div class="metric-lbl" id="k3Lbl">Широкая масса: M2 → M3</div>
-                <div class="metric-val" id="k3Val" style="color: #2dd4bf;">50.66 → 57.77 трлн ₸</div>
-                <div class="metric-sub" id="k3Sub">Официальные данные НБРК (окт. 2026)</div>
+            <div class="metric-tile">
+                <div class="metric-lbl" id="k3Lbl">Широкая денежная масса (M3)</div>
+                <div class="metric-val" id="k3Val" style="color: #60a5fa;">57.77 трлн ₸</div>
+                <div class="metric-sub" id="k3Sub">M2 = 50.66 трлн ₸ • M1 = 11.93 трлн ₸</div>
             </div>
-            <div class="metric-tile" id="tile4">
+            <div class="metric-tile">
                 <div class="metric-lbl" id="k4Lbl">Инфляция: Факт / Таргет</div>
                 <div class="metric-val" id="k4Val" style="color: #fb7185;">9.2% → 5.0%</div>
                 <div class="metric-sub" id="k4Sub">Актуальные данные НБРК (nationalbank.kz)</div>
@@ -1031,26 +952,19 @@
         <!-- Пирамида целей ДКП -->
         <section class="pyramid-grid" id="pyramidContainer"></section>
 
-        <!-- Основная зона -->
+        <!-- Основная зона: Слева инструменты ЦБ + Справа Sankey трансмиссии в реальные агрегаты страны -->
         <main class="main-grid">
             <aside class="radio-deck" id="radioDeck"></aside>
 
             <div class="right-stage">
                 <section class="panel-box">
-                    <div class="sankey-header-bar">
-                        <div class="sankey-arch-title" id="sankeyArchTitle">Архитектура денежных агрегатов НБРК: Компоненты → M0 → M1 → M2 → M3</div>
-                        <span class="sankey-arch-badge" id="sankeyArchBadge">Официальная статистика НБРК (31.10.2026)</span>
+                    <div class="sankey-columns">
+                        <div id="col1Lbl">I. Денежная база ЦБ (Резервы + Наличные)</div>
+                        <div id="col2Lbl">II. Банковская система и Канал ставок</div>
+                        <div id="col3Lbl">III. Официальные денежные агрегаты</div>
                     </div>
-
-                    <!-- Подвкладки мировых кейсов (Китай НБК / Япония BoJ / Британия BoE) -->
-                    <div id="globalSubtabs" class="global-subtabs hidden-view">
-                        <button type="button" class="global-sub-btn active" data-gcase="pboc">🇨🇳 Китай (НБК: M0 → M1 → M2)</button>
-                        <button type="button" class="global-sub-btn" data-gcase="boj">🇯🇵 Япония (BoJ: M1 → M3 → L)</button>
-                        <button type="button" class="global-sub-btn" data-gcase="boe">🇬🇧 Великобритания (BoE: M4ex по секторам)</button>
-                    </div>
-
-                    <svg id="moneyFlowSvg" viewBox="0 0 940 410" preserveAspectRatio="xMidYMid meet"></svg>
-                    <div class="method-note" id="methodNote"></div>
+                    <svg id="moneyFlowSvg" viewBox="0 0 920 390" preserveAspectRatio="none"></svg>
+                    <div class="sankey-footnote" id="sankeyFootnote"></div>
                 </section>
 
                 <div class="analytics-split">
@@ -1199,65 +1113,77 @@
     </footer>
 
     <script>
-        /* Цветовое кодирование слоёв ликвидности */
-        const AGG_COLORS = {
-            M0: "#f59e0b",        // Янтарь — наличные вне банков (там, где M0 официально существует: РК, Китай)
-            MB: "#f59e0b",        // Денежная база (США / Еврозона)
-            M1: "#38bdf8",        // Голубой — узкие ликвидные деньги (M1)
-            M2: "#10b981",        // Изумрудный — широкие деньги (M2)
-            M3: "#f97316",        // Оранжевый — широкая денежная масса (M3)
-            M4ex: "#a78bfa",      // Фиолетовый — M4ex (Великобритания)
-            L: "#ec4899"          // Малиновый — широкая ликвидность L (Япония)
-        };
-
-        const COMP_COLORS = {
-            cash: "#f59e0b",
-            trans: "#38bdf8",
-            quasi: "#10b981",
-            market: "#f97316",
-            broad: "#ec4899",
-            neg: "#fb7185"
-        };
-
+        /*
+         * Официальные статистические пропорции агрегатов (данные из второго файла):
+         * 1) Казахстан (НБРК, 31.10.2026): M0 = 4.906 трлн ₸, M1 = 11.929 трлн ₸, M2 = 50.660 трлн ₸, M3 = 57.774 трлн ₸
+         * 2) США (ФРС H.6, Sep/Oct 2026): НЕТ M0 и НЕТ M3! Currency = $2.397tn, M1 = $20.061tn (вкл. сберег.), M2 = $23.414tn
+         * 3) Еврозона (ЕЦБ, Sep 2026): НЕТ M0! Currency = €1.618tn, M1 = €11.333tn, M2 = €16.491tn, M3 = €17.716tn
+         * 4) Мировые кейсы (НБК Китая, Oct 2026): M0 = ¥14.997tn, M1 = ¥116.896tn, M2 = ¥359.055tn
+         */
         const DATA_MODELS = {
             kz: {
                 unitRu: "трлн ₸",
                 unitEn: "KZT tn",
+                /* Базовая денежная база B = 11.49 трлн ₸, при rr=4%, e=2%, c=22% -> m=4.41x -> M2=50.66 трлн ₸ */
+                baseMB: 11.49,
+                broadLabel: "M3",
+                /* Коэффициент перевода M2 -> M3 (валютные депозиты M3/M2 = 57.774 / 50.660 = 1.1404) */
+                broadRatio: 57.774 / 50.660,
+                m1ShareOfDep: (11.929 - 4.906) / (50.660 - 4.906),
                 piTarget: 5.0,
                 defaultTaylor: { rStar: 3.5, pi: 9.2, gap: 1.0 },
                 inflationText: { ru: "9.2% → Цель 5.0%", en: "9.2% → Target 5.0%" },
                 inflationNote: { ru: "Актуальные данные НБРК (nationalbank.kz)", en: "Current NBK data (nationalbank.kz)" },
-                yieldTitle: { ru: "Кривая доходности ГЦБ МФ РК", en: "Yield Curve: MinFin RK Gov. Bonds" },
+                yieldTitle: { ru: "Кривая доходности ГЦБ МФ РК", en: "Yield Curve: Gov. Securities of MinFin RK" },
                 longBondBase: 13.6,
-                archTitle: {
-                    ru: "Иерархия денежных агрегатов НБРК: Компоненты → M0 → M1 → M2 → M3",
-                    en: "NBK Monetary Aggregates Ladder: Components → M0 → M1 → M2 → M3"
+                cols: {
+                    ru: ["I. Денежная база (Наличные M0 + Резервы)", "II. Банковская система и Канал ставок", "III. Официальные агрегаты НБРК (M1 / M2 / M3)"],
+                    en: ["I. Monetary Base (Cash M0 + Reserves)", "II. Banking System & Rate Channel", "III. Official NBK Aggregates (M1 / M2 / M3)"]
                 },
-                archBadge: {
-                    ru: "НБРК • Данные на 31 окт. 2026 г.",
-                    en: "NBK • Official data as of 31 Oct 2026"
+                sankeyNodes: {
+                    ru: {
+                        c1_cash: "Наличные вне банков (M0)",
+                        c1_res: "Резервы БВУ в НБРК (rr + e)",
+                        c2_cred: "Кредитный мультипликатор БВУ",
+                        c2_res: "Резервы и ноты НБРК (Стерилизация)",
+                        c2_cash: "Наличный оборот (M0)",
+                        c3_broad: "Широкая масса M3 (вкл. FX)",
+                        c3_mid: "Денежная масса M2 (тенге + тек. FX)",
+                        c3_narrow: "Узкие деньги M1 (M0 + тек. ₸)"
+                    },
+                    en: {
+                        c1_cash: "Currency Outside Banks (M0)",
+                        c1_res: "Bank Reserves at NBK (rr + e)",
+                        c2_cred: "Bank Credit Multiplier Channel",
+                        c2_res: "NBK Reserves & Notes (Sterilization)",
+                        c2_cash: "Cash Circulation (M0)",
+                        c3_broad: "Broad Money M3 (incl. FX)",
+                        c3_mid: "Money Supply M2 (KZT + trans. FX)",
+                        c3_narrow: "Narrow Money M1 (M0 + trans. KZT)"
+                    }
                 },
-                methodNote: {
-                    ru: "Методология НБРК: Казахстан официально публикует 4 вложенных агрегата — M0 (наличные деньги в обращении вне банков: 4,91 трлн ₸), M1 (M0 + переводимые депозиты в тенге: 11,93 трлн ₸), M2 (M1 + прочие депозиты в тенге и переводимые депозиты в инвалюте: 50,66 трлн ₸) и M3 (широкая денежная масса с учётом прочих валютных депозитов: 57,77 трлн ₸).",
-                    en: "NBK Methodology: Kazakhstan officially publishes 4 nested aggregates — M0 (currency outside banks: KZT 4.91tn), M1 (M0 + transferable KZT deposits: 11.93tn), M2 (M1 + other KZT & transferable FX deposits: 50.66tn), and M3 (broad money including other FX deposits: 57.77tn)."
+                footnote: {
+                    ru: "Методология НБРК (31.10.2026): в Казахстане официально публикуются M0 (4,91 трлн ₸), M1 (11,93 трлн ₸), M2 (50,66 трлн ₸) и широкий агрегат M3 (57,77 трлн ₸, включающий срочные валютные депозиты).",
+                    en: "NBK Methodology (31 Oct 2026): Kazakhstan officially publishes M0 (KZT 4.91tn), M1 (11.93tn), M2 (50.66tn), and broad money M3 (57.77tn, including FX time deposits)."
                 },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
                 goals: [
                     {
                         step: { ru: "1. Стратегическая цель", en: "1. Strategic Goal" },
                         color: "#10b981",
                         title: { ru: "Ценовая стабильность (Таргет 5,0%)", en: "Price Stability (5.0% Target)" },
                         desc: {
-                            ru: "Обеспечение стабильности цен в РК и снижение годовой инфляции с текущих 9,2% до среднесрочной цели 5,0% при свободно плавающем курсе тенге.",
+                            ru: "Обеспечение стабильности цен в Республике Казахстан и снижение годовой инфляции с текущих 9,2% до среднесрочной цели 5,0% при свободно плавающем курсе тенге.",
                             en: "Ensuring price stability in Kazakhstan and bringing annual inflation from 9.2% toward the 5.0% medium-term target under a free-floating tenge."
                         }
                     },
                     {
                         step: { ru: "2. Промежуточная цель", en: "2. Intermediate Target" },
-                        color: "#38bdf8",
-                        title: { ru: "Денежные агрегаты M1–M3 и кривая ГЦБ", en: "M1–M3 Aggregates & MinFin Yield Curve" },
+                        color: "#3b82f6",
+                        title: { ru: "Агрегаты M2/M3 и кривая ГЦБ МФ РК", en: "M2/M3 Aggregates & MinFin Yield Curve" },
                         desc: {
-                            ru: "Трансляция базовой ставки в доходность ГЦБ МФ РК, депозитные и кредитные ставки БВУ и дедолларизация структуры M3.",
-                            en: "Transmitting the base rate into MinFin RK bond yields, commercial bank deposit/lending rates, and de-dollarization of M3."
+                            ru: "Трансляция базовой ставки в доходность государственных ценных бумаг (ГЦБ МФ РК), депозитные и кредитные ставки БВУ и дедолларизация M3.",
+                            en: "Transmitting the base rate into MinFin RK government securities yields, commercial bank deposit/lending rates, and de-dollarization of M3."
                         }
                     },
                     {
@@ -1265,8 +1191,8 @@
                         color: "#f59e0b",
                         title: { ru: "Ставка TONIA внутри коридора ±1 п.п.", en: "TONIA Rate within ±1 pp Corridor" },
                         desc: {
-                            ru: "Удержание однодневной ставки денежного рынка TONIA вблизи базовой ставки НБРК с помощью операций РЕПО, нот НБРК и постоянных механизмов.",
-                            en: "Keeping the overnight money market rate TONIA close to the NBK base rate via REPO operations, NBK notes, and standing facilities."
+                            ru: "Удержание однодневной ставки денежного рынка TONIA вблизи базовой ставки НБРК с помощью операций РЕПО, краткосрочных нот НБРК и постоянных механизмов.",
+                            en: "Keeping the overnight money market rate TONIA close to the NBK base rate via REPO operations, short-term NBK notes, and standing facilities."
                         }
                     }
                 ],
@@ -1276,76 +1202,47 @@
                         name: { ru: "Базовая ставка НБРК", en: "NBK Base Rate" },
                         val: 15.75, min: 8, max: 22, step: 0.25, unit: "%",
                         desc: {
-                            ru: "Ключевой инструмент ДКП Казахстана (коридор ±1 п.п.). Определяет стоимость тенговой ликвидности и ставку TONIA.",
-                            en: "Primary monetary policy instrument of Kazakhstan (±1 pp corridor). Sets tenge liquidity cost and TONIA rate."
+                            ru: "Ключевой инструмент ДКП Казахстана (коридор ±1 п.п.). Определяет стоимость тенговой ликвидности, ставку TONIA и доходность нот НБРК.",
+                            en: "Primary monetary policy instrument of Kazakhstan (±1 pp corridor). Sets tenge liquidity cost, TONIA rate, and NBK note yields."
                         }
                     },
                     {
-                        id: "m0", group: "agg", color: COMP_COLORS.cash,
-                        name: { ru: "M0: Наличные вне банков", en: "M0: Cash outside banks" },
-                        val: 4.906, min: 2.0, max: 8.5, step: 0.05, unit: " трлн ₸",
+                        id: "rr", group: "policy", color: "#3b82f6",
+                        name: { ru: "Норма обязательных резервов (rr)", en: "Required Reserve Ratio (rr)" },
+                        val: 4.0, min: 1, max: 15, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Официальный агрегат M0 НБРК (31.10.2026 = 4,906 трлн ₸): банкноты и монеты в обращении вне банковской системы.",
-                            en: "Official NBK M0 aggregate (31 Oct 2026 = KZT 4.906tn): banknotes and coins in circulation outside banks."
+                            ru: "Минимальные резервные требования НБРК (дифференцированы: 2–4% по тенговым обязательствам и до 10–15% по валютным обязательствам БВУ).",
+                            en: "NBK minimum reserve requirements (differentiated: 2–4% for tenge liabilities and up to 10–15% for FX liabilities)."
                         }
                     },
                     {
-                        id: "m1add", group: "agg", color: COMP_COLORS.trans,
-                        name: { ru: "Переводимые депозиты в ₸", en: "Transferable KZT deposits" },
-                        val: 7.023, min: 3.0, max: 13.0, step: 0.05, unit: " трлн ₸",
+                        id: "er", group: "policy", color: "#06b6d4",
+                        name: { ru: "Избыточные резервы банков (e)", en: "Excess Reserve Ratio (e)" },
+                        val: 2.0, min: 0, max: 12, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Текущие и карточные счета резидентов в тенге до востребования (вместе с M0 образуют агрегат M1 = 11,929 трлн ₸).",
-                            en: "Resident KZT demand/checking deposits (added to M0 to form M1 = KZT 11.929tn)."
+                            ru: "Свободная ликвидность БВУ на корсчетах и депозитах в НБРК сверх обязательных резервов (rr). Рост e сжимает мультипликатор.",
+                            en: "Commercial bank liquidity held at the NBK above required reserves (rr). Higher excess reserves compress the money multiplier."
                         }
                     },
                     {
-                        id: "m2add", group: "agg", color: COMP_COLORS.quasi,
-                        name: { ru: "Срочные ₸ + переводимые FX", en: "Other KZT + transferable FX" },
-                        val: 38.731, min: 18.0, max: 60.0, step: 0.2, unit: " трлн ₸",
+                        id: "cash_ratio", group: "mult", color: "#f59e0b",
+                        name: { ru: "Коэффициент наличности (c = M0/D)", en: "Currency-to-Deposit Ratio (c)" },
+                        val: 22, min: 5, max: 50, step: 1, unit: "%",
                         desc: {
-                            ru: "Срочные и сберегательные депозиты в тенге плюс текущие счета в иностранной валюте (вместе с M1 дают M2 = 50,660 трлн ₸).",
-                            en: "Time/savings KZT deposits plus transferable FX deposits (added to M1 to form M2 = KZT 50.660tn)."
+                            ru: "Отношение наличных тенге вне банков (M0) к депозитам БВУ. Развитие QR-платежей снижает c и повышает мультипликатор.",
+                            en: "Ratio of cash outside banks (M0) to commercial bank deposits. Digital/QR payment adoption lowers c and boosts the money multiplier."
                         }
                     },
                     {
-                        id: "m3add", group: "agg", color: COMP_COLORS.market,
-                        name: { ru: "Прочие валютные депозиты (M3−M2)", en: "Other FX deposits (M3−M2)" },
-                        val: 7.114, min: 2.0, max: 16.0, step: 0.1, unit: " трлн ₸",
+                        id: "omo", group: "mult", color: "#8b5cf6",
+                        name: { ru: "Ноты НБРК и РЕПО (Стерилизация)", en: "NBK Notes & REPO Operations" },
+                        val: 100, min: 50, max: 150, step: 5, unit: "% MB",
                         desc: {
-                            ru: "Срочные валютные вклады резидентов, добавляемые к M2 для формирования широкой денежной массы M3 = 57,774 трлн ₸.",
-                            en: "Resident FX time deposits added to M2 to form Broad Money M3 = KZT 57.774tn."
+                            ru: "Операции открытого рынка: выпуск краткосрочных нот НБРК и депозитные аукционы для управления денежной базой.",
+                            en: "Open market operations: short-term NBK notes and deposit auctions managing the monetary base."
                         }
                     }
                 ],
-                calcAggregates: v => ({
-                    M0: v.m0,
-                    M1: v.m0 + v.m1add,
-                    M2: v.m0 + v.m1add + v.m2add,
-                    M3: v.m0 + v.m1add + v.m2add + v.m3add
-                }),
-                stages: [
-                    ["m0", "M0"],
-                    ["M0", "M1"],
-                    ["m1add", "M1"],
-                    ["M1", "M2"],
-                    ["m2add", "M2"],
-                    ["M2", "M3"],
-                    ["m3add", "M3"]
-                ],
-                updateMetrics: (v, ag, lang) => {
-                    const u = lang === "ru" ? "трлн ₸" : "KZT tn";
-                    document.getElementById("k1Lbl").textContent = lang === "ru" ? "Базовая ставка НБРК" : "NBK Base Rate";
-                    document.getElementById("k1Val").textContent = `${v.rate.toFixed(2)}%`;
-                    document.getElementById("k1Sub").textContent = lang === "ru" ? "Ориентир TONIA (±1 п.п.)" : "TONIA corridor benchmark (±1 pp)";
-
-                    document.getElementById("k2Lbl").textContent = lang === "ru" ? "Узкие деньги: M0 → M1" : "Narrow Money: M0 → M1";
-                    document.getElementById("k2Val").textContent = `${ag.M0.toFixed(2)} → ${ag.M1.toFixed(2)} ${u}`;
-                    document.getElementById("k2Sub").textContent = lang === "ru" ? "Наличные M0 + переводимые KZT" : "Cash M0 + transferable KZT";
-
-                    document.getElementById("k3Lbl").textContent = lang === "ru" ? "Широкая масса: M2 → M3" : "Broad Money: M2 → M3";
-                    document.getElementById("k3Val").textContent = `${ag.M2.toFixed(2)} → ${ag.M3.toFixed(2)} ${u}`;
-                    document.getElementById("k3Sub").textContent = lang === "ru" ? "Официальные агрегаты НБРК" : "Official NBK aggregates";
-                },
                 basel: [
                     {
                         tag: "КАПИТАЛ БВУ (АРРФР / НБРК)",
@@ -1385,24 +1282,49 @@
             us: {
                 unitRu: "трлн $",
                 unitEn: "USD tn",
+                /* Денежная база ФРС MB = 5.135 трлн $, при rr=0%, e=11%, c=14% -> m = 1.14 / 0.25 = 4.56x -> M2 = 23.41 трлн $ */
+                baseMB: 5.135,
+                broadLabel: "M2",
+                broadRatio: 1.0,
+                /* После реформы мая 2020 г. US M1 = $20.061tn, US M2 = $23.414tn (доля M1 в M2 = 85.7%) */
+                m1ShareOfDep: (20.061 - 2.397) / (23.414 - 2.397),
                 piTarget: 2.0,
                 defaultTaylor: { rStar: 1.0, pi: 2.8, gap: 0.4 },
                 inflationText: { ru: "2.8% → Цель 2.0%", en: "2.8% → Target 2.0%" },
                 inflationNote: { ru: "Двойной мандат ФРС (PCE 2% + занятость)", en: "Fed Dual Mandate (2% PCE + Max Employment)" },
                 yieldTitle: { ru: "Кривая доходности U.S. Treasuries", en: "U.S. Treasury Yield Curve" },
                 longBondBase: 4.30,
-                archTitle: {
-                    ru: "Архитектура агрегатов ФРС США (Отчёт H.6): Компоненты → M1 → M2 (без M0 и без M3)",
-                    en: "Federal Reserve H.6 Architecture: Components → M1 → M2 (No M0, M3 discontinued)"
+                cols: {
+                    ru: ["I. Денежная база ФРС (Currency + Резервы)", "II. Банковская система США и Канал ставок", "III. Официальные агрегаты H.6 (M1 и M2)"],
+                    en: ["I. Fed Monetary Base (Currency + Reserves)", "II. U.S. Banking System & Rate Channel", "III. Official H.6 Aggregates (M1 & M2)"]
                 },
-                archBadge: {
-                    ru: "ФРС США (H.6) • Сентябрь–Октябрь 2026 г.",
-                    en: "Federal Reserve (H.6) • Sep–Oct 2026"
+                sankeyNodes: {
+                    ru: {
+                        c1_cash: "Наличные доллары (Currency)",
+                        c1_res: "Резервы банков в ФРС (IORB)",
+                        c2_cred: "Кредитно-депозитный канал США",
+                        c2_res: "Резервы в ФРС (Обильные резервы)",
+                        c2_cash: "Наличные доллары в обращении",
+                        c3_broad: "Агрегат M2 США (H.6)",
+                        c3_mid: "Агрегат M1 США (вкл. сбер. счета)",
+                        c3_narrow: "Наличная компонента M1 (Currency)"
+                    },
+                    en: {
+                        c1_cash: "U.S. Currency in Circulation",
+                        c1_res: "Bank Reserves at the Fed (IORB)",
+                        c2_cred: "U.S. Bank Deposit Creation Channel",
+                        c2_res: "Fed Reserve Balances (Ample Reserves)",
+                        c2_cash: "Physical USD Outside Banks",
+                        c3_broad: "U.S. M2 Money Supply (H.6)",
+                        c3_mid: "U.S. M1 (incl. savings deposits)",
+                        c3_narrow: "Currency Component of M1"
+                    }
                 },
-                methodNote: {
-                    ru: "Методология ФРС США (Statistical Release H.6): В США НЕТ официального агрегата M0 (ФРС публикует Monetary Base отдельно, а публикация M3 прекращена в 2006 г.). С мая 2020 г. в состав M1 ($20,06 трлн) входят наличные, депозиты до востребования и «прочие ликвидные депозиты» (включая сберегательные счета). M2 ($23,41 трлн) добавляет малые срочные депозиты (<$100 тыс.) и розничные фонды денежного рынка (MMF) за вычетом пенсионных счетов IRA и Keogh.",
-                    en: "Federal Reserve Methodology (H.6): The US has NO official M0 aggregate (Monetary Base is reported separately, and M3 was discontinued in 2006). Since May 2020, M1 ($20.06tn) comprises currency, demand deposits, and 'other liquid deposits' (including savings accounts). M2 ($23.41tn) adds small-denomination time deposits and retail MMFs, less IRA and Keogh balances."
+                footnote: {
+                    ru: "Методология ФРС США (Отчёт H.6, окт. 2026): в США НЕТ официального агрегата M0 (публикуется Monetary Base), а публикация M3 прекращена в 2006 г. С мая 2020 г. M1 ($20,06 трлн) включает сберегательные депозиты; M2 ($23,41 трлн) добавляет срочные вклады и розничные фонды MMF.",
+                    en: "Federal Reserve Methodology (H.6, Oct 2026): The US has NO official M0 aggregate (Monetary Base is reported instead), and M3 was discontinued in 2006. Since May 2020, M1 ($20.06tn) includes savings deposits; M2 ($23.41tn) adds small time deposits and retail MMFs."
                 },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
                 goals: [
                     {
                         step: { ru: "1. Стратегическая цель", en: "1. Strategic Goal" },
@@ -1415,20 +1337,20 @@
                     },
                     {
                         step: { ru: "2. Промежуточная цель", en: "2. Intermediate Target" },
-                        color: "#38bdf8",
-                        title: { ru: "Агрегаты M1 / M2 (H.6) и доходность Treasuries", en: "H.6 M1 / M2 Aggregates & Treasury Yields" },
+                        color: "#3b82f6",
+                        title: { ru: "Доходность U.S. Treasuries и агрегаты M1 / M2", en: "U.S. Treasury Yields & M1 / M2 Aggregates" },
                         desc: {
-                            ru: "Воздействие на кривую доходности U.S. Treasuries, ставки ипотеки, корпоративный долг и управление балансом ФРС через QT.",
+                            ru: "Воздействие на кривую доходности казначейских облигаций США, ставки ипотеки, корпоративный долг и управление балансом ФРС через QT.",
                             en: "Steering U.S. Treasury yields, mortgage rates, corporate credit spreads, and Fed balance sheet runoff (QT)."
                         }
                     },
                     {
                         step: { ru: "3. Операционная цель", en: "3. Operational Target" },
                         color: "#f59e0b",
-                        title: { ru: "Ставка Federal Funds (3.75%–4.00%)", en: "Fed Funds Target Range (3.75%–4.00%)" },
+                        title: { ru: "Ставка Federal Funds в диапазоне 3.75%–4.00%", en: "Fed Funds Target Range 3.75%–4.00%" },
                         desc: {
-                            ru: "Удержание эффективной ставки EFFR в режиме «обильных резервов» через ставку по резервам IORB и механизм обратного РЕПО (ON RRP).",
-                            en: "Steering Effective Fed Funds Rate in an Ample Reserves regime via Interest on Reserve Balances (IORB) and ON RRP."
+                            ru: "Удержание эффективной ставки EFFR (3,88%) в режиме «обильных резервов» через ставку IORB и механизм обратного РЕПО (ON RRP).",
+                            en: "Steering Effective Fed Funds Rate (3.88%) in an Ample Reserves regime via Interest on Reserve Balances (IORB) and ON RRP."
                         }
                     }
                 ],
@@ -1443,77 +1365,42 @@
                         }
                     },
                     {
-                        id: "cur", group: "agg", color: COMP_COLORS.cash,
-                        name: { ru: "Наличные доллары (Currency)", en: "Currency in Circulation" },
-                        val: 2.397, min: 1.2, max: 4.0, step: 0.02, unit: " трлн $",
+                        id: "rr", group: "policy", color: "#3b82f6",
+                        name: { ru: "Обязательные резервы ФРС (rr)", en: "Required Reserve Ratio (rr)" },
+                        val: 0.0, min: 0, max: 12, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Наличные доллары США в обращении вне Казначейства, ФРС и депозитных учреждений ($2,397 трлн).",
-                            en: "Physical U.S. currency outside the U.S. Treasury, Federal Reserve Banks, and depository institutions ($2.397tn)."
+                            ru: "С марта 2020 г. ФРС установила норму обязательных резервов на уровне 0%.",
+                            en: "Since March 2020, the Federal Reserve set statutory reserve requirements at 0%."
                         }
                     },
                     {
-                        id: "dem", group: "agg", color: COMP_COLORS.trans,
-                        name: { ru: "Депозиты до востребования", en: "Demand Deposits" },
-                        val: 7.220, min: 3.5, max: 11.5, step: 0.05, unit: " трлн $",
+                        id: "er", group: "policy", color: "#06b6d4",
+                        name: { ru: "Избыточные резервы в ФРС (e / IORB)", en: "Excess Reserves at Fed (e / IORB)" },
+                        val: 11.0, min: 1, max: 25, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Чековые счета до востребования в коммерческих банках США ($7,220 трлн).",
-                            en: "Checkable demand deposits at U.S. commercial banks ($7.220tn)."
+                            ru: "В системе «обильных резервов» банки США держат ~11% избыточных резервов на счетах ФРС, получая процент IORB.",
+                            en: "Under the Ample Reserves regime, U.S. banks hold ~11% excess reserves at the Fed to earn IORB interest."
                         }
                     },
                     {
-                        id: "old", group: "agg", color: "#60a5fa",
-                        name: { ru: "Прочие ликвидные депозиты (вкл. сбер.)", en: "Other Liquid Deposits (incl. savings)" },
-                        val: 10.444, min: 5.0, max: 16.0, step: 0.05, unit: " трлн $",
+                        id: "cash_ratio", group: "mult", color: "#f59e0b",
+                        name: { ru: "Наличность вне банков (c = C/D)", en: "Currency-to-Deposit Ratio (c)" },
+                        val: 11.5, min: 4, max: 35, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Сберегательные депозиты и счета OCD. С мая 2020 г. ФРС включила их в M1, доведя M1 до $20,06 трлн.",
-                            en: "Savings deposits and OCD accounts. Since May 2020 included in M1, bringing US M1 to $20.06tn."
+                            ru: "Отношение наличных долларов в обращении ($2,40 трлн, включая международный спрос на USD) к депозитам банков США.",
+                            en: "Ratio of physical USD currency in circulation ($2.40tn, including global demand) to U.S. commercial bank deposits."
                         }
                     },
                     {
-                        id: "time_mmf", group: "agg", color: COMP_COLORS.quasi,
-                        name: { ru: "Срочные депозиты + Розничные MMF", en: "Small Time Deposits + Retail MMFs" },
-                        val: 4.591, min: 2.0, max: 8.0, step: 0.05, unit: " трлн $",
+                        id: "omo", group: "mult", color: "#8b5cf6",
+                        name: { ru: "Баланс ФРС (QE / QT Операции)", en: "Fed Balance Sheet (QE / QT)" },
+                        val: 100, min: 60, max: 160, step: 5, unit: "% MB",
                         desc: {
-                            ru: "Малые срочные вклады ($1,506 трлн) + розничные фонды денежного рынка ($3,085 трлн), добавляемые к M1 при расчёте M2.",
-                            en: "Small time deposits ($1.506tn) + retail money market funds ($3.085tn) added to M1 for M2."
-                        }
-                    },
-                    {
-                        id: "ira", group: "agg", color: COMP_COLORS.neg,
-                        name: { ru: "Вычет пенсионных счетов IRA / Keogh", en: "Less IRA & Keogh Balances" },
-                        val: -1.238, min: -2.2, max: -0.4, step: 0.02, unit: " трлн $",
-                        desc: {
-                            ru: "Методологический вычет пенсионных балансов IRA и Keogh (-$1,238 трлн) для получения чистого M2 = $23,414 трлн.",
-                            en: "Methodological deduction of IRA and Keogh balances (-$1.238tn) yielding net US M2 = $23.414tn."
+                            ru: "Покупка казначейских бумаг U.S. Treasuries и ипотечных облигаций MBS (QE) либо сокращение портфеля ФРС (QT).",
+                            en: "Purchases of U.S. Treasuries and agency MBS (QE) or balance sheet runoff (QT)."
                         }
                     }
                 ],
-                calcAggregates: v => ({
-                    M1: v.cur + v.dem + v.old,
-                    M2: v.cur + v.dem + v.old + v.time_mmf + v.ira
-                }),
-                stages: [
-                    ["cur", "M1"],
-                    ["dem", "M1"],
-                    ["old", "M1"],
-                    ["M1", "M2"],
-                    ["time_mmf", "M2"],
-                    ["ira", "M2"]
-                ],
-                updateMetrics: (v, ag, lang) => {
-                    const u = lang === "ru" ? "трлн $" : "USD tn";
-                    document.getElementById("k1Lbl").textContent = lang === "ru" ? "Ставка ФРС (Fed Funds)" : "Fed Funds Target Rate";
-                    document.getElementById("k1Val").textContent = `${v.rate.toFixed(2)}%`;
-                    document.getElementById("k1Sub").textContent = lang === "ru" ? "В США нет M0 и M3 (отчёт H.6)" : "No M0 or M3 in US H.6 release";
-
-                    document.getElementById("k2Lbl").textContent = lang === "ru" ? "Агрегат M1 (вкл. сбер. счета)" : "US M1 (incl. savings)";
-                    document.getElementById("k2Val").textContent = `${ag.M1.toFixed(2)} ${u}`;
-                    document.getElementById("k2Sub").textContent = lang === "ru" ? "Наличные + чековые + сберегательные" : "Currency + demand + other liquid";
-
-                    document.getElementById("k3Lbl").textContent = lang === "ru" ? "Широкий агрегат M2 (США)" : "US Broad Money M2";
-                    document.getElementById("k3Val").textContent = `${ag.M2.toFixed(2)} ${u}`;
-                    document.getElementById("k3Sub").textContent = lang === "ru" ? "M1 + срочные + MMF − IRA/Keogh" : "M1 + time + MMFs − IRA/Keogh";
-                },
                 basel: [
                     {
                         tag: "КАПИТАЛ G-SIB",
@@ -1553,28 +1440,54 @@
             eu: {
                 unitRu: "трлн €",
                 unitEn: "EUR tn",
+                /* База Евросистемы MB = 3.045 трлн €, при rr=1%, e=7.5%, c=12% -> m = 1.12 / 0.205 = 5.46x -> M2 = 16.49 трлн €, M3 = 17.72 трлн € */
+                baseMB: 3.018,
+                broadLabel: "M3",
+                /* Отношение M3 / M2 в Еврозоне = 17.716 / 16.491 = 1.0743 */
+                broadRatio: 17.716 / 16.491,
+                /* Доля безналичного M1 в депозитах M2: (11.333 - 1.618) / (16.491 - 1.618) = 0.653 */
+                m1ShareOfDep: (11.333 - 1.618) / (16.491 - 1.618),
                 piTarget: 2.0,
                 defaultTaylor: { rStar: 0.75, pi: 2.1, gap: -0.2 },
                 inflationText: { ru: "2.1% → Цель 2.0%", en: "2.1% → Target 2.0%" },
                 inflationNote: { ru: "Симметричный таргет ЕЦБ по HICP", en: "ECB symmetric 2.0% HICP target" },
                 yieldTitle: { ru: "Кривая доходности гособлигаций Еврозоны", en: "Eurozone Sovereign Yield Curve (AAA)" },
                 longBondBase: 2.60,
-                archTitle: {
-                    ru: "Вложенная иерархия ЕЦБ (Еврозона): Компоненты → M1 → M2 → M3 (без M0)",
-                    en: "ECB Nested Hierarchy (Euro Area): Components → M1 → M2 → M3 (No M0)"
+                cols: {
+                    ru: ["I. Денежная база Евросистемы (ЕЦБ)", "II. Банки Еврозоны и Канал ставок", "III. Иерархия агрегатов ЕЦБ (M1 / M2 / M3)"],
+                    en: ["I. Eurosystem Monetary Base (ECB)", "II. Eurozone Banks & Rate Channel", "III. ECB Nested Aggregates (M1 / M2 / M3)"]
                 },
-                archBadge: {
-                    ru: "ЕЦБ (Monetary Developments) • Сентябрь 2026 г.",
-                    en: "ECB (Monetary Developments) • Sep 2026"
+                sankeyNodes: {
+                    ru: {
+                        c1_cash: "Наличные евро в обращении",
+                        c1_res: "Резервы банков в ЕЦБ (rr + e)",
+                        c2_cred: "Кредитный мультипликатор Еврозоны",
+                        c2_res: "Депозитная линия ЕЦБ (Deposit Facility)",
+                        c2_cash: "Наличный евро-оборот",
+                        c3_broad: "Широкий агрегат M3 (вкл. РЕПО и MMF)",
+                        c3_mid: "Денежный агрегат M2 (депозиты ≤2л)",
+                        c3_narrow: "Узкие деньги M1 (наличные + овернайт)"
+                    },
+                    en: {
+                        c1_cash: "Euro Banknotes & Coins in Circulation",
+                        c1_res: "Bank Reserves at ECB (rr + e)",
+                        c2_cred: "Eurozone Credit Multiplier Channel",
+                        c2_res: "ECB Deposit Facility Reserves",
+                        c2_cash: "Physical Euro Circulation",
+                        c3_broad: "Broad Money M3 (incl. Repos & MMFs)",
+                        c3_mid: "Intermediate Money M2 (deposits ≤2y)",
+                        c3_narrow: "Narrow Money M1 (cash + overnight)"
+                    }
                 },
-                methodNote: {
-                    ru: "Методология ЕЦБ: Европейский центральный банк не использует агрегат M0, а строит строгую трёхступенчатую лестницу ликвидности M1 → M2 → M3. M1 (€11,33 трлн) объединяет наличные евро в обращении (€1,618 трлн) и депозиты овернайт (€9,715 трлн). M2 (€16,49 трлн) добавляет срочные вклады до 2 лет и депозиты с уведомлением до 3 мес. M3 (€17,72 трлн) включает рыночные инструменты: операции РЕПО, паи фондов денежного рынка (MMF) и долговые ценные бумаги сроком до 2 лет.",
-                    en: "ECB Methodology: The ECB does not define an M0 aggregate; instead it uses a strict 3-tier nested hierarchy M1 → M2 → M3. M1 (€11.33tn) sums euro banknotes/coins (€1.618tn) and overnight deposits (€9.715tn). M2 (€16.49tn) adds deposits with maturity ≤2 years and notice ≤3 months. M3 (€17.72tn) adds marketable instruments: repos, MMF shares/units, and debt securities ≤2 years."
+                footnote: {
+                    ru: "Методология ЕЦБ (Сентябрь 2026): в Еврозоне НЕТ агрегата M0, используется вложенная иерархия M1 (€11,33 трлн: наличные €1,62 трлн + депозиты овернайт €9,72 трлн) → M2 (€16,49 трлн) → M3 (€17,72 трлн: M2 + РЕПО, паи MMF и бумаги до 2 лет).",
+                    en: "ECB Methodology (Sep 2026): The Euro area has NO M0 aggregate; it uses a nested ladder M1 (€11.33tn: currency €1.62tn + overnight deposits €9.72tn) → M2 (€16.49tn) → M3 (€17.72tn: M2 + repos, MMF shares, and debt ≤2y)."
                 },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
                 goals: [
                     {
                         step: { ru: "1. Стратегическая цель", en: "1. Strategic Goal" },
-                        color: "#38bdf8",
+                        color: "#3b82f6",
                         title: { ru: "Ценовая стабильность (Симметричные 2,0%)", en: "Price Stability (Symmetric 2.0%)" },
                         desc: {
                             ru: "Главный мандат ЕЦБ — поддержание годовой инфляции в Еврозоне на уровне 2,0% в среднесрочной перспективе.",
@@ -1583,11 +1496,11 @@
                     },
                     {
                         step: { ru: "2. Промежуточная цель", en: "2. Intermediate Target" },
-                        color: "#10b981",
+                        color: "#14b8a6",
                         title: { ru: "Денежный агрегат M3 и единство трансмиссии", en: "Broad Money M3 & Transmission Protection" },
                         desc: {
-                            ru: "Контроль широкой денежной массы M3 (€17,72 трлн), банковского кредитования и недопущение фрагментации облигаций стран ЕС (TPI).",
-                            en: "Monitoring M3 money supply (€17.72tn), bank lending, and preventing sovereign yield fragmentation across Eurozone states (TPI)."
+                            ru: "Контроль денежной массы M3, банковского кредитования и недопущение фрагментации суверенных облигаций стран ЕС (инструмент TPI).",
+                            en: "Monitoring M3 money supply, bank lending, and preventing sovereign yield fragmentation across Eurozone states (TPI)."
                         }
                     },
                     {
@@ -1611,69 +1524,42 @@
                         }
                     },
                     {
-                        id: "cur", group: "agg", color: COMP_COLORS.cash,
-                        name: { ru: "Наличные евро в обращении", en: "Euro Currency in Circulation" },
-                        val: 1.618, min: 0.8, max: 3.0, step: 0.02, unit: " трлн €",
+                        id: "rr", group: "policy", color: "#3b82f6",
+                        name: { ru: "Обязательные резервы Евросистемы (rr)", en: "Eurosystem Minimum Reserves (rr)" },
+                        val: 1.0, min: 0.5, max: 10, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Банкноты и монеты евро в обращении за пределами Евросистемы и МФИ (€1,618 трлн).",
-                            en: "Euro banknotes and coins in circulation outside the Eurosystem and MFIs (€1.618tn)."
+                            ru: "ЕЦБ устанавливает норму минимальных резервов на уровне 1% от клиентских депозитов сроком до 2 лет.",
+                            en: "ECB sets minimum reserve requirements at 1% of customer deposits up to 2 years maturity."
                         }
                     },
                     {
-                        id: "overnight", group: "agg", color: COMP_COLORS.trans,
-                        name: { ru: "Депозиты овернайт (Overnight)", en: "Overnight Deposits" },
-                        val: 9.715, min: 5.0, max: 15.0, step: 0.05, unit: " трлн €",
+                        id: "er", group: "policy", color: "#06b6d4",
+                        name: { ru: "Избыточные резервы банков ЕС (e)", en: "Eurosystem Excess Reserves (e)" },
+                        val: 7.5, min: 0.5, max: 20, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Текущие счета овернайт в банках Еврозоны (вместе с наличными образуют M1 = €11,333 трлн).",
-                            en: "Overnight checking deposits in Eurozone banks (combined with currency to form M1 = €11.333tn)."
+                            ru: "Избыточная ликвидность банков Еврозоны на депозитной линии ЕЦБ (Deposit Facility).",
+                            en: "Excess liquidity held by Eurozone banks in the ECB Deposit Facility."
                         }
                     },
                     {
-                        id: "m2add", group: "agg", color: COMP_COLORS.quasi,
-                        name: { ru: "Депозиты ≤2 лет + с уведомлением ≤3 мес.", en: "Deposits ≤2y + Notice ≤3m" },
-                        val: 5.158, min: 2.5, max: 9.0, step: 0.05, unit: " трлн €",
+                        id: "cash_ratio", group: "mult", color: "#f59e0b",
+                        name: { ru: "Доля наличных евро (c = C/D)", en: "Euro Currency-to-Deposit Ratio (c)" },
+                        val: 11.0, min: 4, max: 30, step: 0.5, unit: "%",
                         desc: {
-                            ru: "Срочные вклады до 2 лет (€2,585 трлн) и депозиты с уведомлением до 3 мес. (€2,573 трлн), формирующие M2 = €16,491 трлн.",
-                            en: "Time deposits ≤2y (€2.585tn) and redeemable at notice ≤3m (€2.573tn), forming M2 = €16.491tn."
+                            ru: "Отношение наличных банкнот евро в обращении (€1,62 трлн) к депозитам в банках Еврозоны.",
+                            en: "Ratio of physical euro banknotes in circulation (€1.62tn) to commercial bank deposits across the Eurozone."
                         }
                     },
                     {
-                        id: "m3add", group: "agg", color: COMP_COLORS.market,
-                        name: { ru: "РЕПО + Паи MMF + Бумаги ≤2 лет", en: "Repos + MMF Shares + Debt ≤2y" },
-                        val: 1.225, min: 0.4, max: 3.0, step: 0.02, unit: " трлн €",
+                        id: "omo", group: "mult", color: "#8b5cf6",
+                        name: { ru: "Портфель APP / PEPP и операции LTRO", en: "APP / PEPP Portfolio & LTRO Ops" },
+                        val: 100, min: 60, max: 150, step: 5, unit: "% MB",
                         desc: {
-                            ru: "Рыночные инструменты денежного рынка (РЕПО €0,236 + MMF €0,928 + бумаги €0,061 трлн), добавляемые к M2 для получения M3 = €17,716 трлн.",
-                            en: "Marketable instruments (Repos €0.236 + MMF €0.928 + Debt ≤2y €0.061tn) added to M2 to form M3 = €17.716tn."
+                            ru: "Управление портфелями выкупленных гособлигаций Еврозоны (APP и PEPP) и целевыми операциями рефинансирования.",
+                            en: "Managing Eurozone sovereign bond purchase portfolios (APP & PEPP) and targeted refinancing operations."
                         }
                     }
                 ],
-                calcAggregates: v => ({
-                    M1: v.cur + v.overnight,
-                    M2: v.cur + v.overnight + v.m2add,
-                    M3: v.cur + v.overnight + v.m2add + v.m3add
-                }),
-                stages: [
-                    ["cur", "M1"],
-                    ["overnight", "M1"],
-                    ["M1", "M2"],
-                    ["m2add", "M2"],
-                    ["M2", "M3"],
-                    ["m3add", "M3"]
-                ],
-                updateMetrics: (v, ag, lang) => {
-                    const u = lang === "ru" ? "трлн €" : "EUR tn";
-                    document.getElementById("k1Lbl").textContent = lang === "ru" ? "Депозитная ставка ЕЦБ" : "ECB Deposit Facility Rate";
-                    document.getElementById("k1Val").textContent = `${v.rate.toFixed(2)}%`;
-                    document.getElementById("k1Sub").textContent = lang === "ru" ? "В Еврозоне нет M0 (иерархия M1–M3)" : "No M0 in Eurozone (M1–M3 ladder)";
-
-                    document.getElementById("k2Lbl").textContent = lang === "ru" ? "Узкий и средний: M1 → M2" : "Narrow & Intermediate: M1 → M2";
-                    document.getElementById("k2Val").textContent = `${ag.M1.toFixed(2)} → ${ag.M2.toFixed(2)} ${u}`;
-                    document.getElementById("k2Sub").textContent = lang === "ru" ? "Наличные + овернайт + срочные ≤2л" : "Currency + overnight + term ≤2y";
-
-                    document.getElementById("k3Lbl").textContent = lang === "ru" ? "Широкий агрегат M3 (ЕЦБ)" : "ECB Broad Money M3";
-                    document.getElementById("k3Val").textContent = `${ag.M3.toFixed(2)} ${u}`;
-                    document.getElementById("k3Sub").textContent = lang === "ru" ? "M2 + РЕПО + паи MMF + бумаги ≤2л" : "M2 + repos + MMF + debt ≤2y";
-                },
                 basel: [
                     {
                         tag: "ЕДИНЫЙ НАДЗОР (SSM)",
@@ -1711,148 +1597,55 @@
             },
 
             global: {
+                unitRu: "трлн ¥",
+                unitEn: "CNY tn",
+                /* НБК Китая (окт. 2026): M0 = 15.00 трлн ¥, M1 = 116.90 трлн ¥, M2 = 359.06 трлн ¥ (MB = 44.33 трлн ¥, m = 8.10x) */
+                baseMB: 44.33,
+                broadLabel: "M2",
+                broadRatio: 1.0,
+                m1ShareOfDep: (116.896 - 14.997) / (359.055 - 14.997),
                 piTarget: 2.0,
                 defaultTaylor: { rStar: 1.5, pi: 2.3, gap: 0.0 },
                 inflationText: { ru: "2.0%–2.5% (Таргеты)", en: "2.0%–2.5% (Targets)" },
                 inflationNote: { ru: "Китай (НБК), Япония (BoJ), Британия (BoE)", en: "China (PBoC), Japan (BoJ), UK (BoE)" },
-                yieldTitle: { ru: "Кривая гос. облигаций (CGB / JGB / Gilts)", en: "Sovereign Yield Curve (CGB / JGB / Gilts)" },
-                longBondBase: 3.20,
-                cases: {
-                    pboc: {
-                        unitRu: "трлн ¥",
-                        unitEn: "CNY tn",
-                        rateVal: 3.10,
-                        rateLabelRu: "Ставка LPR 1Y (НБК Китая)",
-                        rateLabelEn: "PBoC 1Y LPR Rate",
-                        archTitle: {
-                            ru: "🇨🇳 Народный банк Китая (НБК): Официальная лестница M0 → M1 → M2",
-                            en: "🇨🇳 People's Bank of China (PBoC): Official Ladder M0 → M1 → M2"
-                        },
-                        archBadge: {
-                            ru: "НБК Китая • Октябрь 2026 г.",
-                            en: "PBoC • Official data Oct 2026"
-                        },
-                        methodNote: {
-                            ru: "Методология НБК Китая (Октябрь 2026 г.): Китай публикует 3 агрегата — M0 (наличные юани в обращении: ¥15,00 трлн), M1 (M0 + депозиты до востребования: ¥116,90 трлн) и M2 (широкая денежная масса, включая срочные и сберегательные депозиты: ¥359,06 трлн).",
-                            en: "PBoC Methodology (Oct 2026): China reports 3 aggregates — M0 (currency in circulation: CNY 15.00tn), M1 (M0 + demand deposits: CNY 116.90tn), and M2 (broad money including time and savings deposits: CNY 359.06tn)."
-                        },
-                        controls: [
-                            { id: "rate", group: "policy", color: "#14b8a6", name: { ru: "Ставка кредитования LPR 1Y", en: "1-Year Loan Prime Rate (LPR)" }, val: 3.10, min: 1.5, max: 6.0, step: 0.1, unit: "%", desc: { ru: "Базовый ориентир кредитных ставок коммерческих банков Китая.", en: "Benchmark lending rate for Chinese commercial banks." } },
-                            { id: "m0", group: "agg", color: COMP_COLORS.cash, name: { ru: "M0: Наличные юани в обращении", en: "M0: Currency in circulation" }, val: 14.997, min: 8.0, max: 25.0, step: 0.1, unit: " трлн ¥", desc: { ru: "Официальный агрегат M0 НБК (¥14,997 трлн).", en: "Official PBoC M0 aggregate (CNY 14.997tn)." } },
-                            { id: "m1add", group: "agg", color: COMP_COLORS.trans, name: { ru: "M1 − M0 (Депозиты до востребования)", en: "M1 − M0 (Demand deposits)" }, val: 101.899, min: 50.0, max: 150.0, step: 0.5, unit: " трлн ¥", desc: { ru: "Безналичные расчётные депозиты (вместе с M0 дают M1 = ¥116,896 трлн).", en: "Demand deposits added to M0 to form M1 = CNY 116.896tn." } },
-                            { id: "m2add", group: "agg", color: COMP_COLORS.quasi, name: { ru: "M2 − M1 (Срочные и сбер. вклады)", en: "M2 − M1 (Time & savings)" }, val: 242.159, min: 120.0, max: 350.0, step: 1.0, unit: " трлн ¥", desc: { ru: "Срочные и сберегательные депозиты (вместе с M1 дают M2 = ¥359,055 трлн).", en: "Time and savings deposits added to M1 to form M2 = CNY 359.055tn." } }
-                        ],
-                        calcAggregates: v => ({
-                            M0: v.m0,
-                            M1: v.m0 + v.m1add,
-                            M2: v.m0 + v.m1add + v.m2add
-                        }),
-                        stages: [["m0", "M0"], ["M0", "M1"], ["m1add", "M1"], ["M1", "M2"], ["m2add", "M2"]],
-                        updateMetrics: (v, ag, lang) => {
-                            const u = lang === "ru" ? "трлн ¥" : "CNY tn";
-                            document.getElementById("k1Lbl").textContent = lang === "ru" ? "Ставка НБК (LPR 1Y)" : "PBoC 1Y LPR Rate";
-                            document.getElementById("k1Val").textContent = `${v.rate.toFixed(2)}%`;
-                            document.getElementById("k1Sub").textContent = lang === "ru" ? "Норма резервов RRR ~6.5%" : "Required Reserve Ratio ~6.5%";
-                            document.getElementById("k2Lbl").textContent = lang === "ru" ? "Узкие деньги: M0 → M1 (Китай)" : "Narrow Money: M0 → M1 (China)";
-                            document.getElementById("k2Val").textContent = `${ag.M0.toFixed(2)} → ${ag.M1.toFixed(2)} ${u}`;
-                            document.getElementById("k2Sub").textContent = lang === "ru" ? "Наличные M0 + депозиты до востреб." : "M0 currency + demand deposits";
-                            document.getElementById("k3Lbl").textContent = lang === "ru" ? "Широкая масса M2 (Китай)" : "Broad Money M2 (China)";
-                            document.getElementById("k3Val").textContent = `${ag.M2.toFixed(2)} ${u}`;
-                            document.getElementById("k3Sub").textContent = lang === "ru" ? "Официальный остаток НБК (окт. 2026)" : "Official PBoC stock (Oct 2026)";
-                        }
+                yieldTitle: { ru: "Кривая гос. облигаций (CGB / Gilts)", en: "Sovereign Yield Curve (CGB / Gilts)" },
+                longBondBase: 2.35,
+                cols: {
+                    ru: ["I. Резервные деньги НБК (M0 + Резервы RRR)", "II. Банковский мультипликатор Китая", "III. Официальные агрегаты НБК (M0 / M1 / M2)"],
+                    en: ["I. PBoC Reserve Money (M0 + RRR Reserves)", "II. China Banking Multiplier Channel", "III. Official PBoC Aggregates (M0 / M1 / M2)"]
+                },
+                sankeyNodes: {
+                    ru: {
+                        c1_cash: "Наличные юани в обращении (M0)",
+                        c1_res: "Резервы банков в НБК (RRR + избыт.)",
+                        c2_cred: "Кредитная экспансия банков Китая",
+                        c2_res: "Заморожено в нормах резервов RRR",
+                        c2_cash: "Внебанковский оборот юаня (M0)",
+                        c3_broad: "Широкая денежная масса M2 (НБК)",
+                        c3_mid: "Денежный агрегат M1 (M0 + до востреб.)",
+                        c3_narrow: "Наличная масса M0 (¥15.00 трлн)"
                     },
-                    boj: {
-                        unitRu: "трлн ¥",
-                        unitEn: "JPY tn",
-                        rateVal: 0.50,
-                        rateLabelRu: "Ставка Банка Японии (Uncollateralized Call)",
-                        rateLabelEn: "BoJ Policy Call Rate",
-                        archTitle: {
-                            ru: "🇯🇵 Банк Японии (BoJ): Компоненты → M1 → M3 → Широкая ликвидность L",
-                            en: "🇯🇵 Bank of Japan (BoJ): Components → M1 → M3 → Broadly-Defined Liquidity (L)"
-                        },
-                        archBadge: {
-                            ru: "Банк Японии (BoJ) • Октябрь 2026 г. (M2 офиц. = ¥1291.4 трлн)",
-                            en: "Bank of Japan • Oct 2026 (Official M2 = JPY 1,291.4tn)"
-                        },
-                        methodNote: {
-                            ru: "Методология Банка Японии (Октябрь 2026 г.): Банк Японии не публикует M0, а использует иерархию M1 (¥1 077,5 трлн) → M3 (¥1 633,1 трлн) → L (широкая ликвидность: ¥2 341,1 трлн). Официальный агрегат M2 (¥1 291,4 трлн) отличается от M3 составом институтов-эмитентов, поэтому в структурной лестнице Sankey отражаются M1, M3 и L.",
-                            en: "Bank of Japan Methodology (Oct 2026): BoJ does not report M0; its nested hierarchy flows from M1 (JPY 1,077.5tn) → M3 (JPY 1,633.1tn) → Broadly-defined Liquidity L (JPY 2,341.1tn). Official M2 (JPY 1,291.4tn) differs in institutional coverage, so Sankey maps M1, M3, and L."
-                        },
-                        controls: [
-                            { id: "rate", group: "policy", color: "#14b8a6", name: { ru: "Учётная ставка Банка Японии", en: "BoJ Policy Rate" }, val: 0.50, min: -0.1, max: 2.5, step: 0.1, unit: "%", desc: { ru: "Целевой ориентир однодневной ставки денежного рынка Японии.", en: "Target uncollateralized overnight call rate in Japan." } },
-                            { id: "currency", group: "agg", color: COMP_COLORS.cash, name: { ru: "Наличные иены (Currency)", en: "Currency in Circulation" }, val: 109.1, min: 60.0, max: 160.0, step: 1.0, unit: " трлн ¥", desc: { ru: "Наличные банкноты и монеты Банка Японии (¥109,1 трлн).", en: "Banknotes and coins in circulation (JPY 109.1tn)." } },
-                            { id: "deposit", group: "agg", color: COMP_COLORS.trans, name: { ru: "Депозитные деньги (Deposit money)", en: "Deposit Money" }, val: 968.4, min: 500.0, max: 1300.0, step: 5.0, unit: " трлн ¥", desc: { ru: "Депозиты до востребования (вместе с наличными образуют M1 = ¥1 077,5 трлн).", en: "Demand deposits combined with currency to form M1 = JPY 1,077.5tn." } },
-                            { id: "quasi_cd", group: "agg", color: COMP_COLORS.market, name: { ru: "Квазиденьги + Деп. сертификаты (CD)", en: "Quasi-Money + CDs" }, val: 555.6, min: 300.0, max: 800.0, step: 5.0, unit: " трлн ¥", desc: { ru: "Квазиденьги (¥535,7 трлн) и депозитные сертификаты CD (¥19,9 трлн), формирующие M3 = ¥1 633,1 трлн.", en: "Quasi-money (JPY 535.7tn) + CDs (JPY 19.9tn) added to M1 to form M3 = JPY 1,633.1tn." } },
-                            { id: "otherL", group: "agg", color: COMP_COLORS.broad, name: { ru: "Прочие инструменты ликвидности L", en: "Other L Instruments (JGBs, trusts)" }, val: 708.0, min: 350.0, max: 1000.0, step: 5.0, unit: " трлн ¥", desc: { ru: "Гособлигации JGB, инвестиционные трасты и коммерческие бумаги, образующие широкую ликвидность L = ¥2 341,1 трлн.", en: "JGBs, investment trusts, and commercial paper added to M3 to form Broadly-Defined Liquidity L = JPY 2,341.1tn." } }
-                        ],
-                        calcAggregates: v => ({
-                            M1: v.currency + v.deposit,
-                            M3: v.currency + v.deposit + v.quasi_cd,
-                            L: v.currency + v.deposit + v.quasi_cd + v.otherL
-                        }),
-                        stages: [["currency", "M1"], ["deposit", "M1"], ["M1", "M3"], ["quasi_cd", "M3"], ["M3", "L"], ["otherL", "L"]],
-                        updateMetrics: (v, ag, lang) => {
-                            const u = lang === "ru" ? "трлн ¥" : "JPY tn";
-                            document.getElementById("k1Lbl").textContent = lang === "ru" ? "Ставка Банка Японии" : "Bank of Japan Policy Rate";
-                            document.getElementById("k1Val").textContent = `${v.rate.toFixed(2)}%`;
-                            document.getElementById("k1Sub").textContent = lang === "ru" ? "Официальный M2 = 1291.4 трлн ¥" : "Official M2 = JPY 1,291.4tn";
-                            document.getElementById("k2Lbl").textContent = lang === "ru" ? "Узкий агрегат M1 (Япония)" : "Japan Narrow Money M1";
-                            document.getElementById("k2Val").textContent = `${ag.M1.toFixed(1)} ${u}`;
-                            document.getElementById("k2Sub").textContent = lang === "ru" ? "Наличные + депозитные деньги" : "Currency + deposit money";
-                            document.getElementById("k3Lbl").textContent = lang === "ru" ? "Широкие агрегаты: M3 → L" : "Broad Aggregates: M3 → L";
-                            document.getElementById("k3Val").textContent = `${ag.M3.toFixed(0)} → ${ag.L.toFixed(0)} ${u}`;
-                            document.getElementById("k3Sub").textContent = lang === "ru" ? "M3 + JGB и трасты = ликвидность L" : "M3 + JGBs & trusts = Liquidity L";
-                        }
-                    },
-                    boe: {
-                        unitRu: "млрд £",
-                        unitEn: "GBP bn",
-                        rateVal: 4.50,
-                        rateLabelRu: "Ставка Банка Англии (Bank Rate)",
-                        rateLabelEn: "Bank of England Bank Rate",
-                        archTitle: {
-                            ru: "🇬🇧 Банк Англии (BoE): Секторальные чистые потоки агрегата M4ex",
-                            en: "🇬🇧 Bank of England (BoE): Sectoral Monthly Net Flows of Sterling M4ex"
-                        },
-                        archBadge: {
-                            ru: "Банк Англии (Money & Credit) • Сентябрь 2026 г.",
-                            en: "Bank of England (Money & Credit) • Sep 2026"
-                        },
-                        methodNote: {
-                            ru: "Методология Банка Англии (Сентябрь 2026 г.): Вместо классической лестницы M1–M4 Банк Англии делает акцент на широком стерлинговом агрегате M4ex (исключающем внутрисекторные депозиты промежуточных финансовых корпораций). В сентябре 2026 г. чистый месячный прирост M4ex составил +£3,9 млрд (годовой темп роста +4,0%).",
-                            en: "Bank of England Methodology (Sep 2026): Rather than a simple M1–M4 ladder, the BoE focuses on sterling M4ex (excluding intermediate OFCs). In September 2026, monthly net M4ex flow was +£3.9bn (+4.0% annual growth)."
-                        },
-                        controls: [
-                            { id: "rate", group: "policy", color: "#14b8a6", name: { ru: "Ключевая ставка Банка Англии", en: "BoE Bank Rate" }, val: 4.50, min: 1.0, max: 7.0, step: 0.25, unit: "%", desc: { ru: "Единая ставка пола (Floor System), определяющая ставку SONIA.", en: "Single-tier Floor System rate steering SONIA." } },
-                            { id: "hh", group: "agg", color: COMP_COLORS.quasi, name: { ru: "Домохозяйства (Households)", en: "Households Net Flow" }, val: 4.7, min: -2.0, max: 10.0, step: 0.1, unit: " млрд £", desc: { ru: "Чистый приток средств домохозяйств в M4ex (+£4,7 млрд в сент. 2026).", en: "Household net contribution to M4ex (+£4.7bn in Sep 2026)." } },
-                            { id: "pnfc", group: "agg", color: COMP_COLORS.trans, name: { ru: "Нефинансовые компании (PNFCs)", en: "Private Non-Financial Corps" }, val: 0.7, min: -4.0, max: 6.0, step: 0.1, unit: " млрд £", desc: { ru: "Чистое изменение депозитов нефинансовых корпораций (+£0,7 млрд).", en: "PNFC net contribution to M4ex (+£0.7bn)." } },
-                            { id: "niofc", group: "agg", color: COMP_COLORS.neg, name: { ru: "Прочие фин. корпорации (NIOFCs)", en: "Non-Intermediate OFCs" }, val: -1.6, min: -6.0, max: 4.0, step: 0.1, unit: " млрд £", desc: { ru: "Отток средств не-промежуточных финансовых организаций (-£1,6 млрд).", en: "NIOFC net flow (-£1.6bn)." } },
-                            { id: "adj", group: "agg", color: COMP_COLORS.cash, name: { ru: "Статистическая корректировка", en: "Other / Rounding Adjustment" }, val: 0.1, min: -1.0, max: 1.0, step: 0.1, unit: " млрд £", desc: { ru: "Балансирующая поправка (+£0,1 млрд) до итогового потока M4ex = +£3,9 млрд.", en: "Statistical rounding (+£0.1bn) matching official M4ex flow = +£3.9bn." } }
-                        ],
-                        calcAggregates: v => ({
-                            M4ex: v.hh + v.pnfc + v.niofc + v.adj
-                        }),
-                        stages: [["hh", "M4ex"], ["pnfc", "M4ex"], ["niofc", "M4ex"], ["adj", "M4ex"]],
-                        updateMetrics: (v, ag, lang) => {
-                            const u = lang === "ru" ? "млрд £" : "GBP bn";
-                            document.getElementById("k1Lbl").textContent = lang === "ru" ? "Ставка Банка Англии" : "BoE Bank Rate";
-                            document.getElementById("k1Val").textContent = `${v.rate.toFixed(2)}%`;
-                            document.getElementById("k1Sub").textContent = lang === "ru" ? "Ориентир SONIA (Floor System)" : "SONIA Floor System benchmark";
-                            document.getElementById("k2Lbl").textContent = lang === "ru" ? "Вклад домохозяйств (M4ex)" : "Household Flow (M4ex)";
-                            document.getElementById("k2Val").textContent = `+${v.hh.toFixed(1)} ${u}`;
-                            document.getElementById("k2Sub").textContent = lang === "ru" ? "Главный драйвер ликвидности UK" : "Primary UK retail deposit driver";
-                            document.getElementById("k3Lbl").textContent = lang === "ru" ? "Чистый месячный поток M4ex" : "Monthly Net M4ex Flow";
-                            document.getElementById("k3Val").textContent = `${ag.M4ex >= 0 ? "+" : ""}${ag.M4ex.toFixed(1)} ${u}`;
-                            document.getElementById("k3Sub").textContent = lang === "ru" ? "Годовой прирост M4ex: +4.0%" : "Annual M4ex growth: +4.0%";
-                        }
+                    en: {
+                        c1_cash: "Currency in Circulation (M0)",
+                        c1_res: "Bank Reserves at PBoC (RRR + excess)",
+                        c2_cred: "Chinese Commercial Bank Credit Channel",
+                        c2_res: "Sterilized in RRR Reserves",
+                        c2_cash: "Non-Bank CNY Circulation (M0)",
+                        c3_broad: "Broad Money M2 (PBoC Oct 2026)",
+                        c3_mid: "Narrow Money M1 (M0 + demand dep.)",
+                        c3_narrow: "Cash Aggregate M0 (CNY 15.00tn)"
                     }
                 },
+                footnote: {
+                    ru: "Методология НБК Китая (Октябрь 2026): Китай официально публикует M0 (¥15,00 трлн), M1 (¥116,90 трлн) и M2 (¥359,06 трлн). Низкая доля наличных (Alipay / WeChat Pay, c ≈ 4,4%) обеспечивает высокий денежный мультипликатор (>8x).",
+                    en: "PBoC Methodology (Oct 2026): China officially publishes M0 (CNY 15.00tn), M1 (CNY 116.90tn), and M2 (CNY 359.06tn). Low physical currency ratio (Alipay / WeChat Pay, c ≈ 4.4%) produces a high money multiplier (>8x)."
+                },
+                colors: { cash: "#f59e0b", reserves: "#3b82f6", credit: "#14b8a6", steril: "#8b5cf6" },
                 goals: [
                     {
                         step: { ru: "🇨🇳 Народный банк Китая (НБК)", en: "🇨🇳 People's Bank of China (PBoC)" },
                         color: "#8b5cf6",
-                        title: { ru: "Иерархия M0 → M1 → M2 и ставки LPR / RRR", en: "M0 → M1 → M2 Ladder & LPR / RRR Tools" },
+                        title: { ru: "Многоцелевая модель + Ставки LPR и RRR", en: "Multi-Goal Model + LPR & RRR Tools" },
                         desc: {
                             ru: "НБК сочетает ценовую стабильность, рост ВВП и курс юаня, используя 7-дневное обратное РЕПО, ставки LPR и изменение нормы резервов (RRR).",
                             en: "PBoC balances price stability, GDP growth, and RMB stability via 7-day reverse REPO, Loan Prime Rates (LPR), and active RRR cuts."
@@ -1860,20 +1653,67 @@
                     },
                     {
                         step: { ru: "🇯🇵 Банк Японии (BoJ)", en: "🇯🇵 Bank of Japan (BoJ)" },
-                        color: "#38bdf8",
-                        title: { ru: "Агрегаты M1 → M3 → Broad Liquidity (L)", en: "M1 → M3 → Broadly-Defined Liquidity (L)" },
+                        color: "#3b82f6",
+                        title: { ru: "Иерархия M1 → M3 → Broad Liquidity (L)", en: "M1 → M3 → Broadly-Defined Liquidity (L)" },
                         desc: {
-                            ru: "Банк Японии отслеживает широкую ликвидность L (¥2 341 трлн), включающую наряду с депозитами государственные облигации JGB и трасты.",
-                            en: "The Bank of Japan tracks Broadly-Defined Liquidity L (JPY 2,341tn), encompassing JGBs and investment trusts alongside deposits."
+                            ru: "Банк Японии публикует M1 (¥1 077,6 трлн), M2 (¥1 291,4 трлн), M3 (¥1 633,2 трлн) и широкую ликвидность L (¥2 341,2 трлн).",
+                            en: "The Bank of Japan publishes M1 (JPY 1,077.6tn), M2 (1,291.4tn), M3 (1,633.2tn), and Broadly-Defined Liquidity L (2,341.2tn)."
                         }
                     },
                     {
                         step: { ru: "🇬🇧 Банк Англии (Floor System)", en: "🇬🇧 Bank of England (Floor System)" },
                         color: "#f59e0b",
-                        title: { ru: "Секторальный поток M4ex и ставка SONIA", en: "Sectoral M4ex Flow & SONIA Rate" },
+                        title: { ru: "Система «единого пола» и стерлинговый M4ex", en: "Single-Tier Floor System & Sterling M4ex" },
                         desc: {
-                            ru: "Банк Англии начисляет единую ключевую ставку (Bank Rate) на все резервы банков и анализирует вклад домохозяйств и корпораций в M4ex.",
-                            en: "The Bank of England remunerates all bank reserves at Bank Rate and tracks household and corporate contributions to sterling M4ex."
+                            ru: "Банк Англии начисляет единую ключевую ставку (Bank Rate) на все резервы коммерческих банков (SONIA) и отслеживает M4ex.",
+                            en: "The Bank of England remunerates all commercial bank reserves at Bank Rate (SONIA) and monitors sterling M4ex."
+                        }
+                    }
+                ],
+                controls: [
+                    {
+                        id: "rate", group: "policy", color: "#14b8a6",
+                        name: { ru: "Ключевая ставка (LPR 1Y / BoE)", en: "Policy Rate (PBoC LPR 1Y / BoE)" },
+                        val: 3.10, min: 1.0, max: 8.0, step: 0.1, unit: "%",
+                        desc: {
+                            ru: "Базовая кредитная ставка Китая LPR 1Y (3,10%) — ключевой ориентир стоимости фондирования коммерческих банков.",
+                            en: "China's 1-Year Loan Prime Rate (3.10%) — benchmark lending rate for commercial banks."
+                        }
+                    },
+                    {
+                        id: "rr", group: "policy", color: "#3b82f6",
+                        name: { ru: "Норма обязательных резервов (RRR)", en: "Required Reserve Ratio (RRR)" },
+                        val: 6.5, min: 0, max: 15, step: 0.5, unit: "%",
+                        desc: {
+                            ru: "В отличие от США и Канады (0%), НБК Китая активно использует снижение нормы резервов RRR (~6,5%) для вливания ликвидности.",
+                            en: "Unlike the US and Canada (0%), China's PBoC actively cuts RRR (~6.5%) to inject long-term liquidity."
+                        }
+                    },
+                    {
+                        id: "er", group: "policy", color: "#06b6d4",
+                        name: { ru: "Избыточные резервы банков (e)", en: "Excess Reserve Ratio (e)" },
+                        val: 2.0, min: 0, max: 15, step: 0.5, unit: "%",
+                        desc: {
+                            ru: "Добровольные резервы коммерческих банков на расчётных счетах в центральном банке сверх обязательного норматива.",
+                            en: "Voluntary reserves held by commercial banks at the central bank above statutory requirements."
+                        }
+                    },
+                    {
+                        id: "cash_ratio", group: "mult", color: "#f59e0b",
+                        name: { ru: "Наличность к депозитам (c = M0/D)", en: "Currency-to-Deposit Ratio (c)" },
+                        val: 4.5, min: 2, max: 25, step: 0.5, unit: "%",
+                        desc: {
+                            ru: "В Китае (Alipay / WeChat Pay) доля наличных юаней минимальна (¥15 трлн против ¥344 трлн депозитов), что разгоняет мультипликатор.",
+                            en: "In China (Alipay / WeChat Pay), physical cash is minimal (CNY 15tn vs CNY 344tn deposits), amplifying the multiplier."
+                        }
+                    },
+                    {
+                        id: "omo", group: "mult", color: "#8b5cf6",
+                        name: { ru: "Целевые кредитные окна (MLF / РЕПО)", en: "Targeted Lending Facilities (MLF / REPO)" },
+                        val: 100, min: 70, max: 160, step: 5, unit: "% MB",
+                        desc: {
+                            ru: "Структурное рефинансирование: среднесрочное кредитование НБК (MLF) и 7-дневное обратное РЕПО.",
+                            en: "Structural refinancing: PBoC's Medium-term Lending Facility (MLF) and 7-day reverse REPO."
                         }
                     }
                 ],
@@ -1896,10 +1736,10 @@
                     },
                     {
                         tag: "🇯🇵 ЯПОНИЯ (FSA / BoJ)",
-                        title: { ru: "Стандарты Базель III для мегабанков Японии", en: "Japan FSA Basel III Mega-Bank Rules" },
+                        title: { ru: "Надзор за мегабанками и ликвидность L", en: "Japan FSA G-SIB Rules & Liquidity L" },
                         desc: {
-                            ru: "Агентство финансовых услуг Японии (FSA) применяет строгие коэффициенты левериджа и ликвидности LCR к международным банкам (MUFG, SMBC, Mizuho).",
-                            en: "Japan's FSA enforces strict leverage and LCR rules on internationally active Japanese G-SIBs (MUFG, SMBC, Mizuho)."
+                            ru: "Регулятор FSA применяет строгие нормативы капитала и LCR к японским мегабанкам (MUFG, SMBC, Mizuho).",
+                            en: "Japan's FSA enforces strict capital and LCR buffers on Japanese G-SIBs (MUFG, SMBC, Mizuho)."
                         }
                     },
                     {
@@ -1916,16 +1756,8 @@
 
         let depLabState = { d0: 1000, rr: 4.0, er: 2.0, c: 22.0 };
         let curRegion = "kz";
-        let curGlobalCase = "pboc";
         let curLang = "ru";
         let stateVals = {};
-
-        function getActiveModel() {
-            if (curRegion === "global") {
-                return DATA_MODELS.global.cases[curGlobalCase];
-            }
-            return DATA_MODELS[curRegion];
-        }
 
         function initRegion(region) {
             if (region === "deposit_lab") {
@@ -1933,9 +1765,8 @@
                 return;
             }
             stateVals = {};
-            const regionCfg = DATA_MODELS[region];
-            const activeModel = getActiveModel();
-            activeModel.controls.forEach(c => {
+            const cfg = DATA_MODELS[region];
+            cfg.controls.forEach(c => {
                 stateVals[c.id] = c.val;
             });
 
@@ -1943,9 +1774,9 @@
             const inpP = document.getElementById("inpPi");
             const inpG = document.getElementById("inpGap");
 
-            inpR.value = regionCfg.defaultTaylor.rStar;
-            inpP.value = regionCfg.defaultTaylor.pi;
-            inpG.value = regionCfg.defaultTaylor.gap;
+            inpR.value = cfg.defaultTaylor.rStar;
+            inpP.value = cfg.defaultTaylor.pi;
+            inpG.value = cfg.defaultTaylor.gap;
 
             paintDialTrack(inpR);
             paintDialTrack(inpP);
@@ -1957,7 +1788,6 @@
         function switchMainView(region) {
             const policyView = document.getElementById("policyMainView");
             const depView = document.getElementById("depositLabView");
-            const globalSubtabs = document.getElementById("globalSubtabs");
 
             if (region === "deposit_lab") {
                 policyView.classList.add("hidden-view");
@@ -1967,7 +1797,6 @@
             } else {
                 depView.classList.add("hidden-view");
                 policyView.classList.remove("hidden-view");
-                globalSubtabs.classList.toggle("hidden-view", region !== "global");
                 renderPyramid();
                 renderRadioDeck();
                 renderBaselCards();
@@ -1991,19 +1820,19 @@
 
         function renderRadioDeck() {
             const deck = document.getElementById("radioDeck");
-            const model = getActiveModel();
+            const cfg = DATA_MODELS[curRegion];
             const ticksHtml = `<div class="dial-graduations">${"<span></span>".repeat(13)}</div>`;
 
-            const sec1 = curLang === "ru" ? "ОПЕРАЦИОННЫЙ ОРИЕНТИР ЦБ" : "CB OPERATIONAL BENCHMARK";
-            const sec2 = curLang === "ru" ? "КОМПОНЕНТЫ ДЕНЕЖНЫХ АГРЕГАТОВ" : "MONETARY AGGREGATE COMPONENTS";
+            const sec1 = curLang === "ru" ? "ИНСТРУМЕНТЫ И РЕЗЕРВЫ ЦБ" : "CB INSTRUMENTS & RESERVES";
+            const sec2 = curLang === "ru" ? "НАЛИЧНОСТЬ И ОПЕРАЦИИ РЫНКА" : "CASH RATIO & MARKET OPS";
 
             let html = `<div class="deck-section-title"><span>${sec1}</span><span>📻</span></div>`;
-            model.controls.filter(c => c.group === "policy").forEach(c => {
+            cfg.controls.filter(c => c.group === "policy").forEach(c => {
                 html += createVintageTuner(c, stateVals[c.id], ticksHtml);
             });
 
             html += `<div class="deck-section-title" style="margin-top:4px;"><span>${sec2}</span><span>∑</span></div>`;
-            model.controls.filter(c => c.group === "agg").forEach(c => {
+            cfg.controls.filter(c => c.group === "mult").forEach(c => {
                 html += createVintageTuner(c, stateVals[c.id], ticksHtml);
             });
 
@@ -2015,17 +1844,11 @@
                     const id = e.target.dataset.id;
                     const val = parseFloat(e.target.value);
                     stateVals[id] = val;
-                    document.getElementById(`freq_${id}`).textContent = `${formatNum(val)}${e.target.dataset.unit}`;
+                    document.getElementById(`freq_${id}`).textContent = `${val}${e.target.dataset.unit}`;
                     paintDialTrack(e.target);
                     updateAllAnalytics();
                 });
             });
-        }
-
-        function formatNum(x) {
-            if (Math.abs(x) >= 100) return x.toFixed(1);
-            if (Math.abs(x) >= 10) return x.toFixed(2);
-            return x.toFixed(2).replace(/\.00$/, "");
         }
 
         function createVintageTuner(c, val, ticksHtml) {
@@ -2039,7 +1862,7 @@
                                 <div class="help-bubble">${c.desc[curLang]}</div>
                             </span>
                         </div>
-                        <span class="freq-display" id="freq_${c.id}" style="color:${c.color};">${formatNum(val)}${c.unit}</span>
+                        <span class="freq-display" id="freq_${c.id}" style="color:${c.color};">${val}${c.unit}</span>
                     </div>
                     <div class="vintage-dial-housing">
                         <input type="range" class="vintage-radio-knob"
@@ -2079,165 +1902,60 @@
         }
 
         function updateAllAnalytics() {
-            const regionCfg = DATA_MODELS[curRegion];
-            const model = getActiveModel();
-            const unit = curLang === "ru" ? model.unitRu : model.unitEn;
+            const cfg = DATA_MODELS[curRegion];
+            const unit = curLang === "ru" ? cfg.unitRu : cfg.unitEn;
 
-            const ag = model.calcAggregates(stateVals);
-            model.updateMetrics(stateVals, ag, curLang);
+            const rate = stateVals["rate"];
+            const rr = stateVals["rr"] / 100;
+            const er = stateVals["er"] / 100;
+            const c = stateVals["cash_ratio"] / 100;
+            const omoMult = stateVals["omo"] / 100;
 
-            document.getElementById("k4Val").textContent = regionCfg.inflationText[curLang];
-            document.getElementById("k4Sub").textContent = regionCfg.inflationNote[curLang];
-            document.getElementById("sankeyArchTitle").textContent = model.archTitle[curLang];
-            document.getElementById("sankeyArchBadge").textContent = model.archBadge[curLang];
-            document.getElementById("methodNote").textContent = model.methodNote[curLang];
+            const effectiveMB = cfg.baseMB * omoMult;
+            const multiplier = (1 + c) / Math.max(0.03, rr + er + c);
+            const m2 = effectiveMB * multiplier;
+            const mBroad = m2 * cfg.broadRatio;
 
-            drawCountrySankey(model, ag, unit);
-            updateTaylorRule(stateVals["rate"], regionCfg.piTarget);
-            drawYieldCurve(stateVals["rate"], regionCfg.longBondBase);
-        }
+            const cashPart = m2 * (c / (1 + c));
+            const depositsM2 = m2 - cashPart;
+            const m1 = cashPart + depositsM2 * cfg.m1ShareOfDep;
 
-        /* Уникальная многоступенчатая Sankey-диаграмма под архитектуру каждой страны */
-        function drawCountrySankey(model, ag, unit) {
-            const svg = document.getElementById("moneyFlowSvg");
-            svg.innerHTML = "";
-            const ns = "http://www.w3.org/2000/svg";
+            document.getElementById("k1Val").textContent = `${rate.toFixed(2)}%`;
+            document.getElementById("k2Val").textContent = `${multiplier.toFixed(2)}x`;
 
-            const compControls = model.controls.filter(c => c.group === "agg");
-            const compIds = compControls.map(c => c.id);
-            const aggIds = Object.keys(ag);
-            const ids = [...new Set([...compIds, ...aggIds])];
+            if (curRegion === "kz") {
+                document.getElementById("k3Lbl").textContent = curLang === "ru" ? "Денежная масса M3 / M2" : "Broad Money M3 / M2";
+                document.getElementById("k3Val").textContent = `${mBroad.toFixed(2)} / ${m2.toFixed(2)} ${unit}`;
+                document.getElementById("k3Sub").textContent = `M0 = ${cashPart.toFixed(2)} • M1 = ${m1.toFixed(2)} ${unit}`;
+            } else if (curRegion === "us") {
+                document.getElementById("k3Lbl").textContent = curLang === "ru" ? "Агрегаты США: M2 / M1" : "US Aggregates: M2 / M1";
+                document.getElementById("k3Val").textContent = `${m2.toFixed(2)} / ${m1.toFixed(2)} ${unit}`;
+                document.getElementById("k3Sub").textContent = curLang === "ru"
+                    ? `Без M0 и M3 • Наличные = ${cashPart.toFixed(2)} ${unit}`
+                    : `No M0 or M3 • Currency = ${cashPart.toFixed(2)} ${unit}`;
+            } else if (curRegion === "eu") {
+                document.getElementById("k3Lbl").textContent = curLang === "ru" ? "Агрегаты ЕЦБ: M3 / M2" : "ECB Aggregates: M3 / M2";
+                document.getElementById("k3Val").textContent = `${mBroad.toFixed(2)} / ${m2.toFixed(2)} ${unit}`;
+                document.getElementById("k3Sub").textContent = curLang === "ru"
+                    ? `Без M0 • M1 = ${m1.toFixed(2)} ${unit}`
+                    : `No M0 • M1 = ${m1.toFixed(2)} ${unit}`;
+            } else {
+                document.getElementById("k3Lbl").textContent = curLang === "ru" ? "Агрегаты НБК: M2 / M1" : "PBoC Aggregates: M2 / M1";
+                document.getElementById("k3Val").textContent = `${m2.toFixed(2)} / ${m1.toFixed(2)} ${unit}`;
+                document.getElementById("k3Sub").textContent = `M0 = ${cashPart.toFixed(2)} ${unit}`;
+            }
 
-            // Определяем колонки (шаги иерархии агрегатов)
-            const col = {};
-            compIds.forEach(id => col[id] = 0);
-            model.stages.forEach(([a, z]) => {
-                if (aggIds.includes(z)) {
-                    col[z] = Math.max(col[z] || 0, (col[a] || 0) + 1);
-                }
-            });
+            document.getElementById("k4Val").textContent = cfg.inflationText[curLang];
+            document.getElementById("k4Sub").textContent = cfg.inflationNote[curLang];
 
-            const maxCol = Math.max(...Object.values(col));
-            const groups = {};
-            ids.forEach(id => {
-                const cIdx = col[id] ?? 0;
-                (groups[cIdx] ??= []).push(id);
-            });
+            document.getElementById("col1Lbl").textContent = cfg.cols[curLang][0];
+            document.getElementById("col2Lbl").textContent = cfg.cols[curLang][1];
+            document.getElementById("col3Lbl").textContent = cfg.cols[curLang][2];
+            document.getElementById("sankeyFootnote").textContent = cfg.footnote[curLang];
 
-            const W = 940;
-            const H = 410;
-            const padX = 115;
-            const usableW = W - padX * 2;
-            const positions = {};
-
-            Object.entries(groups).forEach(([cIdx, arr]) => {
-                const x = maxCol === 0 ? W / 2 : padX + (+cIdx) * (usableW / maxCol);
-                const gap = (H - 50) / (arr.length + 1);
-                arr.forEach((id, i) => {
-                    positions[id] = { x, y: 25 + gap * (i + 1) };
-                });
-            });
-
-            const valueOf = id => (stateVals[id] !== undefined ? stateVals[id] : (ag[id] ?? 0));
-            const colorOf = id => {
-                if (aggIds.includes(id)) return AGG_COLORS[id] || "#38bdf8";
-                const ctrl = compControls.find(c => c.id === id);
-                return ctrl ? ctrl.color : "#64748b";
-            };
-            const labelOf = id => {
-                if (aggIds.includes(id)) return id;
-                const ctrl = compControls.find(c => c.id === id);
-                if (!ctrl) return id;
-                const full = ctrl.name[curLang];
-                return full.length > 26 ? full.slice(0, 24) + "…" : full;
-            };
-
-            const maxVal = Math.max(
-                ...compIds.map(id => Math.abs(valueOf(id))),
-                ...Object.values(ag).map(Math.abs),
-                1
-            );
-            const strokeW = v => Math.max(7, Math.min(76, (Math.abs(v) / maxVal) * 72));
-
-            // Отрисовка потоков Безье
-            model.stages.forEach(([a, z]) => {
-                const v = valueOf(a);
-                const p1 = positions[a];
-                const p2 = positions[z];
-                if (!p1 || !p2) return;
-
-                const clr = v < 0 ? "#fb7185" : colorOf(a);
-                const path = document.createElementNS(ns, "path");
-                const d = `M ${p1.x + 22} ${p1.y} C ${(p1.x + p2.x) / 2} ${p1.y}, ${(p1.x + p2.x) / 2} ${p2.y}, ${p2.x - 22} ${p2.y}`;
-                path.setAttribute("d", d);
-                path.setAttribute("class", "stream-path");
-                path.setAttribute("stroke", clr);
-                path.setAttribute("stroke-width", strokeW(v));
-                if (v < 0) path.setAttribute("stroke-dasharray", "7,4");
-
-                path.addEventListener("mousemove", e => {
-                    showTip(e, `<b>${labelOf(a)}</b> → <b>${labelOf(z)}</b>: ${formatNum(v)} ${unit}`);
-                });
-                path.addEventListener("mouseleave", hideTip);
-                svg.appendChild(path);
-            });
-
-            // Отрисовка узлов и подписей
-            ids.forEach(id => {
-                const p = positions[id];
-                if (!p) return;
-                const v = valueOf(id);
-                const isAgg = aggIds.includes(id);
-                const clr = v < 0 ? "#fb7185" : colorOf(id);
-
-                const rect = document.createElementNS(ns, "rect");
-                rect.setAttribute("x", p.x - 22);
-                rect.setAttribute("y", p.y - 30);
-                rect.setAttribute("width", 44);
-                rect.setAttribute("height", 60);
-                rect.setAttribute("fill", isAgg ? clr : "#1e293b");
-                rect.setAttribute("stroke", isAgg ? "#f8fafc" : clr);
-                rect.setAttribute("stroke-width", isAgg ? "2" : "1.6");
-                rect.setAttribute("class", "vault-node");
-                svg.appendChild(rect);
-
-                // Код агрегата внутри узла для M0/M1/M2/M3/L
-                if (isAgg) {
-                    const inner = document.createElementNS(ns, "text");
-                    inner.setAttribute("x", p.x);
-                    inner.setAttribute("y", p.y + 4);
-                    inner.setAttribute("text-anchor", "middle");
-                    inner.setAttribute("fill", "#090d12");
-                    inner.setAttribute("font-size", id.length > 2 ? "11" : "13");
-                    inner.setAttribute("font-weight", "900");
-                    inner.textContent = id;
-                    svg.appendChild(inner);
-                }
-
-                const isLastCol = col[id] === maxCol;
-                const isFirstCol = col[id] === 0;
-                const alignRight = isLastCol && !isFirstCol;
-
-                const tx = alignRight ? p.x - 30 : p.x + 30;
-                const anchor = alignRight ? "end" : "start";
-
-                const tTitle = document.createElementNS(ns, "text");
-                tTitle.setAttribute("x", tx);
-                tTitle.setAttribute("y", p.y - 4);
-                tTitle.setAttribute("text-anchor", anchor);
-                tTitle.setAttribute("class", "svg-title");
-                tTitle.setAttribute("fill", isAgg ? clr : "#f8fafc");
-                tTitle.textContent = labelOf(id);
-                svg.appendChild(tTitle);
-
-                const tVal = document.createElementNS(ns, "text");
-                tVal.setAttribute("x", tx);
-                tVal.setAttribute("y", p.y + 13);
-                tVal.setAttribute("text-anchor", anchor);
-                tVal.setAttribute("class", "svg-sub");
-                tVal.textContent = `${formatNum(v)} ${unit}`;
-                svg.appendChild(tVal);
-            });
+            drawMoneySankey(effectiveMB, mBroad, m2, m1, cashPart, rr, er, c, unit, cfg);
+            updateTaylorRule(rate, cfg.piTarget);
+            drawYieldCurve(rate, cfg.longBondBase);
         }
 
         function updateTaylorRule(actualRate, piTarget) {
@@ -2332,16 +2050,132 @@
             svg.innerHTML = svgMarkup;
         }
 
-        function showTip(e, html) {
+        function drawMoneySankey(mb, mBroad, m2, m1, cashPart, rr, er, c, unit, cfg) {
+            const svg = document.getElementById("moneyFlowSvg");
+            const H = 390;
+            const pad = 18;
+            const usable = H - pad * 2;
+            const labels = cfg.sankeyNodes[curLang];
+            const colors = cfg.colors;
+
+            const totalResRatio = rr + er;
+            const reservesPart = Math.max(0.3, mb - cashPart);
+            const creditCreated = Math.max(0.5, mBroad - cashPart - reservesPart);
+
+            const col1 = [
+                { name: labels.c1_cash, val: cashPart, color: colors.cash },
+                { name: labels.c1_res, val: reservesPart, color: colors.reserves }
+            ];
+
+            const col2 = [
+                { name: labels.c2_cred, val: creditCreated, color: colors.credit },
+                { name: labels.c2_res, val: reservesPart, color: colors.reserves },
+                { name: labels.c2_cash, val: cashPart, color: colors.cash }
+            ];
+
+            /* Правая колонка адаптируется под официальную линейку агрегатов выбранного ЦБ */
+            const col3 = cfg.broadRatio > 1.001
+                ? [
+                    { name: labels.c3_broad, val: mBroad, color: colors.credit },
+                    { name: labels.c3_mid, val: m2, color: "#38bdf8" },
+                    { name: labels.c3_narrow, val: m1, color: colors.cash }
+                  ]
+                : [
+                    { name: labels.c3_broad, val: m2, color: colors.credit },
+                    { name: labels.c3_mid, val: m1, color: "#38bdf8" },
+                    { name: labels.c3_narrow, val: cashPart, color: colors.cash }
+                  ];
+
+            const span = Math.max(mBroad + reservesPart, m2 + m1);
+
+            function place(nodes, gap) {
+                const sc = (usable - gap * (nodes.length - 1)) / span;
+                let y = pad;
+                nodes.forEach(n => {
+                    n.y = y;
+                    n.h = Math.max(22, n.val * sc);
+                    y += n.h + gap;
+                });
+            }
+
+            place(col1, 30);
+            place(col2, 22);
+            place(col3, 22);
+
+            const x1 = 12, w1 = 18;
+            const x2 = 440, w2 = 20;
+            const x3 = 735, w3 = 18;
+
+            let html = "";
+
+            const links12 = [
+                { a: col1[0], b: col2[2], v: cashPart, clr: colors.cash },
+                { a: col1[1], b: col2[0], v: creditCreated, clr: colors.credit },
+                { a: col1[1], b: col2[1], v: reservesPart, clr: colors.reserves }
+            ];
+
+            links12.forEach(l => {
+                const d = bezier(x1 + w1, l.a.y + l.a.h / 2, x2, l.b.y + l.b.h / 2);
+                const tip = `${l.a.name} → ${l.b.name}: <b>${l.v.toFixed(2)} ${unit}</b>`;
+                html += `<path class="stream-path" d="${d}" stroke="${l.clr}" stroke-width="${Math.max(6, l.b.h * 0.72)}" data-tip="${tip}"></path>`;
+            });
+
+            const links23 = [
+                { a: col2[0], b: col3[0], v: col3[0].val, clr: colors.credit },
+                { a: col2[1], b: col3[1], v: col3[1].val, clr: "#38bdf8" },
+                { a: col2[2], b: col3[2], v: col3[2].val, clr: colors.cash }
+            ];
+
+            links23.forEach(l => {
+                const d = bezier(x2 + w2, l.a.y + l.a.h / 2, x3, l.b.y + l.b.h / 2);
+                const tip = `${l.a.name} → ${l.b.name}: <b>${l.v.toFixed(2)} ${unit}</b>`;
+                html += `<path class="stream-path" d="${d}" stroke="${l.clr}" stroke-width="${Math.max(6, l.b.h * 0.72)}" data-tip="${tip}"></path>`;
+            });
+
+            col1.forEach(n => {
+                html += `
+                    <rect class="vault-node" x="${x1}" y="${n.y}" width="${w1}" height="${n.h}" fill="${n.color}"></rect>
+                    <text class="svg-title" x="${x1 + w1 + 9}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
+                    <text class="svg-sub" x="${x1 + w1 + 9}" y="${n.y + n.h / 2 + 12}">${n.val.toFixed(2)} ${unit}</text>
+                `;
+            });
+
+            col2.forEach(n => {
+                html += `
+                    <rect class="vault-node" x="${x2}" y="${n.y}" width="${w2}" height="${n.h}" fill="${n.color}"></rect>
+                    <rect x="${x2 - 102}" y="${n.y + n.h / 2 - 18}" width="224" height="36" rx="7" fill="#090d12" fill-opacity="0.93" stroke="${n.color}" stroke-width="1.2"></rect>
+                    <text class="svg-title" text-anchor="middle" x="${x2 + w2 / 2}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
+                    <text class="svg-sub" text-anchor="middle" x="${x2 + w2 / 2}" y="${n.y + n.h / 2 + 12}">${n.val.toFixed(2)} ${unit}</text>
+                `;
+            });
+
+            col3.forEach(n => {
+                html += `
+                    <rect class="vault-node" x="${x3}" y="${n.y}" width="${w3}" height="${n.h}" fill="${n.color}"></rect>
+                    <text class="svg-title" x="${x3 + w3 + 9}" y="${n.y + n.h / 2 - 2}">${n.name}</text>
+                    <text class="svg-sub" x="${x3 + w3 + 9}" y="${n.y + n.h / 2 + 12}">${n.val.toFixed(2)} ${unit}</text>
+                `;
+            });
+
+            svg.innerHTML = html;
+
             const tip = document.getElementById("cursorTip");
-            tip.innerHTML = html;
-            tip.style.opacity = "1";
-            tip.style.left = `${e.clientX + 14}px`;
-            tip.style.top = `${e.clientY + 14}px`;
+            svg.querySelectorAll(".stream-path").forEach(p => {
+                p.addEventListener("mousemove", e => {
+                    tip.innerHTML = p.getAttribute("data-tip");
+                    tip.style.opacity = "1";
+                    tip.style.left = `${e.clientX + 14}px`;
+                    tip.style.top = `${e.clientY + 14}px`;
+                });
+                p.addEventListener("mouseleave", () => {
+                    tip.style.opacity = "0";
+                });
+            });
         }
 
-        function hideTip() {
-            document.getElementById("cursorTip").style.opacity = "0";
+        function bezier(x1, y1, x2, y2) {
+            const cx = (x1 + x2) / 2;
+            return `M ${x1} ${y1} C ${cx} ${y1}, ${cx} ${y2}, ${x2} ${y2}`;
         }
 
         /* ================= ОТДЕЛЬНАЯ ВКЛАДКА: МОДЕЛЬ СОЗДАНИЯ ДЕПОЗИТОВ ================= */
@@ -2521,6 +2355,10 @@
                     tabGl: "🌐 Мировые кейсы",
                     tabDep: "🏦 Модель создания депозитов",
                     btnReset: "↺ Сбросить",
+                    k1Lbl: "Базовая / Ключевая ставка",
+                    k1Sub: "Ориентир денежного рынка",
+                    k2Lbl: "Полный мультипликатор (m)",
+                    k2Sub: "m = (1 + c) / (rr + e + c)",
                     k4Lbl: "Инфляция: Факт / Таргет",
                     taylorTitle: "Калькулятор Правила Тейлора",
                     lblRStar: "Нейтральная r*",
@@ -2553,6 +2391,10 @@
                     tabGl: "🌐 Global Cases",
                     tabDep: "🏦 Deposit Creation Model",
                     btnReset: "↺ Reset",
+                    k1Lbl: "Base / Policy Interest Rate",
+                    k1Sub: "Money market operational benchmark",
+                    k2Lbl: "Full Money Multiplier (m)",
+                    k2Sub: "m = (1 + c) / (rr + e + c)",
                     k4Lbl: "Inflation: Actual / Target",
                     taylorTitle: "Taylor Rule Calculator",
                     lblRStar: "Neutral r*",
@@ -2592,15 +2434,6 @@
                 initRegion(curRegion);
                 applyTranslations();
                 switchMainView(curRegion);
-            });
-        });
-
-        document.querySelectorAll(".global-sub-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                curGlobalCase = btn.dataset.gcase;
-                document.querySelectorAll(".global-sub-btn").forEach(b => b.classList.toggle("active", b === btn));
-                initRegion("global");
-                switchMainView("global");
             });
         });
 
