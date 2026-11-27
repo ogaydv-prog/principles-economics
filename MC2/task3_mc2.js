@@ -1,8 +1,9 @@
 /* ==========================================
+   task3_mc2.js
    MIDTERM CONTROL 2 • TASK 3: KEYNESIAN CROSS & AGGREGATE EXPENDITURES
    AlmaU SDTE 2026 • Principles of Economics
    21 Students • Personalized Masked Conditions + Sliders + Dual Axis Projections
-   Bilingual (EN/RU) • Interactive Keynesian Cross Canvas
+   Bilingual (EN/RU) • Interactive Keynesian Cross Canvas & Auto-Grader
    ========================================== */
 
 let mc2KeynesianChart = null;
@@ -13,15 +14,12 @@ function getStudentKeynesDataMC2(studentIdx) {
     const s = studentIdx + 1;
 
     // 1. MPC и MPS: 21 уникальное значение от 0.50 до 0.90 (с шагом 0.02)
-    // Индекс 0 -> MPC = 0.50 (MPS = 0.50, m = 2.00)
-    // Индекс 20 -> MPC = 0.90 (MPS = 0.10, m = 10.00)
     const mpc = Number((0.50 + studentIdx * 0.02).toFixed(2));
     const mps = Number((1 - mpc).toFixed(2));
     const mpsCents = Math.round(mps * 100);
     const multiplier = 1 / (1 - mpc);
 
     // 2. Потребление: C = a + MPC * (Y - T)
-    // Все величины кратны 5 для удобной работы со слайдерами
     const a = 200 + ((s * 25) % 250);             // Автономное потребление a (шаг 5)
     const taxes = 100 + ((s * 30) % 200);         // Общая сумма налогов T (шаг 5)
 
@@ -35,7 +33,7 @@ function getStudentKeynesDataMC2(studentIdx) {
     const govPurchases = 180 + ((s * 25) % 170);  // Чистые госзакупки G (шаг 5)
     const govTotal = govPurchases + transfers;    // Общие бюджетные расходы (шаг 5)
 
-    // 5. Чистый экспорт: NX = Exports - Imports (у половины положительный, у половины отрицательный)
+    // 5. Чистый экспорт: NX = Exports - Imports
     const exportsVal = 200 + ((s * 30) % 250);    // Экспорт X (шаг 5)
     const importsVal = (studentIdx % 2 === 0)
         ? exportsVal - (40 + ((s * 10) % 80))     // NX > 0 (шаг 5)
@@ -43,7 +41,6 @@ function getStudentKeynesDataMC2(studentIdx) {
     const netExports = exportsVal - importsVal;   // Чистый экспорт NX (шаг 5)
 
     // Итоговый автономный сдвиг и равновесный выпуск Y*
-    // Y = a + MPC*(Y - T) + I + G + NX  =>  Y* = (a - MPC*T + I + G + NX) / (1 - MPC)
     const autonomousAE = Number((a - mpc * taxes + grossInv + govPurchases + netExports).toFixed(2));
     const exactYStar = Number((autonomousAE * multiplier).toFixed(2));
 
@@ -126,7 +123,6 @@ const mc2KeynesianCrossPlugin = {
             const eqPoint = eqMeta.data[0];
             const eqVal = chart.data.datasets[chart.data.datasets.length - 1].data[0].x;
             if (eqPoint && eqPoint.x && eqPoint.y) {
-                // Подсветка точки пересечения E
                 ctx.beginPath();
                 ctx.arc(eqPoint.x, eqPoint.y, 13, 0, 2 * Math.PI);
                 ctx.fillStyle = 'rgba(16, 185, 129, 0.25)';
@@ -135,14 +131,12 @@ const mc2KeynesianCrossPlugin = {
                 ctx.lineWidth = 1.5;
                 ctx.stroke();
 
-                // Подпись точки E
                 ctx.fillStyle = '#047857';
                 ctx.font = 'bold 11.5px Inter, sans-serif';
                 ctx.textAlign = 'left';
                 const labelE = `E ($${eqVal})`;
                 ctx.fillText(labelE, Math.min(eqPoint.x + 14, right - 85), Math.max(eqPoint.y - 12, top + 14));
 
-                // Плашка проекции на ГОРИЗОНТАЛЬНОЙ оси X (Y)
                 const xBadgeText = `$${eqVal}`;
                 ctx.font = 'bold 11px JetBrains Mono, monospace';
                 const textW = ctx.measureText(xBadgeText).width + 10;
@@ -157,7 +151,6 @@ const mc2KeynesianCrossPlugin = {
                 ctx.textBaseline = 'middle';
                 ctx.fillText(xBadgeText, xBoxLeft + textW / 2, bottom - badgeH / 2 - 3);
 
-                // Плашка проекции на ВЕРТИКАЛЬНОЙ оси Y (Y_ad) — точно такое же число
                 const yBoxTop = Math.min(Math.max(eqPoint.y - badgeH / 2, top), bottom - badgeH);
                 ctx.fillStyle = '#059669';
                 ctx.beginPath();
@@ -218,7 +211,6 @@ function renderTask3MC2(studentIdx, lang) {
                 </li>
             </ul>
             <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 text-xs text-slate-400">
-                <i class="fas fa-sliders-h text-indigo-400 mr-1.5"></i>
                 <strong>Instructions:</strong> Determine the model parameters (<code class="text-sky-300">MPC, a, T, I, G, NX</code>) from the scenario above, set them with the sliders below (step = 5), and plot the Aggregate Expenditure curve <code class="text-emerald-300">Y_ad = a + MPC(Y − T) + I + G + NX</code>. Read the identical projection values shown on both the horizontal (<code class="text-emerald-300">Y</code>) and vertical (<code class="text-emerald-300">Y_ad</code>) axes at the intersection point and enter the equilibrium output <code class="text-amber-300">Y*</code> below.
             </div>
         </div>
@@ -240,7 +232,6 @@ function renderTask3MC2(studentIdx, lang) {
                 </li>
             </ul>
             <div class="bg-slate-950/80 border border-slate-800 rounded-lg p-3 text-xs text-slate-400">
-                <i class="fas fa-sliders-h text-indigo-400 mr-1.5"></i>
                 <strong>Инструкция:</strong> Определите параметры модели (<code class="text-sky-300">MPC, a, T, I, G, NX</code>) из условия выше, выставьте их ползунками (шаг = 5) и постройте линию совокупных расходов <code class="text-emerald-300">Y_ad = a + MPC(Y − T) + I + G + NX</code>. В точке пересечения с линией 45° график автоматически отобразит одинаковые числа проекций на горизонтальной (<code class="text-emerald-300">Y</code>) и вертикальной (<code class="text-emerald-300">Y_ad</code>) осях — перепишите это значение равновесного выпуска <code class="text-amber-300">Y*</code> в итоговое поле ответа.
             </div>
         </div>
@@ -252,7 +243,7 @@ function renderTask3MC2(studentIdx, lang) {
             <div class="card p-6 border-t-2 border-indigo-500 space-y-4">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <span class="text-xs bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-md border border-indigo-500/20 uppercase font-black tracking-widest">
-                        ${isEn ? 'Task 3 • Keynesian Cross Model' : 'Задание 3 • Модель Кейнсианского креста'}
+                        ${isEn ? 'Task 3 • Keynesian Cross Model (20 pts)' : 'Задание 3 • Модель Кейнсианского креста (20 баллов)'}
                     </span>
                     <span class="text-xs font-mono text-slate-400">
                         ${isEn ? 'Formula: Y_ad = a + MPC(Y − T) + I + G + NX' : 'Формула: Y_ad = a + MPC(Y − T) + I + G + NX'}
@@ -272,7 +263,7 @@ function renderTask3MC2(studentIdx, lang) {
                             <span class="text-xs font-bold uppercase tracking-wider text-sky-400">
                                 ${isEn ? 'Set Model Parameters (Step = 5)' : 'Выставьте параметры модели (шаг = 5)'}
                             </span>
-                            <button onclick="resetTask3Sliders()" class="text-xs text-slate-400 hover:text-rose-400 underline">
+                            <button type="button" onclick="resetTask3Sliders()" class="text-xs text-slate-400 hover:text-rose-400 underline">
                                 ${isEn ? 'Reset' : 'Сбросить'}
                             </button>
                         </div>
@@ -331,8 +322,8 @@ function renderTask3MC2(studentIdx, lang) {
                             <input type="range" id="t3-slide-nx" min="-300" max="300" step="5" value="${st.nx}" oninput="updateTask3Chart(true)" class="w-full accent-purple-500 cursor-pointer">
                         </div>
 
-                        <button onclick="updateTask3Chart(true)" class="w-full py-2.5 rounded-lg text-xs md:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg transition">
-                            <i class="fas fa-chart-line mr-1.5"></i> ${isEn ? 'Draw Aggregate Expenditure Line' : 'Построить линию совокупных расходов'}
+                        <button type="button" onclick="updateTask3Chart(true)" class="w-full py-2.5 rounded-lg text-xs md:text-sm font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg transition">
+                            📈 ${isEn ? 'Draw Aggregate Expenditure Line' : 'Построить линию совокупных расходов'}
                         </button>
                     </div>
 
@@ -403,7 +394,7 @@ function resetTask3Sliders() {
 
 function initTask3ChartMC2(studentIdx) {
     const canvas = document.getElementById('mc2KeynesianCanvas');
-    if (!canvas) return;
+    if (!canvas || typeof Chart === 'undefined') return;
     const ctx = canvas.getContext('2d');
 
     if (mc2KeynesianChart) {
@@ -487,7 +478,6 @@ function updateTask3Chart(drawAE = true) {
     document.getElementById('t3-val-g').innerText = `$${g} ${unit}`;
     document.getElementById('t3-val-nx').innerText = `$${nx} ${unit}`;
 
-    // Расчёт по формуле: Y_ad = a + MPC*(Y - T) + I + G + NX
     const intercept = a - mpc * t + i + g + nx;
     const multiplier = 1 / (1 - mpc);
     const yEq = Number((intercept * multiplier).toFixed(2));
@@ -578,4 +568,54 @@ function updateTask3Chart(drawAE = true) {
 
     mc2KeynesianChart.data.datasets = datasets;
     mc2KeynesianChart.update();
+}
+
+// ==========================================
+// ФУНКЦИЯ АВТОМАТИЧЕСКОЙ ОЦЕНКИ ЗАДАНИЯ 3 ДЛЯ ДВИЖКА
+// ==========================================
+function gradeTask3MC2(studentIdx) {
+    const d = getStudentKeynesDataMC2(studentIdx);
+    const st = mc2Task3State[studentIdx];
+    if (!st || (!st.plotted && !st.userYStar)) {
+        return { score: 0, attempted: false, expectedYStar: d.exactYStar };
+    }
+
+    let score = 0;
+    const checks = {
+        mpcOk: Math.abs(st.mpc - d.mpc) <= 0.01,
+        aOk: Math.abs(st.a - d.a) <= 2,
+        tOk: Math.abs(st.t - d.taxes) <= 2,
+        iOk: Math.abs(st.i - d.grossInv) <= 2,
+        gOk: Math.abs(st.g - d.govPurchases) <= 2,
+        nxOk: Math.abs(st.nx - d.netExports) <= 2,
+        yStarOk: false
+    };
+
+    if (checks.mpcOk) score += 2;
+    if (checks.aOk) score += 2;
+    if (checks.tOk) score += 2;
+    if (checks.iOk) score += 2;
+    if (checks.gOk) score += 2;
+    if (checks.nxOk) score += 2;
+
+    const uY = parseFloat(String(st.userYStar || '').replace(',', '.'));
+    if (!isNaN(uY) && Math.abs(uY - d.exactYStar) <= 5) {
+        checks.yStarOk = true;
+        score += 8;
+    }
+
+    return {
+        score,
+        checks,
+        studentState: { ...st },
+        expected: {
+            mpc: d.mpc,
+            a: d.a,
+            taxes: d.taxes,
+            grossInv: d.grossInv,
+            govPurchases: d.govPurchases,
+            netExports: d.netExports,
+            exactYStar: d.exactYStar
+        }
+    };
 }
