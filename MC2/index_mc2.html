@@ -80,19 +80,19 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto w-full px-4 py-6 space-y-8 flex-1">
 
-        <!-- Student Selector Bar -->
-        <section class="card p-5 border-l-4 border-cyan-500">
+        <!-- Student Selector & Password Gate -->
+        <section class="card p-5 border-l-4 border-cyan-500 space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                <div class="md:col-span-5">
+                <div class="md:col-span-6">
                     <label id="lbl-select-student" for="student-select" class="text-xs font-bold uppercase tracking-wider text-cyan-400 block mb-1.5">
-                        Выберите ФИО студента (персональный вариант №1–21):
+                        1. Выберите ФИО студента (персональный вариант №1–21):
                     </label>
-                    <select id="student-select" onchange="selectStudentMC2(this.value)"
+                    <select id="student-select" onchange="onStudentSelectPreviewMC2(this.value)"
                             class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 rounded-xl px-4 py-2.5 text-sm font-semibold text-white outline-none">
                         <option value="-1">-- Выберите из списка / Select Student --</option>
                     </select>
                 </div>
-                <div class="md:col-span-7 flex flex-wrap items-center justify-between md:justify-end gap-3 text-xs font-mono">
+                <div class="md:col-span-6 flex flex-wrap items-center justify-between md:justify-end gap-3 text-xs font-mono">
                     <div class="bg-slate-900/90 border border-slate-800 px-3.5 py-2 rounded-xl">
                         <span class="text-slate-400" id="lbl-variant">Вариант:</span>
                         <strong id="active-variant-badge" class="text-cyan-400 ml-1">—</strong>
@@ -103,21 +103,37 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Password Lock Banner -->
+            <div id="auth-lock-banner" class="bg-slate-950/90 border border-amber-500/40 rounded-xl p-4 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                <div class="flex-1">
+                    <label id="lbl-exam-pass" for="exam-pass-input" class="text-xs font-bold uppercase tracking-wider text-amber-400 block mb-1.5">
+                        2. Введите код доступа (пароль), выданный преподавателем в аудитории:
+                    </label>
+                    <input type="password" id="exam-pass-input" onkeydown="if(event.key==='Enter') checkExamPasswordMC2()"
+                           placeholder="••••••••••••••••"
+                           class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-4 py-2.5 text-sm font-mono font-bold text-white outline-none">
+                </div>
+                <button type="button" id="btn-unlock-exam" onclick="checkExamPasswordMC2()"
+                        class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg transition-all shrink-0">
+                    Начать экзамен
+                </button>
+            </div>
         </section>
 
-        <!-- Exam Workspace (Hidden until student selected) -->
+        <!-- Exam Workspace (Hidden until authorized) -->
         <div id="exam-workspace" class="hidden space-y-10">
 
             <!-- Navigation Pills -->
             <nav class="flex flex-wrap gap-2 sticky top-16 z-30 bg-slate-950/85 backdrop-blur py-2 border-b border-slate-900">
-                <a href="#sec-t1" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">1. <span data-i18n="nav1">Теория (20 б.)</span></a>
-                <a href="#sec-t2" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">2. <span data-i18n="nav2">ВВП / GDP (20 б.)</span></a>
-                <a href="#sec-t3" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">3. <span data-i18n="nav3">Кейнсианский крест (20 б.)</span></a>
-                <a href="#sec-t4" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">4. <span data-i18n="nav4">Уравнение MV=PY (20 б.)</span></a>
-                <a href="#sec-t5" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">5. <span data-i18n="nav5">Безработица (20 б.)</span></a>
+                <a href="#sec-t1" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">1. <span id="nav1">Теория (20 б.)</span></a>
+                <a href="#sec-t2" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">2. <span id="nav2">ВВП / GDP (20 б.)</span></a>
+                <a href="#sec-t3" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">3. <span id="nav3">Кейнсианский крест (20 б.)</span></a>
+                <a href="#sec-t4" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">4. <span id="nav4">Уравнение MV=PY (20 б.)</span></a>
+                <a href="#sec-t5" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-cyan-400 transition">5. <span id="nav5">Безработица (20 б.)</span></a>
             </nav>
 
-            <!-- TASK 1: THEORY (6 Questions × 3.33 = 20 pts) -->
+            <!-- TASK 1: THEORY -->
             <section id="sec-t1" class="scroll-mt-28">
                 <div id="task1-container"></div>
             </section>
@@ -157,7 +173,7 @@
                     </button>
                 </div>
 
-                <!-- Session Passport (Visible after submission) -->
+                <!-- Session Passport -->
                 <div id="passport-block" class="hidden bg-slate-950 border border-emerald-500/40 rounded-xl p-5 space-y-4">
                     <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-800 pb-3">
                         <span class="text-xs font-mono uppercase font-bold text-emerald-400">✓ Session Recorded • Паспорт сессии</span>
@@ -255,7 +271,10 @@
     <div id="teacher-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-sm p-5 shadow-2xl space-y-4">
             <h4 class="text-sm font-black text-white">Режим преподавателя / Professor Access</h4>
-            <p class="text-xs text-slate-400">Открыть панель расшифровки резервных токенов студентов?</p>
+            <p class="text-xs text-slate-400">Введите пароль доступа к РК-2 для открытия панели проверки:</p>
+            <input type="password" id="teacher-pass-input" onkeydown="if(event.key==='Enter') verifyTeacherKeyMC2()"
+                   placeholder="Пароль / Password"
+                   class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs font-mono text-white outline-none">
             <div class="flex justify-end gap-2">
                 <button type="button" onclick="toggleModal('teacher-modal', false)" class="px-4 py-2 rounded-lg bg-slate-800 text-xs font-bold text-slate-300">Отмена</button>
                 <button type="button" onclick="verifyTeacherKeyMC2()" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-black">Открыть</button>
@@ -272,36 +291,41 @@
 
     <!-- CORE CONTROLLER & TASK 1 BANK -->
     <script>
-        const STUDENTS_LIST = [
-            "Абдрахманова Дария",
-            "Абилкасимов Адилет",
-            "Айтбаев Алихан",
-            "Амангельды Аружан",
-            "Ахметов Санжар",
-            "Байжанова Дильназ",
-            "Бектуров Нурсултан",
-            "Даулетов Темирлан",
-            "Ержанова Мадина",
-            "Жаксылыков Арман",
-            "Жумабаева Айгерим",
-            "Ибрагимов Данияр",
-            "Искакова Камила",
-            "Касымов Азамат",
-            "Кенжебаева Сабина",
-            "Муратов Ерасыл",
-            "Нурпеисова Амина",
-            "Омаров Алишер",
-            "Садыкова Томирис",
-            "Серикбаев Диас",
-            "Тулегенова Анель"
+        const STUDENTS_DATA = [
+            { "en": "Abdikhai Saltanat Zhalgaskyzy", "ru": "Абдихай Салтанат Жалғасқызы" },
+            { "en": "Abdrakhmanov Babur Khamza uly", "ru": "Абдрахманов Бабур Хамза улы" },
+            { "en": "Adilkhan Nadiya Berikkyzy", "ru": "Адильхан Надия Берікқызы" },
+            { "en": "Hebatallah Aldada", "ru": "Альдада Хебаталла" },
+            { "en": "Bakhytov Alimzhan Bakhytkaliuly", "ru": "Бахытов Алимжан Бахыткалиулы" },
+            { "en": "Belachew Nigus Damte", "ru": "Белачев Нигус Дамте" },
+            { "en": "Dzhumagul Amirlan Magauiyauly", "ru": "Джұмағұл Әмірлан Мағауияұлы" },
+            { "en": "Zhumazhan Osman Darmenuly", "ru": "Жұмажан Осман Дарменұлы" },
+            { "en": "Zamotina Darya Astemirovna", "ru": "Замотина Дарья Астемировна" },
+            { "en": "Kabdrakhmanova Azhar Niyazovna", "ru": "Кабдрахманова Ажар Ниязовна" },
+            { "en": "Kim Esfir Sevastyanovna", "ru": "Ким Есфирь Севастьяновна" },
+            { "en": "Kozhakhmetova Malika Azamatovna", "ru": "Кожахметова Малика Азаматовна" },
+            { "en": "Koshkinbay Aiaru Armankyzy", "ru": "Көшкінбай Айару Арманқызы" },
+            { "en": "Serikkaliyeva Yenlik Dumankyzy", "ru": "Сериккалиева Еңлік Думанқызы" },
+            { "en": "Stepanchenko Saveliy Dmitriyevich", "ru": "Степанченко Савелий Дмитриевич" },
+            { "en": "Suleimenova Aidana Nurlanovna", "ru": "Сулейменова Айдана Нурлановна" },
+            { "en": "Tolstova Evelina Yevgenyevna", "ru": "Толстова Эвелина Евгеньевна" },
+            { "en": "Khirana Kasita Putri", "ru": "Хирана Касита Путри" },
+            { "en": "Khussainova Adiya Galimovna", "ru": "Хусаинова Адия Галимовна" },
+            { "en": "Shabanov Anvarbek", "ru": "Шабанов Анварбек" },
+            { "en": "Yugay Kseniya Albertovna", "ru": "Югай Ксения Альбертовна" }
         ];
+        const STUDENTS_LIST = STUDENTS_DATA.map(s => s.ru);
 
         let currentStudentIdx = -1;
         let currentLang = 'ru';
         let timerSeconds = 75 * 60;
         let timerInterval = null;
 
-        // Банк теоретических вопросов для Задания 1 (6 вопросов × 3.33 = 20 баллов)
+        function getStudentDisplayName(idx, lang = currentLang) {
+            if (idx < 0 || idx >= STUDENTS_DATA.length) return '';
+            return lang === 'en' ? STUDENTS_DATA[idx].en : STUDENTS_DATA[idx].ru;
+        }
+
         const TASK1_BANK = [
             {
                 id: 'q1',
@@ -384,7 +408,6 @@
             if (!container) return;
             const isEn = lang === 'en';
 
-            // Детерминированный сдвиг порядка вопросов для каждого варианта
             const shift = studentIdx % TASK1_BANK.length;
             const orderedQuestions = TASK1_BANK.slice(shift).concat(TASK1_BANK.slice(0, shift));
 
@@ -431,31 +454,31 @@
             `;
         }
 
-        function initStudentDropdown() {
+        function populateStudentDropdown() {
             const sel = document.getElementById('student-select');
             if (!sel) return;
-            STUDENTS_LIST.forEach((name, idx) => {
+            const prevVal = sel.value;
+            sel.innerHTML = `<option value="-1">${currentLang === 'en' ? '-- Select Student Full Name --' : '-- Выберите ФИО из списка --'}</option>`;
+            STUDENTS_DATA.forEach((st, idx) => {
                 const opt = document.createElement('option');
                 opt.value = idx;
-                opt.textContent = `${idx + 1}. ${name}`;
+                opt.textContent = `${idx + 1}. ${currentLang === 'en' ? st.en : st.ru}`;
                 sel.appendChild(opt);
             });
+            if (prevVal !== undefined && prevVal !== "-1") {
+                sel.value = prevVal;
+            }
         }
 
-        function selectStudentMC2(val) {
+        function onStudentSelectPreviewMC2(val) {
             const idx = parseInt(val, 10);
             if (isNaN(idx) || idx < 0) {
-                document.getElementById('exam-workspace').classList.add('hidden');
-                currentStudentIdx = -1;
+                document.getElementById('active-variant-badge').innerText = '—';
                 return;
             }
-            currentStudentIdx = idx;
-            document.getElementById('active-variant-badge').innerText = `#${idx + 1} (${STUDENTS_LIST[idx]})`;
-            document.getElementById('exam-workspace').classList.remove('hidden');
-            document.getElementById('passport-block').classList.add('hidden');
-
-            renderAllTasksMC2();
-            startTimerMC2();
+            document.getElementById('active-variant-badge').innerText = `#${idx + 1} (${getStudentDisplayName(idx, currentLang)})`;
+            const passInput = document.getElementById('exam-pass-input');
+            if (passInput) passInput.focus();
         }
 
         function renderAllTasksMC2() {
@@ -478,8 +501,23 @@
                 : 'Рубежный контроль №2 • Макроэкономика (5 заданий × 20 = 100 баллов)';
             document.getElementById('btn-calc-lbl').innerText = isEn ? 'Calculator' : 'Калькулятор';
             document.getElementById('lbl-select-student').innerText = isEn
-                ? 'Select Student Full Name (Personalized Variant #1–21):'
-                : 'Выберите ФИО студента (персональный вариант №1–21):';
+                ? '1. Select Student Full Name (Personalized Variant #1–21):'
+                : '1. Выберите ФИО студента (персональный вариант №1–21):';
+            const passLbl = document.getElementById('lbl-exam-pass');
+            if (passLbl) passLbl.innerText = isEn
+                ? '2. Enter the exam access password provided by the professor:'
+                : '2. Введите код доступа (пароль), выданный преподавателем в аудитории:';
+            const unlockBtn = document.getElementById('btn-unlock-exam');
+            if (unlockBtn && !unlockBtn.disabled) unlockBtn.innerText = isEn ? 'Start Exam' : 'Начать экзамен';
+            document.getElementById('lbl-variant').innerText = isEn ? 'Variant:' : 'Вариант:';
+            document.getElementById('lbl-scale').innerText = isEn ? 'Max Score:' : 'Макс. балл:';
+
+            document.getElementById('nav1').innerText = isEn ? 'Theory (20 pts)' : 'Теория (20 б.)';
+            document.getElementById('nav2').innerText = isEn ? 'GDP (20 pts)' : 'ВВП / GDP (20 б.)';
+            document.getElementById('nav3').innerText = isEn ? 'Keynesian Cross (20 pts)' : 'Кейнсианский крест (20 б.)';
+            document.getElementById('nav4').innerText = isEn ? 'Equation MV=PY (20 pts)' : 'Уравнение MV=PY (20 б.)';
+            document.getElementById('nav5').innerText = isEn ? 'Unemployment (20 pts)' : 'Безработица (20 б.)';
+
             document.getElementById('sub-title').innerText = isEn
                 ? 'Finish Exam & Submit to Gradebook'
                 : 'Завершение работы и отправка в журнал';
@@ -489,6 +527,11 @@
             document.getElementById('btn-submit-lbl').innerText = isEn
                 ? 'Submit Exam to Gradebook'
                 : 'Завершить и отправить в журнал';
+
+            populateStudentDropdown();
+            if (currentStudentIdx >= 0) {
+                document.getElementById('active-variant-badge').innerText = `#${currentStudentIdx + 1} (${getStudentDisplayName(currentStudentIdx, currentLang)})`;
+            }
 
             renderAllTasksMC2();
         }
@@ -533,7 +576,6 @@
             });
         }
 
-        // Calculator Logic
         let calcExpr = "";
         function toggleCalcModal() {
             const el = document.getElementById('calc-modal');
@@ -563,7 +605,7 @@
             }
         }
 
-        window.addEventListener('DOMContentLoaded', initStudentDropdown);
+        window.addEventListener('DOMContentLoaded', populateStudentDropdown);
     </script>
 </body>
 </html>
